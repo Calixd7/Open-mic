@@ -11,6 +11,9 @@ django-extensions = "*"
 django-debug-toolbar = "*"
 werkzeug = "*"
 django-environ = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
+django-on-heroku = "*"
 
 [requires]
 python_version = "3.8"
