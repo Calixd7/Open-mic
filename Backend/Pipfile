@@ -14,6 +14,11 @@ django-environ = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
 django-on-heroku = "*"
+markdown = "*"
+djangorestframework = "*"
+django-filter = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
 
 [requires]
 python_version = "3.8"
