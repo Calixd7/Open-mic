@@ -25,6 +25,9 @@ if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
         path('__debug__/', include(debug_toolbar.urls)),
+        path('api-auth/', include('rest_framework.urls')),
+        path('auth', include('djoser.urls')),
+        path('auth/', include('djoser.urls.authtoken')),
 
         # For django versions before 2.0:
         # url(r'^__debug__/', include(debug_toolbar.urls)),
