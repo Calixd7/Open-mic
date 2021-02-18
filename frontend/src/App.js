@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 import './App.css'
 import BandRegistration from './components/BandRegistration'
+import Welcome from './components/Welcome'
 
 function App () {
   return (
@@ -14,6 +15,9 @@ function App () {
         OpenMic
         <main>
           <Switch>
+            <Route path='/welcome'>
+              <Welcome />
+            </Route>
             <Route path='/band-register'>
               <BandRegistration />
             </Route>
