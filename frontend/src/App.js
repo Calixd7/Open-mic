@@ -1,11 +1,18 @@
-
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom'
 import './App.css'
 
 function App () {
   return (
-    <div className='App'>
-      Open Mic
-    </div>
+    <Router>
+      <div className='App'>
+        OpenMic
+      </div>
+    </Router>
   )
 }
 
