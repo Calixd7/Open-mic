@@ -5,7 +5,7 @@ import {
   Link
 } from 'react-router-dom'
 import './App.css'
-import BandRegistration from './components/BandRegistration'
+import BandProfileSetup from './components/BandProfileSetup'
 import Welcome from './components/Welcome'
 import Login from './components/Login'
 import IndividualRegistration from './components/IndividualRegistration'
@@ -22,7 +22,7 @@ function App () {
               <Welcome />
             </Route>
             <Route path='/band-register'>
-              <BandRegistration />
+              <BandProfileSetup />
             </Route>
             <Route path='/login'>
               <Login />
