@@ -7,6 +7,7 @@ import {
 import './App.css'
 import BandRegistration from './components/BandRegistration'
 import Welcome from './components/Welcome'
+import Login from './components/Login'
 
 function App () {
   return (
@@ -20,6 +21,9 @@ function App () {
             </Route>
             <Route path='/band-register'>
               <BandRegistration />
+            </Route>
+            <Route path='/login'>
+              <Login />
             </Route>
           </Switch>
         </main>
