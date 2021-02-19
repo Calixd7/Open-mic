@@ -142,8 +142,9 @@ INTERNAL_IPS = [
     # ...
 ]
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',),
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
        'rest_framework.authentication.TokenAuthentication',
@@ -154,6 +155,10 @@ REST_FRAMEWORK = {
     ],
 
 }
+SIMPLE_JWT = {
+   'AUTH_HEADER_TYPES': ('JWT',),
+}
+
 CORS_ALLOW_ALL_ORIGINS = True
 
 import django_on_heroku
