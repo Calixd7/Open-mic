@@ -8,6 +8,8 @@ import './App.css'
 import BandRegistration from './components/BandRegistration'
 import Welcome from './components/Welcome'
 import Login from './components/Login'
+import IndividualRegistration from './components/IndividualRegistration'
+import IndividualProfileSetup from './components/IndividualProfileSetup'
 
 function App () {
   return (
@@ -24,6 +26,12 @@ function App () {
             </Route>
             <Route path='/login'>
               <Login />
+            </Route>
+            <Route path='/individual-register'>
+              <IndividualRegistration />
+            </Route>
+            <Route path='/individual-profile-setup'>
+              <IndividualProfileSetup />
             </Route>
           </Switch>
         </main>
