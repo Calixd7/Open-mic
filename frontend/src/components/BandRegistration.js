@@ -3,17 +3,22 @@ import BandGenre from './bandRegcomponents/BandGenre'
 import BandInstruments from './bandRegcomponents/BandInstruments'
 import BandName from './bandRegcomponents/BandName'
 import BandSize from './bandRegcomponents/BandSize'
+import BandBio from './bandRegcomponents/BandBio'
+import BandAge from './bandRegcomponents/BandAge'
+import BandImages from './bandRegcomponents/BandImages'
 
 const BandRegistration = () => {
   const [bandName, setBandName] = useState('')
   const [bandGenre, setBandGenre] = useState([])
   const [bandSize, setBandSize] = useState(1)
   const [bandInstruments, setBandInstruments] = useState([])
+  const [bandBio, setBandBio] = useState('')
   const pendingProfile = {
     band_name: bandName,
     band_genre: bandGenre,
     band_size: bandSize,
-    band_instruments: bandInstruments
+    band_instruments: bandInstruments,
+    band_bio: bandBio
   }
 
   function handleSubmit (event) {
@@ -43,7 +48,19 @@ const BandRegistration = () => {
           </div>
 
           <div>
-            <BandInstruments setBandInstruments={setBandInstruments} />
+            <BandInstruments bandInstruments={bandInstruments} setBandInstruments={setBandInstruments} />
+          </div>
+
+          <div>
+            <BandBio bandBio={bandBio} setBandBio={setBandBio} />
+          </div>
+
+          <div>
+            <BandAge />
+          </div>
+
+          <div>
+            <BandImages />
           </div>
 
         </div>
