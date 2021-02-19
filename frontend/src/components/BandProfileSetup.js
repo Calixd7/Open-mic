@@ -5,8 +5,9 @@ import BandName from './bandRegcomponents/BandName'
 import BandSize from './bandRegcomponents/BandSize'
 import BandBio from './bandRegcomponents/BandBio'
 import BandImages from './bandRegcomponents/BandImages'
+import BandSite from './bandRegcomponents/BandSite'
 
-const BandRegistration = () => {
+const BandProfileSetup = () => {
   const [bandName, setBandName] = useState('')
   const [bandGenre, setBandGenre] = useState([])
   const [bandSize, setBandSize] = useState(1)
@@ -26,7 +27,7 @@ const BandRegistration = () => {
   }
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
+    <div className='min-h-screen flex items-center justify-center bg-gray-200 py-12 px-4 sm:px-6 lg:px-8'>
       <h1 className='fixed top-10'>Band Registration Page</h1>
       <form
         className='flex flex-col'
@@ -34,23 +35,27 @@ const BandRegistration = () => {
       >
         <div className='flex flex-col'>
 
-          <div>
+          <div className='grid grid-cols-3'>
             <BandName bandName={bandName} setBandName={setBandName} />
           </div>
 
-          <div>
+          <div className='grid grid-cols-3'>
+            <BandSite />
+          </div>
+
+          <div className='grid grid-cols-3'>
             <BandGenre bandGenre={bandGenre} setBandGenre={setBandGenre} />
           </div>
 
-          <div>
+          <div className='grid grid-cols-3'>
             <BandSize bandSize={bandSize} setBandSize={setBandSize} />
           </div>
 
-          <div>
+          <div className='grid grid-cols-3'>
             <BandInstruments bandInstruments={bandInstruments} setBandInstruments={setBandInstruments} />
           </div>
 
-          <div>
+          <div className='grid grid-cols-3'>
             <BandBio bandBio={bandBio} setBandBio={setBandBio} />
           </div>
 
@@ -59,15 +64,18 @@ const BandRegistration = () => {
           </div>
 
         </div>
-        <button
-          className='bg-blue-600 hover:bg-blue-900 rounded-lg text-white p-2'
-          type='submit'
-        >Submit
-        </button>
+        <div className='px-4 py-3 bg-gray-50 text-right sm:px-6'>
+          <button
+            className='inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+            type='submit'
+          >Submit
+          </button>
+        </div>
+
       </form>
     </div>
 
   )
 }
 
-export default BandRegistration
+export default BandProfileSetup

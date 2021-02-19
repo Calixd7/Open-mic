@@ -24,12 +24,12 @@ const BandInstruments = ({ bandInstruments, setBandInstruments }) => {
   return (
     <div>
       <label
-        className='m-4 p-4'
+        className='block text-sm font-medium text-gray-700'
         htmlFor='size'
-      >Number of Instruments
+      >How many intruments are currently in your band?
       </label>
       <input
-        className='bg-gray-200 m-4 p4 w-10 text-center'
+        className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-10 text-center shadow-sm sm:text-sm border-gray-300 rounded-md'
         type='number'
         value={numOfInstruments}
         onChange={e => { createInstrumentFields(e.target.value); setNumOfInstruments(e.target.value) }}
@@ -37,7 +37,7 @@ const BandInstruments = ({ bandInstruments, setBandInstruments }) => {
       <div className='flex flex-col'>
         {bandInstruments.map((instrument, idx) => (
           <input
-            className='bg-gray-200 p-1 my-1'
+            className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
             key={`instrument-name-${idx}`}
             type='text'
             required
