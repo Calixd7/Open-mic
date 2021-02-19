@@ -16,19 +16,30 @@ Including another URLconf
 from django.contrib import admin
 from django.conf import settings
 from django.urls import include, path
+from core import views
+from rest_framework.routers import DefaultRouter
+
+router = DefaultRouter()
+router.register('users',views.UserViewSet, basename='user')
+router.register('userprofiles', views.UserProfileViewSet, basename='userprofile')
+router.register('bandprofiles', views.BandProfileViewSet, basename='bandprofiles')
+
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/', include(router.urls)),
+    path('api-auth/', include('rest_framework.urls', namespace="rest_framework")),
+    path('auth', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
+    
 ]
 
 if settings.DEBUG:
     import debug_toolbar
     urlpatterns = [
         path('__debug__/', include(debug_toolbar.urls)),
-        path('api-auth/', include('rest_framework.urls')),
-        path('auth', include('djoser.urls')),
-        path('auth/', include('djoser.urls.authtoken')),
-
         # For django versions before 2.0:
         # url(r'^__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns
