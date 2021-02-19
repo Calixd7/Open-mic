@@ -4,7 +4,6 @@ import BandInstruments from './bandRegcomponents/BandInstruments'
 import BandName from './bandRegcomponents/BandName'
 import BandSize from './bandRegcomponents/BandSize'
 import BandBio from './bandRegcomponents/BandBio'
-import BandAge from './bandRegcomponents/BandAge'
 import BandImages from './bandRegcomponents/BandImages'
 
 const BandRegistration = () => {
@@ -53,10 +52,6 @@ const BandRegistration = () => {
 
           <div>
             <BandBio bandBio={bandBio} setBandBio={setBandBio} />
-          </div>
-
-          <div>
-            <BandAge />
           </div>
 
           <div>
