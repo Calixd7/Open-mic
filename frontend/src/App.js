@@ -1,15 +1,15 @@
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import './App.css'
 import BandProfileSetup from './components/BandProfileSetup'
 import Welcome from './components/Welcome'
 import Login from './components/Login'
 import IndividualRegistration from './components/IndividualRegistration'
 import IndividualProfileSetup from './components/IndividualProfileSetup'
+
+library.add(far, faTimes)
 
 function App () {
   return (
