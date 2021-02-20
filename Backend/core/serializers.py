@@ -57,7 +57,7 @@ class BandProfileSerializer(serializers.ModelSerializer):
             'band_bio',
             'band_location',
             'years_active',
-            "band_members"
+            "band_members",
             "followers",
             "follows",
         ]
