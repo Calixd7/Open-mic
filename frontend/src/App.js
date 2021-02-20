@@ -6,12 +6,21 @@ import './App.css'
 import BandProfileSetup from './components/BandProfileSetup'
 import Welcome from './components/Welcome'
 import Login from './components/Login'
-import IndividualRegistration from './components/IndividualRegistration'
+import Registration from './components/Registration'
 import IndividualProfileSetup from './components/IndividualProfileSetup'
+import { useState } from 'react'
 
 library.add(far, faTimes)
 
 function App () {
+  const [userName, setUserName] = useState('')
+  const [token, setToken] = useState('')
+
+  function setAuth (username, token) {
+    setUserName(username)
+    setToken(token)
+  }
+
   return (
     <Router>
       <div className='App'>
@@ -21,14 +30,11 @@ function App () {
             <Route path='/welcome'>
               <Welcome />
             </Route>
-            <Route path='/band-register'>
-              <BandProfileSetup />
+            <Route path='/registration'>
+              <Registration setAuth={setAuth} />
             </Route>
             <Route path='/login'>
-              <Login />
-            </Route>
-            <Route path='/individual-register'>
-              <IndividualRegistration />
+              <Login setAuth={setAuth} />
             </Route>
             <Route path='/individual-profile-setup'>
               <IndividualProfileSetup />
