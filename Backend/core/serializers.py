@@ -36,7 +36,7 @@ class GenreSerializer (serializers.ModelSerializer):
 
 class InstrumentSerializer (serializers.ModelSerializer):
     class Meta:
-        Model = BandProfile
+        model = BandProfile
         fields = ['band_instruments']
 
 class BandProfileSerializer(serializers.ModelSerializer):
