@@ -4,13 +4,22 @@ const BandInstruments = ({ blankInstruments, bandInstruments, setBandInstruments
   const length = bandInstruments.length
 
   const addInstrument = () => {
-    setBandInstruments([...bandInstruments, { ...blankInstruments }])
+    setBandInstruments([...bandInstruments,
+      {
+        ...blankInstruments
+      }
+    ])
   }
 
   const removeInstrument = (event, idx) => {
     console.log('idx', idx)
-    const removedIndex = bandInstruments.slice(idx)
-    setBandInstruments(removedIndex)
+    const newInstruments = [
+      ...bandInstruments
+    ]
+    const instrumentName = bandInstruments.map(instrument => instrument.instrument)
+    console.log('instrumentName', instrumentName)
+    const index = bandInstruments.findIndex(instrument => instrument)
+    console.log('index', index)
   }
 
   const handleInstrumentChange = (e, idx) => {
