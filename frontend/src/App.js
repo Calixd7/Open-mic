@@ -15,6 +15,8 @@ library.add(far, faTimes)
 function App () {
   const [userName, setUserName] = useState('')
   const [token, setToken] = useState('')
+  const [profile, setProfile] = useState('')
+  console.log('this is the profile', profile)
 
   function setAuth (username, token) {
     setUserName(username)
@@ -28,7 +30,7 @@ function App () {
         <main>
           <Switch>
             <Route path='/welcome'>
-              <Welcome />
+              <Welcome setProfile={setProfile} />
             </Route>
             <Route path='/registration'>
               <Registration setAuth={setAuth} />
