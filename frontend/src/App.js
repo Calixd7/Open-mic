@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import './App.css'
 import BandProfileSetup from './components/BandProfileSetup'
 import Header from './components/Header'
 import Welcome from './components/Welcome'
@@ -25,7 +24,7 @@ function App () {
   return (
     <Router>
       <div className='App'>
-        <Header />
+        <Header userName={userName} token={token} setToken={setToken} />
         <main>
           <Switch>
             <Route path='/welcome'>
