@@ -15,8 +15,6 @@ library.add(far, faTimes)
 function App () {
   const [userName, setUserName] = useState('')
   const [token, setToken] = useState('')
-  const [profile, setProfile] = useState('')
-  console.log('this is the profile', profile)
 
   function setAuth (username, token) {
     setUserName(username)
@@ -30,16 +28,19 @@ function App () {
         <main>
           <Switch>
             <Route path='/welcome'>
-              <Welcome setProfile={setProfile} />
+              <Welcome />
             </Route>
-            <Route path='/registration'>
+            <Route path='/registration/:type'>
               <Registration setAuth={setAuth} />
             </Route>
             <Route path='/login'>
               <Login setAuth={setAuth} />
             </Route>
-            <Route path='/individual-profile-setup'>
+            <Route path='/setup-profile/user'>
               <IndividualProfileSetup />
+            </Route>
+            <Route path='/setup-profile/band'>
+              <BandProfileSetup />
             </Route>
           </Switch>
         </main>
