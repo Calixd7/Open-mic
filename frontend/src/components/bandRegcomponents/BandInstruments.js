@@ -1,28 +1,16 @@
-import { useState } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const BandInstruments = ({ blankInstruments, bandInstruments, setBandInstruments }) => {
-  const [numOfInstruments, setNumOfInstruments] = useState(0)
   const length = bandInstruments.length
-  // function createInstrumentFields (event) {
-  //   const output = []
-  //   for (let i = 0; i < event; i++) {
-  //     output.push({ instrument: '' })
-  //   }
-  //   console.log('output', output)
-  //   setBandInstruments(output)
-  // }
-
-  // function onNameChange (event, idx) {
-  //   const newInstrument = [...bandInstruments]
-  //   newInstrument[idx] = {
-  //     ...newInstrument[idx],
-  //     instrument: event.target.value
-  //   }
-  //   setBandInstruments(newInstrument)
-  // }
 
   const addInstrument = () => {
     setBandInstruments([...bandInstruments, { ...blankInstruments }])
+  }
+
+  const removeInstrument = (event, idx) => {
+    console.log('idx', idx)
+    const removedIndex = bandInstruments.slice(idx)
+    setBandInstruments(removedIndex)
   }
 
   const handleInstrumentChange = (e, idx) => {
@@ -50,7 +38,7 @@ const BandInstruments = ({ blankInstruments, bandInstruments, setBandInstruments
               className='flex mt-2'
             >
               <input
-                className='form-text-input pl-4'
+                className='mt-1 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-sm sm:text-lg border-gray-300 rounded-l-md border-r-0'
                 type='text'
                 name={instrumentId}
                 data-idx={idx}
@@ -59,10 +47,21 @@ const BandInstruments = ({ blankInstruments, bandInstruments, setBandInstruments
                 value={bandInstruments[idx.instrument]}
                 onChange={e => handleInstrumentChange(e, e.target.dataset.idx)}
               />
+              <button
+                type='button'
+                data-idx={idx}
+                className='border-gray-300 bg-gray-50 rounded-r-md block shadow-sm  mt-1 px-2 border-0'
+                onClick={e => removeInstrument(e, idx)}
+              >
+                <FontAwesomeIcon
+                  icon='times'
+                  className='text-red-300 text-lg mb-1'
+                />
+              </button>
               {length - 1 === idx &&
                 <button
                   type='button'
-                  className='inline-flex justify-center py-1 sm:py-2 px-1 ml-4 border border-transparent shadow-sm text-xs font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-36'
+                  className='inline-flex justify-center py-1 sm:py-2 px-1 ml-4 border border-transparent shadow-sm text-xs font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 w-32'
                   onClick={addInstrument}
                 >Add
                 </button>}
