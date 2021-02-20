@@ -21,6 +21,7 @@ djoser = "*"
 djangorestframework-simplejwt = "*"
 psycopg2 = "*"
 django-registration-redux = "*"
+django-cors-headers = "*"
 
 [requires]
 python_version = "3.8"
