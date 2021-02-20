@@ -20,6 +20,7 @@ django-filter = "*"
 djoser = "*"
 djangorestframework-simplejwt = "*"
 psycopg2 = "*"
+django-registration-redux = "*"
 
 [requires]
 python_version = "3.8"
