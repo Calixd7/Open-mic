@@ -5,6 +5,7 @@ import userRegistration from '../api'
 function Registration ({ setAuth }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState('')
 
   function handleRegistration (event) {
     event.preventDefault()
@@ -13,6 +14,9 @@ function Registration ({ setAuth }) {
         if (data && data.auth_token) {
           setAuth(username, data.auth_token)
         }
+      })
+      .catch(error => {
+        setErrors(error.message)
       })
   }
 
@@ -24,6 +28,9 @@ function Registration ({ setAuth }) {
         // action='#'
         // method='POST'
       >
+        {errors && (
+          <div>{errors}</div>
+        )}
         <input type='hidden' name='remember' value='true' />
         <div className='rounded-md shadow-sm -space-y-px'>
           <div>
