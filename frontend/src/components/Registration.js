@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useHistory } from 'react-router-dom'
 import { useState } from 'react'
 import registration from '../api'
 
@@ -7,13 +7,15 @@ function Registration ({ setAuth }) {
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState('')
   const { type } = useParams()
+  const history = useHistory()
 
   function handleRegistration (event) {
     event.preventDefault()
-    registration(username, password, type)
+    registration(username, password)
       .then(data => {
         if (data && data.auth_token) {
           setAuth(username, data.auth_token)
+          history.push(`/setup-profile/${type}`)
         }
       })
       .catch(error => {
@@ -26,8 +28,6 @@ function Registration ({ setAuth }) {
       <form
         className='mt-8 space-y-6'
         onSubmit={handleRegistration}
-        // action='#'
-        // method='POST'
       >
         {errors && (
           <div>{errors}</div>

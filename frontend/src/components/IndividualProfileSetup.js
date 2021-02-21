@@ -1,11 +1,13 @@
 //
 import { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import UserGenre from './indRegcomponents/UserGenre'
 import UserInstruments from './indRegcomponents/UserInstruments'
 import UserBio from './indRegcomponents/UserBio'
 import UserImages from './indRegcomponents/UserImages'
 
 const IndProfileSetup = () => {
+  const { type } = useParams()
   const [userName, setUserName] = useState('')
   const blankGenre = { genre: '' }
   const [userGenres, setUserGenres] = useState([{ ...blankGenre }])
