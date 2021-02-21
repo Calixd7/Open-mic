@@ -1,23 +1,37 @@
 import { useState } from 'react'
-import Login, { login } from '../api'
+import { login } from '../api'
 
-function SignIn () {
+
+function Login ({ setAuth }) {
+
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [errors, setErrors] = useState()
 
-  function handleSignin (event) {
+  function handleLogin (event) {
     event.preventDefault()
-    Login(username, password)
+
+    login(username, password)
+      .then(data => {
+        if (data && data.auth_token) {
+          setAuth(username, data.auth_token)
+        }
+      })
+      .catch(error => {
+        setErrors(error.message)
+      })
+
   }
 
   return (
     <div>
       <form
         className='mt-8 space-y-6'
-        onSubmit={handleSignin}
-        // action='#'
-        // method='POST'
+        onSubmit={handleLogin}
       >
+        {errors && (
+          <div>{errors}</div>
+        )}
         <input
           type='hidden'
           name='remember'
@@ -37,7 +51,8 @@ function SignIn () {
               type='username'
               autoComplete='username'
               required className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
-              placeholder='username'
+              placeholder='Username'
+
               value={username}
               onChange={event => setUsername(event.target.value)}
             />
@@ -112,4 +127,4 @@ function SignIn () {
   )
 }
 
-export default SignIn
+export default Login

@@ -38,9 +38,9 @@ const IndProfileSetup = () => {
           >
             <div className='flex flex-col'>
 
-              <div className='mt-4'>
-                <userName userName={userName} setUserName={setUserName} />
-              </div>
+              {/* <div className='mt-4'>
+                <UserName userName={userName} setUserName={setUserName} />
+              </div> */}
 
               {/* <div className='mt-4'>
                 <BandSite />

@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import './App.css'
 import BandProfileSetup from './components/BandProfileSetup'
 import Header from './components/Header'
 import Welcome from './components/Welcome'
@@ -14,18 +13,21 @@ import { useState } from 'react'
 library.add(far, faTimes)
 
 function App () {
-  const [userName, setUserName] = useState('')
+  const [username, setUsername] = useState('')
   const [token, setToken] = useState('')
 
+  console.log('App.js username', username)
+  console.log('app.js token', token)
+
   function setAuth (username, token) {
-    setUserName(username)
+    setUsername(username)
     setToken(token)
   }
 
   return (
     <Router>
       <div className='App'>
-        <Header />
+        <Header username={username} token={token} setToken={setToken} />
         <main>
           <Switch>
             <Route path='/welcome'>
