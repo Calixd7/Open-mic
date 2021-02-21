@@ -1,7 +1,17 @@
 import { useState } from 'react'
 import { login } from '../api'
 
+<<<<<<< HEAD
+<<<<<<< HEAD
 function Login ({ setAuth, isLoggedIn }) {
+=======
+
+function Login ({ setAuth }) {
+
+>>>>>>> 4fa6a4413d928237581ac82753799a95cb0a3edc
+=======
+function Login ({ setAuth, isLoggedIn }) {
+>>>>>>> 7445f417d88c8ff8cd074e0efd189f1e0a018b01
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState()
