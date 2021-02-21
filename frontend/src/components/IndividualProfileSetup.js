@@ -1,13 +1,11 @@
 //
 import { useState } from 'react'
-import { useParams } from 'react-router-dom'
 import UserGenre from './indRegcomponents/UserGenre'
 import UserInstruments from './indRegcomponents/UserInstruments'
 import UserBio from './indRegcomponents/UserBio'
 import UserImages from './indRegcomponents/UserImages'
 
 const IndProfileSetup = () => {
-  const { type } = useParams()
   const [userName, setUserName] = useState('')
   const blankGenre = { genre: '' }
   const [userGenres, setUserGenres] = useState([{ ...blankGenre }])
@@ -39,9 +37,9 @@ const IndProfileSetup = () => {
           >
             <div className='flex flex-col'>
 
-              <div className='mt-4'>
-                <userName userName={userName} setUserName={setUserName} />
-              </div>
+              {/* <div className='mt-4'>
+                <UserName userName={userName} setUserName={setUserName} />
+              </div> */}
 
               {/* <div className='mt-4'>
                 <BandSite />

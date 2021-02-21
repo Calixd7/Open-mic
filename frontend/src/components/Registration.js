@@ -1,6 +1,6 @@
-import { Link, useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { useState } from 'react'
-import registration from '../api'
+import { registration } from '../api'
 
 function Registration ({ setAuth }) {
   const [username, setUsername] = useState('')
