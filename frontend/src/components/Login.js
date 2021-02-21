@@ -8,6 +8,7 @@ function Login ({ setAuth, isLoggedIn }) {
 
   function handleLogin (event) {
     event.preventDefault()
+
     login(username, password)
       .then(data => {
         if (data && data.auth_token) {
@@ -17,6 +18,7 @@ function Login ({ setAuth, isLoggedIn }) {
       .catch(error => {
         setErrors(error.message)
       })
+
   }
 
   return (
@@ -48,6 +50,7 @@ function Login ({ setAuth, isLoggedIn }) {
               autoComplete='username'
               required className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
               placeholder='Username'
+
               value={username}
               onChange={event => setUsername(event.target.value)}
             />
