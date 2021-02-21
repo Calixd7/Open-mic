@@ -15,9 +15,7 @@ library.add(far, faTimes)
 function App () {
   const [username, setUsername] = useState('')
   const [token, setToken] = useState('')
-
-  console.log('App.js username', username)
-  console.log('app.js token', token)
+  const isLoggedIn = (username && token)
 
   function setAuth (username, token) {
     setUsername(username)
@@ -27,23 +25,23 @@ function App () {
   return (
     <Router>
       <div className='App'>
-        <Header username={username} token={token} setToken={setToken} />
+        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} />
         <main>
           <Switch>
-            <Route path='/welcome'>
-              <Welcome />
-            </Route>
             <Route path='/registration/:type'>
-              <Registration setAuth={setAuth} />
+              <Registration setAuth={setAuth} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/login'>
-              <Login setAuth={setAuth} />
+              <Login setAuth={setAuth} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/setup-profile/user'>
               <IndividualProfileSetup />
             </Route>
             <Route path='/setup-profile/band'>
               <BandProfileSetup />
+            </Route>
+            <Route path='/'>
+              <Welcome isLoggedIn={isLoggedIn} />
             </Route>
           </Switch>
         </main>

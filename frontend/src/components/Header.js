@@ -1,21 +1,27 @@
 import { Link } from 'react-router-dom'
 
-const Header = ({ username, token, setToken }) => {
-  const isLoggedIn = (username && token)
-
+const Header = ({ username, token, setToken, isLoggedIn }) => {
   return (
     <div>
       <div>OpenMic</div>
       <div>
 
-        <div className='register-and-login'>
+        <div>
           {isLoggedIn
             ? (
-              <span>Hello, {username} <button className='logout-button' onClick={() => setToken(null)}>Log out</button></span>
+              <span>Hello, {username}
+                <button
+                  onClick={() => setToken(null)}
+                >
+                  Sign out
+                </button>
+              </span>
               )
             : (
               <span>
-                <Link to='/login'><button className='log-button'>Login</button></Link> or <Link to='/register'><button className='reg-button'>Register</button></Link>
+                <Link to='/login'>
+                  <button>Sign In</button>
+                </Link> or <Link to='/register'><button>Register</button></Link>
               </span>
               )}
         </div>
