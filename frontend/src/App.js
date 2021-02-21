@@ -9,6 +9,8 @@ import Login from './components/Login'
 import Registration from './components/Registration'
 import IndividualProfileSetup from './components/IndividualProfileSetup'
 import { useState } from 'react'
+import Connections from './components/Connections'
+import Explore from './components/Explore'
 
 library.add(far, faTimes)
 
@@ -39,6 +41,12 @@ function App () {
             </Route>
             <Route path='/setup-profile/band'>
               <BandProfileSetup />
+            </Route>
+            <Route path='/connections'>
+              <Connections />
+            </Route>
+            <Route path='/explore'>
+              <Explore />
             </Route>
             <Route path='/'>
               <Welcome isLoggedIn={isLoggedIn} />
