@@ -6,9 +6,9 @@ const apiUrl = axios.create({
   baseURL: 'https://team-open-mic.herokuapp.com/'
 })
 
-export default function registration (username, password, type) {
+export default function registration (username, password) {
   return apiUrl
-    .post(`auth/${type}s/`, {
+    .post('auth/users/', {
       username: username,
       password: password
     })
