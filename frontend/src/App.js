@@ -36,10 +36,10 @@ function App () {
             <Route path='/login'>
               <Login setAuth={setAuth} />
             </Route>
-            <Route path='/setup-profile/:type'>
+            <Route path='/setup-profile/user'>
               <IndividualProfileSetup />
             </Route>
-            <Route path='/setup-profile/:type'>
+            <Route path='/setup-profile/band'>
               <BandProfileSetup />
             </Route>
           </Switch>
