@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 
 const Header = ({ username, token, setToken }) => {
   const isLoggedIn = (username && token)
+
   return (
     <div>
       <div>OpenMic</div>

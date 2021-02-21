@@ -13,18 +13,21 @@ import { useState } from 'react'
 library.add(far, faTimes)
 
 function App () {
-  const [userName, setUserName] = useState('')
+  const [username, setUsername] = useState('')
   const [token, setToken] = useState('')
 
+  console.log('App.js username', username)
+  console.log('app.js token', token)
+
   function setAuth (username, token) {
-    setUserName(username)
+    setUsername(username)
     setToken(token)
   }
 
   return (
     <Router>
       <div className='App'>
-        <Header userName={userName} token={token} setToken={setToken} />
+        <Header username={username} token={token} setToken={setToken} />
         <main>
           <Switch>
             <Route path='/welcome'>
