@@ -1,17 +1,7 @@
 import { useState } from 'react'
 import { login } from '../api'
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 function Login ({ setAuth, isLoggedIn }) {
-=======
-
-function Login ({ setAuth }) {
-
->>>>>>> 4fa6a4413d928237581ac82753799a95cb0a3edc
-=======
-function Login ({ setAuth, isLoggedIn }) {
->>>>>>> 7445f417d88c8ff8cd074e0efd189f1e0a018b01
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState()
@@ -28,7 +18,6 @@ function Login ({ setAuth, isLoggedIn }) {
       .catch(error => {
         setErrors(error.message)
       })
-
   }
 
   return (
@@ -60,7 +49,6 @@ function Login ({ setAuth, isLoggedIn }) {
               autoComplete='username'
               required className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
               placeholder='Username'
-
               value={username}
               onChange={event => setUsername(event.target.value)}
             />
