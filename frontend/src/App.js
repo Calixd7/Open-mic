@@ -11,6 +11,7 @@ import Registration from './components/Registration'
 import IndividualProfileSetup from './components/IndividualProfileSetup'
 import Connections from './components/Connections'
 import Explore from './components/Explore'
+import { useState } from 'react'
 
 library.add(far, faTimes)
 
@@ -20,6 +21,7 @@ const useToken = createPersistedState('token')
 function App () {
   const [username, setUsername] = useUsername()
   const [token, setToken] = useToken()
+  const [userType, setUserType] = useState()
   const isLoggedIn = (username && token)
 
   function setAuth (username, token) {
@@ -40,19 +42,19 @@ function App () {
               <Login setAuth={setAuth} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/setup-profile/user'>
-              <IndividualProfileSetup token={token} isLoggedIn={isLoggedIn} />
+              <IndividualProfileSetup token={token} isLoggedIn={isLoggedIn} userType={userType} />
             </Route>
             <Route path='/setup-profile/band'>
-              <BandProfileSetup token={token} isLoggedIn={isLoggedIn} />
+              <BandProfileSetup token={token} isLoggedIn={isLoggedIn} userType={userType} />
             </Route>
             <Route path='/connections'>
               <Connections isLoggedIn={isLoggedIn} />
             </Route>
-            <Route path='/explore'>
+            <Route path='/explore/'>
               <Explore token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/'>
-              <Welcome isLoggedIn={isLoggedIn} />
+              <Welcome isLoggedIn={isLoggedIn} setUserType={setUserType} />
             </Route>
           </Switch>
         </main>

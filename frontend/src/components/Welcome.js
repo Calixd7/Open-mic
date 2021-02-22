@@ -1,6 +1,6 @@
 import { Link, Redirect } from 'react-router-dom'
 
-function Welcome ({ isLoggedIn }) {
+function Welcome ({ isLoggedIn, setUserType }) {
   if (isLoggedIn) {
     return <Redirect to='/explore' />
   }
@@ -41,7 +41,10 @@ function Welcome ({ isLoggedIn }) {
         </div>
         <div>
           <div>
-            <Link to='/registration/user'>
+            <Link
+              to='/registration/user'
+              onClick={() => setUserType('user')}
+            >
 
               <button
                 type='button'
@@ -71,7 +74,10 @@ function Welcome ({ isLoggedIn }) {
         </div>
         <div>
           <div>
-            <Link to='/registration/band'>
+            <Link
+              to='/registration/band'
+              onClick={() => setUserType('band')}
+            >
               <button
                 type='button'
                 className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'

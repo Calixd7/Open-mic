@@ -4,18 +4,18 @@ import UserGenre from './indRegcomponents/UserGenre'
 import UserInstruments from './indRegcomponents/UserInstruments'
 import UserBio from './indRegcomponents/UserBio'
 import UserImages from './indRegcomponents/UserImages'
-import { Link, useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory } from 'react-router-dom'
 import { postProfiles } from '../api'
 
-function handleSubmit (event, token, profile, type, history) {
+function handleSubmit (event, token, profile, userType, history) {
   event.preventDefault()
-  // console.log('user profile', pendingProfile)
-  postProfiles(token, profile, type)
-    .then(data => console.log('data', data))
-  // history.push('/explore')
+  postProfiles(token, profile, userType)
+    .then(data => {
+      history.push('/explore')
+    })
 }
 
-const IndProfileSetup = (token) => {
+const IndProfileSetup = ({ token, userType }) => {
   const { type } = useParams()
   const history = useHistory()
   const [userName, setUserName] = useState('')
@@ -31,6 +31,8 @@ const IndProfileSetup = (token) => {
     user_bio: userBio
   }
 
+  console.log('profile setup user type', userType)
+
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-200 py-12 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-md w-full space-y-8'>
@@ -42,7 +44,7 @@ const IndProfileSetup = (token) => {
             className='flex flex-col'
             onSubmit={(e) => {
               e.preventDefault()
-              handleSubmit(e, token, pendingProfile, type, history)
+              handleSubmit(e, token, pendingProfile, userType, history)
             }}
           >
             <div className='flex flex-col'>
@@ -77,13 +79,11 @@ const IndProfileSetup = (token) => {
 
             </div>
             <div>
-              <Link to='/connections/'>
-                <button
-                  className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                  type='submit'
-                >Submit
-                </button>
-              </Link>
+              <button
+                className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                type='submit'
+              >Submit
+              </button>
             </div>
 
           </form>
