@@ -36,7 +36,7 @@ class UserProfile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class BandProfile(models.Model):
-    band = models.ForeignKey(User, on_delete=models.CASCADE,)
+    band = models.ForeignKey(User, on_delete=models.CASCADE)
     band_name = models.CharField(max_length=100, blank=True, null=True)
     band_members = models.CharField(max_length=100, blank=True, null=True)
     band_instruments = models.CharField(max_length=100, blank=True, null=True)
