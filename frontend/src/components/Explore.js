@@ -8,9 +8,9 @@ function Explore ({ token, isLoggedIn }) {
   console.log(cards)
   console.log('token', token)
 
-  if (!isLoggedIn) {
-    return <Redirect to='/' />
-  }
+  // if (!isLoggedIn) {
+  //   return <Redirect to='/' />
+  // }
 
   function handleGetProfiles (event) {
     // event.preventDefault()
