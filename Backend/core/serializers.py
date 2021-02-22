@@ -7,7 +7,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = [
             'pk', 
             'username',
-            "age", 
+            "name", 
             'first_name',
             'last_name',
             # 'username', 'password'
@@ -23,7 +23,7 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-class UserProfileSerializer(serializers.giModelSerializer):
+class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(read_only=True, slug_field='username')
     followers = serializers.StringRelatedField(many=True, read_only=True)
     class Meta:
