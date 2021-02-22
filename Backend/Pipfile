@@ -17,11 +17,11 @@ django-on-heroku = "*"
 markdown = "*"
 djangorestframework = "*"
 django-filter = "*"
-djoser = "*"
 djangorestframework-simplejwt = "*"
 psycopg2 = "*"
 django-cors-headers = "*"
 django-registration-redux = "*"
+djoser = "*"
 
 [requires]
 python_version = "3.8"
