@@ -149,12 +149,12 @@ function Header ({ username, token, setToken, isLoggedIn }) {
               >
                 Settings
               </Link>
-              <div> 
+              {/* <div>  */}
 
 
 
 
-                {isLoggedin 
+                {isLoggedIn 
                 ? (                
                   <Link
                 to='/'
