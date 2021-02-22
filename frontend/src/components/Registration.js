@@ -1,13 +1,17 @@
-import { useParams, useHistory } from 'react-router-dom'
+import { useParams, useHistory, Redirect } from 'react-router-dom'
 import { useState } from 'react'
 import { registration } from '../api'
 
-function Registration ({ setAuth }) {
+function Registration ({ setAuth, isLoggedIn }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState('')
   const { type } = useParams()
   const history = useHistory()
+
+  if (isLoggedIn) {
+    return <Redirect to='/explore' />
+  }
 
   function handleRegistration (event) {
     event.preventDefault()
