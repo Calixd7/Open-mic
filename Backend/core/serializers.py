@@ -52,8 +52,8 @@ class InstrumentSerializer (serializers.ModelSerializer):
         fields = ['band_instruments']
 
 class BandProfileSerializer(serializers.ModelSerializer):
-    # band_genre = GenreSerializer(many=True)
-    # band_instruments =InstrumentSerializer(many=True)
+    band_genre = GenreSerializer(many=True)
+    band_instruments =InstrumentSerializer(many=True)
     follows = serializers.StringRelatedField(many=True, read_only=True)
     followers = serializers.StringRelatedField(many=True, read_only=True)
     band = serializers.SlugRelatedField(read_only=True, slug_field='username')
