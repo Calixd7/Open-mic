@@ -18,6 +18,7 @@ from django.conf import settings
 from django.urls import include, path
 from core import views
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken.views import obtain_auth_token
 
 router = DefaultRouter()
 router.register('users',views.UserViewSet, basename='user')
@@ -31,9 +32,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
     path('api-auth/', include('rest_framework.urls', namespace="rest_framework")),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),
-    # path('accounts/', include('registration.backends.default.urls')),
+    path('api/auth/', include('djoser.urls')),
+    path('api/auth/', include('djoser.urls.authtoken')),
+    path('api/auth/', include('djoser.urls.jwt')),
+    path('accounts/', include('registration.backends.default.urls')),
     
 ]
 

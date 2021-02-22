@@ -1,14 +1,20 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth import get_user_model
+from django.conf import settings
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from rest_framework.authtoken.models import Token
+from django.contrib.auth.models import User
 
 
 
 class User(AbstractUser):
-    pass
+    name= models.CharField(max_length=255)
 
-    def __str__(self):
-        return self.username
+    
+    # def __str__(self):
+    #     return self.username
 
 class UserProfile(models.Model):
     user = models.ForeignKey(User, unique = True, related_name = 'user', on_delete=models.CASCADE)
@@ -32,7 +38,6 @@ class BandProfile(models.Model):
     band_size = models.CharField(max_length=100, blank=True, null=True)
     band_location = models.CharField(max_length=100, blank=True, null=True)
     years_active = models.CharField(max_length=100, blank=True, null=True)
-    
 
 
 
