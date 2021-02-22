@@ -1,21 +1,27 @@
-import { useHistory, Link } from 'react-router-dom'
+import { useParams, useHistory, Redirect } from 'react-router-dom'
 import { useState } from 'react'
-import { login } from '../api'
+import { registration } from '../api'
 
-function Login ({ setAuth, isLoggedIn }) {
+function Registration ({ setAuth, isLoggedIn }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [errors, setErrors] = useState()
+  const [errors, setErrors] = useState('')
+  const { type } = useParams()
   const history = useHistory()
 
-  function handleLogin (event) {
-    event.preventDefault()
+  if (isLoggedIn) {
+    return <Redirect to='/explore' />
+  }
 
-    login(username, password)
+  console.log('register type', type)
+
+  function handleRegistration (event) {
+    event.preventDefault()
+    registration(username, password)
       .then(data => {
         if (data && data.auth_token) {
           setAuth(username, data.auth_token)
-          history.push('/explore')
+          history.push(`/setup-profile/${type}`)
         }
       })
       .catch(error => {
@@ -28,16 +34,12 @@ function Login ({ setAuth, isLoggedIn }) {
       <div className='max-w-md w-full space-y-8'>
         <form
           className='mt-8 space-y-6'
-          onSubmit={handleLogin}
+          onSubmit={handleRegistration}
         >
           {errors && (
             <div>{errors}</div>
           )}
-          <input
-            type='hidden'
-            name='remember'
-            value='true'
-          />
+          <input type='hidden' name='remember' value='true' />
           <div className='rounded-md shadow-sm -space-y-px'>
             <div>
               <label
@@ -91,11 +93,6 @@ function Login ({ setAuth, isLoggedIn }) {
                 </label>
               </div>
             </div>
-            <div className='text-sm'>
-              <Link to='#' className='font-medium text-indigo-600 hover:text-indigo-500'>
-                Forgot Your Password?
-              </Link>
-            </div>
             <div>
               <button
                 type='submit'
@@ -104,10 +101,10 @@ function Login ({ setAuth, isLoggedIn }) {
                 <span
                   className='absolute left-0 inset-y-0 flex items-center pl-3'
                 >
-                  <svg
+                  {/* <svg
                     className='h-5 w-5 text-indigo-500 group-hover:text-indigo-400'
                     xmlns='http://www.w3.org/2000/svg'
-                    viewBox='0 0 20 20'
+                    viewBox='0 0 20'
                     fill='currentColor'
                     aria-hidden='true'
                   >
@@ -116,9 +113,9 @@ function Login ({ setAuth, isLoggedIn }) {
                       d='M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z'
                       clipRule='evenodd'
                     />
-                  </svg>
+                  </svg> */}
                 </span>
-                Sign In
+                Complete Your Profile
               </button>
             </div>
           </div>
@@ -128,4 +125,4 @@ function Login ({ setAuth, isLoggedIn }) {
   )
 }
 
-export default Login
+export default Registration

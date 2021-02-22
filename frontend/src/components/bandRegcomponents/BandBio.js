@@ -7,7 +7,7 @@ const BandBio = ({ bandBio, setBandBio }) => {
       </label>
       <div className='mt-1'>
         <textarea
-          className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md'
+          className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md border'
           name='band-bio'
           id='band-bio'
           rows='3'

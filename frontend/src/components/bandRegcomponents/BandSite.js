@@ -16,7 +16,7 @@ const BandSite = () => {
           type='text'
           name='company_website'
           id='company_website'
-          className='focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md text-sm sm:text-lg border-gray-300'
+          className='focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md text-sm sm:text-lg border-gray-300 bg-gray-50 border pl-2'
           placeholder='www.example.com'
         />
       </div>

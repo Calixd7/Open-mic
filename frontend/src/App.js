@@ -1,37 +1,60 @@
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from 'react-router-dom'
-import './App.css'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import createPersistedState from 'use-persisted-state'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import BandProfileSetup from './components/BandProfileSetup'
+import Header from './components/Header'
 import Welcome from './components/Welcome'
 import Login from './components/Login'
-import IndividualRegistration from './components/IndividualRegistration'
+import Registration from './components/Registration'
 import IndividualProfileSetup from './components/IndividualProfileSetup'
+import Connections from './components/Connections'
+import Explore from './components/Explore'
+import { useState } from 'react'
+
+library.add(far, faTimes)
+
+const useUsername = createPersistedState('username')
+const useToken = createPersistedState('token')
 
 function App () {
+  const [username, setUsername] = useUsername()
+  const [token, setToken] = useToken()
+  const [userType, setUserType] = useState()
+  const isLoggedIn = (username && token)
+
+  function setAuth (username, token) {
+    setUsername(username)
+    setToken(token)
+  }
+
   return (
     <Router>
       <div className='App'>
-        OpenMic
+        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} />
         <main>
           <Switch>
-            <Route path='/welcome'>
-              <Welcome />
-            </Route>
-            <Route path='/band-register'>
-              <BandProfileSetup />
+            <Route path='/registration/:type'>
+              <Registration setAuth={setAuth} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/login'>
-              <Login />
+              <Login setAuth={setAuth} isLoggedIn={isLoggedIn} />
             </Route>
-            <Route path='/individual-register'>
-              <IndividualRegistration />
+            <Route path='/setup-profile/user'>
+              <IndividualProfileSetup token={token} isLoggedIn={isLoggedIn} userType={userType} />
             </Route>
-            <Route path='/individual-profile-setup'>
-              <IndividualProfileSetup />
+            <Route path='/setup-profile/band'>
+              <BandProfileSetup token={token} isLoggedIn={isLoggedIn} userType={userType} />
+            </Route>
+            <Route path='/connections'>
+              <Connections isLoggedIn={isLoggedIn} />
+            </Route>
+            <Route path='/explore/'>
+              <Explore token={token} isLoggedIn={isLoggedIn} />
+            </Route>
+            <Route path='/'>
+              <Welcome isLoggedIn={isLoggedIn} setUserType={setUserType} />
             </Route>
           </Switch>
         </main>
