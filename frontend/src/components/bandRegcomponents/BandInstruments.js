@@ -12,16 +12,10 @@ const BandInstruments = ({ blankInstruments, bandInstruments, setBandInstruments
     ])
   }
 
-  console.log('bandInstruments', bandInstruments)
-
   const removeInstrument = (event, id) => {
-    console.log('id', id)
-    const instrumentId = bandInstruments.map(inst => inst.id)
-    console.log('instrumentId', instrumentId)
     const newInstruments = [
       ...bandInstruments
     ]
-
     setBandInstruments(newInstruments.filter((inst) => inst.id !== id))
   }
 
