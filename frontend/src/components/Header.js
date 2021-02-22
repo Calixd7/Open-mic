@@ -114,6 +114,7 @@ function Header ({ username, token, setToken, isLoggedIn }) {
               </div>
             </div>
           </div>
+          {/* profile dropdown */}
           <div className='ml-3 relative'>
             <div>
               <button
