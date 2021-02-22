@@ -6,11 +6,22 @@ class UserSerializer(serializers.ModelSerializer):
         model = User
         fields = [
             'pk', 
-            'username', 
+            'username',
+            "name", 
             'first_name',
             'last_name',
+            # 'username', 'password'
         ]
+        extra_kwargs = {'password': {'write_only': True}}
 
+    def create(self, validated_data):
+        user = User(
+            email=validated_data['email'],
+            username=validated_data['username']
+        )
+        user.set_password(validated_data['password'])
+        user.save()
+        return user
 
 class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(read_only=True, slug_field='username')
@@ -36,7 +47,7 @@ class GenreSerializer (serializers.ModelSerializer):
 
 class InstrumentSerializer (serializers.ModelSerializer):
     class Meta:
-        Model = BandProfile
+        model = BandProfile
         fields = ['band_instruments']
 
 class BandProfileSerializer(serializers.ModelSerializer):
@@ -57,7 +68,7 @@ class BandProfileSerializer(serializers.ModelSerializer):
             'band_bio',
             'band_location',
             'years_active',
-            "band_members"
+            "band_members",
             "followers",
             "follows",
         ]

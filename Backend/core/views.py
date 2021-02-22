@@ -14,7 +14,7 @@ class UserViewSet(ModelViewSet):
     permission_classes = [
        IsAuthenticated,
     ]
-    lookup_field = 'username'
+   
 
     def get_queryset(self):
         return User.objects.all()
@@ -39,7 +39,7 @@ class UserProfileViewSet(ModelViewSet):
         return UserProfile.objects.all()
 
     def perform_create(self, serializer):
-        return serializer.save(self.request.user)
+        return serializer.save()
 
 class BandProfileViewSet(ModelViewSet):
     serializer_class = BandProfileSerializer
