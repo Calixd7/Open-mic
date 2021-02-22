@@ -1,3 +1,4 @@
+import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
 import { login } from '../api'
 
@@ -5,6 +6,7 @@ function Login ({ setAuth, isLoggedIn }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState()
+  const history = useHistory()
 
   function handleLogin (event) {
     event.preventDefault()
@@ -13,6 +15,7 @@ function Login ({ setAuth, isLoggedIn }) {
       .then(data => {
         if (data && data.auth_token) {
           setAuth(username, data.auth_token)
+          history.push('/explore')
         }
       })
       .catch(error => {

@@ -30,7 +30,7 @@ import { Link } from 'react-router-dom'
 //   )
 // }
 
-function Header () {
+function Header ({ username, token, setToken, isLoggedIn }) {
   return (
     <nav className='bg-gray-800'>
       <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:px-8'>
@@ -52,9 +52,9 @@ function Header () {
                 aria-hidden='true'
               >
                 <path
-                  stroke-linecap='round'
-                  stroke-linejoin='round'
-                  stroke-width='2'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='2'
                   d='M4 6h16M4 12h16M4 18h16'
                 />
               </svg>
@@ -64,13 +64,13 @@ function Header () {
                 fill='none'
                 viewBox='0 0 24 24'
                 stroke='currentColor'
-                aria-hideen='true'
+                aria-hidden='true'
               >
                 <path
-                  stroke-linecap='round'
-                  stroke-linejoin='round'
-                  stroke-width='2'
-                  d='M6 18L18 656 6l12 12'
+                  strokeLinecap='round'
+                  strokeLinejoin='round'
+                  strokeWidth='2'
+                //   d='M6 18L18 656 6l12 12'
                 />
               </svg>
             </button>
@@ -90,26 +90,27 @@ function Header () {
             </div>
             <div className='hidden sm:block sm:ml-6'>
               <div className='flex space-x-4'>
-                <a
-                  href='#'
+                <Link
+                  to='#'
                   className='bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium'
-                >Dashboard
-                </a>
-                <a
-                  href='#'
+                >
+                  Dashboard
+                </Link>
+                <Link
+                  to='#'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                 >Messages
-                </a>
-                <a
-                  href='#'
+                </Link>
+                <Link
+                  to='/connections'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                 >Connections
-                </a>
-                <a
-                  href='#'
+                </Link>
+                <Link
+                  to='/explore'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                 >Explore
-                </a>
+                </Link>
               </div>
             </div>
           </div>
@@ -120,9 +121,9 @@ function Header () {
                 id='user-menu'
                 aria-haspopup='true'
               >
-                <span class='sr-only'>Open User Menu</span>
+                <span className='sr-only'>Open User Menu</span>
                 <img
-                  class='h-8 w-8 rounded full'
+                  className='h-8 w-8 rounded full'
                   src='/'
                   alt='avatar'
                 />
@@ -134,25 +135,26 @@ function Header () {
               aria-orientation='vertical'
               aria-labelledby='user-menu'
             >
-              <a
-                href='#'
+              <Link
+                to='#'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
                 role='menuitem'
               >
                 Your Profile
-              </a>
-              <a
-                href='#'
+              </Link>
+              <Link
+                to='#'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
               >
                 Settings
-              </a>
-              <a
-                href='#'
+              </Link>
+              <Link
+                to='#'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+                onClick={() => setToken(null)}
               >
                 Sign Out
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -162,26 +164,26 @@ function Header () {
         id='mobile-menu'
       >
         <div className='px-2 pt-2 pb-3 space-y-1'>
-          <a
-            href='#'
+          <Link
+            to='#'
             className='bg-gray-900 text-white block px-3 py-2 rounded-md text-base font-medium'
           >Dashboard
-          </a>
-          <a
-            href='#'
+          </Link>
+          <Link
+            to='#'
             className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
           >Messages
-          </a>
-          <a
-            href='#'
+          </Link>
+          <Link
+            to='#'
             className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
           >Connections
-          </a>
-          <a
-            href='#'
+          </Link>
+          <Link
+            to='#'
             className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
           >Explore
-          </a>
+          </Link>
         </div>
       </div>
     </nav>
