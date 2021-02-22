@@ -15,7 +15,6 @@ class UserViewSet(ModelViewSet):
        IsAuthenticated,
     ]
    
-
     def get_queryset(self):
         return User.objects.all()
 

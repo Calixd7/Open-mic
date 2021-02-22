@@ -37,7 +37,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.sites',
     'registration',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -49,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'corsheaders',
+    'openmic', 
 
 
 
@@ -148,9 +148,6 @@ INTERNAL_IPS = [
     # ...
 ]
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ],
 
     'DEFAULT_AUTHENTICATION_CLASSES': [
        'rest_framework.authentication.TokenAuthentication',
@@ -161,9 +158,8 @@ REST_FRAMEWORK = {
     ],
 
 }
-SIMPLE_JWT = {
-   'AUTH_HEADER_TYPES': ('JWT',),
-}
+
+
 
 CORS_ALLOW_ALL_ORIGINS = True
 
