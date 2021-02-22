@@ -13,6 +13,8 @@ function Registration ({ setAuth, isLoggedIn }) {
     return <Redirect to='/explore' />
   }
 
+  console.log('register type', type)
+
   function handleRegistration (event) {
     event.preventDefault()
     registration(username, password)

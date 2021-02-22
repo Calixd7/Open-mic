@@ -3,7 +3,7 @@ import UserCard from '../components/UserCard'
 function Connections () {
   return (
     <div>
-      <UserCard />
+      {/* <UserCard /> */}
     </div>
   )
 }
