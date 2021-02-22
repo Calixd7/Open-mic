@@ -55,11 +55,11 @@ export function login (username, password) {
 
 export function getProfiles (token) {
   return apiUrl
-    .get('api/users/', {
+    .get('api/userprofiles/', {
       headers: {
         Authorization: 'Token 18f6e45a692155d3ee8d32ff7b96bacfdc119a82'
         // `Token ${token}`
       }
     })
-    .then(results => console.log(results.data))
+    .then(results => results.data)
 }
