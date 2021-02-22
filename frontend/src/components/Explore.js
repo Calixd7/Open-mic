@@ -1,11 +1,16 @@
 import { getProfiles } from '../api'
 import { useState } from 'react'
 import Card from '../components/UserCard'
+import { Redirect } from 'react-router-dom'
 
-function Explore ({ token }) {
+function Explore ({ token, isLoggedIn }) {
   const [cards, setCards] = useState('')
   console.log(cards)
   console.log('token', token)
+
+  if (!isLoggedIn) {
+    return <Redirect to='/' />
+  }
 
   function handleGetProfiles (event) {
     // event.preventDefault()
