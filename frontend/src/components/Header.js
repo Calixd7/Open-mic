@@ -151,6 +151,12 @@ function Header ({ username, token, setToken, isLoggedIn }) {
               <Link
                 to='#'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+              >
+                Sign In
+              </Link>
+              <Link
+                to='#'
+                className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
                 onClick={() => setToken(null)}
               >
                 Sign Out
