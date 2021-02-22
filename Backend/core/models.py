@@ -10,7 +10,7 @@ from django.contrib.auth.models import User
 
 
 class User(AbstractUser):
-    name= models.CharField(max_length=255, blank=true, null=True, default="")
+    name= models.CharField(max_length=255, blank=True, null=True, default="")
 
     
     # def __str__(self):
