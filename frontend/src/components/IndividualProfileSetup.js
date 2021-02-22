@@ -24,14 +24,18 @@ const IndProfileSetup = ({ token, userType }) => {
   const blankInstruments = { instrument: '' }
   const [userInstruments, setUserInstruments] = useState([{ ...blankInstruments }])
   const [userBio, setUserBio] = useState('')
+  const [userZipcode, setUserZipcode] = useState(0)
   const pendingProfile = {
-    user_name: userName,
-    user_genre: userGenres,
-    user_instruments: userInstruments,
-    user_bio: userBio
+    bio: userBio,
+    name: userName,
+    instrument: userInstruments,
+    zipcode: userZipcode,
+    genre: userGenres
+    // followers: userFollowers
   }
 
   console.log('profile setup user type', userType)
+  console.log('userInstruments', userInstruments)
 
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-200 py-12 px-4 sm:px-6 lg:px-8'>
