@@ -4,9 +4,20 @@ import UserGenre from './indRegcomponents/UserGenre'
 import UserInstruments from './indRegcomponents/UserInstruments'
 import UserBio from './indRegcomponents/UserBio'
 import UserImages from './indRegcomponents/UserImages'
-import { Link } from 'react-router-dom'
+import { Link, useParams, useHistory } from 'react-router-dom'
+import { postProfiles } from '../api'
 
-const IndProfileSetup = () => {
+function handleSubmit (event, token, profile, type, history) {
+  event.preventDefault()
+  // console.log('user profile', pendingProfile)
+  postProfiles(token, profile, type)
+    .then(data => console.log('data', data))
+  // history.push('/explore')
+}
+
+const IndProfileSetup = (token) => {
+  const { type } = useParams()
+  const history = useHistory()
   const [userName, setUserName] = useState('')
   const blankGenre = { genre: '' }
   const [userGenres, setUserGenres] = useState([{ ...blankGenre }])
@@ -20,11 +31,6 @@ const IndProfileSetup = () => {
     user_bio: userBio
   }
 
-  function handleSubmit (event) {
-    event.preventDefault()
-    console.log('user profile', pendingProfile)
-  }
-
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-200 py-12 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-md w-full space-y-8'>
@@ -34,7 +40,10 @@ const IndProfileSetup = () => {
         <div className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
           <form
             className='flex flex-col'
-            onSubmit={handleSubmit}
+            onSubmit={(e) => {
+              e.preventDefault()
+              handleSubmit(e, token, pendingProfile, type, history)
+            }}
           >
             <div className='flex flex-col'>
 

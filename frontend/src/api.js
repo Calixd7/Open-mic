@@ -57,9 +57,17 @@ export function getProfiles (token) {
   return apiUrl
     .get('api/userprofiles/', {
       headers: {
-        Authorization: 'Token 18f6e45a692155d3ee8d32ff7b96bacfdc119a82'
-        // `Token ${token}`
+        Authorization: `Token ${token}`
       }
     })
     .then(results => results.data)
+}
+
+export function postProfiles (token, profile, type) {
+  return apiUrl.post(`api/${type}profiles/`, profile, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
 }

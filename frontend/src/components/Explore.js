@@ -5,6 +5,7 @@ import Card from '../components/UserCard'
 function Explore ({ token }) {
   const [cards, setCards] = useState('')
   console.log(cards)
+  console.log('token', token)
 
   function handleGetProfiles (event) {
     // event.preventDefault()
