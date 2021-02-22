@@ -40,16 +40,16 @@ function App () {
               <Login setAuth={setAuth} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/setup-profile/user'>
-              <IndividualProfileSetup token={token} />
+              <IndividualProfileSetup token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/setup-profile/band'>
-              <BandProfileSetup token={token} />
+              <BandProfileSetup token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/connections'>
-              <Connections />
+              <Connections isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/explore'>
-              <Explore token={token} />
+              <Explore token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/'>
               <Welcome isLoggedIn={isLoggedIn} />
