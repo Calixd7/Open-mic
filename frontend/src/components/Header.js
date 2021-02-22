@@ -114,14 +114,16 @@ function Header ({ username, token, setToken, isLoggedIn }) {
               </div>
             </div>
           </div>
+          {/* profile dropdown */}
           <div className='ml-3 relative'>
             <div>
+
               <button
                 className='bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
                 id='user-menu'
                 aria-haspopup='true'
               >
-                <span className='sr-only'>Open User Menu</span>
+                <span className='sr-only'>Open User Menu></span>
                 <img
                   className='h-8 w-8 rounded full'
                   src='/'
@@ -148,20 +150,33 @@ function Header ({ username, token, setToken, isLoggedIn }) {
               >
                 Settings
               </Link>
-              <Link
-                to='#'
-                className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
-              >
-                Sign In
-              </Link>
-              <Link
-                to='#'
+              {/* <div>  */}
+
+
+
+
+                {isLoggedIn 
+                ? (                
+                  <Link
+                to='/'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
                 onClick={() => setToken(null)}
               >
                 Sign Out
               </Link>
+                )                
+              :(
+                <Link
+                to='/login'
+                className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+              >
+                Sign In
+              </Link>
+              
+              )
+                }
             </div>
+
           </div>
         </div>
       </div>
