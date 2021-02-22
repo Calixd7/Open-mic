@@ -26,7 +26,7 @@ class User(AbstractUser):
     #     return self.username
 
 class UserProfile(models.Model):
-    user = models.ForeignKey(User, related_name = 'user', on_delete=models.CASCADE)
+    ind = models.ForeignKey(User, related_name = 'user', on_delete=models.CASCADE)
     follows = models.ManyToManyField('self', related_name='followers', symmetrical=False, blank=True)
     bio = models.TextField(blank=True, null=True)
     name = models.CharField(max_length=100, blank=True, null=True)
