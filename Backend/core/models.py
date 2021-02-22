@@ -53,8 +53,3 @@ class BandProfile(models.Model):
 
 
 
-
-
-
-
-

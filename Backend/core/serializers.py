@@ -40,24 +40,22 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'followers'
 
         ]
-
 class GenreSerializer (serializers.ModelSerializer):
     class Meta:
         model = BandProfile
-        fields = ['band_genre']
+        fields = ["id", 'band_genre']
 
 class InstrumentSerializer (serializers.ModelSerializer):
     class Meta:
         model = BandProfile
-        fields = ['band_instruments']
+        fields = ["id", 'band_instruments']
 
 class BandProfileSerializer(serializers.ModelSerializer):
-    band_genre = GenreSerializer(many=True)
-    band_instruments =InstrumentSerializer(many=True)
     follows = serializers.StringRelatedField(many=True, read_only=True)
     followers = serializers.StringRelatedField(many=True, read_only=True)
     band = serializers.SlugRelatedField(read_only=True, slug_field='username')
-
+    band_genre = GenreSerializer(many=True)
+    band_instruments =InstrumentSerializer(many=True)
     class Meta:
         model = BandProfile  
         fields = [
@@ -74,10 +72,9 @@ class BandProfileSerializer(serializers.ModelSerializer):
             "followers",
             "follows",
         ]
-
     def create(self, validated_data):
         genre_data = validated_data.pop('band_genre')
-         BandProfile = BandProfile.objects.create(**validated_data)
+        BandProfile = BandProfile.objects.create(**validated_data)
         for genre_data in genre_data:
             band_genre.objects.create(BandProfile=BandProfile, **genre_data)
         return BandProfile
@@ -88,7 +85,6 @@ class BandProfileSerializer(serializers.ModelSerializer):
         for instrument_data in instrument_data:
             band_instruments.objects.create(BandProfile=BandProfile, **instrument_data)
         return BandProfile
-
 
 class FollowSerializer(serializers.ModelSerializer):
     follows = serializers.StringRelatedField(many=True, read_only=True)
