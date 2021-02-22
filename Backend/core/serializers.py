@@ -1,11 +1,10 @@
 from rest_framework import serializers
 from core.models import User, UserProfile, BandProfile
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class UserSerializer(serializers.ModelSerializer):
     class Meta: 
         model = User
         fields = [
-            'url',
             'pk', 
             'username',
             "age", 
@@ -24,13 +23,12 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
         user.save()
         return user
 
-class UserProfileSerializer(serializers.HyperlinkedModelSerializer):
+class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(read_only=True, slug_field='username')
     followers = serializers.StringRelatedField(many=True, read_only=True)
     class Meta:
         model = UserProfile
         fields = [
-            'url',
             'pk',
             'user',
             'bio',
@@ -52,7 +50,7 @@ class InstrumentSerializer (serializers.ModelSerializer):
         model = BandProfile
         fields = ['band_instruments']
 
-class BandProfileSerializer(serializers.HyperlinkedModelSerializer):
+class BandProfileSerializer(serializers.ModelSerializer):
     band_genre = GenreSerializer(many=True)
     band_instruments =InstrumentSerializer(many=True)
     follows = serializers.StringRelatedField(many=True, read_only=True)
@@ -61,7 +59,6 @@ class BandProfileSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = BandProfile  
         fields = [
-            'url',
             'pk',
             'band',
             'band_name',
