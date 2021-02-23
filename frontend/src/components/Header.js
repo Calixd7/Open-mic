@@ -2,38 +2,9 @@ import { Link } from 'react-router-dom'
 import {Transition} from '@headlessui/react'
 import { useState } from 'react'
 
-// const Header = ({ username, token, setToken, isLoggedIn }) => {
-//   return (
-//     <div>
-//       <div>OpenMic</div>
-//       <div>
-
-//         <div>
-//           {isLoggedIn
-//             ? (
-//               <span>Hello, {username}
-//                 <button
-//                   onClick={() => setToken(null)}
-//                 >
-//                   Sign out
-//                 </button>
-//               </span>
-//               )
-//             : (
-//               <span>
-//                 <Link to='/login'>
-//                   <button>Sign In</button>
-//                 </Link> or <Link to='/register'><button>Register</button></Link>
-//               </span>
-//               )}
-//         </div>
-//       </div>
-//     </div>
-//   )
-// }
-
 function Header ({ username, token, setToken, isLoggedIn }) {
-  const [showProfile, setShowProfile] = useState(false)
+  const [showMenu, setShowMenu] = useState(false)
+    const [showProfile, setShowProfile] = useState(false)
 
   return (
     <nav className='bg-gray-800'>
@@ -144,7 +115,7 @@ function Header ({ username, token, setToken, isLoggedIn }) {
               leaveFrom='transform opacity-100 scale-100'
               leaveTo='transform opacity-0 scale-95'
             >
-            {/* {(showProfile) => ( */}
+
                 <div
               className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5'
               role='menu'
@@ -186,8 +157,6 @@ function Header ({ username, token, setToken, isLoggedIn }) {
               )
                 }
             </div>
-            {/* )} */}
-            
             </Transition>
           </div>
         </div>

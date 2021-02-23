@@ -12,8 +12,6 @@ const Vacancy = ({ vacancy, setVacancy }) => {
         onClick={() => setVacancy(vacancy => !vacancy)}
       >
         <span className='sr-only'>Use setting</span>
-        {/* Enabled: "translate-x-5", Not Enabled: "translate-x-0" */}
-
         <span
           aria-hidden='true'
           className={`${vacancy ? 'translate-x-5' : 'translate-x-0'} pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200`}
