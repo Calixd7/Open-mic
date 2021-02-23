@@ -19,7 +19,7 @@ function UserCard ({ cards }) {
               />
               <h3 className='mt-6 text-gray-900 text-sm font-medium'>{card.user}</h3>
               <dl className='mt-1 flex-grow flex flex-col justify-between' />
-              <dt className='sr-only'>Solo Artist/Band</dt>
+              <dt className='sr-only'>Solo Artist</dt>
               <dd className='text-gray-500 text-sm'>{card.bio}</dd>
               <dd className='text-gray-500 text-sm'>{card.bio}</dd>
             </div>
