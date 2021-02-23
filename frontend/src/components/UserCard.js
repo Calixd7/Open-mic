@@ -1,4 +1,8 @@
+import { Link } from 'react-router-dom'
+
 function UserCard ({ cards }) {
+  console.log('cards', cards.map((card) => card))
+
   return (
     <div>
 
@@ -16,14 +20,14 @@ function UserCard ({ cards }) {
               <h3 className='mt-6 text-gray-900 text-sm font-medium'>{card.user}</h3>
               <dl className='mt-1 flex-grow flex flex-col justify-between' />
               <dt className='sr-only'>Solo Artist/Band</dt>
-              <dd className='text-gray-500 text-sm'>{card.instrument}</dd>
+              <dd className='text-gray-500 text-sm'>{card.bio}</dd>
               <dd className='text-gray-500 text-sm'>{card.bio}</dd>
             </div>
             <div>
               <div className='mt=px flex divide-x divide-gray-200'>
                 <div className='w-0 flex-1 flex'>
-                  <a
-                    href='#'
+                  <Link
+                    to='#'
                     className='relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500'
                   >
                     <svg
@@ -37,7 +41,7 @@ function UserCard ({ cards }) {
                       <path d='M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8..118z' /> */}
                     </svg>
                     <span className='ml-3'>Message</span>
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

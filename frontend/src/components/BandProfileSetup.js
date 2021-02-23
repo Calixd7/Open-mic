@@ -6,27 +6,41 @@ import BandSize from './bandRegcomponents/BandSize'
 import BandBio from './bandRegcomponents/BandBio'
 import BandImages from './bandRegcomponents/BandImages'
 import BandSite from './bandRegcomponents/BandSite'
+import BandLocation from './bandRegcomponents/BandLocation'
+import Vacancy from './bandRegcomponents/Vacancy'
+import { useParams, useHistory } from 'react-router-dom'
+import { postProfiles } from '../api'
 
-const BandProfileSetup = () => {
+function handleSubmit (event, token, profile, userType, history) {
+  event.preventDefault()
+  postProfiles(token, profile, userType)
+    .then(data => {
+      history.push('/explore')
+    })
+}
+
+const BandProfileSetup = ({ token, userType }) => {
+  const { type } = useParams()
+  const history = useHistory()
   const [bandName, setBandName] = useState('')
-  const blankGenre = { genre: '' }
+  const blankGenre = { id: 1, genre: '' }
   const [bandGenres, setBandGenres] = useState([{ ...blankGenre }])
   const [bandSize, setBandSize] = useState(1)
-  const blankInstruments = { instrument: '' }
+  const blankInstruments = { id: 1, instrument: '' }
   const [bandInstruments, setBandInstruments] = useState([{ ...blankInstruments }])
   const [bandBio, setBandBio] = useState('')
+  const [bandSite, setBandSite] = useState('')
+  const [bandLocation, setBandLocation] = useState('')
+  const [vacancy, setVacancy] = useState(false)
   const pendingProfile = {
     band_name: bandName,
-    band_genre: bandGenres,
+    band_genre: bandGenres.map((genre) => genre.genre),
     band_size: bandSize,
-    band_instruments: bandInstruments,
+    band_instruments: bandInstruments.map((int) => int.instrument),
     band_bio: bandBio
   }
-
-  function handleSubmit (event) {
-    event.preventDefault()
-    console.log('band profile', pendingProfile)
-  }
+  console.log('bandGenres in profile', bandGenres.map((genre) => genre.genre))
+  console.log('Instruments in profile', bandInstruments.map((int) => int.instrument))
 
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
@@ -37,7 +51,10 @@ const BandProfileSetup = () => {
         <div className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
           <form
             className='flex flex-col'
-            onSubmit={handleSubmit}
+            onSubmit={(e) => {
+              e.preventDefault()
+              handleSubmit(e, token, pendingProfile, userType, history)
+            }}
           >
             <div className='flex flex-col'>
 
@@ -46,7 +63,11 @@ const BandProfileSetup = () => {
               </div>
 
               <div className='mt-4'>
-                <BandSite />
+                <BandSite bandSite={bandSite} setBandSite={setBandSite} />
+              </div>
+
+              <div className='mt-4'>
+                <BandLocation bandLocation={bandLocation} setBandLocation={setBandLocation} />
               </div>
 
               <div className='mt-4'>
@@ -63,6 +84,10 @@ const BandProfileSetup = () => {
 
               <div className='mt-4'>
                 <BandBio bandBio={bandBio} setBandBio={setBandBio} />
+              </div>
+
+              <div className='mt-4'>
+                <Vacancy vacancy={vacancy} setVacancy={setVacancy} />
               </div>
 
               <div className='mt-4'>

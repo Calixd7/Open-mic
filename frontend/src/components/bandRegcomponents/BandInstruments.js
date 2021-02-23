@@ -4,22 +4,23 @@ const BandInstruments = ({ blankInstruments, bandInstruments, setBandInstruments
   const length = bandInstruments.length
 
   const addInstrument = () => {
+    const id = bandInstruments.length === 0
+      ? 1
+      : bandInstruments[bandInstruments.length - 1].id + 1
+
     setBandInstruments([...bandInstruments,
       {
-        ...blankInstruments
+        ...blankInstruments,
+        id: id + 1
       }
     ])
   }
 
-  const removeInstrument = (event, idx) => {
-    console.log('idx', idx)
+  const removeInstrument = (event, id) => {
     const newInstruments = [
       ...bandInstruments
     ]
-    const instrumentName = bandInstruments.map(instrument => instrument.instrument)
-    console.log('instrumentName', instrumentName)
-    const index = bandInstruments.findIndex(instrument => instrument)
-    console.log('index', index)
+    setBandInstruments(newInstruments.filter((inst) => inst.id !== id))
   }
 
   const handleInstrumentChange = (e, idx) => {
@@ -40,7 +41,7 @@ const BandInstruments = ({ blankInstruments, bandInstruments, setBandInstruments
       </label>
       <div className='flex flex-col'>
         {bandInstruments.map((instrument, idx) => {
-          const instrumentId = `genre-${idx}`
+          const instrumentIdx = `instrument-${idx}`
           return (
             <div
               key={`instrument-name-${idx}`}
@@ -49,18 +50,18 @@ const BandInstruments = ({ blankInstruments, bandInstruments, setBandInstruments
               <input
                 className='mt-1 pl-2 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm text-sm sm:text-lg border-gray-300 rounded-l-md border-r-0 border bg-gray-50'
                 type='text'
-                name={instrumentId}
+                name={instrument.id}
                 data-idx={idx}
                 required
                 placeholder='Enter Instrument'
-                value={bandInstruments[idx.instrument]}
+                value={instrument.instrument}
                 onChange={e => handleInstrumentChange(e, e.target.dataset.idx)}
               />
               <button
                 type='button'
                 data-idx={idx}
                 className='border-gray-300 bg-gray-50 rounded-r-md block shadow-sm  mt-1 px-2 border border-l-0'
-                onClick={e => removeInstrument(e, idx)}
+                onClick={e => removeInstrument(e, instrument.id)}
               >
                 <FontAwesomeIcon
                   icon='times'

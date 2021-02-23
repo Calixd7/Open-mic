@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom'
+import {Transition} from '@headlessui/react'
+import { useState } from 'react'
 
 // const Header = ({ username, token, setToken, isLoggedIn }) => {
 //   return (
@@ -31,6 +33,8 @@ import { Link } from 'react-router-dom'
 // }
 
 function Header ({ username, token, setToken, isLoggedIn }) {
+  const [showProfile, setShowProfile] = useState(false)
+
   return (
     <nav className='bg-gray-800'>
       <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:px-8'>
@@ -117,11 +121,11 @@ function Header ({ username, token, setToken, isLoggedIn }) {
           {/* profile dropdown */}
           <div className='ml-3 relative'>
             <div>
-
               <button
                 className='bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
                 id='user-menu'
                 aria-haspopup='true'
+                onClick={() => setShowProfile(showProfile => !showProfile)}
               >
                 <span className='sr-only'>Open User Menu></span>
                 <img
@@ -131,7 +135,17 @@ function Header ({ username, token, setToken, isLoggedIn }) {
                 />
               </button>
             </div>
-            <div
+            <Transition
+            show={showProfile}
+            enter='transition ease-out duration-100'
+              enterFrom='transform opacity-0 scale-95'
+              enterTo='transform opacity-100 scale-100'
+            leave='transition ease-in duration-75'
+              leaveFrom='transform opacity-100 scale-100'
+              leaveTo='transform opacity-0 scale-95'
+            >
+            {/* {(showProfile) => ( */}
+                <div
               className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5'
               role='menu'
               aria-orientation='vertical'
@@ -151,10 +165,6 @@ function Header ({ username, token, setToken, isLoggedIn }) {
                 Settings
               </Link>
               {/* <div>  */}
-
-
-
-
                 {isLoggedIn 
                 ? (                
                   <Link
@@ -176,7 +186,9 @@ function Header ({ username, token, setToken, isLoggedIn }) {
               )
                 }
             </div>
-
+            {/* )} */}
+            
+            </Transition>
           </div>
         </div>
       </div>
