@@ -26,10 +26,14 @@ const IndProfileSetup = ({ token, userType }) => {
   const [userGenres, setUserGenres] = useState([{ ...blankGenre }])
   const genreToConvert = userGenres.map((genre) => genre.genre)
   const string = genreToConvert.reduce((result, item) => {
-    return `${result}${item},`
+    return `${result} ${item},`
   }, '')
   const blankInstruments = { id: 1, instrument: '' }
   const [userInstruments, setUserInstruments] = useState([{ ...blankInstruments }])
+  const instrumentToConvert = userInstruments.map((inst) => inst.instrument)
+  const intString = instrumentToConvert.reduce((result, item) => {
+    return `${result} ${item},`
+  }, '')
   const [userBio, setUserBio] = useState('')
   const [userZipcode, setUserZipcode] = useState(0)
   const [userEmail, setUserEmail] = useState('')
@@ -37,17 +41,21 @@ const IndProfileSetup = ({ token, userType }) => {
   const pendingProfile = {
     bio: userBio,
     name: userName,
-    instrument: userInstruments.map((int) => int.instrument),
+    instrument: intString,
+    // instrument: userInstruments.map((int) => int.instrument),
     zipcode: userZipcode,
-    genre: userGenres.map((genre) => genre.genre)
+    genre: string
+    // genre: userGenres.map((genre) => genre.genre)
     // followers: userFollowers
   }
 
+  console.log('userName', userName)
   console.log('string', string)
-  console.log('type', typeof (string))
-  console.log('ind profile userInstruments', userInstruments.map((int) => int.instrument))
-  console.log('ind profile userGenres', userGenres.map((genre) => genre.genre))
-  console.log('userEmail', userEmail)
+  console.log('intString', intString)
+  // console.log('type', typeof (string))
+  console.log('ind profile userInstruments array', userInstruments.map((int) => int.instrument))
+  console.log('ind profile userGenres array', userGenres.map((genre) => genre.genre))
+  // console.log('userEmail', userEmail)
 
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
