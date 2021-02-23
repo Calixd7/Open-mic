@@ -1,5 +1,5 @@
 
-const Info = () => {
+const Info = ({ card }) => {
   return (
     <div>
       Hello World
