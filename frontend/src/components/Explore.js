@@ -1,8 +1,15 @@
 import { Transition } from '@headlessui/react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Card from './cards/UserCard'
+import { getProfiles } from '../api'
 
-function Explore () {
+function Explore ({ token }) {
   const [showSlide, setShowSlide] = useState(true)
+  const [cards, setCards] = useState([])
+
+  useEffect(() => {
+    getProfiles(token).then(cards => setCards(cards))
+  }, [token])
 
   return (
     <div>
@@ -14,6 +21,9 @@ function Explore () {
           onClick={() => setShowSlide(false)}
         >Click Me!
         </button>
+      </div>
+      <div>
+        <Card cards={cards} />
       </div>
       <div className='fixed inset-0 overflow-hidden'>
         <div className='absolute inset-0 overflow-hidden'>
