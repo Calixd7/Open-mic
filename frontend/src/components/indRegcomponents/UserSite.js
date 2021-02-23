@@ -1,9 +1,9 @@
 
-const BandSite = ({ bandSite, setBandSite }) => {
+const UserSite = ({ userSite, setUserSite }) => {
   return (
     <div>
       <label
-        htmlFor='bad-site'
+        htmlFor='user-site'
         className='form-label'
       >
         Site
@@ -14,12 +14,12 @@ const BandSite = ({ bandSite, setBandSite }) => {
         </span>
         <input
           type='text'
-          name='bad-site'
-          id='bad-site'
+          name='user-site'
+          id='user-site'
           className='focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md text-sm sm:text-lg border-gray-300 bg-gray-50 border pl-2'
           placeholder='www.example.com'
-          value={bandSite}
-          onChange={(e) => setBandSite(e.target.value)}
+          value={userSite}
+          onChange={(e) => setUserSite(e.target.value)}
         />
       </div>
       <p className='mt-1 text-left text-sm text-gray-500 font-normal' id='email-description'>Let others know where to find your music.</p>
@@ -27,4 +27,4 @@ const BandSite = ({ bandSite, setBandSite }) => {
   )
 }
 
-export default BandSite
+export default UserSite

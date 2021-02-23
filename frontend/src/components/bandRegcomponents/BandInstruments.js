@@ -4,10 +4,14 @@ const BandInstruments = ({ blankInstruments, bandInstruments, setBandInstruments
   const length = bandInstruments.length
 
   const addInstrument = () => {
+    const id = bandInstruments.length === 0
+      ? 1
+      : bandInstruments[bandInstruments.length - 1].id + 1
+
     setBandInstruments([...bandInstruments,
       {
         ...blankInstruments,
-        id: bandInstruments.length + 1
+        id: id + 1
       }
     ])
   }

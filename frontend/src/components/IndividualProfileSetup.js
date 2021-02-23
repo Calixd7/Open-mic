@@ -4,6 +4,9 @@ import UserGenre from './indRegcomponents/UserGenre'
 import UserInstruments from './indRegcomponents/UserInstruments'
 import UserBio from './indRegcomponents/UserBio'
 import UserImages from './indRegcomponents/UserImages'
+import UserName from './indRegcomponents/UserName'
+import UserEmail from './indRegcomponents/UserEmail'
+import UserSite from './indRegcomponents/UserSite'
 import { useParams, useHistory } from 'react-router-dom'
 import { postProfiles } from '../api'
 
@@ -19,26 +22,35 @@ const IndProfileSetup = ({ token, userType }) => {
   const { type } = useParams()
   const history = useHistory()
   const [userName, setUserName] = useState('')
-  const blankGenre = { genre: '' }
+  const blankGenre = { id: 1, genre: '' }
   const [userGenres, setUserGenres] = useState([{ ...blankGenre }])
-  const blankInstruments = { instrument: '' }
+  const genreToConvert = userGenres.map((genre) => genre.genre)
+  const string = genreToConvert.reduce((result, item) => {
+    return `${result}${item},`
+  }, '')
+  const blankInstruments = { id: 1, instrument: '' }
   const [userInstruments, setUserInstruments] = useState([{ ...blankInstruments }])
   const [userBio, setUserBio] = useState('')
   const [userZipcode, setUserZipcode] = useState(0)
+  const [userEmail, setUserEmail] = useState('')
+  const [userSite, setUserSite] = useState('')
   const pendingProfile = {
     bio: userBio,
     name: userName,
-    instrument: userInstruments,
+    instrument: userInstruments.map((int) => int.instrument),
     zipcode: userZipcode,
-    genre: userGenres
+    genre: userGenres.map((genre) => genre.genre)
     // followers: userFollowers
   }
 
-  console.log('profile setup user type', userType)
-  console.log('userInstruments', userInstruments)
+  console.log('string', string)
+  console.log('type', typeof (string))
+  console.log('ind profile userInstruments', userInstruments.map((int) => int.instrument))
+  console.log('ind profile userGenres', userGenres.map((genre) => genre.genre))
+  console.log('userEmail', userEmail)
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-gray-200 py-12 px-4 sm:px-6 lg:px-8'>
+    <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-md w-full space-y-8'>
         <div>
           <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Individual Profile Setup</h2>
@@ -53,13 +65,17 @@ const IndProfileSetup = ({ token, userType }) => {
           >
             <div className='flex flex-col'>
 
-              {/* <div className='mt-4'>
+              <div className='mt-4'>
                 <UserName userName={userName} setUserName={setUserName} />
-              </div> */}
+              </div>
 
-              {/* <div className='mt-4'>
-                <BandSite />
-              </div> */}
+              <div className='mt-4'>
+                <UserEmail userEmail={userEmail} setUserEmail={setUserEmail} />
+              </div>
+
+              <div className='mt-4'>
+                <UserSite userSite={userSite} setUserSite={setUserSite} />
+              </div>
 
               <div className='mt-4'>
                 <UserGenre blankGenre={blankGenre} userGenres={userGenres} setUserGenres={setUserGenres} />
