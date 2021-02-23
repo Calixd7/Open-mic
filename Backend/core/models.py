@@ -25,6 +25,18 @@ class User(AbstractUser):
     # def __str__(self):
     #     return self.username
 
+# class IndGenre(models.Model):
+#     ind_genre = models.CharField(max_length=100, unique=True)
+
+# class IndInstrument(models.Model):
+#     ind_instrument = models.CharField(max_length=100, unique=True)
+
+# class BandGenre(models.Model):
+#     band_genre = models.CharField(max_length=100, unique=True)
+
+# class  BandInstrument(models.Model):
+#     band_instrument = models.CharField(max_length=100, unique=True )
+
 
 class UserProfile(models.Model):
     ind = models.ForeignKey(User, related_name = 'user', on_delete=models.CASCADE)
