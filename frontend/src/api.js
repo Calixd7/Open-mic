@@ -69,5 +69,8 @@ export function postProfiles (token, profile, type) {
       Authorization: `Token ${token}`
     }
   })
-    .then(res => res.data)
+    .then(res => {
+      console.log('api data', res.data)
+      return res.data
+    })
 }
