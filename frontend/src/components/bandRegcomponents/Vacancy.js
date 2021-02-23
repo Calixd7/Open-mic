@@ -14,7 +14,10 @@ const Vacancy = ({ vacancy, setVacancy }) => {
         <span className='sr-only'>Use setting</span>
         {/* Enabled: "translate-x-5", Not Enabled: "translate-x-0" */}
 
-        <span aria-hidden='true' className='translate-x-0 pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200' />
+        <span
+          aria-hidden='true'
+          className={`${vacancy ? 'translate-x-5' : 'translate-x-0'} pointer-events-none inline-block h-5 w-5 rounded-full bg-white shadow transform ring-0 transition ease-in-out duration-200`}
+        />
       </button>
       <span className='ml-3' id='annual-billing-label'>
         <span className='text-sm font-medium text-gray-900'>Is your band currently looking for an instrument?</span>
