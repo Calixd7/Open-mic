@@ -9,7 +9,7 @@ import Welcome from './components/Welcome'
 import Login from './components/Login'
 import Registration from './components/Registration'
 import IndividualProfileSetup from './components/IndividualProfileSetup'
-import Connections from './components/Connections'
+import Connections from './components/Friends'
 import Explore from './components/Explore'
 import { useState } from 'react'
 
