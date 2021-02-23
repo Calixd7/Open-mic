@@ -2,7 +2,7 @@
 const Follow = () => {
   return (
     <div>
-      Hello World
+      Follow
     </div>
   )
 }
