@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import User, UserProfile, BandProfile
+from core.models import User, UserProfile, BandProfile, Instrument, Genre
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta: 
@@ -24,50 +24,44 @@ class UserSerializer(serializers.ModelSerializer):
         user.save()
         return user
 
-# class IndGenreSerializer (serializers.ModelSerializer):
-#     class Meta:
-#         model = UserProfile
-#         fields = ["id", 'genre']
+class GenreSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = Genre
+        fields = ['name']
 
-# class IndInstrumentSerializer (serializers.ModelSerializer):
-#     class Meta:
-#         model = UserProfile
-#         fields = ["id", 'instrument']
+class InstrumentSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = Instrument
+        fields = [ 'name']
+
 
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
     ind = serializers.SlugRelatedField(read_only=True, slug_field='username')
+    ind_genres = serializers.SlugRelatedField(many=True,queryset=Genre.objects.all() ,slug_field='name')
+    ind_instruments = serializers.SlugRelatedField(many=True,queryset= Instrument.objects.all() ,slug_field='name')
     followers = serializers.StringRelatedField(many=True, read_only=True)
-    # instrument = IndInstrumentSerializer(many=True)
+    follows =serializers.StringRelatedField(many=True,read_only=True )
+     # instrument = IndInstrumentSerializer(many=True)
     # genre = IndGenreSerializer(many=True)
     class Meta:
         model = UserProfile
         fields = [
             'pk',
             'ind',
-            'bio',
-            'name', 
-            'instrument',
-            'zipcode',
-            'genre',
-            'followers'
-
+            'ind_bio',
+            'ind_name', 
+            'ind_instruments',
+            'ind_zipcode',
+            'ind_genres',
+            'created_at',
         ]
-# class GenreSerializer (serializers.ModelSerializer):
-#     class Meta:
-#         model = BandProfile
-#         fields = ["id", 'band_genre']
-
-# class InstrumentSerializer (serializers.ModelSerializer):
-#     class Meta:
-#         model = BandProfile
-#         fields = ["id", 'band_instruments']
 
 class BandProfileSerializer(serializers.ModelSerializer):
-    follows = serializers.StringRelatedField(many=True, read_only=True)
-    followers = serializers.StringRelatedField(many=True, read_only=True)
     band = serializers.SlugRelatedField(read_only=True, slug_field='username')
+    band_genres= serializers.SlugRelatedField(many=True,queryset=Genre.objects.all(),slug_field="name")
+    band_instruments = serializers.SlugRelatedField(many=True,queryset=Instrument.objects.all() ,slug_field="name")
     # band_genre = GenreSerializer(many=True)
     # band_instruments =InstrumentSerializer(many=True)
     class Meta:
@@ -76,26 +70,24 @@ class BandProfileSerializer(serializers.ModelSerializer):
             'pk',
             'band',
             'band_name',
-            'band_genre',
+            'band_genres',
             'band_size',
             'band_instruments',
             'band_bio',
             'band_location',
             'years_active',
             "band_members",
-            "followers",
-            "follows",
         ]
     
 
-class FollowSerializer(serializers.ModelSerializer):
-    follows = serializers.StringRelatedField(many=True, read_only=True)
+# class FollowSerializer(serializers.ModelSerializer):
+#     follows = serializers.StringRelatedField(many=True, read_only=True)
 
-    class Meta:
-        model = UserProfile, BandProfile
-        fields = [
-            'follows'
-        ]
+#     class Meta:
+#         model = UserProfile, BandProfile
+#         fields = [
+#             'follows'
+#         ]
 
 
 

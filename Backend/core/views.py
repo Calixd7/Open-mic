@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from core.models import User, UserProfile, BandProfile
-from core.serializers import UserSerializer, UserProfileSerializer, BandProfileSerializer, FollowSerializer
-from rest_framework.permissions import IsAuthenticated
+from core.serializers import UserSerializer, UserProfileSerializer, BandProfileSerializer
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from rest_framework import permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response 
+from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
 
 class IsIndividualrOrReadOnly(permissions.BasePermission):
      
@@ -46,7 +46,7 @@ class IsBandrOrReadOnly(permissions.BasePermission):
 class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = [
-       IsAuthenticated,
+       IsAuthenticated
     ]
    
     def get_queryset(self):
@@ -87,8 +87,5 @@ class BandProfileViewSet(ModelViewSet):
         return serializer.save(band=self.request.user)
 
 
-class FollowViewSet(ModelViewSet):
-    serializer_class = FollowSerializer
-
-
-
+# class FollowViewSet(ModelViewSet):
+#     serializer_class = FollowSerializer
