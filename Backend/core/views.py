@@ -8,6 +8,7 @@ from rest_framework import permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response 
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
+from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 
 class IsIndividualrOrReadOnly(permissions.BasePermission):
      
@@ -55,12 +56,12 @@ class UserViewSet(ModelViewSet):
     def perform_create(self, serializer):
         return serializer.save(self.request.user)
     
-    @action(permission_classes=[IsAuthenticated], detail=False)
-    def me(self, request, *args, **kwargs):
-        User = get_user_model()
-        self.object = get_object_or_404(User, pk=request.user.id)
-        serializer = self.get_serializer(self.object)
-        return Response(serializer.data)
+    # @action(permission_classes=[IsAuthenticated], detail=False)
+    # def me(self, request, *args, **kwargs):
+    #     User = get_user_model()
+    #     self.object = get_object_or_404(User, pk=request.user.id)
+    #     serializer = self.get_serializer(self.object)
+    #     return Response(serializer.data)
 
 class UserProfileViewSet(ModelViewSet):
     serializer_class = UserProfileSerializer
@@ -74,6 +75,17 @@ class UserProfileViewSet(ModelViewSet):
     def perform_create(self, serializer):
         return serializer.save(ind=self.request.user)
 
+    # @action(detail=True, methods=['PUT'])
+    # def image(self, request, pk, format=None):
+    #     if 'file' not in request.data:
+    #         raise ParseError('Empty content')
+
+    #     file = request.data['file']
+    #     post = self.get_object()
+
+    #     post.image.save(file.name, file, save=True)
+    #     return Response(status=201) 
+
 class BandProfileViewSet(ModelViewSet):
     serializer_class = BandProfileSerializer
     permission_classes = [
@@ -85,6 +97,17 @@ class BandProfileViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         return serializer.save(band=self.request.user)
+
+    @action(detail=True, methods=['PUT'])
+    def image(self, request, pk, format=None):
+        if 'file' not in request.data:
+            raise ParseError('Empty content')
+
+        file = request.data['file']
+        post = self.get_object()
+
+        post.image.save(file.name, file, save=True)
+        return Response(status=201) 
 
 
 # class FollowViewSet(ModelViewSet):

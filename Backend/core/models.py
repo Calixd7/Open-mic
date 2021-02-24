@@ -36,6 +36,7 @@ class Instrument(models.Model):
 class UserProfile(models.Model):
     ind = models.ForeignKey(User, related_name = 'user', on_delete=models.CASCADE)
     follows = models.ManyToManyField('self', related_name='followers', symmetrical=False, blank=True)
+    # image = models.ImageField(blank=True, null=True, upload_to='uploads/')
     ind_bio = models.TextField(blank=True, null=True)
     ind_name = models.CharField(max_length=100, blank=True, null=True)
     ind_instruments = models.ManyToManyField(to=Instrument, related_name='users', blank=True)
@@ -46,6 +47,7 @@ class UserProfile(models.Model):
 class BandProfile(models.Model):
     band = models.ForeignKey(User, on_delete=models.CASCADE)
     band_name = models.CharField(max_length=100, blank=True, null=True)
+    # image = models.ImageField(blank=True, null=True, upload_to='uploads/')
     band_members = models.CharField(max_length=100, blank=True, null=True)
     band_instruments= models.ManyToManyField(to=Instrument, related_name='bands', blank=True)
     follows =  models.ManyToManyField('self', related_name='followers', symmetrical=False, blank=True)
