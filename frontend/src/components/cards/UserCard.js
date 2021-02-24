@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import Info from './Info'
 import Follow from './Follow'
 
+
 function UserCard ({ cards }) {
   console.log('cards', cards.map((card) => card))
 

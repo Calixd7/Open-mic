@@ -11,6 +11,8 @@ function Explore ({ token }) {
     getProfiles(token).then(cards => setCards(cards))
   }, [token])
 
+  console.log('cards', cards)
+
   return (
     <div>
       <div>

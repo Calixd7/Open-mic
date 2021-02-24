@@ -34,7 +34,7 @@ const BandProfileSetup = ({ token, userType }) => {
   const [vacancy, setVacancy] = useState(false)
   const pendingProfile = {
     band_name: bandName,
-    band_genre: bandGenres.map((genre) => genre.genre),
+    band_genres: bandGenres.map((genre) => genre.genre),
     band_size: bandSize,
     band_instruments: bandInstruments.map((int) => int.instrument),
     band_bio: bandBio
