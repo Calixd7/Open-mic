@@ -63,7 +63,7 @@
 
 import { getProfiles } from '../api'
 import { useState } from 'react'
-import Card from './cards/UserCard'
+import Card from './cards/Card'
 import { Redirect } from 'react-router-dom'
 
 function Friends ({ token, isLoggedIn }) {
