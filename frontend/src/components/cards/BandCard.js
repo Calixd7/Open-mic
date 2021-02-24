@@ -1,6 +1,9 @@
-import { Link } from 'react-router-dom'
 
-function UserCard ({ cards }) {
+const BandCard = () {
+  return (
+    import { Link } from 'react-router-dom'
+
+function BandCard ({ cards }) {
   console.log('cards', cards.map((card) => card))
 
   return (
@@ -19,9 +22,10 @@ function UserCard ({ cards }) {
               />
               <h3 className='mt-6 text-gray-900 text-sm font-medium'>{card.user}</h3>
               <dl className='mt-1 flex-grow flex flex-col justify-between' />
-              <dt className='sr-only'>Solo Artist/Band</dt>
+              <dt className='sr-only'>Band</dt>
               <dd className='text-gray-500 text-sm'>{card.bio}</dd>
               <dd className='text-gray-500 text-sm'>{card.bio}</dd>
+              <dd className='text-gray-500 text-sm'>{card.zipcode}</dd>
             </div>
             <div>
               <div className='mt=px flex divide-x divide-gray-200'>
@@ -54,3 +58,7 @@ function UserCard ({ cards }) {
 }
 
 export default UserCard
+  )
+}
+
+export default BandCard

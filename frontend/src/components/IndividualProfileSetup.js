@@ -8,7 +8,8 @@ import UserName from './indRegcomponents/UserName'
 import UserEmail from './indRegcomponents/UserEmail'
 import UserSite from './indRegcomponents/UserSite'
 import { useParams, useHistory } from 'react-router-dom'
-import { postProfiles } from '../api'
+import { postProfiles, deleteProfile } from '../api'
+import Delete from './Delete'
 
 function handleSubmit (event, token, profile, userType, history) {
   event.preventDefault()
@@ -24,10 +25,6 @@ const IndProfileSetup = ({ token, userType }) => {
   const [userName, setUserName] = useState('')
   const blankGenre = { id: 1, genre: '' }
   const [userGenres, setUserGenres] = useState([{ ...blankGenre }])
-  const genreToConvert = userGenres.map((genre) => genre.genre)
-  const string = genreToConvert.reduce((result, item) => {
-    return `${result}${item},`
-  }, '')
   const blankInstruments = { id: 1, instrument: '' }
   const [userInstruments, setUserInstruments] = useState([{ ...blankInstruments }])
   const [userBio, setUserBio] = useState('')
@@ -35,19 +32,25 @@ const IndProfileSetup = ({ token, userType }) => {
   const [userEmail, setUserEmail] = useState('')
   const [userSite, setUserSite] = useState('')
   const pendingProfile = {
-    bio: userBio,
-    name: userName,
-    instrument: userInstruments.map((int) => int.instrument),
-    zipcode: userZipcode,
-    genre: userGenres.map((genre) => genre.genre)
+    ind_bio: userBio,
+    ind_name: userName,
+    ind_instruments: userInstruments.map((int) => int.instrument),
+    ind_zipcode: userZipcode,
+    ind_genres: userGenres.map((genre) => genre.genre)
     // followers: userFollowers
   }
 
-  console.log('string', string)
-  console.log('type', typeof (string))
-  console.log('ind profile userInstruments', userInstruments.map((int) => int.instrument))
-  console.log('ind profile userGenres', userGenres.map((genre) => genre.genre))
-  console.log('userEmail', userEmail)
+  console.log('userName', userName)
+  // console.log('type', typeof (string))
+  console.log('ind profile userInstruments array', userInstruments.map((int) => int.instrument))
+  console.log('ind profile userGenres array', userGenres.map((genre) => genre.genre))
+  // console.log('userEmail', userEmail)
+
+  function handleDeleteProfile (event, pk) {
+    event.preventDefault()
+    deleteProfile(token, pk)
+      .then(card => history.push('/'))
+  }
 
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
@@ -102,10 +105,14 @@ const IndProfileSetup = ({ token, userType }) => {
               <button
                 className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                 type='submit'
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  handleDeleteProfile(e, token, history)
+                }}
               >Submit
               </button>
             </div>
-
+            <span><Delete /></span>
           </form>
         </div>
       </div>
