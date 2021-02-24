@@ -3,9 +3,11 @@ import Info from './Info'
 import Follow from './Follow'
 import Message from './Message'
 
-
-function UserCard ({ cards }) {
+function UserCard ({ cards, profile }) {
   console.log('cards', cards.map((card) => card))
+
+  const bandName = cards.map((card) => card.band_instruments.map((int) => int))
+  console.log('bandName', bandName)
 
   return (
     <div>
@@ -21,11 +23,16 @@ function UserCard ({ cards }) {
                 src='/'
                 alt='avatar'
               />
-              <h3 className='mt-6 text-gray-900 text-sm font-medium'>{card.user}</h3>
+              <h3 className='mt-6 text-gray-900 text-sm font-medium'>{card.band_name}</h3>
               <dl className='mt-1 flex-grow flex flex-col justify-between' />
               <dt className='sr-only'>Solo Artist</dt>
-              <dd className='text-gray-500 text-sm'>{card.genre}</dd>
-              <dd className='text-gray-500 text-sm'>{card.bio}</dd>
+              <dd className='text-gray-500 text-sm'>{card.band_name}</dd>
+              <span className='flex flex-1 border border-black border-solid '>
+                {card.band_instruments.map(int => (
+
+                  <dd key={int} className='text-gray-500 text-sm'>{int}</dd>
+                ))}
+              </span>
             </div>
             <div>
               <div className='mt=px flex divide-x divide-gray-200'>
@@ -45,28 +52,32 @@ function UserCard ({ cards }) {
                       <path d='M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8..118z' /> */}
                     </svg>
                     {/* <span><Info card={card} /></span> */}
-                    <span class='relative z-0 inline-flex shadow-sm rounded-md'>
+                    <span className='relative z-0 flex flex-col shadow-sm rounded-md'>
+
                       <button
                         type='button'
                         className='relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
                       >
 
-                        <span><Info class={card} /></span>
+                        <span><Info className={card} /></span>
                       </button>
-                      <button
-                        type='button'
-                        className='-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
-                      >
 
-                        <span><Follow card={card} /></span>
-                      </button>
-                      <button
-                        type='button'
-                        className='-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
-                      >
+                      <div className='relative z-0 inline-flex shadow-sm rounded-md'>
+                        <button
+                          type='button'
+                          className='-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+                        >
 
-                        <span><Message card={card} /></span>
-                      </button>
+                          <span><Follow card={card} /></span>
+                        </button>
+                        <button
+                          type='button'
+                          className='-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+                        >
+
+                          <span><Message card={card} /></span>
+                        </button>
+                      </div>
                     </span>
                     {/* <span><Info card={card} /></span>
                     <span><Follow card={card} /></span>
