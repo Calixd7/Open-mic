@@ -2,7 +2,7 @@
 const Info = ({ card }) => {
   return (
     <div>
-      Hello World
+      Info
     </div>
   )
 }
