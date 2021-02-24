@@ -24,7 +24,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register('users',views.UserViewSet, basename='user')
 router.register('userprofiles', views.UserProfileViewSet, basename='userprofile')
-router.register('bandprofiles', views.BandProfileViewSet, basename='bandprofiles')
+
 
 
 
