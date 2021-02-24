@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import Info from './Info'
 import Follow from './Follow'
+import Message from './Message'
 
 
 function UserCard ({ cards }) {
@@ -44,8 +45,32 @@ function UserCard ({ cards }) {
                       <path d='M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8..118z' /> */}
                     </svg>
                     {/* <span><Info card={card} /></span> */}
+                    <span class='relative z-0 inline-flex shadow-sm rounded-md'>
+                      <button
+                        type='button'
+                        className='relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+                      >
+
+                        <span><Info class={card} /></span>
+                      </button>
+                      <button
+                        type='button'
+                        className='-ml-px relative inline-flex items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+                      >
+
+                        <span><Follow card={card} /></span>
+                      </button>
+                      <button
+                        type='button'
+                        className='-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+                      >
+
+                        <span><Message card={card} /></span>
+                      </button>
+                    </span>
+                    {/* <span><Info card={card} /></span>
                     <span><Follow card={card} /></span>
-                    <span className='ml-3'>Message</span>
+                    <span className='ml-3'>Message</span> */}
                   </Link>
                 </div>
               </div>
