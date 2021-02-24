@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import User, UserProfile, Instrument, Genre
+from core.models import User, UserProfile, Instrument, Genre, WantedInstruments
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta: 
@@ -41,6 +41,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(read_only=True, slug_field='username')
     genres = serializers.SlugRelatedField(many=True,queryset=Genre.objects.all() ,slug_field='name')
     instruments = serializers.SlugRelatedField(many=True,queryset= Instrument.objects.all() ,slug_field='name')
+    wanted_instruments = serializers.SlugRelatedField(many=True, queryset=WantedInstruments.objects.all(), slug_field='name')
     # followers = serializers.StringRelatedField(many=True, read_only=True)
     # follows =serializers.StringRelatedField(many=True,read_only=True )
     class Meta:
@@ -48,6 +49,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = [
             'pk',
             'user',
+            "image",
             'bio',
             'name', 
             'instruments',
@@ -57,7 +59,10 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'band_size',  
             'band_location',
             'years_active',
-            "band_members"
+            "band_members",
+            "individualorband",
+            "wanted_instruments",
+            "wanted_info"
         ]
 
 

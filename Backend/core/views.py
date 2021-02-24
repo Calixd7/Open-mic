@@ -9,6 +9,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response 
 from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
+from rest_framework.exceptions import ParseError
+from rest_framework.parsers import FileUploadParser
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
      
@@ -49,6 +51,7 @@ class UserViewSet(ModelViewSet):
 
 class UserProfileViewSet(ModelViewSet):
     serializer_class = UserProfileSerializer
+    parser_classes = [MultiPartParser, FormParser, JSONParser, FileUploadParser]
     permission_classes =[
         permissions.IsAuthenticated, IsOwnerOrReadOnly
         ]
@@ -59,18 +62,7 @@ class UserProfileViewSet(ModelViewSet):
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
 
-    # @action(detail=True, methods=['PUT'])
-    # def image(self, request, pk, format=None):
-    #     if 'file' not in request.data:
-    #         raise ParseError('Empty content')
-
-    #     file = request.data['file']
-    #     post = self.get_object()
-
-    #     post.image.save(file.name, file, save=True)
-    #     return Response(status=201) 
-
-
+    
 
 # class FollowViewSet(ModelViewSet):
 #     serializer_class = FollowSerializer
