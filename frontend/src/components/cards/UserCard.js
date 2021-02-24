@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom'
+import Info from './Info'
+import Follow from './Follow'
+
 
 function UserCard ({ cards }) {
   console.log('cards', cards.map((card) => card))
@@ -20,7 +23,7 @@ function UserCard ({ cards }) {
               <h3 className='mt-6 text-gray-900 text-sm font-medium'>{card.user}</h3>
               <dl className='mt-1 flex-grow flex flex-col justify-between' />
               <dt className='sr-only'>Solo Artist</dt>
-              <dd className='text-gray-500 text-sm'>{card.bio}</dd>
+              <dd className='text-gray-500 text-sm'>{card.genre}</dd>
               <dd className='text-gray-500 text-sm'>{card.bio}</dd>
             </div>
             <div>
@@ -40,6 +43,8 @@ function UserCard ({ cards }) {
                       {/* <path d='M2.003 5.884L10 9.88217.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z' />
                       <path d='M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8..118z' /> */}
                     </svg>
+                    {/* <span><Info card={card} /></span> */}
+                    <span><Follow card={card} /></span>
                     <span className='ml-3'>Message</span>
                   </Link>
                 </div>

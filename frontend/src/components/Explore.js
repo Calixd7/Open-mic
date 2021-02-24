@@ -16,13 +16,13 @@ function Explore ({ token }) {
   return (
     <div>
       <div>
-        <button
+        {/* <button
           className='bg-indigo-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
           id='slide-over-heading'
           aria-haspopup='true'
           onClick={() => setShowSlide(false)}
         >Click Me!
-        </button>
+        </button> */}
       </div>
       <div>
         <Card cards={cards} />
