@@ -33,7 +33,10 @@ function Explore ({ token }) {
       <div>
         <Card cards={cards} profile={profile} />
       </div>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 38203895df1f0aec8ed11e6f79272d7ebf1319c5
     </div>
 
   )

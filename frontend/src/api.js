@@ -74,3 +74,13 @@ export function postProfiles (token, profile, type) {
       return res.data
     })
 }
+
+export function deleteProfile (token, pk) {
+  return apiUrl
+    .delete(`cards/${pk}/`, {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    })
+    .then(res => res.data)
+}
