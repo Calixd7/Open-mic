@@ -21,10 +21,6 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 class User(AbstractUser):
     name= models.CharField(max_length=255, blank=True, null=True, default="")
 
-    
-    # def __str__(self):
-    #     return self.username
-
 class Genre(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
@@ -36,13 +32,6 @@ class Instrument(models.Model):
 
     def __str__(self):
         return self.name
-
-# class BandGenre(models.Model):
-#     band_genre = models.CharField(max_length=100, unique=True)
-
-# class  BandInstrument(models.Model):
-#     band_instrument = models.CharField(max_length=100, unique=True )
-
 
 class UserProfile(models.Model):
     ind = models.ForeignKey(User, related_name = 'user', on_delete=models.CASCADE)
@@ -66,6 +55,7 @@ class BandProfile(models.Model):
     band_size = models.CharField(max_length=100, blank=True, null=True)
     band_location = models.CharField(max_length=100, blank=True, null=True)
     years_active = models.CharField(max_length=100, blank=True, null=True)
+    vacancy = models.BooleanField(default=True)
 
 
 
