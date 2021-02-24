@@ -48,7 +48,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = [
             'pk',
             'ind',
-            'image',
             'ind_bio',
             'ind_name', 
             'ind_instruments',
@@ -67,7 +66,6 @@ class BandProfileSerializer(serializers.ModelSerializer):
             'pk',
             'band',
             'band_name',
-            'image',
             'band_genres',
             'band_size',
             'band_instruments',
