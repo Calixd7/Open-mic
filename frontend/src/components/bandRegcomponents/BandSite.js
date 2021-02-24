@@ -1,5 +1,5 @@
 
-const BandSite = ({ bandSite, setBandSite }) => {
+function BandSite ({ bandSite, setBandSite }) {
   return (
     <div>
       <label
