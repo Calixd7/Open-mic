@@ -24,34 +24,22 @@ const IndProfileSetup = ({ token, userType }) => {
   const [userName, setUserName] = useState('')
   const blankGenre = { id: 1, genre: '' }
   const [userGenres, setUserGenres] = useState([{ ...blankGenre }])
-  const genreToConvert = userGenres.map((genre) => genre.genre)
-  const string = genreToConvert.reduce((result, item) => {
-    return `${result} ${item},`
-  }, '')
   const blankInstruments = { id: 1, instrument: '' }
   const [userInstruments, setUserInstruments] = useState([{ ...blankInstruments }])
-  const instrumentToConvert = userInstruments.map((inst) => inst.instrument)
-  const intString = instrumentToConvert.reduce((result, item) => {
-    return `${result} ${item},`
-  }, '')
   const [userBio, setUserBio] = useState('')
   const [userZipcode, setUserZipcode] = useState(0)
   const [userEmail, setUserEmail] = useState('')
   const [userSite, setUserSite] = useState('')
   const pendingProfile = {
-    bio: userBio,
-    name: userName,
-    instrument: intString,
-    // instrument: userInstruments.map((int) => int.instrument),
-    zipcode: userZipcode,
-    genre: string
-    // genre: userGenres.map((genre) => genre.genre)
+    ind_bio: userBio,
+    ind_name: userName,
+    ind_instruments: userInstruments.map((int) => int.instrument),
+    ind_zipcode: userZipcode,
+    ind_genres: userGenres.map((genre) => genre.genre)
     // followers: userFollowers
   }
 
   console.log('userName', userName)
-  console.log('string', string)
-  console.log('intString', intString)
   // console.log('type', typeof (string))
   console.log('ind profile userInstruments array', userInstruments.map((int) => int.instrument))
   console.log('ind profile userGenres array', userGenres.map((genre) => genre.genre))
