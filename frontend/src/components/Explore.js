@@ -1,6 +1,6 @@
 import { Transition } from '@headlessui/react'
 import { useState, useEffect } from 'react'
-import Card from './cards/UserCard'
+import Card from './cards/Card'
 import { getProfiles } from '../api'
 import Search from './Search'
 
@@ -10,6 +10,7 @@ function Explore ({ token }) {
   const [profile, setProfile] = useState('')
 
   console.log('profile', profile)
+  console.log('cards', cards)
 
   useEffect(() => {
     getProfiles(token).then(cards => setCards(cards))

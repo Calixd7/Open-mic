@@ -53,9 +53,9 @@ export function login (username, password) {
     })
 }
 
-export function getProfiles (token, type) {
+export function getProfiles (token) {
   return apiUrl
-    .get(`api/${type}profiles/`, {
+    .get('api/userprofiles/', {
       headers: {
         Authorization: `Token ${token}`
       }

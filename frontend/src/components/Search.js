@@ -4,7 +4,7 @@ import { getProfiles } from '../api'
 const Search = ({ token, setCards, setProfile, profile }) => {
   function handleSearch (e) {
     e.preventDefault()
-    getProfiles(token, profile).then(cards => setCards(cards))
+    getProfiles(token).then(cards => setCards(cards))
   }
 
   return (
@@ -23,7 +23,7 @@ const Search = ({ token, setCards, setProfile, profile }) => {
         <button
           type='submit'
           className='m-4 p-1 border-solid border-black border'
-          onClick={(e) => setProfile('band')}
+          onClick={() => setProfile('band')}
         >Band Profiles
         </button>
       </form>

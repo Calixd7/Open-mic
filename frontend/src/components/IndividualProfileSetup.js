@@ -32,11 +32,11 @@ const IndProfileSetup = ({ token, userType }) => {
   const [userEmail, setUserEmail] = useState('')
   const [userSite, setUserSite] = useState('')
   const pendingProfile = {
-    ind_bio: userBio,
-    ind_name: userName,
-    ind_instruments: userInstruments.map((int) => int.instrument),
+    bio: userBio,
+    name: userName,
+    instruments: userInstruments.map((int) => int.instrument),
     ind_zipcode: userZipcode,
-    ind_genres: userGenres.map((genre) => genre.genre)
+    genres: userGenres.map((genre) => genre.genre)
     // followers: userFollowers
   }
 
