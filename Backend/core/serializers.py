@@ -39,8 +39,8 @@ class InstrumentSerializer (serializers.ModelSerializer):
 
 class UserProfileSerializer(serializers.ModelSerializer):
     ind = serializers.SlugRelatedField(read_only=True, slug_field='username')
-    ind_genres = serializers.StringRelatedField(many=True)
-    ind_instruments = serializers.StringRelatedField(many=True)
+    ind_genres = serializers.SlugRelatedField(many=True,queryset=Genre.objects.all() ,slug_field='name')
+    ind_instruments = serializers.SlugRelatedField(many=True,queryset= Instrument.objects.all() ,slug_field='name')
     # followers = serializers.StringRelatedField(many=True, read_only=True)
      # instrument = IndInstrumentSerializer(many=True)
     # genre = IndGenreSerializer(many=True)
@@ -58,6 +58,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'follows'
 
         ]
+
+        # def create(self, validated_data):
+
  # class GenreSerializer (serializers.ModelSerializer):
 #     class Meta:
 #         model = BandProfile
@@ -74,8 +77,8 @@ class BandProfileSerializer(serializers.ModelSerializer):
     follows = serializers.StringRelatedField(many=True, read_only=True)
     followers = serializers.StringRelatedField(many=True, read_only=True)
     band = serializers.SlugRelatedField(read_only=True, slug_field='username')
-    band_genres= serializers.StringRelatedField(many=True)
-    band_instruments = serializers.StringRelatedField(many=True)
+    band_genres= serializers.SlugRelatedField(many=True,queryset=Genre.objects.all(),slug_field="name")
+    band_instruments = serializers.SlugRelatedField(many=True,queryset=Instrument.objects.all() ,slug_field="name")
     # band_genre = GenreSerializer(many=True)
     # band_instruments =InstrumentSerializer(many=True)
     class Meta:
