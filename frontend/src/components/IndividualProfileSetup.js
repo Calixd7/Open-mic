@@ -9,6 +9,7 @@ import UserEmail from './indRegcomponents/UserEmail'
 import UserSite from './indRegcomponents/UserSite'
 import { useParams, useHistory } from 'react-router-dom'
 import { postProfiles } from '../api'
+import Delete from './Delete'
 
 function handleSubmit (event, token, profile, userType, history) {
   event.preventDefault()
@@ -101,7 +102,7 @@ const IndProfileSetup = ({ token, userType }) => {
               >Submit
               </button>
             </div>
-
+            <span><Delete /></span>
           </form>
         </div>
       </div>

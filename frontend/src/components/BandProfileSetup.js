@@ -10,6 +10,7 @@ import BandLocation from './bandRegcomponents/BandLocation'
 import Vacancy from './bandRegcomponents/Vacancy'
 import { useParams, useHistory } from 'react-router-dom'
 import { postProfiles } from '../api'
+import Delete from './Delete'
 
 function handleSubmit (event, token, profile, userType, history) {
   event.preventDefault()
@@ -102,7 +103,9 @@ const BandProfileSetup = ({ token, userType }) => {
               >Submit
               </button>
             </div>
-
+            <div>
+              <span><Delete /></span>
+            </div>
           </form>
         </div>
       </div>

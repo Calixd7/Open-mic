@@ -3,7 +3,6 @@ import Info from './Info'
 import Follow from './Follow'
 import Message from './Message'
 
-
 function UserCard ({ cards }) {
   console.log('cards', cards.map((card) => card))
 
