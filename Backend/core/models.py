@@ -12,6 +12,7 @@ from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from django.conf import settings
 
+
 # This code is triggered whenever a new user has been created and saved to the database
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
@@ -22,11 +23,21 @@ OPTIONS = (
     ("Band", "Band"),  
 )
 
-
 class User(AbstractUser):
     name= models.CharField(max_length=255, blank=True, null=True, default="")
-    follows = models.ManyToManyField('self', related_name='followers', symmetrical=False, blank=True)
 
+   
+class UserFollowing(models.Model):
+    user= models.ForeignKey(User, related_name="following", on_delete=models.CASCADE)
+    following_user = models.ForeignKey(User, related_name="followers", on_delete=models.CASCADE)
+    created = models.DateTimeField(auto_now_add=True, db_index=True)
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['user','following_user'],  name="unique_followers")
+        ]
+
+        ordering = ["-created"]
 class Genre(models.Model):
     name = models.CharField(max_length=100, unique=True)
 

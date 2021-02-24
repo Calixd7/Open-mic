@@ -24,6 +24,8 @@ from django.conf.urls.static import static
 router = DefaultRouter()
 router.register('users',views.UserViewSet, basename='user')
 router.register('userprofiles', views.UserProfileViewSet, basename='userprofile')
+router.register("connections", views.UserFollowingViewSet, basename="connection")
+
 
 
 

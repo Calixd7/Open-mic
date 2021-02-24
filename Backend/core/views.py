@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
-from core.models import User, UserProfile
-from core.serializers import UserSerializer, UserProfileSerializer
+from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
+from core.models import User, UserProfile, UserFollowing
+from core.serializers import UserSerializer, UserProfileSerializer, UserFollowingSerializer
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from rest_framework import permissions
@@ -62,7 +64,14 @@ class UserProfileViewSet(ModelViewSet):
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
 
-    
+class UserFollowingViewSet(ModelViewSet):
 
-# class FollowViewSet(ModelViewSet):
-#     serializer_class = FollowSerializer
+    permission_class = [IsOwnerOrReadOnly]
+
+    serializer_class = UserFollowingSerializer
+    queryset = UserFollowing.objects.all()
+
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
+
+        
