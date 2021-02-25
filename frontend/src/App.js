@@ -12,6 +12,8 @@ import Connections from './components/Friends'
 import Explore from './components/Explore'
 import { useState } from 'react'
 import ViewProfile from './components/ViewProfile'
+import ViewCard from './components/ViewCard'
+import Message from './components/Message'
 
 library.add(far, faTimes)
 
@@ -58,6 +60,12 @@ function App () {
             </Route>
             <Route path='/view-profile/:pk'>
               <ViewProfile token={token} isLoggedIn={isLoggedIn} />
+            </Route>
+            <Route path='/view-card/:pk'>
+              <ViewCard token={token} isLoggedIn={isLoggedIn} />
+            </Route>
+            <Route path='/message/'>
+              <Message token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/'>
               <Welcome isLoggedIn={isLoggedIn} />

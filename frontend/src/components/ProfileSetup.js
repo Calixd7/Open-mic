@@ -37,6 +37,30 @@ const statusForApi = (status) => {
   }
 }
 
+const wantedIntForAPI = (vacancy, ints) => {
+  if (vacancy === false) {
+    return []
+  } else {
+    return ints
+  }
+}
+
+const genreForApi = (genres) => {
+  if (genres === ['']) {
+    return []
+  } else {
+    return genres
+  }
+}
+
+const instrumentsForApi = (intstruments) => {
+  if (intstruments === ['']) {
+    return []
+  } else {
+    return intstruments
+  }
+}
+
 const ProfileSetup = ({ token, userType }) => {
   const { type } = useParams()
   const history = useHistory()
@@ -62,14 +86,17 @@ const ProfileSetup = ({ token, userType }) => {
     image: image,
     bio: bio,
     name: name,
-    instruments: instruments.map((int) => int.instrument),
+    instruments: instrumentsForApi(instruments.map((int) => int.instrument)),
+    // instruments: instruments.map((int) => int.instrument),
     ind_zipcode: zipcode,
-    genres: genres.map((genre) => genre.genre),
+    genres: genreForApi(genres.map((genre) => genre.genre)),
+    // genres: genres.map((genre) => genre.genre),
     band_size: bandSize,
     band_location: bandLocation,
     band_members: bandMembers,
     individualorband: statusForApi(status),
-    wanted_instruments: wantedInstruments.map((int) => int.wanted_instrument),
+    // wanted_instruments: wantedInstruments.map((int) => int.wanted_instrument),
+    wanted_instruments: wantedIntForAPI(vacancy, wantedInstruments.map((int) => int.wanted_instrument)),
     wanted_info: wantedInfo,
     vacancy: vacancy
     // followers: followers
