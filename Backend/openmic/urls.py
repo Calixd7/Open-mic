@@ -18,12 +18,15 @@ from django.conf import settings
 from django.urls import include, path
 from core import views
 from rest_framework.routers import DefaultRouter
+from django.conf.urls.static import static
 
 
 router = DefaultRouter()
 router.register('users',views.UserViewSet, basename='user')
 router.register('userprofiles', views.UserProfileViewSet, basename='userprofile')
-router.register('bandprofiles', views.BandProfileViewSet, basename='bandprofiles')
+router.register("connections", views.UserFollowingViewSet, basename="connection")
+
+
 
 
 
@@ -35,7 +38,9 @@ urlpatterns = [
     path('auth/', include('djoser.urls')),
     path('auth/', include('djoser.urls.authtoken')),
     path('accounts/', include('registration.backends.default.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
 
 if settings.DEBUG:
     import debug_toolbar
