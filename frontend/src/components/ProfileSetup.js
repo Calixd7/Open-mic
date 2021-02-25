@@ -151,7 +151,9 @@ const ProfileSetup = ({ token, userType }) => {
               >Submit
               </button>
             </div>
-            <span><Delete /></span>
+            <div className='mt-12'>
+              <span><Delete /></span>
+            </div>
           </form>
         </div>
       </div>
