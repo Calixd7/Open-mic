@@ -54,6 +54,9 @@ class UserViewSet(ModelViewSet):
 class UserProfileViewSet(ModelViewSet):
     serializer_class = UserProfileSerializer
     parser_classes = [MultiPartParser, FormParser, JSONParser, FileUploadParser]
+    permission_classes =[
+        permissions.IsAuthenticated, IsOwnerOrReadOnly
+        ]
     
     def get_queryset(self):
         return UserProfile.objects.all()
