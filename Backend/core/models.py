@@ -72,7 +72,7 @@ class UserProfile(models.Model):
     years_active = models.CharField(max_length=100, blank=True, null=True)
     vacancy = models.BooleanField(default=False)
     individualorband = models.CharField(max_length=100, choices=OPTIONS, null=True)
-    wanted_instruments = models.ManyToManyField(to=WantedInstruments,null=True)
+    wanted_instruments = models.ManyToManyField(to=WantedInstruments,blank=True)
     wanted_info = models.CharField(max_length=500, blank=True, null=True )
                                                                             
     
