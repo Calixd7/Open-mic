@@ -5,12 +5,6 @@ import Message from './Message'
 
 function Card ({ cards, profile }) {
   console.log('cards', cards.map((card) => card))
-  const statusBand = cards.map((card) => {
-    if (card.individualorband === 'Band') {
-      return 'Band'
-    }
-  })
-  console.log('statusBand', statusBand)
 
   return (
     <div>
@@ -19,7 +13,7 @@ function Card ({ cards, profile }) {
         className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
       >
         {cards.map(card => (
-          <li key={`card-${card.pk}`} className={`${statusBand ? 'bg-red-400' : 'bg-white'} col-span-1 flex flex-col text-center  rounded-lg shadow divide-y divide-indigo-200`}>
+          <li key={`card-${card.pk}`} className={`${card.individualorband === 'Band' ? 'bg-red-400' : 'bg-white'} col-span-1 flex flex-col text-center rounded-lg shadow divide-y divide-indigo-200`}>
             <div className='flex-1 flex flex-col p-8'>
               <img
                 className='w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full'
@@ -27,7 +21,7 @@ function Card ({ cards, profile }) {
                 alt='avatar'
               />
               <h3 className='mt-6 text-gray-900 text-sm font-medium'>{card.name}</h3>
-              <dl className='mt-1 flex-grow flex flex-col justify-between' />
+              <dl className='mt-1 flex-grow flex flex-col justify-between'>{card.individualorband}</dl>
               <dt className='sr-only'>Solo Artist</dt>
               <dd className='text-gray-500 text-sm'>{card.genres}</dd>
               <span className='flex flex-1 border border-black border-solid '>

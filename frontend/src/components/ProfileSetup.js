@@ -14,11 +14,15 @@ import Status from './profileComponents/Status'
 import WantedInstruments from './profileComponents/WantedInstruments'
 import WantedInfo from './profileComponents/WantedInfo'
 import { useParams, useHistory } from 'react-router-dom'
-import { postProfiles, deleteProfile } from '../api'
+import { postProfiles, deleteProfile, updateProfile } from '../api'
 import Delete from './Delete'
 
 function handleSubmit (event, token, profile, userType, history) {
   event.preventDefault()
+  // if (card.pk) {
+  //   updateProfile(token, card.pk, card)
+  // }
+
   postProfiles(token, profile, userType)
     .then(data => {
       history.push('/explore')
@@ -66,7 +70,8 @@ const ProfileSetup = ({ token, userType }) => {
     band_members: bandMembers,
     individualorband: statusForApi(status),
     wanted_instruments: wantedInstruments.map((int) => int.wanted_instrument),
-    wanted_info: wantedInfo
+    wanted_info: wantedInfo,
+    vacancy: vacancy
     // followers: followers
   }
 
