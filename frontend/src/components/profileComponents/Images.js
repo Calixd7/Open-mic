@@ -1,4 +1,4 @@
-const UserImages = () => {
+const Images = () => {
   return (
     <div>
       <label className='form-label'>
@@ -36,4 +36,4 @@ const UserImages = () => {
   )
 }
 
-export default UserImages
+export default Images

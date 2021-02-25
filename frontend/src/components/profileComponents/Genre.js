@@ -1,16 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const UserGenre = ({ blankGenre, userGenres, setUserGenres }) => {
-  const length = userGenres.length
+const Genre = ({ blankGenre, genres, setGenres, status }) => {
+  const length = genres.length
 
-  console.log('userGenres', userGenres)
+  console.log('genres', genres)
 
   const addGenre = () => {
-    const id = userGenres.length === 0
+    const id = genres.length === 0
       ? 1
-      : userGenres[userGenres.length - 1].id + 1
+      : genres[genres.length - 1].id + 1
 
-    setUserGenres([...userGenres,
+    setGenres([...genres,
       {
         ...blankGenre,
         id: id + 1
@@ -20,19 +20,19 @@ const UserGenre = ({ blankGenre, userGenres, setUserGenres }) => {
 
   const removeGenre = (event, id) => {
     const newGeneres = [
-      ...userGenres
+      ...genres
     ]
-    setUserGenres(newGeneres.filter((genre) => genre.id !== id))
+    setGenres(newGeneres.filter((genre) => genre.id !== id))
   }
 
   const handleGenreChange = (e, idx) => {
-    const updatedGenre = [...userGenres]
+    const updatedGenre = [...genres]
     updatedGenre[idx] = {
       ...updatedGenre[idx],
       genre: e.target.value
     }
 
-    setUserGenres(updatedGenre)
+    setGenres(updatedGenre)
   }
 
   return (
@@ -40,10 +40,14 @@ const UserGenre = ({ blankGenre, userGenres, setUserGenres }) => {
       <label
         className='form-label'
         htmlFor='genre'
-      >What music genres do youplay?
+      >
+        {status === 'Band'
+          ? 'What music genres does your band play?'
+          : 'What music genres do you play?'}
+
       </label>
       <div className='flex flex-col'>
-        {userGenres.map((genre, idx) => {
+        {genres.map((genre, idx) => {
           const genreId = `genre-${idx}`
           return (
             <div
@@ -87,4 +91,4 @@ const UserGenre = ({ blankGenre, userGenres, setUserGenres }) => {
   )
 }
 
-export default UserGenre
+export default Genre
