@@ -1,11 +1,14 @@
 
-const Name = ({ name, setName }) => {
+const Name = ({ name, setName, status }) => {
   return (
     <div>
       <label
         className='form-label'
         htmlFor='name'
-      >Name
+      >
+        {status === 'Band'
+          ? 'Band Name'
+          : 'Name'}
       </label>
       <input
         className='form-text-input'

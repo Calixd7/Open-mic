@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const Instrument = ({ blankInstruments, instruments, setInstruments }) => {
+const Instrument = ({ blankInstruments, instruments, setInstruments, status }) => {
   const length = instruments.length
 
   const addInstrument = () => {
@@ -37,11 +37,14 @@ const Instrument = ({ blankInstruments, instruments, setInstruments }) => {
       <label
         className='form-label'
         htmlFor='instrument'
-      >What instruments do you play?
+      >
+        {status === 'Band'
+          ? 'What instruments does your band play?'
+          : 'What instruments do you play?'}
+
       </label>
       <div className='flex flex-col'>
         {instruments.map((instrument, idx) => {
-          const instrumentId = `genre-${idx}`
           return (
             <div
               key={`instrument-name-${idx}`}

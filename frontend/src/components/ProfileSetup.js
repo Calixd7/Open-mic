@@ -11,6 +11,8 @@ import BandLocation from './profileComponents/BandLocation'
 import BandSize from './profileComponents/BandSize'
 import Vacancy from './profileComponents/Vacancy'
 import Status from './profileComponents/Status'
+import WantedInstruments from './profileComponents/WantedInstruments'
+import WantedInfo from './profileComponents/WantedInfo'
 import { useParams, useHistory } from 'react-router-dom'
 import { postProfiles, deleteProfile } from '../api'
 import Delete from './Delete'
@@ -40,8 +42,9 @@ const ProfileSetup = ({ token, userType }) => {
   const [vacancy, setVacancy] = useState(false)
   const [image, setImage] = useState()
   const [bandMembers, setBandMembers] = useState([])
-  const [status, setStatus] = useState('Individual')
-  const [wantedInstruments, setWantedInstruments] = useState([])
+  const [status, setStatus] = useState('Solo Artist')
+  const blankWantedInstruments = { id: 1, wanted_instrument: '' }
+  const [wantedInstruments, setWantedInstruments] = useState([{ ...blankWantedInstruments }])
   const [wantedInfo, setWantedInfo] = useState('')
   const pendingProfile = {
     image: image,
@@ -54,16 +57,12 @@ const ProfileSetup = ({ token, userType }) => {
     band_location: bandLocation,
     band_members: bandMembers,
     individualorband: status,
-    wanted_instruments: wantedInstruments,
+    wanted_instruments: wantedInstruments.map((int) => int.wanted_instrument),
     wanted_info: wantedInfo
     // followers: followers
   }
 
-  console.log('name', name)
-  // console.log('type', typeof (string))
-  console.log('ind profile userInstruments array', instruments.map((int) => int.instrument))
-  console.log('ind profile userGenres array', genres.map((genre) => genre.genre))
-  // console.log('userEmail', userEmail)
+  console.log('status', status)
 
   function handleDeleteProfile (event, pk) {
     event.preventDefault()
@@ -92,7 +91,7 @@ const ProfileSetup = ({ token, userType }) => {
               </div>
 
               <div className='mt-4'>
-                <Name name={name} setName={setName} />
+                <Name name={name} setName={setName} status={status} />
               </div>
 
               <div className='mt-4'>
@@ -103,20 +102,37 @@ const ProfileSetup = ({ token, userType }) => {
                 <Site site={site} setSite={setSite} />
               </div>
 
+              {status === 'Band' &&
+                <div className='mt-4'>
+                  <BandSize bandSize={bandSize} setBandSize={setBandSize} />
+                </div>}
+
               <div className='mt-4'>
-                <BandSize bandSize={bandSize} setBandSize={setBandSize} />
+                <Genre blankGenre={blankGenre} genres={genres} setGenres={setGenres} status={status} />
               </div>
 
               <div className='mt-4'>
-                <Genre blankGenre={blankGenre} genres={genres} setGenres={setGenres} />
+                <Instruments blankInstruments={blankInstruments} instruments={instruments} setInstruments={setInstruments} status={status} />
               </div>
 
-              <div className='mt-4'>
-                <Instruments blankInstruments={blankInstruments} instruments={instruments} setInstruments={setInstruments} />
-              </div>
+              {status === 'Band' &&
+                <div className='mt-4'>
+                  <Vacancy vacancy={vacancy} setVacancy={setVacancy} />
+                </div>}
+
+              {vacancy === true &&
+                <span>
+                  <div className='mt-4'>
+                    <WantedInstruments blankWantedInstruments={blankWantedInstruments} wantedInstruments={wantedInstruments} setWantedInstruments={setWantedInstruments} />
+                  </div>
+
+                  <div className='mt-4'>
+                    <WantedInfo wantedInfo={wantedInfo} setWantedInfo={setWantedInfo} />
+                  </div>
+                </span>}
 
               <div className='mt-4'>
-                <Bio bio={bio} setBio={setBio} />
+                <Bio bio={bio} setBio={setBio} status={status} />
               </div>
 
               <div className='mt-4'>

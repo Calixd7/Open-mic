@@ -1,26 +1,23 @@
-const Bio = ({ bio, setBio, status }) => {
+
+const WantedInfo = ({ wantedInfo, setWantedInfo }) => {
   return (
     <div>
       <label
-        htmlFor='about'
+        htmlFor='info'
         className='form-label'
-      >
-        {status === 'Band'
-          ? 'Tell us about your band'
-          : 'Tell us about yourself'}
+      >Any other details about the instrument(s) you are looking for?
       </label>
       <div className='mt-1'>
         <textarea
           className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md'
-          name='bio'
-          id='bio'
+          name='info'
+          id='info'
           rows='3'
-          onChange={e => setBio(e.target.value)}
+          onChange={e => setWantedInfo(e.target.value)}
         />
       </div>
-
     </div>
   )
 }
 
-export default Bio
+export default WantedInfo
