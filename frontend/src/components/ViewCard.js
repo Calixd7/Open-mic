@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
-import { useHistory, Link, useParams } from 'react-router-dom'
+import { useHistory, Link, useParams, Redirect } from 'react-router-dom'
 import { getProfile } from '../api'
 
-const ViewCard = ({ token }) => {
+const ViewCard = ({ token, isLoggedIn }) => {
   const history = useHistory()
   const { pk } = useParams()
   const [card, setCard] = useState(null)
@@ -13,13 +13,15 @@ const ViewCard = ({ token }) => {
     getProfile(token, pk).then(card => setCard(card))
   }, [token, pk])
 
-  console.log('card in viewcard', card)
-  console.log('int map', card.instruments.map(int => int))
-  //   const instruments = card.instruments.map(int => int)
+  if (!token) {
+    return <Redirect to='/login' />
+  }
 
   if (!card) {
     return 'loading'
   }
+
+  console.log('card in viewcard', card)
 
   return (
     <div>
