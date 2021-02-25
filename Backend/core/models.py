@@ -74,9 +74,7 @@ class UserProfile(models.Model):
     individualorband = models.CharField(max_length=100, choices=OPTIONS, null=True)
     wanted_instruments = models.ManyToManyField(to=WantedInstruments,related_name='users',  blank=True)
     wanted_info = models.CharField(max_length=500, blank=True, null=True )
-                                                                            
-    
-    
+                                                                             
 
 
 
