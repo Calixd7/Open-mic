@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import User, UserProfile, Instrument, Genre, WantedInstruments, UserFollowing
+from core.models import User, UserProfile, Instrument, Genre, WantedInstruments, UserFollowing, Messages
 
 class UserSerializer(serializers.ModelSerializer):
     following = serializers.SerializerMethodField()
@@ -76,7 +76,19 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "wanted_instruments",
             "wanted_info"
         ]
-
+class MessageSerializer(serializers.ModelSerializer):
+    sender = serializers.SlugRelatedField(slug_field="username",queryset=User.objects.all() )
+    receiver = serializers.SlugRelatedField(slug_field="username", queryset=User.objects.all())
+    class Meta:
+        model = Messages
+        fields = [
+            "sender",
+            "receiver", 
+            "image",
+            "subject",
+            "content",
+            "created_at"
+        ]
 
 class FollowingSerializer(serializers.ModelSerializer):
     following_user = serializers.SlugRelatedField(slug_field="username", queryset=User.objects.all())
