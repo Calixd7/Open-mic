@@ -1,16 +1,16 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const UserInstruments = ({ blankInstruments, userInstruments, setUserInstruments }) => {
-  const length = userInstruments.length
+const WantedInstruments = ({ blankWantedInstruments, wantedInstruments, setWantedInstruments }) => {
+  const length = wantedInstruments.length
 
   const addInstrument = () => {
-    const id = userInstruments.length === 0
+    const id = wantedInstruments.length === 0
       ? 1
-      : userInstruments[userInstruments.length - 1].id + 1
+      : wantedInstruments[wantedInstruments.length - 1].id + 1
 
-    setUserInstruments([...userInstruments,
+    setWantedInstruments([...wantedInstruments,
       {
-        ...blankInstruments,
+        ...blankWantedInstruments,
         id: id + 1
       }
     ])
@@ -18,18 +18,18 @@ const UserInstruments = ({ blankInstruments, userInstruments, setUserInstruments
 
   const removeInstrument = (event, id) => {
     const newInstruments = [
-      ...userInstruments
+      ...wantedInstruments
     ]
-    setUserInstruments(newInstruments.filter((inst) => inst.id !== id))
+    setWantedInstruments(newInstruments.filter((inst) => inst.id !== id))
   }
 
   const handleInstrumentChange = (e, idx) => {
-    const updatedInstrument = [...userInstruments]
+    const updatedInstrument = [...wantedInstruments]
     updatedInstrument[idx] = {
       ...updatedInstrument[idx],
-      instrument: e.target.value
+      wanted_instrument: e.target.value
     }
-    setUserInstruments(updatedInstrument)
+    setWantedInstruments(updatedInstrument)
   }
 
   return (
@@ -37,11 +37,10 @@ const UserInstruments = ({ blankInstruments, userInstruments, setUserInstruments
       <label
         className='form-label'
         htmlFor='instrument'
-      >What instruments do you play?
+      >What instruments are you looking for?
       </label>
       <div className='flex flex-col'>
-        {userInstruments.map((instrument, idx) => {
-          const instrumentId = `genre-${idx}`
+        {wantedInstruments.map((instrument, idx) => {
           return (
             <div
               key={`instrument-name-${idx}`}
@@ -82,4 +81,4 @@ const UserInstruments = ({ blankInstruments, userInstruments, setUserInstruments
   )
 }
 
-export default UserInstruments
+export default WantedInstruments

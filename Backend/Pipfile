@@ -21,6 +21,7 @@ psycopg2 = "*"
 django-cors-headers = "*"
 django-registration-redux = "*"
 djoser = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.8"
