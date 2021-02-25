@@ -88,13 +88,6 @@ class MessageViewSet(ModelViewSet):
         serializer.save(sender=self.request.user)
         
 
-    @action(detail=True, methods=["POST"])
-    def read(self, request, pk):
-        message = Messages.objects.filter(pk=pk).first()
-        message.read_by.add(self.request.user)
-        message.save()
-        return Response(201)
-
        
   
 class UserFollowingViewSet(ModelViewSet):
