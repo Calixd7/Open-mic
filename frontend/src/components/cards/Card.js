@@ -2,10 +2,11 @@ import { Link, useHistory } from 'react-router-dom'
 import Info from './Info'
 import Follow from './Follow'
 import MessageBtn from './MessageBtn'
+import ViewCard from '../ViewCard'
 
 function Card ({ cards, profile }) {
   const history = useHistory()
-  console.log('cards', cards.map((card) => card.pk))
+  console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
 
   return (
     <div>
@@ -35,8 +36,7 @@ function Card ({ cards, profile }) {
             <div>
               <div className='mt=px flex divide-x divide-gray-200'>
                 <div className='w-0 flex-1 flex'>
-                  <Link
-                    to='#'
+                  <div
                     className='relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500'
                   >
                     <span className='w-full relative z-0 flex flex-col shadow-sm rounded-md'>
@@ -44,16 +44,16 @@ function Card ({ cards, profile }) {
                       <button
                         type='button'
                         className='justify-center w-full inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                        onClick={() => history.pushState(`view-card/${card.pk}`)}
+                        onClick={() => history.push(`view-card/${card.pk}`)}
                       >
-
-                        <span><Info className={card} /></span>
+                        <span>More Info</span>
                       </button>
 
                       <div className='relative z-0 inline-flex shadow-sm rounded-md'>
                         <button
                           type='button'
                           className='justify-center inline-flex flex-1 items-center px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                          // onClick={() => history.push(`view-card/${card.pk}`)}
                         >
 
                           <span><Follow card={card} /></span>
@@ -70,7 +70,7 @@ function Card ({ cards, profile }) {
                     {/* <span><Info card={card} /></span>
                     <span><Follow card={card} /></span>
                     <span className='ml-3'>Message</span> */}
-                  </Link>
+                  </div>
                 </div>
               </div>
             </div>

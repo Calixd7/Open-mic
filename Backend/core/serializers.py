@@ -49,7 +49,6 @@ class InstrumentSerializer (serializers.ModelSerializer):
 
 
 
-
 class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(read_only=True, slug_field='username')
     genres = serializers.SlugRelatedField(many=True,queryset=Genre.objects.all() ,slug_field='name')
@@ -71,6 +70,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'band_size',  
             'band_location',
             'years_active',
+            'vacancy', 
             "band_members",
             "individualorband",
             "wanted_instruments",
