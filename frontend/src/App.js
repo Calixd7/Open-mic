@@ -11,6 +11,9 @@ import ProfileSetup from './components/ProfileSetup'
 import Connections from './components/Friends'
 import Explore from './components/Explore'
 import { useState } from 'react'
+import ViewProfile from './components/ViewProfile'
+import ViewCard from './components/ViewCard'
+import Message from './components/Message'
 
 library.add(far, faTimes)
 
@@ -20,28 +23,34 @@ const useToken = createPersistedState('token')
 function App () {
   const [username, setUsername] = useUsername()
   const [token, setToken] = useToken()
-  const [userType, setUserType] = useState()
+  const [pk, setPk] = useState(0)
   const isLoggedIn = (username && token)
+
+
 
   function setAuth (username, token) {
     setUsername(username)
     setToken(token)
   }
 
+  function setProfilePk (pk) {
+    setPk(pk)
+  }
+
   return (
     <Router>
       <div className='App'>
-        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} />
+        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} pk={pk} />
         <main>
           <Switch>
             <Route path='/registration/'>
-              <Registration setAuth={setAuth} isLoggedIn={isLoggedIn} />
+              <Registration setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
             </Route>
             <Route path='/login/'>
-              <Login setAuth={setAuth} isLoggedIn={isLoggedIn} />
+              <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
             </Route>
             <Route path='/profile-setup/'>
-              <ProfileSetup token={token} isLoggedIn={isLoggedIn} userType={userType} />
+              <ProfileSetup token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/connections/'>
               <Connections isLoggedIn={isLoggedIn} />
@@ -49,8 +58,17 @@ function App () {
             <Route path='/explore/'>
               <Explore token={token} isLoggedIn={isLoggedIn} />
             </Route>
+            <Route path='/view-profile/:pk'>
+              <ViewProfile token={token} isLoggedIn={isLoggedIn} />
+            </Route>
+            <Route path='/view-card/:pk'>
+              <ViewCard token={token} isLoggedIn={isLoggedIn} />
+            </Route>
+            <Route path='/message/'>
+              <Message token={token} isLoggedIn={isLoggedIn} />
+            </Route>
             <Route path='/'>
-              <Welcome isLoggedIn={isLoggedIn} setUserType={setUserType} />
+              <Welcome isLoggedIn={isLoggedIn} />
             </Route>
           </Switch>
         </main>

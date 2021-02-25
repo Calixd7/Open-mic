@@ -2,7 +2,7 @@ import { useHistory, Link } from 'react-router-dom'
 import { useState } from 'react'
 import { login } from '../api'
 
-function Login ({ setAuth, isLoggedIn }) {
+function Login ({ setAuth, isLoggedIn, setProfilePk }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState()
@@ -15,6 +15,7 @@ function Login ({ setAuth, isLoggedIn }) {
       .then(data => {
         if (data && data.auth_token) {
           setAuth(username, data.auth_token)
+          setProfilePk(data.pk)
           history.push('/explore')
         }
       })

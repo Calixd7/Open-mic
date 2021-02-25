@@ -2,9 +2,12 @@ import { Link } from 'react-router-dom'
 import {Transition} from '@headlessui/react'
 import { useState } from 'react'
 
-function Header ({ username, token, setToken, isLoggedIn }) {
+
+function Header ({ username, token, setToken, isLoggedIn, pk }) {
   const [showMenu, setShowMenu] = useState(false)
-    const [showProfile, setShowProfile] = useState(false)
+  const [showProfile, setShowProfile] = useState(false)
+  const history = useHistory()
+
 
   return (
     <nav className='bg-gray-800'>
@@ -54,14 +57,14 @@ function Header ({ username, token, setToken, isLoggedIn }) {
             <div className='flex-shrink-0 flex-items-center'>
               <img
                 className='block lg:hidden h-8 w-auto'
-                src='/'
+                src={logo} alt='OpenMic'
                 alt='logo'
               />
-              <img
+              {/* <img
                 className='hiden lg:block h-8 w-auto'
-                src='/'
+                src={logo}
                 alt='logo'
-              />
+              /> */}
             </div>
             <div className='hidden sm:block sm:ml-6'>
               <div className='flex space-x-4'>
@@ -122,13 +125,14 @@ function Header ({ username, token, setToken, isLoggedIn }) {
               aria-orientation='vertical'
               aria-labelledby='user-menu'
             >
-              <Link
-                to='#'
+              <div
+                // to='view-profile/'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
                 role='menuitem'
+                onClick={() => history.push(`view-profile/${pk}`)}
               >
                 Your Profile
-              </Link>
+              </div>
               <Link
                 to='#'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'

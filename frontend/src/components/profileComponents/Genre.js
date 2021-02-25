@@ -3,8 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const Genre = ({ blankGenre, genres, setGenres, status }) => {
   const length = genres.length
 
-  console.log('genres', genres)
-
   const addGenre = () => {
     const id = genres.length === 0
       ? 1

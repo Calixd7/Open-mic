@@ -14,15 +14,51 @@ import Status from './profileComponents/Status'
 import WantedInstruments from './profileComponents/WantedInstruments'
 import WantedInfo from './profileComponents/WantedInfo'
 import { useParams, useHistory } from 'react-router-dom'
-import { postProfiles, deleteProfile } from '../api'
+import { postProfiles, deleteProfile, updateProfile } from '../api'
 import Delete from './Delete'
 
 function handleSubmit (event, token, profile, userType, history) {
   event.preventDefault()
+  // if (card.pk) {
+  //   updateProfile(token, card.pk, card)
+  // }
+
   postProfiles(token, profile, userType)
     .then(data => {
       history.push('/explore')
     })
+}
+
+const statusForApi = (status) => {
+  if (status === 'Solo Artist') {
+    return 'Individual'
+  } else {
+    return status
+  }
+}
+
+const wantedIntForAPI = (vacancy, ints) => {
+  if (vacancy === false) {
+    return []
+  } else {
+    return ints
+  }
+}
+
+const genreForApi = (genres) => {
+  if (genres === ['']) {
+    return []
+  } else {
+    return genres
+  }
+}
+
+const instrumentsForApi = (intstruments) => {
+  if (intstruments === ['']) {
+    return []
+  } else {
+    return intstruments
+  }
 }
 
 const ProfileSetup = ({ token, userType }) => {
@@ -41,7 +77,7 @@ const ProfileSetup = ({ token, userType }) => {
   const [bandSize, setBandSize] = useState(1)
   const [vacancy, setVacancy] = useState(false)
   const [image, setImage] = useState()
-  const [bandMembers, setBandMembers] = useState([])
+  const [bandMembers, setBandMembers] = useState('')
   const [status, setStatus] = useState('Solo Artist')
   const blankWantedInstruments = { id: 1, wanted_instrument: '' }
   const [wantedInstruments, setWantedInstruments] = useState([{ ...blankWantedInstruments }])
@@ -50,19 +86,24 @@ const ProfileSetup = ({ token, userType }) => {
     image: image,
     bio: bio,
     name: name,
-    instruments: instruments.map((int) => int.instrument),
+    instruments: instrumentsForApi(instruments.map((int) => int.instrument)),
+    // instruments: instruments.map((int) => int.instrument),
     ind_zipcode: zipcode,
-    genres: genres.map((genre) => genre.genre),
+    genres: genreForApi(genres.map((genre) => genre.genre)),
+    // genres: genres.map((genre) => genre.genre),
     band_size: bandSize,
     band_location: bandLocation,
     band_members: bandMembers,
-    individualorband: status,
-    wanted_instruments: wantedInstruments.map((int) => int.wanted_instrument),
-    wanted_info: wantedInfo
+    individualorband: statusForApi(status),
+    // wanted_instruments: wantedInstruments.map((int) => int.wanted_instrument),
+    wanted_instruments: wantedIntForAPI(vacancy, wantedInstruments.map((int) => int.wanted_instrument)),
+    wanted_info: wantedInfo,
+    vacancy: vacancy
     // followers: followers
   }
 
   console.log('status', status)
+  console.log('statusForApi', statusForApi(status))
 
   function handleDeleteProfile (event, pk) {
     event.preventDefault()
