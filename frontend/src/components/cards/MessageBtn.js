@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-const Message = ({ card}) => {
+const MessageBtn = ({ card }) => {
   return (
     <div>
       <div className='w-0 flex-1 flex'>
@@ -25,4 +25,4 @@ const Message = ({ card}) => {
   )
 }
 
-export default Message
+export default MessageBtn

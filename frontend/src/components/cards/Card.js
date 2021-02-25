@@ -1,10 +1,11 @@
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import Info from './Info'
 import Follow from './Follow'
-import Message from './Message'
+import MessageBtn from './MessageBtn'
 
 function Card ({ cards, profile }) {
-  console.log('cards', cards.map((card) => card))
+  const history = useHistory()
+  console.log('cards', cards.map((card) => card.pk))
 
   return (
     <div>
@@ -43,6 +44,7 @@ function Card ({ cards, profile }) {
                       <button
                         type='button'
                         className='justify-center w-full inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                        onClick={() => history.pushState(`view-card/${card.pk}`)}
                       >
 
                         <span><Info className={card} /></span>
@@ -61,7 +63,7 @@ function Card ({ cards, profile }) {
                           className='justify-center inline-flex flex-1 items-center px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                         >
 
-                          <span><Message card={card} /></span>
+                          <span><MessageBtn card={card} /></span>
                         </button>
                       </div>
                     </span>
