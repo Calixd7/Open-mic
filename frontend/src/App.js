@@ -24,6 +24,8 @@ function App () {
   const [userType, setUserType] = useState()
   const isLoggedIn = (username && token)
 
+  console.log(token)
+
   function setAuth (username, token) {
     setUsername(username)
     setToken(token)

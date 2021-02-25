@@ -8,7 +8,7 @@ import UserName from './indRegcomponents/UserName'
 import UserEmail from './indRegcomponents/UserEmail'
 import UserSite from './indRegcomponents/UserSite'
 import { useParams, useHistory } from 'react-router-dom'
-import { postProfiles, deleteProfile } from '../api'
+import { postProfiles } from '../api'
 import Delete from './Delete'
 
 function handleSubmit (event, token, profile, userType, history) {
@@ -46,11 +46,11 @@ const IndProfileSetup = ({ token, userType }) => {
   console.log('ind profile userGenres array', userGenres.map((genre) => genre.genre))
   // console.log('userEmail', userEmail)
 
-  function handleDeleteProfile (event, pk) {
-    event.preventDefault()
-    deleteProfile(token, pk)
-      .then(card => history.push('/'))
-  }
+  // function handleDeleteProfile (event, pk) {
+  //   event.preventDefault()
+  //   deleteProfile(token, pk)
+  //     .then(card => history.push('/'))
+  // }
 
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
@@ -105,10 +105,10 @@ const IndProfileSetup = ({ token, userType }) => {
               <button
                 className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                 type='submit'
-                onSubmit={(e) => {
-                  e.preventDefault()
-                  handleDeleteProfile(e, token, history)
-                }}
+                // onSubmit={(e) => {
+                //   e.preventDefault()
+                //   handleDeleteProfile(e, token, history)
+                // }}
               >Submit
               </button>
             </div>
