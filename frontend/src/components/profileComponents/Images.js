@@ -1,4 +1,4 @@
-const Images = () => {
+const Images = ({ image, setImage }) => {
   return (
     <div>
       <label className='form-label'>
