@@ -86,7 +86,7 @@ export function getProfile (token, pk) {
 
 export function deleteProfile (token, pk) {
   return apiUrl
-    .delete(`cards/${pk}/`, {
+    .delete(`users/${pk}/`, {
       headers: {
         Authorization: `Token ${token}`
       }
