@@ -25,6 +25,14 @@ function handleSubmit (event, token, profile, userType, history) {
     })
 }
 
+const statusForApi = (status) => {
+  if (status === 'Solo Artist') {
+    return 'Individual'
+  } else {
+    return status
+  }
+}
+
 const ProfileSetup = ({ token, userType }) => {
   const { type } = useParams()
   const history = useHistory()
@@ -41,7 +49,7 @@ const ProfileSetup = ({ token, userType }) => {
   const [bandSize, setBandSize] = useState(1)
   const [vacancy, setVacancy] = useState(false)
   const [image, setImage] = useState()
-  const [bandMembers, setBandMembers] = useState([])
+  const [bandMembers, setBandMembers] = useState('')
   const [status, setStatus] = useState('Solo Artist')
   const blankWantedInstruments = { id: 1, wanted_instrument: '' }
   const [wantedInstruments, setWantedInstruments] = useState([{ ...blankWantedInstruments }])
@@ -56,13 +64,14 @@ const ProfileSetup = ({ token, userType }) => {
     band_size: bandSize,
     band_location: bandLocation,
     band_members: bandMembers,
-    individualorband: status,
+    individualorband: statusForApi(status),
     wanted_instruments: wantedInstruments.map((int) => int.wanted_instrument),
     wanted_info: wantedInfo
     // followers: followers
   }
 
   console.log('status', status)
+  console.log('statusForApi', statusForApi(status))
 
   function handleDeleteProfile (event, pk) {
     event.preventDefault()

@@ -1,7 +1,5 @@
 
 const Vacancy = ({ vacancy, setVacancy }) => {
-  console.log('vacancy', vacancy)
-
   return (
     <div className='flex items-center'>
       <button

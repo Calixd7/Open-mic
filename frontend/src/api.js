@@ -64,7 +64,7 @@ export function getProfiles (token) {
 }
 
 export function postProfiles (token, profile, type) {
-  return apiUrl.post(`api/${type}profiles/`, profile, {
+  return apiUrl.post('api/userprofiles/', profile, {
     headers: {
       Authorization: `Token ${token}`
     }
