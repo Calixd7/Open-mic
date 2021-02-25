@@ -51,7 +51,7 @@ class Instrument(models.Model):
         return self.name
 
 class WantedInstruments(models.Model):
-    name = models.CharField(max_length=100, unique=True)
+    name = models.CharField(max_length=100, unique=True, blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -72,7 +72,7 @@ class UserProfile(models.Model):
     years_active = models.CharField(max_length=100, blank=True, null=True)
     vacancy = models.BooleanField(default=False)
     individualorband = models.CharField(max_length=100, choices=OPTIONS, null=True)
-    wanted_instruments = models.ManyToManyField(to=WantedInstruments,blank=True)
+    wanted_instruments = models.ManyToManyField(to=WantedInstruments,related_name='users',  blank=True)
     wanted_info = models.CharField(max_length=500, blank=True, null=True )
                                                                             
     

@@ -70,6 +70,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'band_size',  
             'band_location',
             'years_active',
+            'vacancy', 
             "band_members",
             "individualorband",
             "wanted_instruments",
