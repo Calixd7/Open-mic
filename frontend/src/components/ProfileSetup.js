@@ -104,6 +104,7 @@ const ProfileSetup = ({ token, userType }) => {
 
   console.log('status', status)
   console.log('statusForApi', statusForApi(status))
+  console.log('image', image)
 
   function handleDeleteProfile (event, pk) {
     event.preventDefault()
@@ -177,7 +178,7 @@ const ProfileSetup = ({ token, userType }) => {
               </div>
 
               <div className='mt-4'>
-                <Images />
+                <Images image={image} setImage={setImage} />
               </div>
 
             </div>
