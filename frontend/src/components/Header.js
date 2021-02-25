@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import {Transition} from '@headlessui/react'
 import { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+
 
 function Header ({ username, token, setToken, isLoggedIn, pk }) {
   const [showMenu, setShowMenu] = useState(false)
@@ -57,14 +57,14 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
             <div className='flex-shrink-0 flex-items-center'>
               <img
                 className='block lg:hidden h-8 w-auto'
-                src='/'
+                src={logo} alt='OpenMic'
                 alt='logo'
               />
-              <img
+              {/* <img
                 className='hiden lg:block h-8 w-auto'
-                src='/'
+                src={logo}
                 alt='logo'
-              />
+              /> */}
             </div>
             <div className='hidden sm:block sm:ml-6'>
               <div className='flex space-x-4'>

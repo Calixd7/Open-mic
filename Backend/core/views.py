@@ -64,6 +64,20 @@ class UserProfileViewSet(ModelViewSet):
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
 
+    @action(detail=False, methods=['get'])
+    def me (self, request):
+        queryset = UserProfile.objects.filter(user=request.user)
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+    
+
+    
+  
 class UserFollowingViewSet(ModelViewSet):
 
     permission_class = [IsOwnerOrReadOnly]
