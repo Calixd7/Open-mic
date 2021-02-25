@@ -1,5 +1,5 @@
 
-const UserEmail = ({ userEmail, setUserEmail }) => {
+const Email = ({ email, setEmail }) => {
   return (
     <div>
       <label
@@ -17,12 +17,12 @@ const UserEmail = ({ userEmail, setUserEmail }) => {
         </div>
         <input
           type='text'
-          name='user-email'
-          id='user-email'
+          name='email'
+          id='email'
           className='focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md text-sm sm:text-lg border-gray-300 bg-gray-50 border pl-10'
           placeholder='you@example.com'
-          value={userEmail}
-          onChange={(e) => setUserEmail(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </div>
       <p className='mt-1 text-left text-sm text-gray-500 font-normal' id='email-description'>Allows us to notify you if someone messages you.</p>
@@ -30,4 +30,4 @@ const UserEmail = ({ userEmail, setUserEmail }) => {
   )
 }
 
-export default UserEmail
+export default Email

@@ -3,12 +3,11 @@ import createPersistedState from 'use-persisted-state'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
-import BandProfileSetup from './components/BandProfileSetup'
 import Header from './components/Header'
 import Welcome from './components/Welcome'
 import Login from './components/Login'
 import Registration from './components/Registration'
-import IndividualProfileSetup from './components/IndividualProfileSetup'
+import ProfileSetup from './components/ProfileSetup'
 import Connections from './components/Friends'
 import Explore from './components/Explore'
 import { useState } from 'react'
@@ -35,19 +34,16 @@ function App () {
         <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} />
         <main>
           <Switch>
-            <Route path='/registration/:type'>
+            <Route path='/registration/'>
               <Registration setAuth={setAuth} isLoggedIn={isLoggedIn} />
             </Route>
-            <Route path='/login'>
+            <Route path='/login/'>
               <Login setAuth={setAuth} isLoggedIn={isLoggedIn} />
             </Route>
-            <Route path='/setup-profile/user'>
-              <IndividualProfileSetup token={token} isLoggedIn={isLoggedIn} userType={userType} />
+            <Route path='/profile-setup/'>
+              <ProfileSetup token={token} isLoggedIn={isLoggedIn} userType={userType} />
             </Route>
-            <Route path='/setup-profile/band'>
-              <BandProfileSetup token={token} isLoggedIn={isLoggedIn} userType={userType} />
-            </Route>
-            <Route path='/connections'>
+            <Route path='/connections/'>
               <Connections isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/explore/'>

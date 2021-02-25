@@ -1,20 +1,20 @@
 
-const UserName = ({ userName, setUserName }) => {
+const Name = ({ name, setName }) => {
   return (
     <div>
       <label
         className='form-label'
-        htmlFor='userName'
+        htmlFor='name'
       >Name
       </label>
       <input
         className='form-text-input'
         type='text'
-        value={userName}
-        onChange={e => setUserName(e.target.value)}
+        value={name}
+        onChange={e => setName(e.target.value)}
       />
     </div>
   )
 }
 
-export default UserName
+export default Name

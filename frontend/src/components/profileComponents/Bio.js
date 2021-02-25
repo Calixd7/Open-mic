@@ -1,4 +1,4 @@
-const UserBio = ({ userBio, setUserBio }) => {
+const Bio = ({ bio, setBio }) => {
   return (
     <div>
       <label
@@ -10,10 +10,10 @@ const UserBio = ({ userBio, setUserBio }) => {
       <div className='mt-1'>
         <textarea
           className='shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md'
-          name='band-bio'
-          id='band-bio'
+          name='bio'
+          id='bio'
           rows='3'
-          onChange={e => setUserBio(e.target.value)}
+          onChange={e => setBio(e.target.value)}
         />
       </div>
 
@@ -21,4 +21,4 @@ const UserBio = ({ userBio, setUserBio }) => {
   )
 }
 
-export default UserBio
+export default Bio

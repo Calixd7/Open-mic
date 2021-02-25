@@ -6,14 +6,11 @@ function Registration ({ setAuth, isLoggedIn }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState('')
-  const { type } = useParams()
   const history = useHistory()
 
   if (isLoggedIn) {
     return <Redirect to='/explore' />
   }
-
-  console.log('register type', type)
 
   function handleRegistration (event) {
     event.preventDefault()
@@ -21,7 +18,7 @@ function Registration ({ setAuth, isLoggedIn }) {
       .then(data => {
         if (data && data.auth_token) {
           setAuth(username, data.auth_token)
-          history.push(`/setup-profile/${type}`)
+          history.push('/profile-setup')
         }
       })
       .catch(error => {
@@ -77,7 +74,7 @@ function Registration ({ setAuth, isLoggedIn }) {
                 onChange={event => setPassword(event.target.value)}
               />
             </div>
-            <div className='flex items-center justify-between'>
+            {/* <div className='flex items-center justify-between'>
               <div className='flex items-center my-4'>
                 <input
                   id='remember_me'
@@ -92,8 +89,8 @@ function Registration ({ setAuth, isLoggedIn }) {
                   Remember Me
                 </label>
               </div>
-            </div>
-            <div>
+            </div> */}
+            <div className='pt-4'>
               <button
                 type='submit'
                 className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
@@ -115,7 +112,7 @@ function Registration ({ setAuth, isLoggedIn }) {
                     />
                   </svg> */}
                 </span>
-                Complete Your Profile
+                Submit and Start Creating Your Profile
               </button>
             </div>
           </div>
