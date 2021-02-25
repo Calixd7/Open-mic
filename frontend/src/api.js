@@ -75,6 +75,15 @@ export function postProfiles (token, profile, type) {
     })
 }
 
+export function getProfile (token, pk) {
+  return apiUrl.get(`api/userprofiles/${pk}`, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
+}
+
 export function deleteProfile (token, pk) {
   return apiUrl
     .delete(`cards/${pk}/`, {
@@ -83,4 +92,14 @@ export function deleteProfile (token, pk) {
       }
     })
     .then(res => res.data)
+}
+
+export function updateProfile (token, pk) {
+  return apiUrl
+    .put(`api/userprofiles/${pk}/`, {
+      headers: {
+        Authorization: `Token ${token}`
+      }
+    })
+    .then(res => console.log('res.data api', res.data))
 }

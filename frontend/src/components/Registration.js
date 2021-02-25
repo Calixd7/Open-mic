@@ -2,7 +2,7 @@ import { useParams, useHistory, Redirect } from 'react-router-dom'
 import { useState } from 'react'
 import { registration } from '../api'
 
-function Registration ({ setAuth, isLoggedIn }) {
+function Registration ({ setAuth, isLoggedIn, setProfilePk }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState('')
@@ -18,6 +18,7 @@ function Registration ({ setAuth, isLoggedIn }) {
       .then(data => {
         if (data && data.auth_token) {
           setAuth(username, data.auth_token)
+          setProfilePk(data.pk)
           history.push('/profile-setup')
         }
       })
