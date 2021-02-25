@@ -1,5 +1,20 @@
+import { Link, useParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { getProfile } from '../api'
 
-function Message () {
+function Message ({ token }) {
+  const { pk } = useParams()
+  const [card, setCard] = useState(null)
+
+  useEffect(() => {
+    getProfile(token, pk).then(card => setCard(card))
+  }, [token, pk])
+  console.log('card', card)
+
+  if (!card) {
+    return 'loading'
+  }
+
   return (
     <div>
       <section aria-labelledby='notes-title'>
@@ -26,12 +41,12 @@ function Message () {
                     </div>
                     <div>
                       <div className='text-sm'>
-                        <a
-                          href='#'
+                        <Link
+                          to='#'
                           className='font-medium text-gray-900'
                         >
-                          User1
-                        </a>
+                          {card.name}
+                        </Link>
                       </div>
                       <div className='mt-1 text-sm text-gray-700'>
                         <p>
@@ -58,9 +73,9 @@ function Message () {
                   <div className='flex space-x-3'>
                     <div className='flex-shrink-0'>
                       <img
-                        clasName='h-10 w-10 rounded-full'
+                        className='h-10 w-10 rounded-full'
                         src='/'
-                        alt='avatar'
+                        alt=''
                       />
                     </div>
                     <div>
@@ -69,7 +84,7 @@ function Message () {
                           href='#'
                           className='font-medium text-gray-900'
                         >
-                          User 2
+                          {card.name}
                         </a>
                       </div>
                       <div className='mt-1 text-sm text-gray-700'>
@@ -138,7 +153,7 @@ function Message () {
                     </ul>
                   </div>
                 </div> */}
-                {/* <div className='bg-gray-50 px-4 py-6 sm:px-6'>
+                    {/* <div className='bg-gray-50 px-4 py-6 sm:px-6'>
                   <div className='flex space-x-3'>
                     <div className='flex-shrink-0'>
                       <img
@@ -151,7 +166,7 @@ function Message () {
                       <form action='#'>
                         <div>
                           <label
-                            for='comment' className='sr-only'
+                            htmlFor='comment' className='sr-only'
                           >
                             About
                           </label>

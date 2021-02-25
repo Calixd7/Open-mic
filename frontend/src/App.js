@@ -64,7 +64,7 @@ function App () {
             <Route path='/view-card/:pk'>
               <ViewCard token={token} isLoggedIn={isLoggedIn} />
             </Route>
-            <Route path='/message/'>
+            <Route path='/message/:pk'>
               <Message token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/'>
