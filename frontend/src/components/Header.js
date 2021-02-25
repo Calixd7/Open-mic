@@ -1,6 +1,7 @@
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import {Transition} from '@headlessui/react'
 import { useState } from 'react'
+import logo from '../images/logorough.jpg'
 
 
 function Header ({ username, token, setToken, isLoggedIn, pk }) {
