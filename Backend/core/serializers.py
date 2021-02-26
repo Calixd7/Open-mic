@@ -87,6 +87,7 @@ class MessageSerializer(serializers.ModelSerializer):
             "image",
             "subject",
             "content",
+            'read',
             "created_at"
         ]
 
