@@ -1,23 +1,22 @@
 import axios from 'axios'
 import { useState } from 'react'
 
-const Images = (token) => {
-  const [image, setImage] = useState({ preview: '', raw: '' })
-  const [file, setFile] = useState(null)
+const Images = ({ token, image, setImage }) => {
+  // const [file, setFile] = useState(null)
   const handleFile = (event) => {
-    setFile(event.target.files[0])
+    setImage(event.target.files[0])
   }
-  console.log('file', file)
-  const handleUpload = () => {
-    const fd = new FormData()
-    fd.append('image', file)
-    axios.post('https://team-open-mic.herokuapp.com/api/userprofiles/', fd, {
-      headers: {
-        Authorization: `Token ${token}`
-      }
-    })
-      .then(res => console.log('res', res))
-  }
+  // console.log('file', file)
+  // const handleUpload = () => {
+  //   const fd = new FormData()
+  //   fd.append('image', file)
+  //   axios.post('https://team-open-mic.herokuapp.com/api/userprofiles/', fd, {
+  //     headers: {
+  //       Authorization: `Token ${token}`
+  //     }
+  //   })
+  //     .then(res => console.log('res', res))
+  // }
 
   return (
     <div>
@@ -25,10 +24,10 @@ const Images = (token) => {
         type='file'
         onChange={(e) => handleFile(e)}
       />
-      <button onClick={handleUpload}>Upload</button>
+      {/* <button onClick={handleUpload}>Upload</button> */}
     </div>
   )
-
+// ************************************************************
   // return (
   //   <div>
   //     <label className='form-label'>

@@ -17,17 +17,17 @@ import { useParams, useHistory } from 'react-router-dom'
 import { postProfiles, deleteProfile, updateProfile } from '../api'
 import Delete from './Delete'
 
-function handleSubmit (event, token, profile, userType, history) {
-  event.preventDefault()
-  // if (card.pk) {
-  //   updateProfile(token, card.pk, card)
-  // }
+// function handleSubmit (event, token, profile, userType, history) {
+//   event.preventDefault()
+//   // if (card.pk) {
+//   //   updateProfile(token, card.pk, card)
+//   // }
 
-  postProfiles(token, profile, userType)
-    .then(data => {
-      history.push('/explore')
-    })
-}
+//   postProfiles(token, profile, userType)
+//     .then(data => {
+//       history.push('/explore')
+//     })
+// }
 
 const statusForApi = (status) => {
   if (status === 'Solo Artist') {
@@ -55,7 +55,7 @@ const genreForApi = (genres) => {
 
 const instrumentsForApi = (intstruments) => {
   if (intstruments === ['']) {
-    return []
+    return ['']
   } else {
     return intstruments
   }
@@ -76,7 +76,7 @@ const ProfileSetup = ({ token, userType }) => {
   const [bandLocation, setBandLocation] = useState('')
   const [bandSize, setBandSize] = useState(1)
   const [vacancy, setVacancy] = useState(false)
-  const [image, setImage] = useState({ preview: '', raw: '' })
+  const [image, setImage] = useState(null)
   const [bandMembers, setBandMembers] = useState('')
   const [status, setStatus] = useState('Solo Artist')
   const blankWantedInstruments = { id: 1, wanted_instrument: '' }
@@ -102,9 +102,34 @@ const ProfileSetup = ({ token, userType }) => {
     // followers: followers
   }
 
-  console.log('status', status)
-  console.log('statusForApi', statusForApi(status))
-  // console.log('image', image)
+  function handleSubmit (event, token) {
+    event.preventDefault()
+
+    const data = new FormData()
+    data.set('image', image)
+    data.set('bio', bio)
+    data.set('instruments', instrumentsForApi(instruments.map((int) => int.instrument)))
+    data.set('ind_zipcode', zipcode)
+    data.set('genres', genreForApi(genres.map((genre) => genre.genre)))
+    data.set('band_size', bandSize)
+    data.set('band_location', bandLocation)
+    data.set('band_members', bandMembers)
+    data.set('individualorband', statusForApi(status))
+    data.set('wanted_instruments', wantedIntForAPI(vacancy, wantedInstruments.map((int) => int.wanted_instrument)))
+    data.set('wanted_info', wantedInfo)
+    data.set('vacancy', vacancy)
+    // if (card.pk) {
+    //   updateProfile(token, card.pk, card)
+    // }
+
+    postProfiles(token, data)
+      .then(data => {
+        history.push('/explore')
+      })
+  }
+
+  console.log('image', image.name)
+  console.log('token', token)
 
   function handleDeleteProfile (event, pk) {
     event.preventDefault()
