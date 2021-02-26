@@ -63,9 +63,29 @@ export function getProfiles (token) {
     .then(results => results.data)
 }
 
-export function postProfiles (token, profile, type) {
-  return apiUrl.post('api/userprofiles/', profile, {
+// ************************************************
+// ******* POST for data WITHOUT formData *********
+// ************************************************
+
+// export function postProfiles (token, profile, type) {
+//   return apiUrl.post('api/userprofiles/', profile, {
+//     headers: {
+//       Authorization: `Token ${token}`
+//     }
+//   })
+//     .then(res => {
+//       console.log('api data', res.data)
+//       return res.data
+//     })
+// }
+
+// ************************************************
+// ******* POST for data WITH formData *********
+// ************************************************
+export function postProfiles (token, data) {
+  return apiUrl.post('api/userprofiles/', data, {
     headers: {
+      'content-type': 'multipart/form-data',
       Authorization: `Token ${token}`
     }
   })

@@ -26,7 +26,7 @@ function App () {
   const [pk, setPk] = useState(0)
   const isLoggedIn = (username && token)
 
-
+  // console.log('pk', pk)
 
   function setAuth (username, token) {
     setUsername(username)
@@ -64,7 +64,7 @@ function App () {
             <Route path='/view-card/:pk'>
               <ViewCard token={token} isLoggedIn={isLoggedIn} />
             </Route>
-            <Route path='/message/'>
+            <Route path='/message/:pk'>
               <Message token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/'>
