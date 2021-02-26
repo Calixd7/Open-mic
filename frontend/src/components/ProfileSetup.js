@@ -76,7 +76,7 @@ const ProfileSetup = ({ token, userType }) => {
   const [bandLocation, setBandLocation] = useState('')
   const [bandSize, setBandSize] = useState(1)
   const [vacancy, setVacancy] = useState(false)
-  const [image, setImage] = useState()
+  const [image, setImage] = useState({ preview: '', raw: '' })
   const [bandMembers, setBandMembers] = useState('')
   const [status, setStatus] = useState('Solo Artist')
   const blankWantedInstruments = { id: 1, wanted_instrument: '' }
@@ -104,7 +104,7 @@ const ProfileSetup = ({ token, userType }) => {
 
   console.log('status', status)
   console.log('statusForApi', statusForApi(status))
-  console.log('image', image)
+  // console.log('image', image)
 
   function handleDeleteProfile (event, pk) {
     event.preventDefault()
@@ -178,11 +178,11 @@ const ProfileSetup = ({ token, userType }) => {
               </div>
 
               <div className='mt-4'>
-                <Images image={image} setImage={setImage} />
+                <Images image={image} setImage={setImage} token={token} />
               </div>
 
             </div>
-            <div>
+            <div className='mt-4'>
               <button
                 className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                 type='submit'
