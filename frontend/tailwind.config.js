@@ -1,5 +1,6 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 const plugin = require('tailwindcss/plugin')
+const colors = require('tailwindcss/colors')
 
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
@@ -8,6 +9,9 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans]
+      },
+      colors: {
+        cyan: colors.cyan
       }
     }
   },
@@ -15,6 +19,7 @@ module.exports = {
     extend: {}
   },
   plugins: [
-    require('@tailwindcss/forms')
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/line-clamp')
   ]
 }
