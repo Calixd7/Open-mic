@@ -67,8 +67,8 @@ const ProfileSetup = ({ token, userType }) => {
   const [name, setName] = useState('')
   const blankGenre = { id: 1, genre: '' }
   const [genres, setGenres] = useState([{ ...blankGenre }])
-  const blankInstruments = { id: 1, instrument: '' }
-  const [instruments, setInstruments] = useState([{ ...blankInstruments }])
+  // const blankInstruments = { id: 1, instrument: '' }
+  const [instruments, setInstruments] = useState([])
   const [bio, setBio] = useState('')
   const [zipcode, setZipcode] = useState(0)
   const [email, setEmail] = useState('')
@@ -188,7 +188,7 @@ const ProfileSetup = ({ token, userType }) => {
               </div>
 
               <div className='mt-4'>
-                <Instruments blankInstruments={blankInstruments} instruments={instruments} setInstruments={setInstruments} status={status} />
+                <Instruments instruments={instruments} setInstruments={setInstruments} status={status} />
               </div>
 
               {status === 'Band' &&
