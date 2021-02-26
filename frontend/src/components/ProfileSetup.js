@@ -86,7 +86,7 @@ const ProfileSetup = ({ token, userType }) => {
     image: image,
     bio: bio,
     name: name,
-    instruments: instrumentsForApi(instruments.map((int) => int.instrument)),
+    // instruments: instrumentsForApi(instruments.map((int) => int.instrument)),
     // instruments: instruments.map((int) => int.instrument),
     ind_zipcode: zipcode,
     genres: genreForApi(genres.map((genre) => genre.genre)),
@@ -109,7 +109,7 @@ const ProfileSetup = ({ token, userType }) => {
     data.set('image', image)
     data.set('bio', bio)
     data.set('name', name)
-    data.set('instruments', instrumentsForApi(instruments.map((int) => int.instrument)))
+    data.set('instruments', instruments.map(int => int.instrument))
     data.set('ind_zipcode', zipcode)
     data.set('genres', genreForApi(genres.map((genre) => genre.genre)))
     data.set('band_size', bandSize)
@@ -122,6 +122,7 @@ const ProfileSetup = ({ token, userType }) => {
     // if (card.pk) {
     //   updateProfile(token, card.pk, card)
     // }
+    console.log('data', data)
 
     postProfiles(token, data)
       .then(data => {
@@ -135,6 +136,16 @@ const ProfileSetup = ({ token, userType }) => {
       .then(card => history.push('/'))
   }
 
+  const test = (instruments) => {
+    const testData = new FormData()
+    testData.set('instrument', instruments)
+    console.log('test', testData)
+  }
+
+  test(instruments)
+  // console.log('instruments.map', instruments.map(int => int.instrument))
+  console.log('instruments', instruments)
+
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-md w-full space-y-8'>
@@ -146,7 +157,7 @@ const ProfileSetup = ({ token, userType }) => {
             className='flex flex-col'
             onSubmit={(e) => {
               e.preventDefault()
-              handleSubmit(e, token, pendingProfile, userType, history)
+              handleSubmit(e, token, history)
             }}
           >
             <div className='flex flex-col'>
