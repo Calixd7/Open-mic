@@ -39,7 +39,7 @@ const statusForApi = (status) => {
 
 const wantedIntForAPI = (vacancy, ints) => {
   if (vacancy === false) {
-    return []
+    return ['none']
   } else {
     return ints
   }
@@ -108,6 +108,7 @@ const ProfileSetup = ({ token, userType }) => {
     const data = new FormData()
     data.set('image', image)
     data.set('bio', bio)
+    data.set('name', name)
     data.set('instruments', instrumentsForApi(instruments.map((int) => int.instrument)))
     data.set('ind_zipcode', zipcode)
     data.set('genres', genreForApi(genres.map((genre) => genre.genre)))
@@ -127,9 +128,6 @@ const ProfileSetup = ({ token, userType }) => {
         history.push('/explore')
       })
   }
-
-  console.log('image', image.name)
-  console.log('token', token)
 
   function handleDeleteProfile (event, pk) {
     event.preventDefault()
