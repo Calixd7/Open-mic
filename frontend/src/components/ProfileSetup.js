@@ -17,17 +17,17 @@ import { useParams, useHistory } from 'react-router-dom'
 import { postProfiles, deleteProfile, updateProfile } from '../api'
 import Delete from './Delete'
 
-function handleSubmit (event, token, profile, userType, history) {
-  event.preventDefault()
-  // if (card.pk) {
-  //   updateProfile(token, card.pk, card)
-  // }
+// function handleSubmit (event, token, profile, userType, history) {
+//   event.preventDefault()
+//   // if (card.pk) {
+//   //   updateProfile(token, card.pk, card)
+//   // }
 
-  postProfiles(token, profile, userType)
-    .then(data => {
-      history.push('/explore')
-    })
-}
+//   postProfiles(token, profile, userType)
+//     .then(data => {
+//       history.push('/explore')
+//     })
+// }
 
 const statusForApi = (status) => {
   if (status === 'Solo Artist') {
@@ -39,7 +39,7 @@ const statusForApi = (status) => {
 
 const wantedIntForAPI = (vacancy, ints) => {
   if (vacancy === false) {
-    return []
+    return ['none']
   } else {
     return ints
   }
@@ -55,7 +55,7 @@ const genreForApi = (genres) => {
 
 const instrumentsForApi = (intstruments) => {
   if (intstruments === ['']) {
-    return []
+    return ['']
   } else {
     return intstruments
   }
@@ -76,7 +76,7 @@ const ProfileSetup = ({ token, userType }) => {
   const [bandLocation, setBandLocation] = useState('')
   const [bandSize, setBandSize] = useState(1)
   const [vacancy, setVacancy] = useState(false)
-  const [image, setImage] = useState()
+  const [image, setImage] = useState(null)
   const [bandMembers, setBandMembers] = useState('')
   const [status, setStatus] = useState('Solo Artist')
   const blankWantedInstruments = { id: 1, wanted_instrument: '' }
@@ -102,9 +102,32 @@ const ProfileSetup = ({ token, userType }) => {
     // followers: followers
   }
 
-  console.log('status', status)
-  console.log('statusForApi', statusForApi(status))
-  console.log('image', image)
+  function handleSubmit (event, token) {
+    event.preventDefault()
+
+    const data = new FormData()
+    data.set('image', image)
+    data.set('bio', bio)
+    data.set('name', name)
+    data.set('instruments', instrumentsForApi(instruments.map((int) => int.instrument)))
+    data.set('ind_zipcode', zipcode)
+    data.set('genres', genreForApi(genres.map((genre) => genre.genre)))
+    data.set('band_size', bandSize)
+    data.set('band_location', bandLocation)
+    data.set('band_members', bandMembers)
+    data.set('individualorband', statusForApi(status))
+    data.set('wanted_instruments', wantedIntForAPI(vacancy, wantedInstruments.map((int) => int.wanted_instrument)))
+    data.set('wanted_info', wantedInfo)
+    data.set('vacancy', vacancy)
+    // if (card.pk) {
+    //   updateProfile(token, card.pk, card)
+    // }
+
+    postProfiles(token, data)
+      .then(data => {
+        history.push('/explore')
+      })
+  }
 
   function handleDeleteProfile (event, pk) {
     event.preventDefault()
@@ -178,11 +201,11 @@ const ProfileSetup = ({ token, userType }) => {
               </div>
 
               <div className='mt-4'>
-                <Images image={image} setImage={setImage} />
+                <Images image={image} setImage={setImage} token={token} />
               </div>
 
             </div>
-            <div>
+            <div className='mt-4'>
               <button
                 className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                 type='submit'

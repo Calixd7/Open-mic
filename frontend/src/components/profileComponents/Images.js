@@ -1,4 +1,20 @@
-const Images = ({ image, setImage }) => {
+import axios from 'axios'
+import { useState } from 'react'
+
+const Images = ({ token, image, setImage }) => {
+  const handleFile = (event) => {
+    setImage(event.target.files[0])
+  }
+
+  // return (
+  //   <div>
+  //     <input
+  //       type='file'
+  //       onChange={(e) => handleFile(e)}
+  //     />
+  //   </div>
+  // )
+
   return (
     <div>
       <label className='form-label'>
@@ -23,6 +39,7 @@ const Images = ({ image, setImage }) => {
                 name='file-upload'
                 type='file'
                 className='sr-only'
+                onChange={(e) => handleFile(e)}
               />
             </label>
             <p className='pl-1'>or drag and drop</p>

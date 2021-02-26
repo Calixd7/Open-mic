@@ -19,7 +19,7 @@ function Card ({ cards, profile }) {
             <div className='flex-1 flex flex-col p-8'>
               <img
                 className='w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full'
-                src='/'
+                src={card.image}
                 alt='avatar'
               />
               <h3 className='mt-6 text-gray-900 text-sm font-medium'>{card.name}</h3>
