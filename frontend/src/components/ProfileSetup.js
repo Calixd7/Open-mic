@@ -100,21 +100,8 @@ const ProfileSetup = ({ token, userType }) => {
 
     const formData = new FormData()
     formData.set('image', image)
-    // data.set('bio', bio)
-    // data.set('name', name)
-    // data.set('instruments', instruments)
-    // data.set('ind_zipcode', zipcode)
-    // data.set('genres', genreForApi(genres.map((genre) => genre.genre)))
-    // data.set('band_size', bandSize)
-    // data.set('band_location', bandLocation)
-    // data.set('band_members', bandMembers)
-    // data.set('individualorband', statusForApi(status))
-    // data.set('wanted_instruments', wantedIntForAPI(vacancy, wantedInstruments.map((int) => int.wanted_instrument)))
-    // data.set('wanted_info', wantedInfo)
-    // data.set('vacancy', vacancy)
+
     console.log('pending profile', pendingProfile)
-    console.log('formData', formData)
-    console.log('image', image)
 
     postProfiles(token, pendingProfile)
       .then(data => {

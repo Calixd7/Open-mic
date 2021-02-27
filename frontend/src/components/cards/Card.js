@@ -8,6 +8,14 @@ function Card ({ cards, profile }) {
   const history = useHistory()
   console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
 
+  const properStatus = (card) => {
+    if (card.individualorband === 'Individual') {
+      return 'Solo Artist'
+    } else {
+      return card.individualorband
+    }
+  }
+
   return (
     <div>
 
@@ -23,7 +31,7 @@ function Card ({ cards, profile }) {
                 alt='avatar'
               />
               <h3 className='mt-6 text-gray-900 text-sm font-medium'>{card.name}</h3>
-              <dl className='mt-1 flex-grow flex flex-col justify-between'>{card.individualorband}</dl>
+              <dl className='mt-1 flex-grow flex flex-col justify-between'>{properStatus(card)}</dl>
               <dt className='sr-only'>Solo Artist</dt>
               <dd className='text-gray-500 text-sm'>{card.genres}</dd>
               <span className='flex flex-1 justify-center'>
