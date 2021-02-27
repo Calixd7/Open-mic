@@ -26,7 +26,7 @@ function Card ({ cards, profile }) {
               <dl className='mt-1 flex-grow flex flex-col justify-between'>{card.individualorband}</dl>
               <dt className='sr-only'>Solo Artist</dt>
               <dd className='text-gray-500 text-sm'>{card.genres}</dd>
-              <span className='flex flex-1 border border-black border-solid '>
+              <span className='flex flex-1 justify-center'>
                 {card.instruments.map(int => (
 
                   <dd key={int} className='text-gray-500 text-sm'>{int}</dd>

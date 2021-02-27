@@ -67,8 +67,8 @@ export function getProfiles (token) {
 // ******* POST for data WITHOUT formData *********
 // ************************************************
 
-export function postProfiles (token, type) {
-  return apiUrl.post('api/userprofiles/', {
+export function postProfiles (token, profile) {
+  return apiUrl.post('api/userprofiles/', profile, {
     headers: {
       Authorization: `Token ${token}`
     }
