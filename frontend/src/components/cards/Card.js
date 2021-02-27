@@ -19,7 +19,7 @@ function Card ({ cards, profile }) {
             <div className='flex-1 flex flex-col p-8'>
               <img
                 className='w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full'
-                src={card.image}
+                src='/'
                 alt='avatar'
               />
               <h3 className='mt-6 text-gray-900 text-sm font-medium'>{card.name}</h3>
@@ -62,7 +62,7 @@ function Card ({ cards, profile }) {
                           type='button'
                           className='justify-center inline-flex flex-1 items-center px-4 py-2 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                           onClick={() => history.push(`message/${card.pk}`)}
-                        >
+                       >
 
                           <span><MessageBtn card={card} /></span>
                         </button>
