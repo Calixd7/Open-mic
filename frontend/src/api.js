@@ -80,22 +80,7 @@ export function postProfiles (token, profile) {
 }
 
 // ************************************************
-// ******* POST for data WITH formData *********
-// ************************************************
-// export function postProfiles (token, data) {
-//   return apiUrl.post('api/userprofiles/', data, {
-//     headers: {
-//       'content-type': 'multipart/form-data',
-//       Authorization: `Token ${token}`
-//     }
-//   })
-//     .then(res => {
-//       console.log('api data', res.data)
-//       return res.data
-//     })
-// }
-// ************************************************
-// ******* PUT form Data for image upload *********
+// ******* PUT formData for image upload *********
 // ************************************************
 export function uploadImage (token, image, pk) {
   return apiUrl.put(`api/userprofiles/${pk}/`, image, {
