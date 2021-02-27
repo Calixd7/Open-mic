@@ -14,7 +14,7 @@ import Status from './profileComponents/Status'
 import WantedInstruments from './profileComponents/WantedInstruments'
 import WantedInfo from './profileComponents/WantedInfo'
 import { useParams, useHistory } from 'react-router-dom'
-import { postProfiles, deleteProfile, updateProfile } from '../api'
+import { postProfiles, deleteProfile, updateProfile, uploadImage } from '../api'
 import Delete from './Delete'
 
 // function handleSubmit (event, token, profile, userType, history) {
@@ -37,17 +37,17 @@ const statusForApi = (status) => {
   }
 }
 
-const wantedIntForAPI = (vacancy, ints) => {
+const wantedIntForAPI = (vacancy, wantedInst) => {
   if (vacancy === false) {
     return ['none']
   } else {
-    return ints
+    return wantedInst
   }
 }
 
 const genreForApi = (genres) => {
   if (genres === ['']) {
-    return []
+    return ['none']
   } else {
     return genres
   }
@@ -55,7 +55,7 @@ const genreForApi = (genres) => {
 
 const instrumentsForApi = (intstruments) => {
   if (intstruments === ['']) {
-    return ['']
+    return ['none']
   } else {
     return intstruments
   }
@@ -65,10 +65,8 @@ const ProfileSetup = ({ token, userType }) => {
   const { type } = useParams()
   const history = useHistory()
   const [name, setName] = useState('')
-  const blankGenre = { id: 1, genre: '' }
-  const [genres, setGenres] = useState([{ ...blankGenre }])
-  const blankInstruments = { id: 1, instrument: '' }
-  const [instruments, setInstruments] = useState([{ ...blankInstruments }])
+  const [genres, setGenres] = useState([])
+  const [instruments, setInstruments] = useState([])
   const [bio, setBio] = useState('')
   const [zipcode, setZipcode] = useState(0)
   const [email, setEmail] = useState('')
@@ -77,55 +75,38 @@ const ProfileSetup = ({ token, userType }) => {
   const [bandSize, setBandSize] = useState(1)
   const [vacancy, setVacancy] = useState(false)
   const [image, setImage] = useState(null)
-  const [bandMembers, setBandMembers] = useState('')
   const [status, setStatus] = useState('Solo Artist')
-  const blankWantedInstruments = { id: 1, wanted_instrument: '' }
-  const [wantedInstruments, setWantedInstruments] = useState([{ ...blankWantedInstruments }])
+  const [wantedInstruments, setWantedInstruments] = useState([])
   const [wantedInfo, setWantedInfo] = useState('')
   const pendingProfile = {
-    image: image,
+    // image: image,
     bio: bio,
     name: name,
-    instruments: instrumentsForApi(instruments.map((int) => int.instrument)),
-    // instruments: instruments.map((int) => int.instrument),
+    instruments: instrumentsForApi(instruments),
     ind_zipcode: zipcode,
-    genres: genreForApi(genres.map((genre) => genre.genre)),
-    // genres: genres.map((genre) => genre.genre),
+    genres: genreForApi(genres),
     band_size: bandSize,
     band_location: bandLocation,
-    band_members: bandMembers,
     individualorband: statusForApi(status),
-    // wanted_instruments: wantedInstruments.map((int) => int.wanted_instrument),
-    wanted_instruments: wantedIntForAPI(vacancy, wantedInstruments.map((int) => int.wanted_instrument)),
+    wanted_instruments: wantedIntForAPI(vacancy, wantedInstruments),
     wanted_info: wantedInfo,
     vacancy: vacancy
     // followers: followers
   }
 
+  console.log('token', token)
   function handleSubmit (event, token) {
     event.preventDefault()
 
-    const data = new FormData()
-    data.set('image', image)
-    data.set('bio', bio)
-    data.set('name', name)
-    data.set('instruments', instrumentsForApi(instruments.map((int) => int.instrument)))
-    data.set('ind_zipcode', zipcode)
-    data.set('genres', genreForApi(genres.map((genre) => genre.genre)))
-    data.set('band_size', bandSize)
-    data.set('band_location', bandLocation)
-    data.set('band_members', bandMembers)
-    data.set('individualorband', statusForApi(status))
-    data.set('wanted_instruments', wantedIntForAPI(vacancy, wantedInstruments.map((int) => int.wanted_instrument)))
-    data.set('wanted_info', wantedInfo)
-    data.set('vacancy', vacancy)
-    // if (card.pk) {
-    //   updateProfile(token, card.pk, card)
-    // }
+    const formData = new FormData()
+    formData.set('image', image)
 
-    postProfiles(token, data)
+    console.log('pending profile', pendingProfile)
+
+    postProfiles(token, pendingProfile)
       .then(data => {
-        history.push('/explore')
+        uploadImage(token, formData, data.pk)
+          .then(data => history.push('/explore'))
       })
   }
 
@@ -146,7 +127,7 @@ const ProfileSetup = ({ token, userType }) => {
             className='flex flex-col'
             onSubmit={(e) => {
               e.preventDefault()
-              handleSubmit(e, token, pendingProfile, userType, history)
+              handleSubmit(e, token, history)
             }}
           >
             <div className='flex flex-col'>
@@ -167,17 +148,17 @@ const ProfileSetup = ({ token, userType }) => {
                 <Site site={site} setSite={setSite} />
               </div>
 
-              {status === 'Band' &&
+              {/* {status === 'Band' &&
                 <div className='mt-4'>
                   <BandSize bandSize={bandSize} setBandSize={setBandSize} />
-                </div>}
+                </div>} */}
 
-              <div className='mt-4'>
-                <Genre blankGenre={blankGenre} genres={genres} setGenres={setGenres} status={status} />
+              <div className='mt-4 h-60'>
+                <Genre genres={genres} setGenres={setGenres} status={status} />
               </div>
 
-              <div className='mt-4'>
-                <Instruments blankInstruments={blankInstruments} instruments={instruments} setInstruments={setInstruments} status={status} />
+              <div className='mt-4 h-72'>
+                <Instruments instruments={instruments} setInstruments={setInstruments} status={status} />
               </div>
 
               {status === 'Band' &&
@@ -187,8 +168,8 @@ const ProfileSetup = ({ token, userType }) => {
 
               {vacancy === true &&
                 <span>
-                  <div className='mt-4'>
-                    <WantedInstruments blankWantedInstruments={blankWantedInstruments} wantedInstruments={wantedInstruments} setWantedInstruments={setWantedInstruments} />
+                  <div className='mt-4 h-60'>
+                    <WantedInstruments wantedInstruments={wantedInstruments} setWantedInstruments={setWantedInstruments} />
                   </div>
 
                   <div className='mt-4'>
@@ -196,7 +177,7 @@ const ProfileSetup = ({ token, userType }) => {
                   </div>
                 </span>}
 
-              <div className='mt-4'>
+              <div className='mt-10'>
                 <Bio bio={bio} setBio={setBio} status={status} />
               </div>
 

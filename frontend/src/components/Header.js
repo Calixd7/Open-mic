@@ -130,7 +130,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
                 // to='view-profile/'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
                 role='menuitem'
-                onClick={() => history.push(`view-profile/${pk}`)}
+                onClick={() => {history.push(`view-profile/${pk}`); setShowProfile(false)}}
               >
                 Your Profile
               </div>
@@ -140,13 +140,12 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
               >
                 Settings
               </Link>
-              {/* <div>  */}
                 {isLoggedIn 
                 ? (                
                   <Link
                 to='/'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
-                onClick={() => setToken(null)}
+                onClick={() => {setToken(null); setShowProfile(false)}}
               >
                 Sign Out
               </Link>
@@ -155,6 +154,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
                 <Link
                 to='/login'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+                onClick={() => setShowProfile(false)}
               >
                 Sign In
               </Link>

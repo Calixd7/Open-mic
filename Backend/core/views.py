@@ -1,9 +1,7 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.views import APIView
-from rest_framework.generics import ListAPIView
-from core.models import User, UserProfile, UserFollowing
-from core.serializers import UserSerializer, UserProfileSerializer, UserFollowingSerializer
+from core.models import User, UserProfile, UserFollowing, Messages
+from core.serializers import UserSerializer, UserProfileSerializer, UserFollowingSerializer, MessageSerializer
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 from rest_framework import permissions
@@ -13,6 +11,7 @@ from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_MET
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import FileUploadParser
+from django.core.exceptions import PermissionDenied
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
      
@@ -75,8 +74,21 @@ class UserProfileViewSet(ModelViewSet):
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
     
+class MessageViewSet(ModelViewSet):
+    serializer_class = MessageSerializer
 
-    
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return  Messages.objects.all() 
+
+    def perform_create(self, serializer):
+        if not self.request.user.is_authenticated:
+            raise PermissionDenied()
+        serializer.save(sender=self.request.user)
+        
+
+       
   
 class UserFollowingViewSet(ModelViewSet):
 

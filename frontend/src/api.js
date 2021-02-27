@@ -67,30 +67,30 @@ export function getProfiles (token) {
 // ******* POST for data WITHOUT formData *********
 // ************************************************
 
-// export function postProfiles (token, profile, type) {
-//   return apiUrl.post('api/userprofiles/', profile, {
-//     headers: {
-//       Authorization: `Token ${token}`
-//     }
-//   })
-//     .then(res => {
-//       console.log('api data', res.data)
-//       return res.data
-//     })
-// }
+export function postProfiles (token, profile) {
+  return apiUrl.post('api/userprofiles/', profile, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => {
+      console.log('api data', res.data)
+      return res.data
+    })
+}
 
 // ************************************************
-// ******* POST for data WITH formData *********
+// ******* PUT formData for image upload *********
 // ************************************************
-export function postProfiles (token, data) {
-  return apiUrl.post('api/userprofiles/', data, {
+export function uploadImage (token, image, pk) {
+  return apiUrl.put(`api/userprofiles/${pk}/`, image, {
     headers: {
       'content-type': 'multipart/form-data',
       Authorization: `Token ${token}`
     }
   })
     .then(res => {
-      console.log('api data', res.data)
+      console.log('image api return data', res.data)
       return res.data
     })
 }
