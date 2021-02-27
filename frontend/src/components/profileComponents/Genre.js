@@ -43,7 +43,7 @@ const Genre = ({ genres, setGenres, status }) => {
 
   return (
     <div className='flex justify-between'>
-      <div>
+      <div className='mr-4'>
         <label id='listbox-label' className='form-label'>
           {status === 'Band'
             ? 'What genres does your band play?'
@@ -74,7 +74,7 @@ const Genre = ({ genres, setGenres, status }) => {
             leaveFrom='opacity-100'
             leaveTo='opacity-0'
           >
-            <div className='absolute mt-1 w-full rounded-md bg-white shadow-lg'>
+            <div className='absolute mt-1 w-full rounded-md bg-gray-50 shadow-lg'>
               <ul tabIndex='-1' role='listbox' aria-labelledby='listbox-label' aria-activedescendant='listbox-item-3' className='max-h-40 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm'>
                 {GENRES.map((genre, idx) => (
                   <li

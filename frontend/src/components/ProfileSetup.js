@@ -37,29 +37,29 @@ const statusForApi = (status) => {
   }
 }
 
-const wantedIntForAPI = (vacancy, ints) => {
-  if (vacancy === false) {
-    return ['none']
-  } else {
-    return ints
-  }
-}
+// const wantedIntForAPI = (vacancy, ints) => {
+//   if (vacancy === false) {
+//     return ['none']
+//   } else {
+//     return ints
+//   }
+// }
 
-const genreForApi = (genres) => {
-  if (genres === ['']) {
-    return []
-  } else {
-    return genres
-  }
-}
+// const genreForApi = (genres) => {
+//   if (genres === ['']) {
+//     return []
+//   } else {
+//     return genres
+//   }
+// }
 
-const instrumentsForApi = (intstruments) => {
-  if (intstruments === ['']) {
-    return ['']
-  } else {
-    return intstruments
-  }
-}
+// const instrumentsForApi = (intstruments) => {
+//   if (intstruments === ['']) {
+//     return ['']
+//   } else {
+//     return intstruments
+//   }
+// }
 
 const ProfileSetup = ({ token, userType }) => {
   const { type } = useParams()
@@ -76,8 +76,7 @@ const ProfileSetup = ({ token, userType }) => {
   const [vacancy, setVacancy] = useState(false)
   const [image, setImage] = useState(null)
   const [status, setStatus] = useState('Solo Artist')
-  const blankWantedInstruments = { id: 1, wanted_instrument: '' }
-  const [wantedInstruments, setWantedInstruments] = useState([{ ...blankWantedInstruments }])
+  const [wantedInstruments, setWantedInstruments] = useState([])
   const [wantedInfo, setWantedInfo] = useState('')
   const pendingProfile = {
     image: image,
@@ -89,8 +88,7 @@ const ProfileSetup = ({ token, userType }) => {
     band_size: bandSize,
     band_location: bandLocation,
     individualorband: statusForApi(status),
-    // wanted_instruments: wantedInstruments.map((int) => int.wanted_instrument),
-    wanted_instruments: wantedIntForAPI(vacancy, wantedInstruments.map((int) => int.wanted_instrument)),
+    wanted_instruments: wantedInstruments,
     wanted_info: wantedInfo,
     vacancy: vacancy
     // followers: followers
@@ -134,16 +132,6 @@ const ProfileSetup = ({ token, userType }) => {
       .then(card => history.push('/'))
   }
 
-  const test = (instruments) => {
-    const testData = new FormData()
-    testData.set('instrument', instruments)
-    console.log('test', testData)
-  }
-
-  test(instruments)
-  // console.log('instruments.map', instruments.map(int => int.instrument))
-  console.log('instruments', instruments)
-
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-md w-full space-y-8'>
@@ -176,16 +164,16 @@ const ProfileSetup = ({ token, userType }) => {
                 <Site site={site} setSite={setSite} />
               </div>
 
-              {status === 'Band' &&
+              {/* {status === 'Band' &&
                 <div className='mt-4'>
                   <BandSize bandSize={bandSize} setBandSize={setBandSize} />
-                </div>}
+                </div>} */}
 
               <div className='mt-4 h-60'>
                 <Genre genres={genres} setGenres={setGenres} status={status} />
               </div>
 
-              <div className='mt-4 h-60'>
+              <div className='mt-4 h-72'>
                 <Instruments instruments={instruments} setInstruments={setInstruments} status={status} />
               </div>
 
@@ -196,8 +184,8 @@ const ProfileSetup = ({ token, userType }) => {
 
               {vacancy === true &&
                 <span>
-                  <div className='mt-4'>
-                    <WantedInstruments blankWantedInstruments={blankWantedInstruments} wantedInstruments={wantedInstruments} setWantedInstruments={setWantedInstruments} />
+                  <div className='mt-4 h-60'>
+                    <WantedInstruments wantedInstruments={wantedInstruments} setWantedInstruments={setWantedInstruments} />
                   </div>
 
                   <div className='mt-4'>
