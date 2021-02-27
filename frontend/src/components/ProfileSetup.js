@@ -65,9 +65,7 @@ const ProfileSetup = ({ token, userType }) => {
   const { type } = useParams()
   const history = useHistory()
   const [name, setName] = useState('')
-  const blankGenre = { id: 1, genre: '' }
-  const [genres, setGenres] = useState([{ ...blankGenre }])
-  // const blankInstruments = { id: 1, instrument: '' }
+  const [genres, setGenres] = useState([])
   const [instruments, setInstruments] = useState([])
   const [bio, setBio] = useState('')
   const [zipcode, setZipcode] = useState(0)
@@ -77,7 +75,6 @@ const ProfileSetup = ({ token, userType }) => {
   const [bandSize, setBandSize] = useState(1)
   const [vacancy, setVacancy] = useState(false)
   const [image, setImage] = useState(null)
-  const [bandMembers, setBandMembers] = useState('')
   const [status, setStatus] = useState('Solo Artist')
   const blankWantedInstruments = { id: 1, wanted_instrument: '' }
   const [wantedInstruments, setWantedInstruments] = useState([{ ...blankWantedInstruments }])
@@ -87,13 +84,10 @@ const ProfileSetup = ({ token, userType }) => {
     bio: bio,
     name: name,
     instruments: instruments,
-    // instruments: instruments.map((int) => int.instrument),
     ind_zipcode: zipcode,
-    genres: genreForApi(genres.map((genre) => genre.genre)),
-    // genres: genres.map((genre) => genre.genre),
+    genres: genres,
     band_size: bandSize,
     band_location: bandLocation,
-    band_members: bandMembers,
     individualorband: statusForApi(status),
     // wanted_instruments: wantedInstruments.map((int) => int.wanted_instrument),
     wanted_instruments: wantedIntForAPI(vacancy, wantedInstruments.map((int) => int.wanted_instrument)),
@@ -187,11 +181,11 @@ const ProfileSetup = ({ token, userType }) => {
                   <BandSize bandSize={bandSize} setBandSize={setBandSize} />
                 </div>}
 
-              <div className='mt-4'>
-                <Genre blankGenre={blankGenre} genres={genres} setGenres={setGenres} status={status} />
+              <div className='mt-4 h-60'>
+                <Genre genres={genres} setGenres={setGenres} status={status} />
               </div>
 
-              <div className='mt-4'>
+              <div className='mt-4 h-60'>
                 <Instruments instruments={instruments} setInstruments={setInstruments} status={status} />
               </div>
 
