@@ -94,6 +94,21 @@ export function postProfiles (token, profile) {
 //       return res.data
 //     })
 // }
+// ************************************************
+// ******* PUT form Data for image upload *********
+// ************************************************
+export function uploadImage (token, image, pk) {
+  return apiUrl.put(`api/userprofiles/${pk}/`, image, {
+    headers: {
+      'content-type': 'multipart/form-data',
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => {
+      console.log('image api return data', res.data)
+      return res.data
+    })
+}
 
 export function getProfile (token, pk) {
   return apiUrl.get(`api/userprofiles/${pk}`, {
