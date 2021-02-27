@@ -67,8 +67,8 @@ const ProfileSetup = ({ token, userType }) => {
   const [name, setName] = useState('')
   const blankGenre = { id: 1, genre: '' }
   const [genres, setGenres] = useState([{ ...blankGenre }])
-  const blankInstruments = { id: 1, instrument: '' }
-  const [instruments, setInstruments] = useState([{ ...blankInstruments }])
+  // const blankInstruments = { id: 1, instrument: '' }
+  const [instruments, setInstruments] = useState([])
   const [bio, setBio] = useState('')
   const [zipcode, setZipcode] = useState(0)
   const [email, setEmail] = useState('')
@@ -86,7 +86,7 @@ const ProfileSetup = ({ token, userType }) => {
     image: image,
     bio: bio,
     name: name,
-    instruments: instrumentsForApi(instruments.map((int) => int.instrument)),
+    instruments: instruments,
     // instruments: instruments.map((int) => int.instrument),
     ind_zipcode: zipcode,
     genres: genreForApi(genres.map((genre) => genre.genre)),
@@ -102,29 +102,34 @@ const ProfileSetup = ({ token, userType }) => {
     // followers: followers
   }
 
+  console.log('token', token)
   function handleSubmit (event, token) {
     event.preventDefault()
 
-    const data = new FormData()
-    data.set('image', image)
-    data.set('bio', bio)
-    data.set('name', name)
-    data.set('instruments', instrumentsForApi(instruments.map((int) => int.instrument)))
-    data.set('ind_zipcode', zipcode)
-    data.set('genres', genreForApi(genres.map((genre) => genre.genre)))
-    data.set('band_size', bandSize)
-    data.set('band_location', bandLocation)
-    data.set('band_members', bandMembers)
-    data.set('individualorband', statusForApi(status))
-    data.set('wanted_instruments', wantedIntForAPI(vacancy, wantedInstruments.map((int) => int.wanted_instrument)))
-    data.set('wanted_info', wantedInfo)
-    data.set('vacancy', vacancy)
+    // const data = new FormData()
+    // data.set('image', image)
+    // data.set('bio', bio)
+    // data.set('name', name)
+    // data.set('instruments', instruments)
+    // data.set('ind_zipcode', zipcode)
+    // data.set('genres', genreForApi(genres.map((genre) => genre.genre)))
+    // data.set('band_size', bandSize)
+    // data.set('band_location', bandLocation)
+    // data.set('band_members', bandMembers)
+    // data.set('individualorband', statusForApi(status))
+    // data.set('wanted_instruments', wantedIntForAPI(vacancy, wantedInstruments.map((int) => int.wanted_instrument)))
+    // data.set('wanted_info', wantedInfo)
+    // data.set('vacancy', vacancy)
     // if (card.pk) {
     //   updateProfile(token, card.pk, card)
     // }
+    console.log('data', pendingProfile)
 
-    postProfiles(token, data)
+    postProfiles(token, pendingProfile)
       .then(data => {
+        // updateProfile(data.id, image)
+        // .then()
+        // trigger update with .then and then history
         history.push('/explore')
       })
   }
@@ -134,6 +139,16 @@ const ProfileSetup = ({ token, userType }) => {
     deleteProfile(token, pk)
       .then(card => history.push('/'))
   }
+
+  const test = (instruments) => {
+    const testData = new FormData()
+    testData.set('instrument', instruments)
+    console.log('test', testData)
+  }
+
+  test(instruments)
+  // console.log('instruments.map', instruments.map(int => int.instrument))
+  console.log('instruments', instruments)
 
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
@@ -146,7 +161,7 @@ const ProfileSetup = ({ token, userType }) => {
             className='flex flex-col'
             onSubmit={(e) => {
               e.preventDefault()
-              handleSubmit(e, token, pendingProfile, userType, history)
+              handleSubmit(e, token, history)
             }}
           >
             <div className='flex flex-col'>
@@ -177,7 +192,7 @@ const ProfileSetup = ({ token, userType }) => {
               </div>
 
               <div className='mt-4'>
-                <Instruments blankInstruments={blankInstruments} instruments={instruments} setInstruments={setInstruments} status={status} />
+                <Instruments instruments={instruments} setInstruments={setInstruments} status={status} />
               </div>
 
               {status === 'Band' &&
@@ -196,7 +211,7 @@ const ProfileSetup = ({ token, userType }) => {
                   </div>
                 </span>}
 
-              <div className='mt-4'>
+              <div className='mt-10'>
                 <Bio bio={bio} setBio={setBio} status={status} />
               </div>
 
