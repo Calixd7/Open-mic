@@ -11,6 +11,7 @@ function Explore ({ token }) {
 
   console.log('profile', profile)
   console.log('cards', cards)
+  console.log('token', token)
 
   useEffect(() => {
     getProfiles(token).then(cards => setCards(cards))

@@ -115,7 +115,7 @@ const ProfileSetup = ({ token, userType }) => {
     // if (card.pk) {
     //   updateProfile(token, card.pk, card)
     // }
-    console.log('data', pendingProfile)
+    console.log('pending profile', pendingProfile)
 
     postProfiles(token, pendingProfile)
       .then(data => {
