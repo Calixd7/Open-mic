@@ -211,7 +211,7 @@ const ProfileSetup = ({ token, userType }) => {
                   </div>
                 </span>}
 
-              <div className='mt-4'>
+              <div className='mt-10'>
                 <Bio bio={bio} setBio={setBio} status={status} />
               </div>
 
