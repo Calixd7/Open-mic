@@ -14,7 +14,7 @@ import Status from './profileComponents/Status'
 import WantedInstruments from './profileComponents/WantedInstruments'
 import WantedInfo from './profileComponents/WantedInfo'
 import { useParams, useHistory } from 'react-router-dom'
-import { postProfiles, deleteProfile, updateProfile } from '../api'
+import { postProfiles, deleteProfile, updateProfile, uploadImage } from '../api'
 import Delete from './Delete'
 
 // function handleSubmit (event, token, profile, userType, history) {
@@ -79,7 +79,7 @@ const ProfileSetup = ({ token, userType }) => {
   const [wantedInstruments, setWantedInstruments] = useState([])
   const [wantedInfo, setWantedInfo] = useState('')
   const pendingProfile = {
-    image: image,
+    // image: image,
     bio: bio,
     name: name,
     instruments: instrumentsForApi(instruments),
@@ -98,8 +98,8 @@ const ProfileSetup = ({ token, userType }) => {
   function handleSubmit (event, token) {
     event.preventDefault()
 
-    // const data = new FormData()
-    // data.set('image', image)
+    const formData = new FormData()
+    formData.set('image', image)
     // data.set('bio', bio)
     // data.set('name', name)
     // data.set('instruments', instruments)
@@ -112,17 +112,14 @@ const ProfileSetup = ({ token, userType }) => {
     // data.set('wanted_instruments', wantedIntForAPI(vacancy, wantedInstruments.map((int) => int.wanted_instrument)))
     // data.set('wanted_info', wantedInfo)
     // data.set('vacancy', vacancy)
-    // if (card.pk) {
-    //   updateProfile(token, card.pk, card)
-    // }
     console.log('pending profile', pendingProfile)
+    console.log('formData', formData)
+    console.log('image', image)
 
     postProfiles(token, pendingProfile)
       .then(data => {
-        // updateProfile(data.id, image)
-        // .then()
-        // trigger update with .then and then history
-        history.push('/explore')
+        uploadImage(token, formData, data.pk)
+          .then(data => history.push('/explore'))
       })
   }
 
