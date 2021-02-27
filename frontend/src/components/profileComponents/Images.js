@@ -6,15 +6,6 @@ const Images = ({ token, image, setImage }) => {
     setImage(event.target.files[0])
   }
 
-  // return (
-  //   <div>
-  //     <input
-  //       type='file'
-  //       onChange={(e) => handleFile(e)}
-  //     />
-  //   </div>
-  // )
-
   return (
     <div>
       <label className='form-label'>

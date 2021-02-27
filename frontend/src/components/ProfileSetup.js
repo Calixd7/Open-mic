@@ -86,7 +86,7 @@ const ProfileSetup = ({ token, userType }) => {
     image: image,
     bio: bio,
     name: name,
-    // instruments: instrumentsForApi(instruments.map((int) => int.instrument)),
+    instruments: instruments,
     // instruments: instruments.map((int) => int.instrument),
     ind_zipcode: zipcode,
     genres: genreForApi(genres.map((genre) => genre.genre)),
@@ -102,30 +102,34 @@ const ProfileSetup = ({ token, userType }) => {
     // followers: followers
   }
 
+  console.log('token', token)
   function handleSubmit (event, token) {
     event.preventDefault()
 
-    const data = new FormData()
-    data.set('image', image)
-    data.set('bio', bio)
-    data.set('name', name)
-    data.set('instruments', instruments.map(int => int.instrument))
-    data.set('ind_zipcode', zipcode)
-    data.set('genres', genreForApi(genres.map((genre) => genre.genre)))
-    data.set('band_size', bandSize)
-    data.set('band_location', bandLocation)
-    data.set('band_members', bandMembers)
-    data.set('individualorband', statusForApi(status))
-    data.set('wanted_instruments', wantedIntForAPI(vacancy, wantedInstruments.map((int) => int.wanted_instrument)))
-    data.set('wanted_info', wantedInfo)
-    data.set('vacancy', vacancy)
+    // const data = new FormData()
+    // data.set('image', image)
+    // data.set('bio', bio)
+    // data.set('name', name)
+    // data.set('instruments', instruments)
+    // data.set('ind_zipcode', zipcode)
+    // data.set('genres', genreForApi(genres.map((genre) => genre.genre)))
+    // data.set('band_size', bandSize)
+    // data.set('band_location', bandLocation)
+    // data.set('band_members', bandMembers)
+    // data.set('individualorband', statusForApi(status))
+    // data.set('wanted_instruments', wantedIntForAPI(vacancy, wantedInstruments.map((int) => int.wanted_instrument)))
+    // data.set('wanted_info', wantedInfo)
+    // data.set('vacancy', vacancy)
     // if (card.pk) {
     //   updateProfile(token, card.pk, card)
     // }
-    console.log('data', data)
+    console.log('data', pendingProfile)
 
-    postProfiles(token, data)
+    postProfiles(token, pendingProfile)
       .then(data => {
+        // updateProfile(data.id, image)
+        // .then()
+        // trigger update with .then and then history
         history.push('/explore')
       })
   }
