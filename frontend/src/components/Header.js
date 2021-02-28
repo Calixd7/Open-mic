@@ -6,20 +6,33 @@ import {getUserProfile} from '../api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
-function Header ({ username, token, setToken, isLoggedIn, pk, profileComplete }) {
+function Header ({ username, token, setToken, isLoggedIn, pk }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const history = useHistory()
   const [avatar, setAvatar] = useState('')
   const [isImage, setIsImage] = useState(false)
+  
 
 
-  // useEffect (() => {
+  // if (isImage) {
   //   getUserProfile(token)
   //     .then(card => {
   //       setAvatar(card[0].image)
   //     })
-  // }, [profileComplete, isImage])
+  // }
+
+  useEffect (() => {
+    getUserProfile(token)
+      .then(card => {
+        if (card[0].image === null) {
+          setIsImage(false)
+        } else {
+          setAvatar(card[0].image)
+          setIsImage(true)
+        }
+      })
+  }, [token])
 
   return (
     <nav className='bg-gray-800'>
@@ -67,19 +80,11 @@ function Header ({ username, token, setToken, isLoggedIn, pk, profileComplete })
           </div>
           <div className='flex-1 flex items-center justify center sm:items-stretch sm:justify-start'>
             <div className='flex-shrink-0 flex-items-center'>
-              {isImage
-              ? <img
+              <img
               className='block lg:hidden h-8 w-auto'
               src={logo} alt='OpenMic'
               alt='logo'
             />
-            : <span>
-              <FontAwesomeIcon
-                icon={['far', 'user']}
-                className='text-red-300 hover:text-red-500 text-lg mb-1'
-              />
-            </span>
-            }
             </div>
             <div className='hidden sm:block sm:ml-6'>
               <div className='flex space-x-4'>
@@ -117,11 +122,19 @@ function Header ({ username, token, setToken, isLoggedIn, pk, profileComplete })
                 onClick={() => setShowProfile(showProfile => !showProfile)}
               >
                 <span className='sr-only'>Open User Menu></span>
-                <img
-                  className='h-8 w-8 rounded full'
-                  src={avatar}
-                  alt='avatar'
-                />
+                {isImage
+              ? <img
+              className='block lg:hidden h-8 w-auto'
+              src={avatar}
+              alt='avatar'
+            />
+            : <span>
+              <FontAwesomeIcon
+                icon={['far', 'user']}
+                className='text-red-300 hover:text-red-500 text-lg mb-1'
+              />
+            </span>
+            }
               </button>
             </div>
             <Transition
@@ -159,7 +172,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, profileComplete })
                   <Link
                 to='/'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
-                onClick={() => {setToken(null); setShowProfile(false)}}
+                onClick={() => {setToken(null); setShowProfile(false); setIsImage(false)}}
               >
                 Sign Out
               </Link>

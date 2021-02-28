@@ -61,7 +61,7 @@ const instrumentsForApi = (intstruments) => {
   }
 }
 
-const ProfileSetup = ({ token, userType, setProfileComplete }) => {
+const ProfileSetup = ({ token, userType }) => {
   const { type } = useParams()
   const history = useHistory()
   const [name, setName] = useState('')
@@ -109,7 +109,6 @@ const ProfileSetup = ({ token, userType, setProfileComplete }) => {
         uploadImage(token, formData, data.pk)
           .then(data => {
             history.push('/explore')
-            setProfileComplete(true)
           })
       })
   }
