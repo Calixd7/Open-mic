@@ -282,9 +282,6 @@ function Main ({ messages }) {
                     >
                       {message.subject}
                     </h1>
-                    <p className='mt-1 text-sm text-gray-500 truncate'>
-                      joearmstrong@example.com
-                    </p>
                   </div>
                 </div>
 
@@ -295,7 +292,7 @@ function Main ({ messages }) {
                       <div className='sm:flex sm:justify-between sm:items-baseline'>
                         <h3 className='text-base font-medium'>
                           <span className='text-gray-900'>
-                            Joe Armstrong
+                            {message.sender}
                             <span className='text-gray-600'>
                               wrote
                             </span>
@@ -303,12 +300,12 @@ function Main ({ messages }) {
                         </h3>
                         <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
                           <time dateTime='2021-01-28T19:24'>
-                            Yesterday at 7:24am
+                            {message.created_at}
                           </time>
                         </p>
                       </div>
                       <div className='mt-4 space-y-6 text-sm text-gray-800'>
-                        <p>Thanks so much! Can't wait to try it out.</p>
+                        <p>{message.content}</p>
                       </div>
                     </li>
                   </ul>
@@ -328,9 +325,6 @@ function Main ({ messages }) {
                 <h2 className='text-ls font-medium text-gray-900'>
                   Inbox
                 </h2>
-                <p className='text-sm font-medium text-gray-500'>
-                  12 messages
-                </p>
               </div>
             </div>
             <div className='border-t border-b border-gray-200 bg-gray-50 px-6 py-2 text-sm font-medium text-gray-500'>
@@ -355,10 +349,10 @@ function Main ({ messages }) {
                           aria-hidden='true'
                         />
                         <p className='text-sm font-medium text-gray-900 truncate'>
-                          Gloria Roberston
+                          {message.sender}
                         </p>
                         <p className='text-sm text-gray-500 truncate'>
-                          Velit placeat sit ducimus non sed
+                          {message.content}
                         </p>
                       </Link>
                     </div>
@@ -366,7 +360,7 @@ function Main ({ messages }) {
                       dateTime='2021-01-27T16:35'
                       className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
                     >
-                      1d ago
+                      {message.created_at}
                     </time>
                   </div>
                 </li>
