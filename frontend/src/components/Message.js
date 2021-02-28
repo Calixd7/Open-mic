@@ -21,7 +21,7 @@ function Message ({ token }) {
   useEffect(() => {
     getMessages(token).then(messages => {
       console.log('message', messages)
-      return setMessages
+      setMessages(messages)
     })
   }, [token])
 
