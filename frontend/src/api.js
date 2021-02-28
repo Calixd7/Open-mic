@@ -135,3 +135,18 @@ export function getUserProfile (token) {
       return res.data
     })
 }
+
+// export function createMessage (token, pk) {
+//   // return apiUrl.post('/')
+// }
+
+export function getMessages (token) {
+  return apiUrl.get('/api/messages/', {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => {
+      return res.data
+    })
+}

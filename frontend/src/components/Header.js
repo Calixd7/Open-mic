@@ -22,17 +22,17 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
   //     })
   // }
 
-  useEffect (() => {
-    getUserProfile(token)
-      .then(card => {
-        if (card[0].image === null) {
-          setIsImage(false)
-        } else {
-          setAvatar(card[0].image)
-          setIsImage(true)
-        }
-      })
-  }, [token])
+  // useEffect (() => {
+  //   getUserProfile(token)
+  //     .then(card => {
+  //       if (card[0].image === null) {
+  //         setIsImage(false)
+  //       } else {
+  //         setAvatar(card[0].image)
+  //         setIsImage(true)
+  //       }
+  //     })
+  // }, [token])
 
   return (
     <nav className='bg-gray-800'>
