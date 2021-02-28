@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-function topNav () {
+function TopNav () {
   return (
     <div
       className='h-screen overflow-hidden bg-gray-100 flex flex-col'
@@ -23,4 +23,4 @@ function topNav () {
   )
 }
 
-export default topNav
+export default TopNav

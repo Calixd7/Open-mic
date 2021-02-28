@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-function desktopNav () {
+function DesktopNav () {
   return (
     <div className='hidden lg:min-w-0 lg:flex-1 lg:flex lg:items-center lg:justify-between'>
       <div className='min-w-0 flex-1'>
@@ -28,7 +28,7 @@ function desktopNav () {
             >
               <path
                 fillRule='evenodd'
-                d='M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd'
+                d='M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd'
               />
             </svg>
           </div>
@@ -39,10 +39,10 @@ function desktopNav () {
           aria-label='Global'
           className='flex space-x-10'
         >
-          <div class='relative text-left'>
+          <div className='relative text-left'>
             <button
               type='button'
-              class='flex items-center text-sm font-medium text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600" id="menu-1" aria-expanded="false" aria-haspopup="true'
+              className='flex items-center text-sm font-medium text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600" id="menu-1" aria-expanded="false" aria-haspopup="true'
             >
               <span>
                 Inboxes
@@ -56,7 +56,7 @@ function desktopNav () {
               >
                 <path
                   fillRule='evenodd'
-                  d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd'
+                  d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd'
 
                 />
               </svg>
@@ -110,7 +110,7 @@ function desktopNav () {
           <span className='inline-flex'>
             <Link
               to='#'
-              class='-mx-1 bg-white p-1 rounded-full text-gray-400 hover:text-gray-500'
+              className='-mx-1 bg-white p-1 rounded-full text-gray-400 hover:text-gray-500'
             >
               <span className='sr-only'>
                 View notifications
@@ -160,10 +160,10 @@ function desktopNav () {
               aria-orientation='vertical'
               aria-labelledby='menu-2'
             >
-              <div class='py-1'>
+              <div className='py-1'>
                 <Link
                   to='#'
-                  class='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:bg-gray-100'
+                  className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:bg-gray-100'
                   role='menuitem'
                 >
                   Your Profile
@@ -184,4 +184,4 @@ function desktopNav () {
   )
 }
 
-export default desktopNav
+export default DesktopNav

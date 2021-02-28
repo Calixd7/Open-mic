@@ -20,7 +20,7 @@ function Main () {
                     <span className='inline-flex sm:shadow-sm'>
                       <button
                         type='button'
-                        class='relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
+                        className='relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
                       >
                         {/* <!-- Heroicon name: solid/reply --> */}
                         <svg
@@ -31,9 +31,9 @@ function Main () {
                           aria-hidden='true'
                         >
                           <path
-                            fillRrule='evenodd'
+                            fillRule='evenodd'
                             d='M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
-                            clip-rule='evenodd'
+                            clipRule='evenodd'
                           />
                         </svg>
                         <span>
@@ -42,7 +42,7 @@ function Main () {
                       </button>
                       <button
                         type='button'
-                        class='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
+                        className='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
                       >
                         {/* <!-- Heroicon name: solid/pencil --> */}
                         <svg
@@ -60,11 +60,11 @@ function Main () {
                       </button>
                       <button
                         type='button'
-                        class='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
+                        className='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
                       >
                         {/* <!-- Heroicon name: solid/user-add --> */}
                         <svg
-                          class='mr-2.5 h-5 w-5 text-gray-400'
+                          className='mr-2.5 h-5 w-5 text-gray-400'
                           xmlns='http://www.w3.org/2000/svg'
                           viewBox='0 0 20 20'
                           fill='currentColor'
@@ -81,7 +81,7 @@ function Main () {
                     <span className='hidden lg:flex space-x-3'>
                       <button
                         type='button'
-                        class='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
+                        className='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
                       >
                         {/* <!-- Heroicon name: solid/archive --> */}
                         <svg
@@ -95,7 +95,7 @@ function Main () {
                           <path
                             fillRule='evenodd'
                             d='M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z'
-                            clip-rule='evenodd'
+                            clipRule='evenodd'
                           />
                         </svg>
                         <span>
@@ -104,7 +104,7 @@ function Main () {
                       </button>
                       <button
                         type='button'
-                        class='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
+                        className='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
                       >
                         {/* <!-- Heroicon name: solid/folder-download --> */}
                         <svg
@@ -133,7 +133,7 @@ function Main () {
                       <div>
                         <button
                           type='button'
-                          class='relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 sm:rounded-md sm:px-3'
+                          className='relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 sm:rounded-md sm:px-3'
                           id='menu-3'
                           aria-expanded='false'
                           aria-haspopup='true'
@@ -153,8 +153,8 @@ function Main () {
                             aria-hidden='true'
                           >
                             <path
-                              fill-rule='evenodd'
-                              d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd'
+                              fillRule='evenodd'
+                              d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd'
                             />
                           </svg>
                         </button>
@@ -179,7 +179,7 @@ function Main () {
                         <div className='py-1'>
                           <Link
                             to='#'
-                            class='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
+                            className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
                             role='menuitem'
                           >
                             Note
@@ -195,7 +195,7 @@ function Main () {
 
                           <Link
                             to='#'
-                            class='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
+                            className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
                             role='menuitem'
                           >
                             Archive
@@ -203,7 +203,7 @@ function Main () {
 
                           <Link
                             to='#'
-                            class='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
+                            className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
                             role='menuitem'
                           >
                             Move
@@ -217,11 +217,11 @@ function Main () {
                 {/* <!-- Right buttons --> */}
                 <nav aria-label='Pagination'>
                   <span
-                    class='relative z-0 inline-flex shadow-sm rounded-md'
+                    className='relative z-0 inline-flex shadow-sm rounded-md'
                   >
                     <Link
                       to='#'
-                      class='relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
+                      className='relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
                     >
                       <span className='sr-only'>
                         Next
@@ -293,7 +293,7 @@ function Main () {
                 <div className='ml-3 relative inline-block text-left'>
                   <div>
                     <button
-                      typeName='button'
+                      type='button'
                       className='-my-2 p-2 rounded-full bg-white flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-600'
                       id='menu-4'
                       aria-expanded='false'
@@ -378,7 +378,7 @@ function Main () {
                   </span>
                 </h3>
                 <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-                  <time datetime='2021-01-28T19:24'>
+                  <time dateTime='2021-01-28T19:24'>
                     Yesterday at 7:24am
                   </time>
                 </p>
@@ -399,7 +399,7 @@ function Main () {
                   </span>
                 </h3>
                 <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-                  <time datetime='2021-01-27T16:35'>
+                  <time dateTime='2021-01-27T16:35'>
                     Wednesday at 4:35pm
                   </time>
                 </p>
@@ -412,7 +412,7 @@ function Main () {
                   Nec malesuada sed sit ut aliquet. Cras ac pharetra, sapien purus vitae vestibulum auctor faucibus ullamcorper. Leo quam tincidunt porttitor neque, velit sed. Tortor mauris ornare ut tellus sed aliquet amet venenatis condimentum. Convallis accumsan et nunc eleifend.
                 </p>
                 <p>
-                  <strong style='font-weight: 600;'>
+                  <strong className='font-semibold'>
                     Monica White
                   </strong>
                   Customer Service
@@ -431,7 +431,7 @@ function Main () {
                   </span>
                 </h3>
                 <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-                  <time datetime='2021-01-27T16:09'>
+                  <time dateTime='2021-01-27T16:09'>
                     Wednesday at 4:09pm
                   </time>
                 </p>
@@ -495,7 +495,7 @@ function Main () {
                     </Link>
                   </div>
                   <time
-                    datetime='2021-01-27T16:35'
+                    dateTime='2021-01-27T16:35'
                     className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
                   >
                     1d ago
@@ -528,7 +528,7 @@ function Main () {
                     </Link>
                   </div>
                   <time
-                    datetime='2021-01-27T16:35'
+                    dateTime='2021-01-27T16:35'
                     className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
                   >
                     1d ago
@@ -561,13 +561,13 @@ function Main () {
                     </Link>
                   </div>
                   <time
-                    datetime='2021-01-27T16:35'
+                    dateTime='2021-01-27T16:35'
                     className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
                   >
                     1d ago
                   </time>
                 </div>
-                <div classnaME='mt-1'>
+                <div className='mt-1'>
                   <p className='line-clamp-2 text-sm text-gray-600'>
                     Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
                   </p>
@@ -594,7 +594,7 @@ function Main () {
                     </Link>
                   </div>
                   <time
-                    datetime='2021-01-27T16:35'
+                    dateTime='2021-01-27T16:35'
                     className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
                   >
                     1d ago
@@ -627,7 +627,7 @@ function Main () {
                     </Link>
                   </div>
                   <time
-                    datetime='2021-01-27T16:35'
+                    dateTime='2021-01-27T16:35'
                     className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
                   >
                     1d ago
@@ -660,14 +660,14 @@ function Main () {
                     </Link>
                   </div>
                   <time
-                    datetime='2021-01-27T16:35'
+                    dateTime='2021-01-27T16:35'
                     className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
                   >
                     1d ago
                   </time>
                 </div>
                 <div className='mt-1'>
-                  <p class='line-clamp-2 text-sm text-gray-600'>
+                  <p className='line-clamp-2 text-sm text-gray-600'>
                     Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
                   </p>
                 </div>
@@ -693,8 +693,8 @@ function Main () {
                     </Link>
                   </div>
                   <time
-                    datetime='2021-01-27T16:35'
-                    class='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
+                    dateTime='2021-01-27T16:35'
+                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
                   >
                     1d ago
                   </time>
@@ -720,13 +720,13 @@ function Main () {
                       <p className='text-sm font-medium text-gray-900 truncate'>
                         Jasmine Hansen
                       </p>
-                      <p clasName='text-sm text-gray-500 truncate'>
+                      <p className='text-sm text-gray-500 truncate'>
                         Illo illum aut debitis earum
                       </p>
                     </Link>
                   </div>
                   <time
-                    datetime='2021-01-27T16:35'
+                    dateTime='2021-01-27T16:35'
                     className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
                   >
                     1d ago
@@ -759,7 +759,7 @@ function Main () {
                     </Link>
                   </div>
                   <time
-                    datetime='2021-01-27T16:35'
+                    dateTime='2021-01-27T16:35'
                     className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
                   >
                     1d ago
@@ -792,7 +792,7 @@ function Main () {
                     </Link>
                   </div>
                   <time
-                    datetime='2021-01-27T16:35'
+                    dateTime='2021-01-27T16:35'
                     className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
                   >
                     1d ago
