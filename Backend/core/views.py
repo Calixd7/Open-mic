@@ -75,6 +75,7 @@ class UserProfileViewSet(ModelViewSet):
         return Response(serializer.data)
     
 class MessageViewSet(ModelViewSet):
+
     serializer_class = MessageSerializer
 
     permission_classes = [IsAuthenticated]
@@ -86,9 +87,14 @@ class MessageViewSet(ModelViewSet):
         if not self.request.user.is_authenticated:
             raise PermissionDenied()
         serializer.save(sender=self.request.user)
-        
 
-       
+    @action(detail=False, methods=['get'])
+    def mine (self, request):
+        queryset = Messages.objects.filter(sender=self.request.user)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+    
   
 class UserFollowingViewSet(ModelViewSet):
 
