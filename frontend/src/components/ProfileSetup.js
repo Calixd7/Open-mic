@@ -74,7 +74,7 @@ const ProfileSetup = ({ token, userType }) => {
   const [bandLocation, setBandLocation] = useState('')
   const [bandSize, setBandSize] = useState(1)
   const [vacancy, setVacancy] = useState(false)
-  const [image, setImage] = useState(null)
+  const [image, setImage] = useState([])
   const [status, setStatus] = useState('Solo Artist')
   const [wantedInstruments, setWantedInstruments] = useState([])
   const [wantedInfo, setWantedInfo] = useState('')
