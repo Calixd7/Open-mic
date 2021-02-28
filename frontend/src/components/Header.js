@@ -2,7 +2,7 @@ import { Link, useHistory } from 'react-router-dom'
 import {Transition} from '@headlessui/react'
 import { useEffect, useState } from 'react'
 import logo from '../images/logorough.jpg'
-import {getUserProfile} from '../api'
+import { getUserProfile} from '../api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
@@ -12,7 +12,6 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
   const history = useHistory()
   const [avatar, setAvatar] = useState('')
   const [isImage, setIsImage] = useState(false)
-  
 
 
   // if (isImage) {
@@ -22,17 +21,17 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
   //     })
   // }
 
-  // useEffect (() => {
-  //   getUserProfile(token)
-  //     .then(card => {
-  //       if (card[0].image === null) {
-  //         setIsImage(false)
-  //       } else {
-  //         setAvatar(card[0].image)
-  //         setIsImage(true)
-  //       }
-  //     })
-  // }, [token])
+  useEffect (() => {
+    getUserProfile(token)
+      .then(card => {
+        if (card.image === null) {
+          setIsImage(false)
+        } else {
+          setAvatar(card.image)
+          setIsImage(true)
+        }
+      })
+  }, [token])
 
   return (
     <nav className='bg-gray-800'>
@@ -157,7 +156,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
                 // to='view-profile/'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
                 role='menuitem'
-                onClick={() => {history.push(`view-profile/${pk}`); setShowProfile(false)}}
+                onClick={() => {history.push('view-profile/'); setShowProfile(false)}}
               >
                 Your Profile
               </div>
