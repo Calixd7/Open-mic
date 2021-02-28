@@ -1,7 +1,7 @@
 /* eslint-disable react/style-prop-object */
 import { Link } from 'react-router-dom'
 
-function Main () {
+function Main ({ messages }) {
   return (
     <main className='min-w-0 flex-1 border-t border-gray-200 xl:flex'>
       <section
@@ -270,190 +270,53 @@ function Main () {
           </div>
           {/* <!-- Message header --> */}
         </div>
-        <div>
-          <div className='min-h-0 flex-1 overflow-y-auto'>
-            <div className='bg-white pt-5 pb-6 shadow'>
-              <div className='px-4 sm:flex sm:justify-between sm:items-baseline sm:px-6 lg:px-8'>
-                <div className='sm:w-0 sm:flex-1'>
-                  <h1
-                    id='message-heading'
-                    className='text-lg font-medium text-gray-900'
-                  >
-                    Re: New pricing for existing customers
-                  </h1>
-                  <p className='mt-1 text-sm text-gray-500 truncate'>
-                    joearmstrong@example.com
-                  </p>
+        {messages.map(message => (
+          <div key={`message-${message.subject}`}>
+            <div className='min-h-0 flex-1 overflow-y-auto'>
+              <div className='bg-white pt-5 pb-6 shadow'>
+                <div className='px-4 sm:flex sm:justify-between sm:items-baseline sm:px-6 lg:px-8'>
+                  <div className='sm:w-0 sm:flex-1'>
+                    <h1
+                      id='message-heading'
+                      className='text-lg font-medium text-gray-900'
+                    >
+                      {message.subject}
+                    </h1>
+                    <p className='mt-1 text-sm text-gray-500 truncate'>
+                      joearmstrong@example.com
+                    </p>
+                  </div>
                 </div>
-              </div>
 
-              <div className='mt-4 flex items-center justify-between sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:justify-start'>
-                {/* <span className='inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-cyan-100 text-cyan-800'>
-                  Open
-                </span>
-                <div className='ml-3 relative inline-block text-left'>
-                  <div> */}
-                {/* <button
-                type='button'
-                className='-my-2 p-2 rounded-full bg-white flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-600'
-                id='menu-4'
-                aria-expanded='false'
-                aria-haspopup='true'
-              >
-                <span className='sr-only'>
-                  Open options
-                </span> */}
-                {/* <!-- Heroicon name: solid/dots-vertical --> */}
-                {/* <svg
-                        className='h-5 w-5'
-                        xmlns='http://www.w3.org/2000/svg'
-                        viewBox='0 0 20 20'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path d='M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z' />
-                      </svg>
-                    </button>
-                  </div> */}
-
-                {/* <!--
-                    Dropdown menu, show/hide based on menu state.
-
-                    Entering: "transition ease-out duration-100"
-                      From: "transform opacity-0 scale-95"
-                      To: "transform opacity-100 scale-100"
-                    Leaving: "transition ease-in duration-75"
-                      From: "transform opacity-100 scale-100"
-                      To: "transform opacity-0 scale-95"
-                  --> */}
-                {/* <div
-                className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'
-                role='menu'
-                aria-orientation='vertical'
-                aria-labelledby='menu-4'
-              >
-                <div className='py-1'>
-                  <button
-                    type='button'
-                    className='w-full flex justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
-                    role='menuitem'
-                  >
-                    <span>
-                      Copy email address
-                    </span>
-                  </button>
-                  <Link
-                    to='#'
-                    className='flex justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
-                    role='menuitem'
-                  >
-                    <span>
-                      Previous conversations
-                    </span>
-                  </Link>
-                  <Link
-                    to='#'
-                    className='flex justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
-                    role='menuitem'
-                  >
-                    <span>
-                      View original
-                    </span>
-                  </Link>
-                </div>
-              </div>
-            </div> */}
-                {/* </div>
-            </div> */}
-                {/* </div> */}
-                {/* <!-- Thread section--> */}
-                <ul className='py-4 space-y-2 sm:px-6 sm:space-y-4 lg:px-8'>
-                  <li className='bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6'>
-                    <div className='sm:flex sm:justify-between sm:items-baseline'>
-                      <h3 className='text-base font-medium'>
-                        <span className='text-gray-900'>
-                          Joe Armstrong
-                          <span className='text-gray-600'>
-                            wrote
+                <div className='mt-4 flex items-center justify-between sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:justify-start'>
+                  {/* <!-- Thread section--> */}
+                  <ul className='py-4 space-y-2 sm:px-6 sm:space-y-4 lg:px-8'>
+                    <li className='bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6'>
+                      <div className='sm:flex sm:justify-between sm:items-baseline'>
+                        <h3 className='text-base font-medium'>
+                          <span className='text-gray-900'>
+                            Joe Armstrong
+                            <span className='text-gray-600'>
+                              wrote
+                            </span>
                           </span>
-                        </span>
-                      </h3>
-                      <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-                        <time dateTime='2021-01-28T19:24'>
-                          Yesterday at 7:24am
-                        </time>
-                      </p>
-                    </div>
-                    <div className='mt-4 space-y-6 text-sm text-gray-800'>
-                      <p>Thanks so much! Can't wait to try it out.</p>
-                    </div>
-                  </li>
-
-                  <li className='bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6'>
-                    <div className='sm:flex sm:justify-between sm:items-baseline'>
-                      <h3 className='text-base font-medium'>
-                        <span className='text-gray-900'>
-                          Monica White
-                        </span>
-                        <span className='text-gray-600'>
-                          wrote
-                        </span>
-                      </h3>
-                      <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-                        <time dateTime='2021-01-27T16:35'>
-                          Wednesday at 4:35pm
-                        </time>
-                      </p>
-                    </div>
-                    <div className='mt-4 space-y-6 text-sm text-gray-800'>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada at ultricies tincidunt elit et, enim. Habitant nunc, adipiscing non fermentum, sed est a, aliquet. Lorem in vel libero vel augue aliquet dui commodo.
-                      </p>
-                      <p>
-                        Nec malesuada sed sit ut aliquet. Cras ac pharetra, sapien purus vitae vestibulum auctor faucibus ullamcorper. Leo quam tincidunt porttitor neque, velit sed. Tortor mauris ornare ut tellus sed aliquet amet venenatis condimentum. Convallis accumsan et nunc eleifend.
-                      </p>
-                      <p>
-                        <strong className='font-semibold'>
-                          Monica White
-                        </strong>
-                        Customer Service
-                      </p>
-                    </div>
-                  </li>
-
-                  <li className='bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6'>
-                    <div className='sm:flex sm:justify-between sm:items-baseline'>
-                      <h3 className='text-base font-medium'>
-                        <span className='text-gray-900'>
-                          Joe Armstrong
-                        </span>
-                        <span className='text-gray-600'>
-                          wrote
-                        </span>
-                      </h3>
-                      <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-                        <time dateTime='2021-01-27T16:09'>
-                          Wednesday at 4:09pm
-                        </time>
-                      </p>
-                    </div>
-                    <div className='mt-4 space-y-6 text-sm text-gray-800'>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada at ultricies tincidunt elit et, enim. Habitant nunc, adipiscing non fermentum, sed est a, aliquet. Lorem in vel libero vel augue aliquet dui commodo.
-                      </p>
-                      <p>
-                        Nec malesuada sed sit ut aliquet. Cras ac pharetra, sapien purus vitae vestibulum auctor faucibus ullamcorper. Leo quam tincidunt porttitor neque, velit sed. Tortor mauris ornare ut tellus sed aliquet amet venenatis condimentum. Convallis accumsan et nunc eleifend.
-                      </p>
-                      <p>
-                        – Joe
-                      </p>
-                    </div>
-                  </li>
-                </ul>
+                        </h3>
+                        <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
+                          <time dateTime='2021-01-28T19:24'>
+                            Yesterday at 7:24am
+                          </time>
+                        </p>
+                      </div>
+                      <div className='mt-4 space-y-6 text-sm text-gray-800'>
+                        <p>Thanks so much! Can't wait to try it out.</p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ))}
       </section>
 
       {/* <!-- Message list--> */}
@@ -478,343 +341,42 @@ function Main () {
             aria-label='Message list'
             className='min-h-0 flex-1 overflow-y-auto'
           >
-            <ul className='border-b border-gray-200 divide-y divide-gray-200'>
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
+            {messages.map((message, idx) => (
+              <ul key={`message-${idx}`} className='border-b border-gray-200 divide-y divide-gray-200'>
+                <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
+                  <div className='flex justify-between space-x-3'>
+                    <div className='min-w-0 flex-1'>
+                      <Link
+                        to='#'
+                        className='block focus:outline-none'
+                      >
+                        <span
+                          className='absolute inset-0'
+                          aria-hidden='true'
+                        />
+                        <p className='text-sm font-medium text-gray-900 truncate'>
+                          Gloria Roberston
+                        </p>
+                        <p className='text-sm text-gray-500 truncate'>
+                          Velit placeat sit ducimus non sed
+                        </p>
+                      </Link>
+                    </div>
+                    <time
+                      dateTime='2021-01-27T16:35'
+                      className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
                     >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Gloria Roberston
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Velit placeat sit ducimus non sed
-                      </p>
-                    </Link>
+                      1d ago
+                    </time>
                   </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
+                </li>
+              </ul>
+            ))}
 
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Virginia Abshire
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Nemo mollitia repudiandae adipisci explicabo optio consequatur tempora ut nihil
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Kyle Gulgowski
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Doloremque reprehenderit et harum quas explicabo nulla architecto dicta voluptatibus
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Hattie Haag
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Eos sequi et aut ex impedit
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Wilma Glover
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Quisquam veniam explicabo
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Dolores Morissette
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Est ratione molestiae modi maiores consequatur eligendi et excepturi magni
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Guadalupe Walsh
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Commodi deserunt aut veniam rem ipsam
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Jasmine Hansen
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Illo illum aut debitis earum
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Ian Volkman
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Qui dolore iste ut est cumque sed
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Rafael Klocko
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Aut sed aut illum delectus maiores laboriosam ex
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-            </ul>
           </nav>
         </div>
       </aside>
     </main>
-  //   </div>
-  // </div>
   )
 }
 

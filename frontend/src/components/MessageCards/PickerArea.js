@@ -1,5 +1,5 @@
 
-function PickerArea () {
+function PickerArea ({ messages }) {
   return (
     <div>
       <div className='relative'>
