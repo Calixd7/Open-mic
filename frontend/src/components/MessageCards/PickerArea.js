@@ -1,7 +1,7 @@
 
-function pickerArea () {
+function PickerArea () {
   return (
-    <div className='mx-auto lg:hidden'>
+    <div>
       <div className='relative'>
         <label
           htmlFor='inbox-select'
@@ -54,4 +54,4 @@ function pickerArea () {
   )
 }
 
-export default pickerArea
+export default PickerArea
