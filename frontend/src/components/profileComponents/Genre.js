@@ -30,10 +30,11 @@ const Genre = ({ genres, setGenres, status }) => {
   // const length = instruments.length
 
   const removeGenre = (event, idx) => {
-    const newInstruments = [
+    const newGenres = [
       ...genres
     ]
-    setGenres(newInstruments.filter((inst) => inst.idx !== idx))
+    newGenres.splice(idx, 1)
+    setGenres(newGenres)
   }
 
   const handleGenreChange = (e, instrument) => {

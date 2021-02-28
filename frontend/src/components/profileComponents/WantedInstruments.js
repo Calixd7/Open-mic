@@ -28,7 +28,8 @@ const WantedInstruments = ({ wantedInstruments, setWantedInstruments }) => {
     const newInstruments = [
       ...wantedInstruments
     ]
-    setWantedInstruments(newInstruments.filter((inst) => inst.idx !== idx))
+    newInstruments.splice(idx, 1)
+    setWantedInstruments(newInstruments)
   }
 
   const handleInstrumentChange = (e, instrument) => {

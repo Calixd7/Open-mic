@@ -11,12 +11,12 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
   const history = useHistory()
   const [avatar, setAvatar] = useState('')
 
-  useEffect (() => {
-    getUserProfile(token)
-      .then(card => {
-        setAvatar(card[0].image)
-      })
-  }, [token])
+  // useEffect (() => {
+  //   getUserProfile(token)
+  //     .then(card => {
+  //       setAvatar(card[0].image)
+  //     })
+  // }, [token])
 
   return (
     <nav className='bg-gray-800'>
