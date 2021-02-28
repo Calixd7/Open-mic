@@ -28,7 +28,8 @@ const Instrument = ({ instruments, setInstruments, status }) => {
     const newInstruments = [
       ...instruments
     ]
-    setInstruments(newInstruments.filter((inst) => inst.idx !== idx))
+    newInstruments.splice(idx, 1)
+    setInstruments(newInstruments)
   }
 
   const handleInstrumentChange = (e, instrument) => {
