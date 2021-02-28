@@ -61,7 +61,7 @@ const instrumentsForApi = (intstruments) => {
   }
 }
 
-const ProfileSetup = ({ token, userType }) => {
+const ProfileSetup = ({ token, userType, setProfileComplete }) => {
   const { type } = useParams()
   const history = useHistory()
   const [name, setName] = useState('')
@@ -95,6 +95,7 @@ const ProfileSetup = ({ token, userType }) => {
   }
 
   console.log('token', token)
+
   function handleSubmit (event, token) {
     event.preventDefault()
 
@@ -106,7 +107,10 @@ const ProfileSetup = ({ token, userType }) => {
     postProfiles(token, pendingProfile)
       .then(data => {
         uploadImage(token, formData, data.pk)
-          .then(data => history.push('/explore'))
+          .then(data => {
+            history.push('/explore')
+            setProfileComplete(true)
+          })
       })
   }
 

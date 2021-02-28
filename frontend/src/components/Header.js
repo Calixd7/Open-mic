@@ -3,20 +3,23 @@ import {Transition} from '@headlessui/react'
 import { useEffect, useState } from 'react'
 import logo from '../images/logorough.jpg'
 import {getUserProfile} from '../api'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
-function Header ({ username, token, setToken, isLoggedIn, pk }) {
+function Header ({ username, token, setToken, isLoggedIn, pk, profileComplete }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const history = useHistory()
   const [avatar, setAvatar] = useState('')
+  const [isImage, setIsImage] = useState(false)
+
 
   // useEffect (() => {
   //   getUserProfile(token)
   //     .then(card => {
   //       setAvatar(card[0].image)
   //     })
-  // }, [token])
+  // }, [profileComplete, isImage])
 
   return (
     <nav className='bg-gray-800'>
@@ -64,16 +67,19 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
           </div>
           <div className='flex-1 flex items-center justify center sm:items-stretch sm:justify-start'>
             <div className='flex-shrink-0 flex-items-center'>
-              <img
-                className='block lg:hidden h-8 w-auto'
-                src={logo} alt='OpenMic'
-                alt='logo'
+              {isImage
+              ? <img
+              className='block lg:hidden h-8 w-auto'
+              src={logo} alt='OpenMic'
+              alt='logo'
+            />
+            : <span>
+              <FontAwesomeIcon
+                icon={['far', 'user']}
+                className='text-red-300 hover:text-red-500 text-lg mb-1'
               />
-              {/* <img
-                className='hiden lg:block h-8 w-auto'
-                src={logo}
-                alt='logo'
-              /> */}
+            </span>
+            }
             </div>
             <div className='hidden sm:block sm:ml-6'>
               <div className='flex space-x-4'>

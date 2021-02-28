@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import createPersistedState from 'use-persisted-state'
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { far } from '@fortawesome/free-regular-svg-icons'
+import { far, faUser } from '@fortawesome/free-regular-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import Header from './components/Header'
 import Welcome from './components/Welcome'
@@ -15,7 +15,7 @@ import ViewProfile from './components/ViewProfile'
 import ViewCard from './components/ViewCard'
 import Message from './components/Message'
 
-library.add(far, faTimes)
+library.add(far, faTimes, faUser)
 
 const useUsername = createPersistedState('username')
 const useToken = createPersistedState('token')
@@ -25,6 +25,7 @@ function App () {
   const [token, setToken] = useToken()
   const [pk, setPk] = useState(0)
   const isLoggedIn = (username && token)
+  const [profileComplete, setProfileComplete] = useState(false)
 
   // console.log('pk', pk)
 
@@ -40,14 +41,14 @@ function App () {
   return (
     <Router>
       <div className='App'>
-        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} pk={pk} />
+        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} pk={pk} profileComplete={profileComplete} />
         <main>
           <Switch>
             <Route path='/registration/'>
-              <Registration setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
+              <Registration setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} setProfileComplete={setProfileComplete} />
             </Route>
             <Route path='/login/'>
-              <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
+              <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} setProfileComplete={setProfileComplete} />
             </Route>
             <Route path='/profile-setup/'>
               <ProfileSetup token={token} isLoggedIn={isLoggedIn} />
