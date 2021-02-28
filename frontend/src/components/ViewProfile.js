@@ -1,7 +1,7 @@
 import { useParams } from 'react-router-dom'
 import Card from './cards/Card'
 import { useEffect, useState } from 'react'
-import { getProfile } from '../api'
+import { getUserProfile } from '../api'
 import ProfileSetup from './ProfileSetup'
 
 const ViewProfile = ({ token }) => {
@@ -10,16 +10,25 @@ const ViewProfile = ({ token }) => {
   const [isEditing, setIsEditing] = useState(false)
 
   useEffect(() => {
-    getProfile(token, pk).then(profile => setProfile(profile))
-    console.log('profile', profile)
-  }, [token])
+    getUserProfile(token).then(profile => setProfile(profile))
+  }, [])
 
-  if (isEditing) {
+  if (profile && isEditing) {
     return (
       <div>
         <ProfileSetup profile={profile} isEditing={isEditing} />
       </div>
     )
+  } else if (profile) {
+    return (
+      <div>
+        <div>{profile.user}</div>
+        <div>{profile.name}</div>
+        <button onClick={() => setIsEditing(true)}>EDIT THE PROFILE BITCH</button>
+      </div>
+    )
+  } else {
+    return 'LOADING PROFILE'
   }
 }
 

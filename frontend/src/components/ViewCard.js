@@ -113,7 +113,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
                         <div className=''>
                           <div className='ml-2 flex-1 flex'>
                             <span>
-                              Instruments:
+                              Instruments:&nbsp;
                             </span>
                             {card.wanted_instruments.map((inst, idx) => (
                               <span

@@ -58,7 +58,7 @@ function App () {
             <Route path='/explore/'>
               <Explore token={token} isLoggedIn={isLoggedIn} />
             </Route>
-            <Route path='/view-profile/:pk'>
+            <Route path='/view-profile/'>
               <ViewProfile token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/view-card/:pk'>

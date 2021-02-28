@@ -61,10 +61,11 @@ const instrumentsForApi = (intstruments) => {
   }
 }
 
-const ProfileSetup = ({ token, userType }) => {
+const ProfileSetup = ({ token, profile, userType }) => {
+  const safeProfile = profile || {}
   const { type } = useParams()
   const history = useHistory()
-  const [name, setName] = useState('')
+  const [name, setName] = useState(safeProfile.name || '')
   const [genres, setGenres] = useState([])
   const [instruments, setInstruments] = useState([])
   const [bio, setBio] = useState('')
