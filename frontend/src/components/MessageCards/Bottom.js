@@ -6,7 +6,7 @@ function Bottom () {
       {/* !-- Narrow sidebar--> */}
       <nav
         aria-label='Sidebar'
-        class='hidden lg:block lg:flex-shrink-0 lg:bg-gray-800 lg:overflow-y-auto'
+        className='hidden lg:block lg:flex-shrink-0 lg:bg-gray-800 lg:overflow-y-auto'
       >
         <div className='relative w-20 flex flex-col p-3 space-y-3'>
           <Link

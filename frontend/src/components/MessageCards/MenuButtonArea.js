@@ -1,5 +1,5 @@
 
-function menuButton () {
+function MenuButton () {
   return (
     <div className='absolute inset-y-0 right-0 pr-4 flex items-center sm:pr-6 lg:hidden'>
       <button
@@ -32,4 +32,4 @@ function menuButton () {
   )
 }
 
-export default menuButton
+export default MenuButton
