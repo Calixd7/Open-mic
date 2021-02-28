@@ -123,3 +123,15 @@ export function updateProfile (token, pk) {
     })
     .then(res => console.log('res.data api', res.data))
 }
+
+export function getUserProfile (token) {
+  return apiUrl.get('/api/userprofiles/me/', {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => {
+      console.log('user api', res.data)
+      return res.data
+    })
+}
