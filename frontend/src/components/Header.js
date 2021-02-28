@@ -1,14 +1,22 @@
 import { Link, useHistory } from 'react-router-dom'
 import {Transition} from '@headlessui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import logo from '../images/logorough.jpg'
+import {getUserProfile} from '../api'
 
 
 function Header ({ username, token, setToken, isLoggedIn, pk }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const history = useHistory()
+  const [avatar, setAvatar] = useState('')
 
+  useEffect (() => {
+    getUserProfile(token)
+      .then(card => {
+        setAvatar(card[0].image)
+      })
+  }, [token])
 
   return (
     <nav className='bg-gray-800'>
@@ -105,7 +113,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
                 <span className='sr-only'>Open User Menu></span>
                 <img
                   className='h-8 w-8 rounded full'
-                  src='/'
+                  src={avatar}
                   alt='avatar'
                 />
               </button>

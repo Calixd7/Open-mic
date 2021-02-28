@@ -23,7 +23,7 @@ function Card ({ cards, profile }) {
         className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
       >
         {cards.map(card => (
-          <li key={`card-${card.pk}`} className={`${card.individualorband === 'Band' ? 'bg-red-400' : 'bg-white'} col-span-1 flex flex-col text-center rounded-lg shadow divide-y divide-indigo-200 border border-solid border green`}>
+          <li key={`card-${card.pk}`} className={`${card.individualorband === 'Band' ? 'bg-gray-700' : 'bg-gray-700'} col-span-1 flex flex-col text-center rounded-lg shadow divide-y divide-indigo-200 ${card.vacancy === true ? 'border-8 border-solid border-green-500' : 'border-none'}`}>
             <div className='flex-1 flex flex-col p-8'>
               <img
                 className='w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full'
