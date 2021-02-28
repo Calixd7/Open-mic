@@ -25,7 +25,6 @@ function App () {
   const [token, setToken] = useToken()
   const [pk, setPk] = useState(0)
   const isLoggedIn = (username && token)
-  const [profileComplete, setProfileComplete] = useState(false)
 
   // console.log('pk', pk)
 
@@ -41,14 +40,14 @@ function App () {
   return (
     <Router>
       <div className='App'>
-        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} pk={pk} profileComplete={profileComplete} />
+        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} pk={pk} />
         <main>
           <Switch>
             <Route path='/registration/'>
-              <Registration setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} setProfileComplete={setProfileComplete} />
+              <Registration setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
             </Route>
             <Route path='/login/'>
-              <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} setProfileComplete={setProfileComplete} />
+              <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
             </Route>
             <Route path='/profile-setup/'>
               <ProfileSetup token={token} isLoggedIn={isLoggedIn} />
