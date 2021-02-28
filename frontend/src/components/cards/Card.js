@@ -69,7 +69,7 @@ function Card ({ cards, profile }) {
                           type='button'
                           className='justify-center inline-flex flex-1 items-center px-2 py-1 ml-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                           onClick={() => history.push(`message/${card.pk}`)}
-
+                        >
                           <span><MessageBtn card={card} /></span>
                         </button>
                       </div>
