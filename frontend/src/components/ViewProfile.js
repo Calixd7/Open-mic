@@ -9,6 +9,8 @@ const ViewProfile = ({ token }) => {
   const [profile, setProfile] = useState(null)
   const [isEditing, setIsEditing] = useState(false)
 
+  console.log('token in viewProfile', token)
+
   useEffect(() => {
     getUserProfile(token).then(profile => setProfile(profile))
   }, [])
@@ -16,14 +18,16 @@ const ViewProfile = ({ token }) => {
   if (profile && isEditing) {
     return (
       <div>
-        <ProfileSetup profile={profile} isEditing={isEditing} />
+        <ProfileSetup profile={profile} isEditing={isEditing} token={token} />
       </div>
     )
   } else if (profile) {
     return (
       <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
         <div className='max-w-md w-full space-y-8'>
-
+          <div>
+            <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Profile</h2>
+          </div>
           <ul className='space-y-3'>
             <p>Registered as. . .</p>
             <li className='bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md'>
