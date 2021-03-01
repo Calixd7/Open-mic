@@ -12,7 +12,7 @@ from rest_framework.exceptions import ParseError
 from rest_framework.parsers import FileUploadParser
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
-
+from django.shortcuts import get_object_or_404
 class IsOwnerOrReadOnly(permissions.BasePermission):
      
     def has_permission(self, request, view):
