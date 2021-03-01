@@ -20,18 +20,20 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
   //       setAvatar(card[0].image)
   //     })
   // }
+console.log('avatar', avatar)
+console.log('isImage', isImage)
 
   useEffect (() => {
     getUserProfile(token)
       .then(card => {
-        if (card.image === null) {
+        if (card.image === []) {
           setIsImage(false)
         } else {
           setAvatar(card.image)
           setIsImage(true)
         }
       })
-  }, [token])
+  }, [])
 
   return (
     <nav className='bg-gray-800'>
@@ -123,7 +125,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
                 <span className='sr-only'>Open User Menu></span>
                 {isImage
               ? <img
-              className='block lg:hidden h-8 w-auto'
+              className='block h-8 w-auto'
               src={avatar}
               alt='avatar'
             />
