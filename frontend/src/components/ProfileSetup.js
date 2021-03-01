@@ -1,5 +1,5 @@
 //
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Genre from './profileComponents/Genre'
 import Instruments from './profileComponents/Instruments'
 import Bio from './profileComponents/Bio'
@@ -49,6 +49,7 @@ const instrumentsForApi = (intstruments) => {
 }
 
 const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvatar }) => {
+  const profileForm = useRef()
   const safeProfile = profile || {}
   const { type } = useParams()
   const history = useHistory()
@@ -79,18 +80,18 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
     vacancy: vacancy
   }
 
-  console.log('image.length', image.length)
-  console.log('image', image)
-  console.log('safeProfile.image', safeProfile.image)
-  console.log('token in ProfileSetup', token)
-  console.log('vacancy', vacancy)
-  console.log('safeProfile.pk', safeProfile.pk)
+  // console.log('image.length', image.length)
+  // console.log('image', image)
+  // console.log('safeProfile.image', safeProfile.image)
+  // console.log('token in ProfileSetup', token)
+  // console.log('vacancy', vacancy)
+  // console.log('safeProfile.pk', safeProfile.pk)
 
   function handleSubmit (event, token) {
     event.preventDefault()
 
     if (safeProfile.pk) {
-      const formData = new FormData()
+      const formData = new FormData(profileForm.current)
       formData.set('image', image)
 
       console.log('pending profile in isEditing', pendingProfile)
@@ -103,7 +104,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
             })
         })
     } else {
-      const formData = new FormData()
+      const formData = new FormData(profileForm.current)
       formData.set('image', image)
 
       console.log('pending profile in first Submit', pendingProfile)
@@ -133,6 +134,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
         <div className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
           <form
             className='flex flex-col'
+            ref={profileForm}
             onSubmit={(e) => {
               e.preventDefault()
               handleSubmit(e, token, history)
@@ -189,21 +191,21 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
               </div>
 
             </div>
-            {isEditing &&
-              <div className='mt-4'>
-                <button
-                  className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                  type='submit'
-                  onSubmit={(e) => {
-                    e.preventDefault()
-                    handleDeleteProfile(e, token, history)
-                  }}
-                >Submit
-                </button>
-              </div>}
-            <div className='mt-12'>
-              <span><Delete /></span>
+            <div className='mt-4'>
+              <button
+                className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                type='submit'
+                onSubmit={(e) => {
+                  e.preventDefault()
+                  handleDeleteProfile(e, token, history)
+                }}
+              >Submit
+              </button>
             </div>
+            {isEditing &&
+              <div className='mt-12'>
+                <span><Delete /></span>
+              </div>}
           </form>
         </div>
       </div>
