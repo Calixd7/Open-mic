@@ -57,10 +57,10 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
   const [genres, setGenres] = useState(safeProfile.genres || [])
   const [instruments, setInstruments] = useState(safeProfile.instruments || [])
   const [bio, setBio] = useState(safeProfile.bio || '')
-  const [zipcode, setZipcode] = useState(0)
   const [email, setEmail] = useState(safeProfile.email || '')
   const [site, setSite] = useState('')
-  const [bandLocation, setBandLocation] = useState(safeProfile.band_location || '')
+  const [location, setLocation] = useState(safeProfile.band_location || '')
+  const [state, setState] = useState('')
   const [vacancy, setVacancy] = useState(safeProfile.vacancy || false)
   const [image, setImage] = useState(safeProfile.image || [])
   const [status, setStatus] = useState(safeProfile.individualorband || 'Solo Artist')
@@ -71,13 +71,16 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
     bio: bio,
     name: name,
     instruments: instrumentsForApi(instruments),
-    ind_zipcode: zipcode,
+    state: state,
+    email: email,
+    website: site,
     genres: genreForApi(genres),
-    band_location: bandLocation,
+    location: location,
+    vacancy: vacancy,
     individualorband: statusForApi(status),
     wanted_instruments: wantedIntForAPI(vacancy, wantedInstruments),
-    wanted_info: wantedInfo,
-    vacancy: vacancy
+    wanted_info: wantedInfo
+
   }
 
   // console.log('image.length', image.length)

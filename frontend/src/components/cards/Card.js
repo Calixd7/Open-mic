@@ -4,6 +4,8 @@ import Info from './Info'
 import Follow from './Follow'
 import MessageBtn from './MessageBtn'
 import ViewCard from '../ViewCard'
+import logo from '../images/logorough.jpg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function Card ({ cards, profile }) {
   const history = useHistory()
@@ -26,12 +28,34 @@ function Card ({ cards, profile }) {
       >
         {cards.map(card => (
           <li key={`card-${card.pk}`} className={`${card.individualorband === 'Band' ? 'bg-gray-700' : 'bg-gray-700'} col-span-1 flex flex-col text-center rounded-lg shadow divide-y divide-indigo-200 ${card.vacancy === true ? 'border-8 border-solid border-green-500' : 'border-none'}`}>
+
+            <div className='flex justify-between items-center'>
+              <div className='flex-shrink-0 flex-items-center'>
+
+                <img
+                  className='block h-8 w-auto ml-2 my-2 rounded-md opacity-80'
+                  src={logo} alt='logo'
+                />
+              </div>
+              {card.vacancy === true &&
+                <p className='text-white font-bold text-green-500 text-xs mr-2'>Looking for instruments</p>}
+
+            </div>
+
             <div className='flex-1 flex flex-col p-8'>
-              <img
-                className='w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full object-cover'
-                src={card.image}
-                alt='avatar'
-              />
+              {card.image
+                ? <img
+                    className='w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full object-cover'
+                    src={card.image}
+                    alt='avatar'
+                  />
+                : <span className='w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full object-cover'>
+                  <FontAwesomeIcon
+                    icon={['far', 'user']}
+                    className='text-red-300 hover:text-red-500 text-7xl h-full w-auto'
+                  />
+                </span>}
+
               <h3 className='mt-6 text-white text-sm font-medium'>{properStatus(card)}</h3>
               <dl className='mt-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
               <dt className='sr-only'>card Name</dt>

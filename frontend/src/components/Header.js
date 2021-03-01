@@ -1,7 +1,7 @@
 import { Link, useHistory } from 'react-router-dom'
 import {Transition} from '@headlessui/react'
 import { useEffect, useState } from 'react'
-import logo from '../images/logorough.jpg'
+import logo from './images/logorough.jpg'
 import { getUserProfile} from '../api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -61,7 +61,7 @@ console.log('isImage', isImage)
           <div className='flex-1 flex items-center justify center sm:items-stretch sm:justify-start'>
             <div className='flex-shrink-0 flex-items-center'>
               <img
-              className='block lg:hidden h-8 w-auto'
+              className='block h-12 w-auto rounded-md'
               src={logo} alt='OpenMic'
               alt='logo'
             />
