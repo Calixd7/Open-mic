@@ -1,10 +1,10 @@
 import { Transition } from '@headlessui/react'
 import { useState, useEffect } from 'react'
 import Card from './cards/Card'
-import { getProfiles } from '../api'
+import { getProfiles, getUserProfile } from '../api'
 import Search from './Search'
 
-function Explore ({ token }) {
+function Explore ({ token, setIsImage, setAvatar }) {
   const [cards, setCards] = useState([])
   const [profile, setProfile] = useState('')
 
@@ -15,6 +15,20 @@ function Explore ({ token }) {
   useEffect(() => {
     getProfiles(token).then(cards => setCards(cards))
     console.log('cards', cards)
+  }, [token])
+
+  useEffect(() => {
+    getUserProfile(token).then(profile => {
+      if (!profile.image || profile.image === null) {
+        return 'loading'
+      }
+      if (profile.image.length === 0 || profile.image.length === null) {
+        setIsImage(false)
+      } else {
+        setAvatar(profile.image)
+        setIsImage(true)
+      }
+    })
   }, [token])
 
   return (

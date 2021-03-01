@@ -6,35 +6,14 @@ import { getUserProfile} from '../api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
-function Header ({ username, token, setToken, isLoggedIn, pk }) {
+function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const history = useHistory()
-  const [avatar, setAvatar] = useState('')
-  const [isImage, setIsImage] = useState(false)
 
-
-  // if (isImage) {
-  //   getUserProfile(token)
-  //     .then(card => {
-  //       setAvatar(card[0].image)
-  //     })
-  // }
 console.log('avatar', avatar)
 console.log('isImage', isImage)
-
-  useEffect (() => {
-    getUserProfile(token)
-      .then(card => {
-        if (card.image === null || card.image === '') {
-          setIsImage(false)
-        } else {
-          setAvatar(card.image)
-          setIsImage(true)
-        }
-      })
-  }, [])
-
+  
   return (
     <nav className='bg-gray-800'>
       <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:px-8'>
