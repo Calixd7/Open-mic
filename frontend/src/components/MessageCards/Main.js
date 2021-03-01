@@ -31,34 +31,7 @@ function Main ({ messages, messageId }) {
               <div className='px-4 sm:px-6 lg:px-8'>
                 <div className='py-3 flex justify-between'>
                   {/* <!-- Left buttons --> */}
-                  <div>
-                    <span className='relative z-0 inline-flex shadow-sm rounded-md sm:shadow-none sm:space-x-3'>
-                      <span className='inline-flex sm:shadow-sm'>
-                        <button
-                          type='button'
-                          className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                        >
-                          {/* <!-- Heroicon name: solid/reply --> */}
-                          <svg
-                            className='mr-2.5 h-5 w-5 text-gray-400'
-                            xmlns='http://www.w3.org/2000/svg'
-                            viewBox='0 0 20 20'
-                            fill='currentColor'
-                            aria-hidden='true'
-                          >
-                            <path
-                              fillRule='evenodd'
-                              d='M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
-                              clipRule='evenodd'
-                            />
-                          </svg>
-                          <span>
-                            Reply
-                          </span>
-                        </button>
-                      </span>
-                    </span>
-                  </div>
+
                 </div>
               </div>
             </div>
@@ -99,6 +72,34 @@ function Main ({ messages, messageId }) {
                       </div>
                     </li>
                   </ul>
+                </div>
+                <div className='text-right mr-10'>
+                  <span className='relative z-0 inline-flex shadow-sm rounded-md sm:shadow-none sm:space-x-3'>
+                    <span className='inline-flex sm:shadow-sm'>
+                      <button
+                        type='button'
+                        className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                      >
+                        {/* <!-- Heroicon name: solid/reply --> */}
+                        <svg
+                          className='mr-2.5 h-5 w-5 text-gray-400'
+                          xmlns='http://www.w3.org/2000/svg'
+                          viewBox='0 0 20 20'
+                          fill='currentColor'
+                          aria-hidden='true'
+                        >
+                          <path
+                            fillRule='evenodd'
+                            d='M7.707 3.293a1 1 0 010 1.414L5.414 7H11a7 7 0 017 7v2a1 1 0 11-2 0v-2a5 5 0 00-5-5H5.414l2.293 2.293a1 1 0 11-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z'
+                            clipRule='evenodd'
+                          />
+                        </svg>
+                        <span>
+                          Reply
+                        </span>
+                      </button>
+                    </span>
+                  </span>
                 </div>
               </div>
             </div>
