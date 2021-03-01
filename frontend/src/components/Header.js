@@ -104,7 +104,7 @@ console.log('isImage', isImage)
                 <span className='sr-only'>Open User Menu></span>
                 {isImage
               ? <img
-              className='block h-8 w-auto'
+              className='block h-12 w-auto rounded-full'
               src={avatar}
               alt='avatar'
             />

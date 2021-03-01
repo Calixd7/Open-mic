@@ -1,5 +1,5 @@
 import { Link, Redirect } from 'react-router-dom'
-import logo from '../images/logorough.jpg'
+import logo from './images/logorough.jpg'
 
 function Welcome ({ isLoggedIn }) {
   if (isLoggedIn) {
