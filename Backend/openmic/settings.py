@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'openmic', 
     'storages',
 
+   
+
 
 
     # Third-party

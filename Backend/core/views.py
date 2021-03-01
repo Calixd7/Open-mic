@@ -1,8 +1,7 @@
 from django.shortcuts import render
 from rest_framework.viewsets import ModelViewSet
 from core.models import User, UserProfile, UserFollowing, Messages
-from core.serializers import UserSerializer, UserProfileSerializer, UserFollowingSerializer, MessageSerializer
-from django.shortcuts import get_object_or_404
+from core.serializers import UserSerializer, UserProfileSerializer, UserFollowingSerializer, MessagesSerializer
 from django.contrib.auth import get_user_model
 from rest_framework import permissions
 from rest_framework.decorators import action
@@ -12,6 +11,7 @@ from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import FileUploadParser
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 
 class IsOwnerOrReadOnly(permissions.BasePermission):
      
@@ -62,6 +62,7 @@ class UserProfileViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
+  
 
     @action(detail=False, methods=['get'])
     def me (self, request):
@@ -76,12 +77,14 @@ class UserProfileViewSet(ModelViewSet):
     
 class MessageViewSet(ModelViewSet):
 
-    serializer_class = MessageSerializer
+    serializer_class = MessagesSerializer
+
 
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return  Messages.objects.all() 
+        return  Messages.objects.order_by('receiver', 'sender','created_at')
+
 
     def perform_create(self, serializer):
         if not self.request.user.is_authenticated:
@@ -90,11 +93,12 @@ class MessageViewSet(ModelViewSet):
 
     @action(detail=False, methods=['get'])
     def mine (self, request):
-        queryset = Messages.objects.filter(sender=self.request.user)
+        queryset = Messages.objects.filter(Q(sender=self.request.user) | Q(receiver=self.request.user)).order_by('created_at')
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-    
+
+
   
 class UserFollowingViewSet(ModelViewSet):
 
@@ -106,4 +110,3 @@ class UserFollowingViewSet(ModelViewSet):
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
 
-        
