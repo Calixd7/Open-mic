@@ -54,10 +54,10 @@ const ViewProfile = ({ token }) => {
           </ul>
 
           <p>Genres</p>
-          <div class='bg-white shadow overflow-hidden sm:rounded-md'>
-            <ul class='divide-y divide-gray-200'>
+          <div className='bg-white shadow overflow-hidden sm:rounded-md'>
+            <ul className='divide-y divide-gray-200'>
               {profile.genres.map(genre => (
-                <li key={genre} class='px-4 py-4 sm:px-6'>
+                <li key={genre} className='px-4 py-4 sm:px-6'>
                   {genre}
                 </li>
               ))}
@@ -65,10 +65,10 @@ const ViewProfile = ({ token }) => {
           </div>
 
           <p className=''>Instruments</p>
-          <div class='bg-white shadow overflow-hidden sm:rounded-md'>
-            <ul class='divide-y divide-gray-200'>
+          <div className='bg-white shadow overflow-hidden sm:rounded-md'>
+            <ul className='divide-y divide-gray-200'>
               {profile.instruments.map(instrument => (
-                <li key={`current-${instrument}`} class='px-4 py-4 sm:px-6'>
+                <li key={`current-${instrument}`} className='px-4 py-4 sm:px-6'>
                   {instrument}
                 </li>
               ))}
@@ -93,10 +93,10 @@ const ViewProfile = ({ token }) => {
           {profile.vacancy &&
             <div>
               <p className=''>The instruments you are looking for. . .</p>
-              <div class='bg-white shadow overflow-hidden sm:rounded-md'>
-                <ul class='divide-y divide-gray-200'>
+              <div className='bg-white shadow overflow-hidden sm:rounded-md'>
+                <ul className='divide-y divide-gray-200'>
                   {profile.wanted_instruments.map(instrument => (
-                    <li key={`wanted-${instrument}`} class='px-4 py-4 sm:px-6'>
+                    <li key={`wanted-${instrument}`} className='px-4 py-4 sm:px-6'>
                       {instrument}
                     </li>
                   ))}

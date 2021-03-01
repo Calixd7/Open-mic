@@ -8,7 +8,6 @@ import Name from './profileComponents/Name'
 import Email from './profileComponents/Email'
 import Site from './profileComponents/Site'
 import BandLocation from './profileComponents/BandLocation'
-import BandSize from './profileComponents/BandSize'
 import Vacancy from './profileComponents/Vacancy'
 import Status from './profileComponents/Status'
 import WantedInstruments from './profileComponents/WantedInstruments'
@@ -16,18 +15,6 @@ import WantedInfo from './profileComponents/WantedInfo'
 import { useParams, useHistory } from 'react-router-dom'
 import { postProfiles, deleteProfile, updateProfile, uploadImage } from '../api'
 import Delete from './Delete'
-
-// function handleSubmit (event, token, profile, userType, history) {
-//   event.preventDefault()
-//   // if (card.pk) {
-//   //   updateProfile(token, card.pk, card)
-//   // }
-
-//   postProfiles(token, profile, userType)
-//     .then(data => {
-//       history.push('/explore')
-//     })
-// }
 
 const statusForApi = (status) => {
   if (status === 'Solo Artist') {
@@ -61,7 +48,7 @@ const instrumentsForApi = (intstruments) => {
   }
 }
 
-const ProfileSetup = ({ token, profile, userType, isEditing }) => {
+const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvatar }) => {
   const safeProfile = profile || {}
   const { type } = useParams()
   const history = useHistory()
@@ -77,7 +64,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing }) => {
   const [image, setImage] = useState(safeProfile.image || [])
   const [status, setStatus] = useState(safeProfile.individualorband || 'Solo Artist')
   const [wantedInstruments, setWantedInstruments] = useState(safeProfile.wanted_instruments || [])
-  const [wantedInfo, setWantedInfo] = useState(safeProfile.wanted_instruments || '')
+  const [wantedInfo, setWantedInfo] = useState(safeProfile.wanted_info || '')
   const pendingProfile = {
     pk: safeProfile.pk,
     bio: bio,
@@ -96,6 +83,8 @@ const ProfileSetup = ({ token, profile, userType, isEditing }) => {
   console.log('image', image)
   console.log('safeProfile.image', safeProfile.image)
   console.log('token in ProfileSetup', token)
+  console.log('vacancy', vacancy)
+  console.log('safeProfile.pk', safeProfile.pk)
 
   function handleSubmit (event, token) {
     event.preventDefault()
@@ -200,17 +189,18 @@ const ProfileSetup = ({ token, profile, userType, isEditing }) => {
               </div>
 
             </div>
-            <div className='mt-4'>
-              <button
-                className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                type='submit'
-                onSubmit={(e) => {
-                  e.preventDefault()
-                  handleDeleteProfile(e, token, history)
-                }}
-              >Submit
-              </button>
-            </div>
+            {isEditing &&
+              <div className='mt-4'>
+                <button
+                  className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                  type='submit'
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    handleDeleteProfile(e, token, history)
+                  }}
+                >Submit
+                </button>
+              </div>}
             <div className='mt-12'>
               <span><Delete /></span>
             </div>

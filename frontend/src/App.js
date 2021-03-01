@@ -25,6 +25,8 @@ function App () {
   const [token, setToken] = useToken()
   const [pk, setPk] = useState(0)
   const isLoggedIn = (username && token)
+  const [isImage, setIsImage] = useState(false)
+  const [avatar, setAvatar] = useState('')
 
   // console.log('pk', pk)
 
@@ -40,7 +42,7 @@ function App () {
   return (
     <Router>
       <div className='App'>
-        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} pk={pk} />
+        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} />
         <main>
           <Switch>
             <Route path='/registration/'>
@@ -50,13 +52,13 @@ function App () {
               <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
             </Route>
             <Route path='/profile-setup/'>
-              <ProfileSetup token={token} isLoggedIn={isLoggedIn} />
+              <ProfileSetup token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} setAvatar={setAvatar} />
             </Route>
             <Route path='/connections/'>
               <Connections isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/explore/'>
-              <Explore token={token} isLoggedIn={isLoggedIn} />
+              <Explore token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} setAvatar={setAvatar} />
             </Route>
             <Route path='/view-profile/'>
               <ViewProfile token={token} isLoggedIn={isLoggedIn} />
