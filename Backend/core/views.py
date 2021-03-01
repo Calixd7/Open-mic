@@ -13,6 +13,8 @@ from rest_framework.parsers import FileUploadParser
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+from rest_framework import filters
+from django_filters.rest_framework import DjangoFilterBackend
 class IsOwnerOrReadOnly(permissions.BasePermission):
      
     def has_permission(self, request, view):
@@ -56,13 +58,16 @@ class UserProfileViewSet(ModelViewSet):
     permission_classes =[
         permissions.IsAuthenticated, IsOwnerOrReadOnly
         ]
-    
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['instruments', 'genres']
+  
     def get_queryset(self):
         return UserProfile.objects.all()
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
-  
+
+   
 
     @action(detail=False, methods=['get'])
     def me (self, request):
