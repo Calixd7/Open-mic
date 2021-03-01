@@ -92,12 +92,15 @@ const ProfileSetup = ({ token, profile, userType, isEditing }) => {
     vacancy: vacancy
   }
 
+  console.log('image.length', image.length)
+  console.log('image', image)
+  console.log('safeProfile.image', safeProfile.image)
   console.log('token in ProfileSetup', token)
 
   function handleSubmit (event, token) {
     event.preventDefault()
 
-    if (profile.pk) {
+    if (safeProfile.pk) {
       const formData = new FormData()
       formData.set('image', image)
 
