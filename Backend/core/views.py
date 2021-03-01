@@ -41,7 +41,7 @@ class UserViewSet(ModelViewSet):
    
     def get_queryset(self):
         return User.objects.all()
-
+    
     def perform_create(self, serializer):
         return serializer.save(self.request.user)
     
@@ -58,16 +58,14 @@ class UserProfileViewSet(ModelViewSet):
     permission_classes =[
         permissions.IsAuthenticated, IsOwnerOrReadOnly
         ]
-    filter_backends = [filters.SearchFilter]
-    search_fields = ['instruments', 'genres']
-  
+   
     def get_queryset(self):
         return UserProfile.objects.all()
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
 
-   
+    
 
     @action(detail=False, methods=['get'])
     def me (self, request):
