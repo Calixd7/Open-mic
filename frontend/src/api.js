@@ -74,7 +74,7 @@ export function postProfiles (token, profile) {
     }
   })
     .then(res => {
-      console.log('api data', res.data)
+      // console.log('api data', res.data)
       return res.data
     })
 }
@@ -90,7 +90,7 @@ export function uploadImage (token, image, pk) {
     }
   })
     .then(res => {
-      console.log('image api return data', res.data)
+      // console.log('image api return data', res.data)
       return res.data
     })
 }
@@ -114,14 +114,17 @@ export function deleteProfile (token, pk) {
     .then(res => res.data)
 }
 
-export function updateProfile (token, pk) {
+export function updateProfile (token, updatedProfile, pk) {
   return apiUrl
-    .put(`api/userprofiles/${pk}/`, {
+    .put(`api/userprofiles/${pk}/`, updatedProfile, {
       headers: {
         Authorization: `Token ${token}`
       }
     })
-    .then(res => console.log('res.data api', res.data))
+    .then(res => {
+      // console.log('res.data api', res.data)
+      return res.data
+    })
 }
 
 export function getUserProfile (token) {
@@ -131,7 +134,7 @@ export function getUserProfile (token) {
     }
   })
     .then(res => {
-      console.log('user api', res.data)
+      // console.log('user api', res.data)
       return res.data[0]
     })
 }

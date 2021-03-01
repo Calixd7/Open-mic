@@ -26,7 +26,7 @@ console.log('isImage', isImage)
   useEffect (() => {
     getUserProfile(token)
       .then(card => {
-        if (card.image === []) {
+        if (card.image === null || card.image === '') {
           setIsImage(false)
         } else {
           setAvatar(card.image)
