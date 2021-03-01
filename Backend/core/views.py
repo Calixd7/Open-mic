@@ -62,8 +62,13 @@ class UserProfileViewSet(ModelViewSet):
     def get_queryset(self):
         return UserProfile.objects.all()
 
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['individualorband', 'instruments__name', 'genres__name']
+    
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
+
+    
 
     
 
