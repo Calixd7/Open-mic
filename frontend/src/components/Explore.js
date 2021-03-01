@@ -1,16 +1,21 @@
-import { Transition } from '@headlessui/react'
 import { useState, useEffect } from 'react'
 import Card from './cards/Card'
-import { getProfiles, getUserProfile } from '../api'
+import { getProfiles, getUserProfile, getConnections } from '../api'
 import Search from './Search'
 
-function Explore ({ token, setIsImage, setAvatar }) {
+function Explore ({ token, setIsImage, setAvatar, username }) {
   const [cards, setCards] = useState([])
   const [profile, setProfile] = useState('')
+  const [userPk, setUserPk] = useState(null)
+  const [connections, setConnections] = useState([])
 
   console.log('profile', profile)
   console.log('cards', cards)
   console.log('token', token)
+  console.log('userPk', userPk)
+  console.log('username', username)
+  console.log('cards usernames', cards.map(card => card.user))
+  console.log('connections state', connections)
 
   useEffect(() => {
     getProfiles(token).then(cards => setCards(cards))
@@ -22,6 +27,7 @@ function Explore ({ token, setIsImage, setAvatar }) {
       if (!profile.image || profile.image === null) {
         return 'loading'
       }
+      setUserPk(profile.pk)
       if (profile.image.length === 0 || profile.image.length === null) {
         setIsImage(false)
       } else {
@@ -30,6 +36,12 @@ function Explore ({ token, setIsImage, setAvatar }) {
       }
     })
   }, [token])
+
+  useEffect(() => {
+    getConnections(token).then(connections => {
+      setConnections(connections.following.map(following => following.following_user))
+    })
+  }, [])
 
   return (
     <div>

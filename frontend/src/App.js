@@ -58,7 +58,7 @@ function App () {
               <Connections isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/explore/'>
-              <Explore token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} setAvatar={setAvatar} />
+              <Explore token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} setAvatar={setAvatar} username={username} />
             </Route>
             <Route path='/view-profile/'>
               <ViewProfile token={token} isLoggedIn={isLoggedIn} />

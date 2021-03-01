@@ -153,3 +153,12 @@ export function getMessages (token) {
       return res.data
     })
 }
+
+export function getConnections (token) {
+  return apiUrl.get('api/users/me', {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
+}

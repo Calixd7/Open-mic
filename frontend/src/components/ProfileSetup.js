@@ -79,12 +79,12 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
     vacancy: vacancy
   }
 
-  console.log('image.length', image.length)
-  console.log('image', image)
-  console.log('safeProfile.image', safeProfile.image)
-  console.log('token in ProfileSetup', token)
-  console.log('vacancy', vacancy)
-  console.log('safeProfile.pk', safeProfile.pk)
+  // console.log('image.length', image.length)
+  // console.log('image', image)
+  // console.log('safeProfile.image', safeProfile.image)
+  // console.log('token in ProfileSetup', token)
+  // console.log('vacancy', vacancy)
+  // console.log('safeProfile.pk', safeProfile.pk)
 
   function handleSubmit (event, token) {
     event.preventDefault()
