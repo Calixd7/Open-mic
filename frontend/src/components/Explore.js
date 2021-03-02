@@ -14,8 +14,8 @@ function Explore ({ token, setIsImage, setAvatar, username }) {
   console.log('token', token)
   console.log('userPk', userPk)
   console.log('username', username)
-  console.log('cards usernames', cards.map(card => card.user))
-  console.log('connections state', connections)
+  // console.log('cards usernames', cards.map(card => card.user))
+  // console.log('connections state', connections)
 
   useEffect(() => {
     getProfiles(token).then(cards => setCards(cards))

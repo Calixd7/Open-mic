@@ -11,8 +11,8 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
   const [showProfile, setShowProfile] = useState(false)
   const history = useHistory()
 
-console.log('avatar', avatar)
-console.log('isImage', isImage)
+// console.log('avatar', avatar)
+// console.log('isImage', isImage)
   
   return (
     <nav className='bg-gray-800'>
@@ -69,23 +69,17 @@ console.log('isImage', isImage)
             <div className='hidden sm:block sm:ml-6'>
               <div className='flex space-x-4'>
                 <Link
-                  to='#'
-                  className='bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium'
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  to='#'
+                  to={`/messages/${pk}`}
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                 >Messages
                 </Link>
                 <Link
-                  to='/connections'
+                  to='/friends'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-                >Connections
+                >Friends
                 </Link>
                 <Link
-                  to='/explore'
+                  to='/explore/'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                 >Explore
                 </Link>
@@ -137,7 +131,7 @@ console.log('isImage', isImage)
                 // to='view-profile/'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
                 role='menuitem'
-                onClick={() => {history.push('view-profile/'); setShowProfile(false)}}
+                onClick={() => {history.push('/view-profile'); setShowProfile(false)}}
               >
                 Your Profile
               </div>
