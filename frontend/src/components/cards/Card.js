@@ -7,7 +7,7 @@ import ViewCard from '../ViewCard'
 import logo from '../images/logorough.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Card ({ cards, profile }) {
+function Card ({ cards, profile, setMessageReceiverUser }) {
   const history = useHistory()
   const [follow, setFollow] = useState(false)
   // console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
@@ -88,7 +88,7 @@ function Card ({ cards, profile }) {
                         <button
                           type='button'
                           className='justify-center inline-flex flex-1 items-center px-2 py-1 ml-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 hover:text-white bg-indigo-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                          onClick={() => history.push(`/message/${card.pk}`)}
+                          onClick={() => {history.push('/message'); setMessageReceiverUser(card.user) }}
                         >
                           <span>
                             <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>

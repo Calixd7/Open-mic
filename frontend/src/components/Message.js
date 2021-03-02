@@ -7,7 +7,7 @@ import Main from './MessageCards/Main'
 import MessageList from './MessageCards/MessageList'
 import CreateMessage from './MessageCards/CreateMessage'
 
-function Message ({ token, username }) {
+function Message ({ token, username, messageReceiverUser }) {
   const { pk } = useParams()
   const [messages, setMessages] = useState([])
   const [messageId, setMessageId] = useState('')
@@ -43,7 +43,7 @@ function Message ({ token, username }) {
             <Main messageToRender={messageToRender} setMessageToRender={setMessageToRender} setShowReplyMessage={setShowReplyMessage} messageId={messageId} messages={messages} />
           </div>
           <div>
-            <CreateMessage messageToRender={messageToRender} username={username} token={token} showReplyMessage={showReplyMessage} />
+            <CreateMessage messageReceiverUser={messageReceiverUser} messageToRender={messageToRender} username={username} token={token} showReplyMessage={showReplyMessage} />
           </div>
         </div>
       </div>

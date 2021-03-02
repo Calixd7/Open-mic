@@ -3,7 +3,7 @@ import Card from './cards/Card'
 import { getProfiles, getUserProfile, getConnections } from '../api'
 import Search from './Search'
 
-function Explore ({ token, setIsImage, setAvatar, username }) {
+function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUser }) {
   const [cards, setCards] = useState([])
   const [profile, setProfile] = useState('')
   const [userPk, setUserPk] = useState(null)
@@ -50,7 +50,7 @@ function Explore ({ token, setIsImage, setAvatar, username }) {
       </div>
       <div />
       <div>
-        <Card cards={cards} profile={profile} />
+        <Card setMessageReceiverUser={setMessageReceiverUser} cards={cards} profile={profile} />
       </div>
     </div>
 
