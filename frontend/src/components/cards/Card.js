@@ -54,13 +54,13 @@ function Card ({ cards, profile }) {
                     icon={['far', 'user']}
                     className='text-red-300 hover:text-red-500 text-7xl h-full w-auto'
                   />
-                  </span>}
+                </span>}
 
               <h3 className='mt-6 text-white text-sm font-medium'>{properStatus(card)}</h3>
               <dl className='mt-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
               <dt className='sr-only'>card Name</dt>
               <dd className='text-white text-sm'>Genres: {card.genres}</dd>
-              <dd className='text-white text-sm'>Location: {card.band_location}</dd>
+              <dd className='text-white text-sm'>Location: {card.location}</dd>
             </div>
             <div>
               <div className='mt=px flex divide-x divide-gray-200'>
