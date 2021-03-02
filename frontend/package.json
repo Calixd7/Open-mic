@@ -10,10 +10,12 @@
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@headlessui/react": "^0.3.1",
     "@tailwindcss/forms": "^0.2.1",
+    "@tailwindcss/line-clamp": "^0.2.0",
     "@testing-library/jest-dom": "^5.11.9",
     "@testing-library/react": "^11.2.5",
     "@testing-library/user-event": "^12.7.1",
     "axios": "^0.21.1",
+    "cors": "^2.8.5",
     "latest": "^0.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
@@ -52,6 +54,7 @@
     "@tailwindcss/postcss7-compat": "^2.0.3",
     "autoprefixer": "^9.8.6",
     "postcss": "^7.0.35",
+    "prettier": "2.2.1",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3"
   }
 }

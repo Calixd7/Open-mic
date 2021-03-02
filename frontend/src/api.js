@@ -63,14 +63,34 @@ export function getProfiles (token) {
     .then(results => results.data)
 }
 
-export function postProfiles (token, profile, type) {
+// ************************************************
+// ******* POST for data WITHOUT formData *********
+// ************************************************
+
+export function postProfiles (token, profile) {
   return apiUrl.post('api/userprofiles/', profile, {
     headers: {
       Authorization: `Token ${token}`
     }
   })
     .then(res => {
-      console.log('api data', res.data)
+      // console.log('api data', res.data)
+      return res.data
+    })
+}
+
+// ************************************************
+// ******* PUT formData for image upload *********
+// ************************************************
+export function uploadImage (token, image, pk) {
+  return apiUrl.put(`api/userprofiles/${pk}/`, image, {
+    headers: {
+      'content-type': 'multipart/form-data',
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => {
+      // console.log('image api return data', res.data)
       return res.data
     })
 }
@@ -94,12 +114,51 @@ export function deleteProfile (token, pk) {
     .then(res => res.data)
 }
 
-export function updateProfile (token, pk) {
+export function updateProfile (token, updatedProfile, pk) {
   return apiUrl
-    .put(`api/userprofiles/${pk}/`, {
+    .put(`api/userprofiles/${pk}/`, updatedProfile, {
       headers: {
         Authorization: `Token ${token}`
       }
     })
-    .then(res => console.log('res.data api', res.data))
+    .then(res => {
+      // console.log('res.data api', res.data)
+      return res.data
+    })
+}
+
+export function getUserProfile (token) {
+  return apiUrl.get('api/userprofiles/me/', {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => {
+      // console.log('user api', res.data)
+      return res.data[0]
+    })
+}
+
+// export function createMessage (token, pk) {
+//   // return apiUrl.post('/')
+// }
+
+export function getMessages (token) {
+  return apiUrl.get('/api/messages/', {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => {
+      return res.data
+    })
+}
+
+export function getConnections (token) {
+  return apiUrl.get('api/users/me', {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
 }

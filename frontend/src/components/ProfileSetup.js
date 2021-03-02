@@ -1,5 +1,5 @@
 //
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Genre from './profileComponents/Genre'
 import Instruments from './profileComponents/Instruments'
 import Bio from './profileComponents/Bio'
@@ -8,26 +8,13 @@ import Name from './profileComponents/Name'
 import Email from './profileComponents/Email'
 import Site from './profileComponents/Site'
 import BandLocation from './profileComponents/BandLocation'
-import BandSize from './profileComponents/BandSize'
 import Vacancy from './profileComponents/Vacancy'
 import Status from './profileComponents/Status'
 import WantedInstruments from './profileComponents/WantedInstruments'
 import WantedInfo from './profileComponents/WantedInfo'
 import { useParams, useHistory } from 'react-router-dom'
-import { postProfiles, deleteProfile, updateProfile } from '../api'
+import { postProfiles, deleteProfile, updateProfile, uploadImage } from '../api'
 import Delete from './Delete'
-
-function handleSubmit (event, token, profile, userType, history) {
-  event.preventDefault()
-  // if (card.pk) {
-  //   updateProfile(token, card.pk, card)
-  // }
-
-  postProfiles(token, profile, userType)
-    .then(data => {
-      history.push('/explore')
-    })
-}
 
 const statusForApi = (status) => {
   if (status === 'Solo Artist') {
@@ -37,17 +24,17 @@ const statusForApi = (status) => {
   }
 }
 
-const wantedIntForAPI = (vacancy, ints) => {
+const wantedIntForAPI = (vacancy, wantedInst) => {
   if (vacancy === false) {
-    return []
+    return ['none']
   } else {
-    return ints
+    return wantedInst
   }
 }
 
 const genreForApi = (genres) => {
   if (genres === ['']) {
-    return []
+    return ['none']
   } else {
     return genres
   }
@@ -55,55 +42,90 @@ const genreForApi = (genres) => {
 
 const instrumentsForApi = (intstruments) => {
   if (intstruments === ['']) {
-    return []
+    return ['none']
   } else {
     return intstruments
   }
 }
 
-const ProfileSetup = ({ token, userType }) => {
+const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvatar }) => {
+  const profileForm = useRef()
+  const safeProfile = profile || {}
   const { type } = useParams()
   const history = useHistory()
-  const [name, setName] = useState('')
-  const blankGenre = { id: 1, genre: '' }
-  const [genres, setGenres] = useState([{ ...blankGenre }])
-  const blankInstruments = { id: 1, instrument: '' }
-  const [instruments, setInstruments] = useState([{ ...blankInstruments }])
-  const [bio, setBio] = useState('')
-  const [zipcode, setZipcode] = useState(0)
-  const [email, setEmail] = useState('')
+  const [name, setName] = useState(safeProfile.name || '')
+  const [genres, setGenres] = useState(safeProfile.genres || [])
+  const [instruments, setInstruments] = useState(safeProfile.instruments || [])
+  const [bio, setBio] = useState(safeProfile.bio || '')
+  const [email, setEmail] = useState(safeProfile.email || '')
   const [site, setSite] = useState('')
-  const [bandLocation, setBandLocation] = useState('')
-  const [bandSize, setBandSize] = useState(1)
-  const [vacancy, setVacancy] = useState(false)
-  const [image, setImage] = useState()
-  const [bandMembers, setBandMembers] = useState('')
-  const [status, setStatus] = useState('Solo Artist')
-  const blankWantedInstruments = { id: 1, wanted_instrument: '' }
-  const [wantedInstruments, setWantedInstruments] = useState([{ ...blankWantedInstruments }])
-  const [wantedInfo, setWantedInfo] = useState('')
+  const [location, setLocation] = useState(safeProfile.band_location || '')
+  const [state, setState] = useState('')
+  const [vacancy, setVacancy] = useState(safeProfile.vacancy || false)
+  const [image, setImage] = useState(safeProfile.image || [])
+  const [status, setStatus] = useState(safeProfile.individualorband || 'Solo Artist')
+  const [wantedInstruments, setWantedInstruments] = useState(safeProfile.wanted_instruments || [])
+  const [wantedInfo, setWantedInfo] = useState(safeProfile.wanted_info || '')
   const pendingProfile = {
-    image: image,
+    pk: safeProfile.pk,
     bio: bio,
     name: name,
-    instruments: instrumentsForApi(instruments.map((int) => int.instrument)),
-    // instruments: instruments.map((int) => int.instrument),
-    ind_zipcode: zipcode,
-    genres: genreForApi(genres.map((genre) => genre.genre)),
-    // genres: genres.map((genre) => genre.genre),
-    band_size: bandSize,
-    band_location: bandLocation,
-    band_members: bandMembers,
+    instruments: instrumentsForApi(instruments),
+    state: state,
+    email: email,
+    website: site,
+    genres: genreForApi(genres),
+    location: location,
+    vacancy: vacancy,
     individualorband: statusForApi(status),
-    // wanted_instruments: wantedInstruments.map((int) => int.wanted_instrument),
-    wanted_instruments: wantedIntForAPI(vacancy, wantedInstruments.map((int) => int.wanted_instrument)),
-    wanted_info: wantedInfo,
-    vacancy: vacancy
-    // followers: followers
+    wanted_instruments: wantedIntForAPI(vacancy, wantedInstruments),
+    wanted_info: wantedInfo
+
   }
 
-  console.log('status', status)
-  console.log('statusForApi', statusForApi(status))
+  // console.log('image.length', image.length)
+  // console.log('image', image)
+  // console.log('typeOf(image', typeof image)
+  // console.log('safeProfile.image', safeProfile.image)
+  // console.log('token in ProfileSetup', token)
+  // console.log('vacancy', vacancy)
+  // console.log('safeProfile.pk', safeProfile.pk)
+
+  function handleSubmit (event, token) {
+    event.preventDefault()
+
+    if (safeProfile.pk) {
+      const formData = new FormData(profileForm.current)
+      formData.set('image', image)
+
+      console.log('pending profile in isEditing', pendingProfile)
+
+      updateProfile(token, pendingProfile, profile.pk)
+        .then(data => {
+          if (typeof image === 'object') {
+            uploadImage(token, formData, data.pk)
+              .then(data => {
+                history.push('/explore')
+              })
+          } else {
+            history.push('/explore')
+          }
+        })
+    } else {
+      const formData = new FormData(profileForm.current)
+      formData.set('image', image)
+
+      console.log('pending profile in first Submit', pendingProfile)
+
+      postProfiles(token, pendingProfile)
+        .then(data => {
+          uploadImage(token, formData, data.pk)
+            .then(data => {
+              history.push('/explore')
+            })
+        })
+    }
+  }
 
   function handleDeleteProfile (event, pk) {
     event.preventDefault()
@@ -120,9 +142,10 @@ const ProfileSetup = ({ token, userType }) => {
         <div className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
           <form
             className='flex flex-col'
+            ref={profileForm}
             onSubmit={(e) => {
               e.preventDefault()
-              handleSubmit(e, token, pendingProfile, userType, history)
+              handleSubmit(e, token, history)
             }}
           >
             <div className='flex flex-col'>
@@ -143,17 +166,12 @@ const ProfileSetup = ({ token, userType }) => {
                 <Site site={site} setSite={setSite} />
               </div>
 
-              {status === 'Band' &&
-                <div className='mt-4'>
-                  <BandSize bandSize={bandSize} setBandSize={setBandSize} />
-                </div>}
-
-              <div className='mt-4'>
-                <Genre blankGenre={blankGenre} genres={genres} setGenres={setGenres} status={status} />
+              <div className='mt-4 h-60'>
+                <Genre genres={genres} setGenres={setGenres} status={status} />
               </div>
 
-              <div className='mt-4'>
-                <Instruments blankInstruments={blankInstruments} instruments={instruments} setInstruments={setInstruments} status={status} />
+              <div className='mt-4 h-72'>
+                <Instruments instruments={instruments} setInstruments={setInstruments} status={status} />
               </div>
 
               {status === 'Band' &&
@@ -163,8 +181,8 @@ const ProfileSetup = ({ token, userType }) => {
 
               {vacancy === true &&
                 <span>
-                  <div className='mt-4'>
-                    <WantedInstruments blankWantedInstruments={blankWantedInstruments} wantedInstruments={wantedInstruments} setWantedInstruments={setWantedInstruments} />
+                  <div className='mt-4 h-60'>
+                    <WantedInstruments wantedInstruments={wantedInstruments} setWantedInstruments={setWantedInstruments} />
                   </div>
 
                   <div className='mt-4'>
@@ -172,16 +190,16 @@ const ProfileSetup = ({ token, userType }) => {
                   </div>
                 </span>}
 
-              <div className='mt-4'>
+              <div className='mt-10'>
                 <Bio bio={bio} setBio={setBio} status={status} />
               </div>
 
               <div className='mt-4'>
-                <Images />
+                <Images image={image} setImage={setImage} token={token} />
               </div>
 
             </div>
-            <div>
+            <div className='mt-4'>
               <button
                 className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                 type='submit'
@@ -192,9 +210,10 @@ const ProfileSetup = ({ token, userType }) => {
               >Submit
               </button>
             </div>
-            <div className='mt-12'>
-              <span><Delete /></span>
-            </div>
+            {isEditing &&
+              <div className='mt-12'>
+                <span><Delete /></span>
+              </div>}
           </form>
         </div>
       </div>

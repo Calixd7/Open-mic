@@ -1,14 +1,19 @@
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import {Transition} from '@headlessui/react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import logo from './images/logorough.jpg'
+import { getUserProfile} from '../api'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
-function Header ({ username, token, setToken, isLoggedIn, pk }) {
+function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const history = useHistory()
 
-
+// console.log('avatar', avatar)
+// console.log('isImage', isImage)
+  
   return (
     <nav className='bg-gray-800'>
       <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:px-8'>
@@ -56,36 +61,25 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
           <div className='flex-1 flex items-center justify center sm:items-stretch sm:justify-start'>
             <div className='flex-shrink-0 flex-items-center'>
               <img
-                className='block lg:hidden h-8 w-auto'
-                src={logo} alt='OpenMic'
-                alt='logo'
-              />
-              {/* <img
-                className='hiden lg:block h-8 w-auto'
-                src={logo}
-                alt='logo'
-              /> */}
+              className='block h-12 w-auto rounded-md'
+              src={logo} alt='OpenMic'
+              alt='logo'
+            />
             </div>
             <div className='hidden sm:block sm:ml-6'>
               <div className='flex space-x-4'>
                 <Link
-                  to='#'
-                  className='bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium'
-                >
-                  Dashboard
-                </Link>
-                <Link
-                  to='#'
+                  to={`/messages/${pk}`}
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                 >Messages
                 </Link>
                 <Link
-                  to='/connections'
+                  to='/friends'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-                >Connections
+                >Friends
                 </Link>
                 <Link
-                  to='/explore'
+                  to='/explore/'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                 >Explore
                 </Link>
@@ -102,11 +96,19 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
                 onClick={() => setShowProfile(showProfile => !showProfile)}
               >
                 <span className='sr-only'>Open User Menu></span>
-                <img
-                  className='h-8 w-8 rounded full'
-                  src='/'
-                  alt='avatar'
-                />
+                {isImage
+              ? <img
+              className='block h-12 w-auto rounded-full'
+              src={avatar}
+              alt='avatar'
+            />
+            : <span>
+              <FontAwesomeIcon
+                icon={['far', 'user']}
+                className='text-red-300 hover:text-red-500 text-lg mb-1'
+              />
+            </span>
+            }
               </button>
             </div>
             <Transition
@@ -129,7 +131,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
                 // to='view-profile/'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
                 role='menuitem'
-                onClick={() => history.push(`view-profile/${pk}`)}
+                onClick={() => {history.push('/view-profile'); setShowProfile(false)}}
               >
                 Your Profile
               </div>
@@ -139,13 +141,12 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
               >
                 Settings
               </Link>
-              {/* <div>  */}
                 {isLoggedIn 
                 ? (                
                   <Link
                 to='/'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
-                onClick={() => setToken(null)}
+                onClick={() => {setToken(null); setShowProfile(false); setIsImage(false)}}
               >
                 Sign Out
               </Link>
@@ -154,6 +155,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk }) {
                 <Link
                 to='/login'
                 className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+                onClick={() => setShowProfile(false)}
               >
                 Sign In
               </Link>

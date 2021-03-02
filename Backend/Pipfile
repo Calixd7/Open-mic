@@ -22,6 +22,8 @@ django-cors-headers = "*"
 django-registration-redux = "*"
 djoser = "*"
 pillow = "*"
+boto3 = "*"
+django-storages = "*"
 
 [requires]
 python_version = "3.8"

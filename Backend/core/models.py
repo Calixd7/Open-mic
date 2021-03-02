@@ -64,17 +64,23 @@ class UserProfile(models.Model):
     name = models.CharField(max_length=100, blank=True, null=True)
     instruments = models.ManyToManyField(to=Instrument, related_name='users', blank=True)
     genres = models.ManyToManyField(to=Genre, related_name='users', blank=True)
-    ind_zipcode = models.CharField(max_length=100,blank=True, null=True )
+    state = models.CharField(max_length=100, blank=True, null=True)
+    email = models.CharField(max_length=100, null=True, blank=True)
+    website = models.URLField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    band_members = models.CharField(max_length=100, blank=True, null=True)
-    band_size = models.CharField(max_length=100, blank=True, null=True)
-    band_location = models.CharField(max_length=100, blank=True, null=True)
+    location = models.CharField(max_length=100, blank=True, null=True)
     years_active = models.CharField(max_length=100, blank=True, null=True)
     vacancy = models.BooleanField(default=False)
     individualorband = models.CharField(max_length=100, choices=OPTIONS, null=True)
     wanted_instruments = models.ManyToManyField(to=WantedInstruments,related_name='users',  blank=True)
     wanted_info = models.CharField(max_length=500, blank=True, null=True )
-                                                                             
 
-
+class Messages(models.Model):
+    subject = models.TextField(max_length=100, blank=True)
+    content = models.TextField(max_length=10000, blank=True)
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null = True, related_name="sender")
+    receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null = True, related_name="receiver")   
+    image = models.ImageField(upload_to="uploads/", null=True, blank=True)
+    read = models.BooleanField(default=False)
+    created_at = models.DateField(auto_now_add=True)
 
