@@ -48,9 +48,14 @@ const ViewProfile = ({ token }) => {
 
           <ul className='space-y-3'>
             <p>Location</p>
-            <li className='bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md'>
-              <div>{profile.band_location}</div>
-            </li>
+            <div className='flex'>
+              <li className='bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md flex-1 mr-2'>
+                <div>{profile.location}</div>
+              </li>
+              <li className='bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md flex-1/2 ml-2'>
+                <div>{profile.state}</div>
+              </li>
+            </div>
           </ul>
 
           <p>Genres</p>

@@ -83,6 +83,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
 
   }
 
+  console.log('location', location)
   // console.log('image.length', image.length)
   // console.log('image', image)
   // console.log('typeOf(image', typeof image)
@@ -163,7 +164,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
               </div>
 
               <div className='mt-4'>
-                <Location location={location} setLocation={setLocation} />
+                <Location status={status} location={location} setLocation={setLocation} state={state} setState={setState} />
               </div>
 
               <div className='mt-4'>
