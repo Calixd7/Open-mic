@@ -27,6 +27,7 @@ function App () {
   const isLoggedIn = (username && token)
   const [isImage, setIsImage] = useState(false)
   const [avatar, setAvatar] = useState('')
+  const [messageReceiverUser, setMessageReceiverUser] = useState('')
 
   // console.log('pk', pk)
 
@@ -58,7 +59,7 @@ function App () {
               <Friends token={token} isLoggedIn={isLoggedIn} username={username} />
             </Route>
             <Route path='/explore'>
-              <Explore token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} setAvatar={setAvatar} avatar={avatar} username={username} />
+              <Explore setMessageReceiverUser={setMessageReceiverUser} token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} setAvatar={setAvatar} avatar={avatar} username={username} />
             </Route>
             <Route path='/view-profile'>
               <ViewProfile token={token} isLoggedIn={isLoggedIn} />
@@ -67,7 +68,7 @@ function App () {
               <ViewCard token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/message'>
-              <Message username={username} token={token} isLoggedIn={isLoggedIn} />
+              <Message messageReceiverUser={messageReceiverUser} username={username} token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/'>
               <Welcome isLoggedIn={isLoggedIn} />
