@@ -1,22 +1,23 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import { Transition } from '@headlessui/react'
+import { INSTRUMENTS } from '../helperLists'
 
-const INSTRUMENTS = [
-  'Vocals',
-  'Acoustic Guitar',
-  'Electric Guitar',
-  'Bass',
-  'Keyboards',
-  'Piano',
-  'Drums',
-  'Percussion',
-  'Turntables',
-  'Banjo',
-  'Ukulele',
-  'Fiddle',
-  'Violin'
-]
+// const INSTRUMENTS = [
+//   'Vocals',
+//   'Acoustic Guitar',
+//   'Electric Guitar',
+//   'Bass',
+//   'Keyboards',
+//   'Piano',
+//   'Drums',
+//   'Percussion',
+//   'Turntables',
+//   'Banjo',
+//   'Ukulele',
+//   'Fiddle',
+//   'Violin'
+// ]
 
 const Instrument = ({ instruments, setInstruments, status }) => {
   const [showInstruments, setShowInstruments] = useState(false)

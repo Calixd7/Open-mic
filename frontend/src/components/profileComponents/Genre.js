@@ -1,27 +1,28 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import { Transition } from '@headlessui/react'
+import { GENRES } from '../helperLists'
 
-const GENRES = [
-  'Soul',
-  'Hip Hop',
-  'Reggae',
-  'Funk',
-  'Rap',
-  'Punk',
-  'Rock',
-  'Heavy Metal',
-  'Pop',
-  'Country',
-  'Jazz',
-  'Blues',
-  'Folk',
-  'Electronic',
-  'Classical',
-  'Alternative Rock',
-  'Instrumental',
-  'Techno'
-]
+// const GENRES = [
+//   'Soul',
+//   'Hip Hop',
+//   'Reggae',
+//   'Funk',
+//   'Rap',
+//   'Punk',
+//   'Rock',
+//   'Heavy Metal',
+//   'Pop',
+//   'Country',
+//   'Jazz',
+//   'Blues',
+//   'Folk',
+//   'Electronic',
+//   'Classical',
+//   'Alternative Rock',
+//   'Instrumental',
+//   'Techno'
+// ]
 
 const Genre = ({ genres, setGenres, status }) => {
   const [showGenres, setShowGenres] = useState(false)

@@ -27,7 +27,7 @@ function Card ({ cards, profile }) {
         className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
       >
         {cards.map(card => (
-          <li key={`card-${card.pk}`} className={`${card.individualorband === 'Band' ? 'bg-gray-700' : 'bg-gray-700'} col-span-1 flex flex-col text-center rounded-lg shadow divide-y divide-indigo-200 ${card.vacancy === true ? 'border-8 border-solid border-green-500' : 'border-none'}`}>
+          <li key={`card-${card.pk}`} className={`${card.individualorband === 'Band' ? 'bg-gray-700' : 'bg-gray-700'} col-span-1 flex flex-col text-center rounded-lg shadow divide-y divide-indigo-200 ${card.vacancy === true ? 'border-8 border-solid border-yellow-200' : 'border-none'}`}>
 
             <div className='flex justify-between items-center'>
               <div className='flex-shrink-0 flex-items-center'>
@@ -38,7 +38,7 @@ function Card ({ cards, profile }) {
                 />
               </div>
               {card.vacancy === true &&
-                <p className='text-white font-bold text-green-500 text-xs mr-2'>Looking for instruments</p>}
+                <p className='text-white font-bold text-yellow-200 text-sm mr-2'>Looking for instruments</p>}
 
             </div>
 
