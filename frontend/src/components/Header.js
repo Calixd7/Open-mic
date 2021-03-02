@@ -178,7 +178,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
           >Dashboard
           </Link>
           <Link
-            to='#'
+            to='/message'
             className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
           >Messages
           </Link>
