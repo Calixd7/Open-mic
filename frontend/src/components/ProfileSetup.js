@@ -7,7 +7,7 @@ import Images from './profileComponents/Images'
 import Name from './profileComponents/Name'
 import Email from './profileComponents/Email'
 import Site from './profileComponents/Site'
-import BandLocation from './profileComponents/BandLocation'
+import Location from './profileComponents/Location'
 import Vacancy from './profileComponents/Vacancy'
 import Status from './profileComponents/Status'
 import WantedInstruments from './profileComponents/WantedInstruments'
@@ -160,6 +160,10 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
 
               <div className='mt-4'>
                 <Email email={email} setEmail={setEmail} />
+              </div>
+
+              <div className='mt-4'>
+                <Location location={location} setLocation={setLocation} />
               </div>
 
               <div className='mt-4'>

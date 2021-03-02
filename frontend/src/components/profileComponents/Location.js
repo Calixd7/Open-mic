@@ -1,5 +1,5 @@
 
-const BandLocation = ({ bandLocation, setBandLocation }) => {
+const Location = ({ location, setLocation }) => {
   return (
     <div>
       <label
@@ -10,8 +10,8 @@ const BandLocation = ({ bandLocation, setBandLocation }) => {
       <input
         className='form-text-input'
         type='text'
-        value={bandLocation}
-        onChange={e => setBandLocation(e.target.value)}
+        value={location}
+        onChange={e => setLocation(e.target.value)}
       />
       <p className='mt-1 text-left text-sm text-gray-500 font-normal'>Where does your band call home?</p>
     </div>
@@ -19,4 +19,4 @@ const BandLocation = ({ bandLocation, setBandLocation }) => {
   )
 }
 
-export default BandLocation
+export default Location

@@ -67,11 +67,7 @@ function App () {
               <ViewCard token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/message'>
-<<<<<<< HEAD
-              <Message token={token} isLoggedIn={isLoggedIn} />
-=======
               <Message username={username} token={token} isLoggedIn={isLoggedIn} />
->>>>>>> 3be412f0b4bfdbc171663e518c0d2f622f743fdf
             </Route>
             <Route path='/'>
               <Welcome isLoggedIn={isLoggedIn} />

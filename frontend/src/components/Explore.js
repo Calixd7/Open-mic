@@ -9,11 +9,11 @@ function Explore ({ token, setIsImage, setAvatar, username }) {
   const [userPk, setUserPk] = useState(null)
   const [connections, setConnections] = useState([])
 
-  console.log('profile', profile)
-  console.log('cards', cards)
-  console.log('token', token)
-  console.log('userPk', userPk)
-  console.log('username', username)
+  // console.log('profile', profile)
+  // console.log('cards', cards)
+  // console.log('token', token)
+  // console.log('userPk', userPk)
+  // console.log('username', username)
   // console.log('cards usernames', cards.map(card => card.user))
   // console.log('connections state', connections)
 
