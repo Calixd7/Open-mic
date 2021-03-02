@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 
 import environ
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", __file__)
+
 
 env = environ.Env(
     # set casting, default value
@@ -51,6 +51,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'openmic', 
     'storages',
+    'django_filters',
+
+   
 
 
 
@@ -191,3 +194,7 @@ AWS_S3_OBJECT_PARAMETERS = {
 AWS_DEFAULT_ACL = 'public-read'
 AWS_S3_FILE_OVERWRITE = False
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+# }
