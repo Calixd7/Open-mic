@@ -85,6 +85,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
 
   // console.log('image.length', image.length)
   // console.log('image', image)
+  // console.log('typeOf(image', typeof image)
   // console.log('safeProfile.image', safeProfile.image)
   // console.log('token in ProfileSetup', token)
   // console.log('vacancy', vacancy)
@@ -101,10 +102,14 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
 
       updateProfile(token, pendingProfile, profile.pk)
         .then(data => {
-          uploadImage(token, formData, data.pk)
-            .then(data => {
-              history.push('/explore')
-            })
+          if (typeof image === 'object') {
+            uploadImage(token, formData, data.pk)
+              .then(data => {
+                history.push('/explore')
+              })
+          } else {
+            history.push('/explore')
+          }
         })
     } else {
       const formData = new FormData(profileForm.current)

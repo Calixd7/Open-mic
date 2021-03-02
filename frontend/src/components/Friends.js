@@ -1,125 +1,58 @@
-// import { getProfiles } from '../api'
-// import { useState } from 'react'
-// import Card from '../components/UserCard'
-// import { Redirect } from 'react-router-dom'
-
-// function Friends ({ token, isLoggedIn }) {
-//   const [cards, setCards] = useState('')
-//   console.log(cards)
-//   console.log('token', token)
-
-//   // if (!isLoggedIn) {
-//   //   return <Redirect to='/' />
-//   // }
-
-//   function handleGetProfiles (event) {
-//     // event.preventDefault()
-//     getProfiles(token)
-//       .then(cards => setCards(cards))
-//   }
-
-//   // function geoFindMe () {
-//   //   const status = document.querySelector('#status')
-//   //   const mapLink = document.querySelector('#map-link')
-
-//   //   mapLink.href = ''
-//   //   mapLink.textContent = ''
-
-//   //   function success (position) {
-//   //     const latitude = position.coords.latitude
-//   //     const longitude = position.coords.longitude
-
-//   //     status.textContent = ''
-//   //     mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`
-//   //     // mapLink.textContent = `Latitude: ${latitude} °`, `Longitude: ${longitude} °`
-//   //   }
-
-//   //   function error () {
-//   //     status.textContent = 'Unable to retrieve your location'
-//   //   }
-
-//   //   if (!navigator.geolocation) {
-//   //     status.textContent = 'Geolocation is not supported by your browser'
-//   //   } else {
-//   //     status.textContent = 'Locating...'
-//   //     navigator.geolocation.getCurrentPosition(success, error)
-//   //   }
-//   // }
-//   // // document.querySelector('#find-me').addEventListener('click')
-
-//   return (
-//     <div>
-//       <p>Return User Names</p>
-//       <button type='button' onClick={() => handleGetProfiles()}>Submit</button>
-//       {cards &&
-//         <div>
-//           <Card cards={cards} />
-//         </div>}
-//     </div>
-//   )
-// }
-
-// export default Friends
-
-import { getProfiles } from '../api'
-import { useState } from 'react'
+import { getProfiles, getConnections } from '../api'
+import { useState, useEffect } from 'react'
 import Card from './cards/Card'
 import { Redirect } from 'react-router-dom'
 
-function Friends ({ token, isLoggedIn }) {
-  const [cards, setCards] = useState('')
-  console.log(cards)
+function Friends ({ token, username }) {
+  const [userFriends, setUserFriends] = useState([])
+  const [allCards, setAllCards] = useState([])
+  const [friendCards, setFriendCards] = useState([])
+
+  useEffect(() => {
+    getConnections(token).then(connections => {
+      setUserFriends(connections.following.map(following => following.following_user))
+    })
+
+    getProfiles(token).then(cards => setAllCards(cards))
+  }, [])
+
+  // allCards.forEach(potentialFriend => {
+  //   userFriends.forEach(friend => {
+  //     if (friend === potentialFriend.user) {
+  //       setFriendCards(potentialFriend)
+  //     }
+  //   })
+  // })
+
+  console.log('allCards.length', allCards.length)
+  console.log(allCards)
   console.log('token', token)
+  console.log('username', username)
+  console.log('allCards', allCards)
+  // console.log('cards usernames', allCards.map(card => card.user))
+  console.log('userFriends state', userFriends)
+  console.log('friendCards', friendCards)
 
   // if (!isLoggedIn) {
   //   return <Redirect to='/' />
   // }
 
-  function handleGetProfiles (event) {
-    // event.preventDefault()
-    getProfiles(token)
-      .then(cards => setCards(cards))
-  }
-
-  // function geoFindMe () {
-  //   const status = document.querySelector('#status')
-  //   const mapLink = document.querySelector('#map-link')
-
-  //   mapLink.href = ''
-  //   mapLink.textContent = ''
-
-  //   function success (position) {
-  //     const latitude = position.coords.latitude
-  //     const longitude = position.coords.longitude
-
-  //     status.textContent = ''
-  //     mapLink.href = `https://www.openstreetmap.org/#map=18/${latitude}/${longitude}`
-  //     // mapLink.textContent = `Latitude: ${latitude} °`, `Longitude: ${longitude} °`
-  //   }
-
-  //   function error () {
-  //     status.textContent = 'Unable to retrieve your location'
-  //   }
-
-  //   if (!navigator.geolocation) {
-  //     status.textContent = 'Geolocation is not supported by your browser'
-  //   } else {
-  //     status.textContent = 'Locating...'
-  //     navigator.geolocation.getCurrentPosition(success, error)
-  //   }
-  // }
-  // // document.querySelector('#find-me').addEventListener('click')
-
+  // if (userFriends) {
   return (
     <div>
-      <p>Return User Names</p>
-      <button type='button' onClick={() => handleGetProfiles()}>Submit</button>
-      {cards &&
+      <p>Friends</p>
+      {/* <button
+          onClick={() => grabProfiles(token, setAllCards)}
+        >
+          click
+        </button> */}
+      {friendCards &&
         <div>
-          <Card cards={cards} />
+          <Card cards={friendCards} />
         </div>}
     </div>
   )
+  // }
 }
 
 export default Friends

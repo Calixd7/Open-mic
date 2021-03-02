@@ -8,12 +8,12 @@ import Welcome from './components/Welcome'
 import Login from './components/Login'
 import Registration from './components/Registration'
 import ProfileSetup from './components/ProfileSetup'
-import Connections from './components/Friends'
 import Explore from './components/Explore'
 import { useState } from 'react'
 import ViewProfile from './components/ViewProfile'
 import ViewCard from './components/ViewCard'
 import Message from './components/Message'
+import Friends from './components/Friends'
 
 library.add(far, faTimes, faUser)
 
@@ -54,8 +54,8 @@ function App () {
             <Route path='/profile-setup/'>
               <ProfileSetup token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} setAvatar={setAvatar} />
             </Route>
-            <Route path='/connections/'>
-              <Connections isLoggedIn={isLoggedIn} />
+            <Route path='/friends/'>
+              <Friends token={token} isLoggedIn={isLoggedIn} username={username} />
             </Route>
             <Route path='/explore/'>
               <Explore token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} setAvatar={setAvatar} avatar={avatar} username={username} />

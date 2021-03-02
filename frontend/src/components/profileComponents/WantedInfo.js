@@ -13,6 +13,7 @@ const WantedInfo = ({ wantedInfo, setWantedInfo }) => {
           name='info'
           id='info'
           rows='3'
+          value={wantedInfo}
           onChange={e => setWantedInfo(e.target.value)}
         />
       </div>

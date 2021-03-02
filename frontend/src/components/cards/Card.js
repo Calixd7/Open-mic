@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 function Card ({ cards, profile }) {
   const history = useHistory()
   const [follow, setFollow] = useState(false)
-  console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
+  // console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
 
   const properStatus = (card) => {
     if (card.individualorband === 'Individual') {
@@ -54,7 +54,7 @@ function Card ({ cards, profile }) {
                     icon={['far', 'user']}
                     className='text-red-300 hover:text-red-500 text-7xl h-full w-auto'
                   />
-                </span>}
+                  </span>}
 
               <h3 className='mt-6 text-white text-sm font-medium'>{properStatus(card)}</h3>
               <dl className='mt-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
@@ -73,7 +73,7 @@ function Card ({ cards, profile }) {
                       <button
                         type='button'
                         className='justify-center w-full inline-flex items-center px-2 py-1 mb-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 hover:text-white bg-indigo-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                        onClick={() => history.push(`view-card/${card.pk}`)}
+                        onClick={() => history.push(`/view-card/${card.pk}`)}
                       >
                         <span>
                           <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-5 w-5'>
@@ -88,7 +88,7 @@ function Card ({ cards, profile }) {
                         <button
                           type='button'
                           className='justify-center inline-flex flex-1 items-center px-2 py-1 ml-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 hover:text-white bg-indigo-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                          onClick={() => history.push(`message/${card.pk}`)}
+                          onClick={() => history.push(`/message/${card.pk}`)}
                         >
                           <span>
                             <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
