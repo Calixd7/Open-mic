@@ -144,7 +144,7 @@ export function getUserProfile (token) {
 // }
 
 export function getMessages (token) {
-  return apiUrl.get('/api/messages/', {
+  return apiUrl.get('api/messages/', {
     headers: {
       Authorization: `Token ${token}`
     }
@@ -156,6 +156,15 @@ export function getMessages (token) {
 
 export function getConnections (token) {
   return apiUrl.get('api/users/me', {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
+}
+
+export function searchProfiles (token, status, genre) {
+  return apiUrl.get(`api/userprofiles/?search=${status},${genre}`, {
     headers: {
       Authorization: `Token ${token}`
     }
