@@ -69,7 +69,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
             <div className='hidden sm:block sm:ml-6'>
               <div className='flex space-x-4'>
                 <Link
-                  to={`/messages/${pk}`}
+                  to='/message'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                 >Messages
                 </Link>
@@ -79,7 +79,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 >Friends
                 </Link>
                 <Link
-                  to='/explore/'
+                  to='/explore'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                 >Explore
                 </Link>
