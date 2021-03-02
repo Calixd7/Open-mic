@@ -45,29 +45,29 @@ function App () {
         <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} />
         <main>
           <Switch>
-            <Route path='/registration/'>
+            <Route path='/registration'>
               <Registration setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
             </Route>
-            <Route path='/login/'>
+            <Route path='/login'>
               <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
             </Route>
-            <Route path='/profile-setup/'>
+            <Route path='/profile-setup'>
               <ProfileSetup token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} setAvatar={setAvatar} />
             </Route>
-            <Route path='/friends/'>
+            <Route path='/friends'>
               <Friends token={token} isLoggedIn={isLoggedIn} username={username} />
             </Route>
-            <Route path='/explore/'>
+            <Route path='/explore'>
               <Explore token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} setAvatar={setAvatar} avatar={avatar} username={username} />
             </Route>
-            <Route path='/view-profile/'>
+            <Route path='/view-profile'>
               <ViewProfile token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/view-card/:pk'>
               <ViewCard token={token} isLoggedIn={isLoggedIn} />
             </Route>
-            <Route path='/message/:pk'>
-              <Message token={token} isLoggedIn={isLoggedIn} />
+            <Route path='/message'>
+              <Message username={username} token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/'>
               <Welcome isLoggedIn={isLoggedIn} />

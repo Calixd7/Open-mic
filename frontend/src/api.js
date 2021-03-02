@@ -144,7 +144,18 @@ export function getUserProfile (token) {
 // }
 
 export function getMessages (token) {
-  return apiUrl.get('api/messages/', {
+  return apiUrl.get('api/messages/mine/', {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => {
+      return res.data
+    })
+}
+
+export function sendMessage (token, message) {
+  return apiUrl.post('api/messages/', message, {
     headers: {
       Authorization: `Token ${token}`
     }

@@ -2,8 +2,7 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 
-function Main ({ messages, messageId }) {
-  const [messageToRender, setMessageToRender] = useState()
+function Main ({ messages, messageId, setShowReplyMessage, messageToRender, setMessageToRender }) {
   console.log('messageToRender', messageToRender)
 
   useEffect(() => {
@@ -79,6 +78,7 @@ function Main ({ messages, messageId }) {
                       <button
                         type='button'
                         className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                        onClick={() => setShowReplyMessage(true)}
                       >
                         {/* <!-- Heroicon name: solid/reply --> */}
                         <svg
