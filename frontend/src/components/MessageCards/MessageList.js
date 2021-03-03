@@ -1,21 +1,46 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { deleteMessage, updateMessage } from '../../api'
+import { deleteMessage, updateMessage, getMessages } from '../../api'
 
-function MessageList ({ token, messages, messageId, setMessageId }) {
+function MessageList ({ token, messages, setMessages, messageId, setMessageId }) {
+  const [triggerUseEffect, setTriggerUseEffect] = useState(false)
   const [read, setRead] = useState(false)
-  const handleDelete = (id) => {
-    deleteMessage(token, id).then(res => res)
+  const [message, setMessage] = useState([])
+  const updateRead = {
+    sender: message.sender,
+    receiver: message.receiver,
+    read: read
+  }
+  console.log('messages', messages.map(message => message.read))
+  console.log('message', message)
+
+  const handleDelete = () => {
+    deleteMessage(token, message.id).then(res => res)
   }
 
   const handleRead = (id) => {
-    updateMessage(token, id, read)
+    updateMessage(token, id, updateRead)
+      .then(setTriggerUseEffect(true))
+    // .then(getMessages(token).then(messages => {
+      //   setMessages(messages)
+      // })
+      // )
+  }
+
+  const toggleRead = (message) => {
+    if (message.read === false) {
+      setRead(true)
+    }
+    if (message.read === true) {
+      setRead(false)
+    }
+
+    handleRead(message.id)
   }
 
   if (!messages) {
     return 'loading'
   }
-  console.log('messages', messages.map(message => message.read))
 
   return (
     <aside className='hidden sm:block sm:flex-shrink-0 sm:order-first'>
@@ -40,7 +65,7 @@ function MessageList ({ token, messages, messageId, setMessageId }) {
             <ul
               key={`message-${idx}`}
               className='border-b border-gray-200 divide-y divide-gray-200'
-              onClick={() => { setMessageId(message.id); setRead(read => !read); handleRead(message.id) }}
+              onClick={() => { setMessageId(message.id); toggleRead(message); setMessage(message) }}
             >
               <li className={`${message.read ? 'bg-white' : 'bg-blue-200 hover:bg-blue-300'} relative py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600`}>
                 <div className='flex justify-between space-x-3'>

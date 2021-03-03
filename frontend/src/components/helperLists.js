@@ -35,3 +35,10 @@ export const INSTRUMENTS = [
   'Fiddle',
   'Violin'
 ]
+
+export const LOCATION = [
+  'Durham',
+  'Raleigh',
+  'Chapel Hill',
+  'Hillsborough'
+]

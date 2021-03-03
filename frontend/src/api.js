@@ -165,10 +165,8 @@ export function sendMessage (token, message) {
     })
 }
 
-export function updateMessage (token, id, read) {
-  return apiUrl.put(`api/messages/${id}/`, {
-    read: read
-  }, {
+export function updateMessage (token, id, updateRead) {
+  return apiUrl.put(`api/messages/${id}/`, updateRead, {
     headers: {
       Authorization: `Token ${token}`
     }
@@ -194,8 +192,8 @@ export function getConnections (token) {
     .then(res => res.data)
 }
 
-export function searchProfiles (token, status, genre) {
-  return apiUrl.get(`api/userprofiles/?search=${status},${genre}`, {
+export function searchProfiles (token, pendingSearch) {
+  return apiUrl.get(`api/userprofiles/?search=${pendingSearch}`, {
     headers: {
       Authorization: `Token ${token}`
     }

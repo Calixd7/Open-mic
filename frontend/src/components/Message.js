@@ -7,7 +7,7 @@ import Main from './MessageCards/Main'
 import MessageList from './MessageCards/MessageList'
 import CreateMessage from './MessageCards/CreateMessage'
 
-function Message ({ token, username, messageReceiverUser, isLoggedIn }) {
+function Message ({ token, username, messageReceiverUser, isLoggedIn, triggerUseEffect }) {
   const { pk } = useParams()
   const [messages, setMessages] = useState([])
   const [messageId, setMessageId] = useState('')
@@ -16,21 +16,12 @@ function Message ({ token, username, messageReceiverUser, isLoggedIn }) {
   console.log('messageId', messageId)
   console.log('messages', messages)
 
-  // useEffect(() => {
-  //   getProfile(token, pk).then(card => setCard(card))
-  // }, [token, pk])
-  // console.log('card', card)
-
-  // if (!card) {
-  //   return 'loading'
-  // }
-
   useEffect(() => {
     getMessages(token).then(messages => {
       console.log('message', messages)
       setMessages(messages)
     })
-  }, [token])
+  }, [triggerUseEffect])
 
   if (!isLoggedIn) {
     return <Redirect to='/' />
@@ -40,7 +31,7 @@ function Message ({ token, username, messageReceiverUser, isLoggedIn }) {
     <div className='h-screen overflow-hidden bg-gray-100 flex flex-col'>
       <div className='flex'>
         <div className='h-full relative flex flex-col w-96 border-r border-gray-200 bg-gray-100'>
-          <MessageList messageId={messageId} setMessageId={setMessageId} messages={messages} />
+          <MessageList token={token} messageId={messageId} setMessageId={setMessageId} messages={messages} setMessages={setMessages} />
         </div>
         <div>
           <div className='min-w-0 flex-1 border-t border-gray-200 xl:flex'>
