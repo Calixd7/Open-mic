@@ -21,7 +21,7 @@ function Main ({ messages, messageId, setShowReplyMessage, messageToRender, setM
       <main className='min-w-0 w-screen flex-1 border-t border-gray-200 xl:flex'>
         <section
           aria-labelledby='message-heading'
-          className='min-w-0 flex-1 h-full flex flex-col overflow-hidden xl:order-last'
+          className='min-w-0 flex-1 h-full flex flex-col overflow-scroll xl:order-last'
         >
           {/* <!-- Top section --> */}
           <div className='flex-shrink-0 bg-white border-b border-gray-200'>

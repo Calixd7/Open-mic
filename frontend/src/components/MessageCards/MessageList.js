@@ -59,7 +59,7 @@ function MessageList ({ token, messages, setMessages, messageId, setMessageId })
         </div>
         <nav
           aria-label='Message list'
-          className='min-h-0 flex-1 overflow-y-auto'
+          className='min-h-0 flex-1 overflow-y-scroll'
         >
           {messages.map((message, idx) => (
             <ul
