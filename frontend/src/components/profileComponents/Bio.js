@@ -15,6 +15,7 @@ const Bio = ({ bio, setBio, status }) => {
           name='bio'
           id='bio'
           rows='3'
+          value={bio}
           onChange={e => setBio(e.target.value)}
         />
       </div>

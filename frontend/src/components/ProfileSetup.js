@@ -1,5 +1,4 @@
-//
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import Genre from './profileComponents/Genre'
 import Instruments from './profileComponents/Instruments'
 import Bio from './profileComponents/Bio'
@@ -7,8 +6,7 @@ import Images from './profileComponents/Images'
 import Name from './profileComponents/Name'
 import Email from './profileComponents/Email'
 import Site from './profileComponents/Site'
-import BandLocation from './profileComponents/BandLocation'
-import BandSize from './profileComponents/BandSize'
+import Location from './profileComponents/Location'
 import Vacancy from './profileComponents/Vacancy'
 import Status from './profileComponents/Status'
 import WantedInstruments from './profileComponents/WantedInstruments'
@@ -16,18 +14,6 @@ import WantedInfo from './profileComponents/WantedInfo'
 import { useParams, useHistory } from 'react-router-dom'
 import { postProfiles, deleteProfile, updateProfile, uploadImage } from '../api'
 import Delete from './Delete'
-
-// function handleSubmit (event, token, profile, userType, history) {
-//   event.preventDefault()
-//   // if (card.pk) {
-//   //   updateProfile(token, card.pk, card)
-//   // }
-
-//   postProfiles(token, profile, userType)
-//     .then(data => {
-//       history.push('/explore')
-//     })
-// }
 
 const statusForApi = (status) => {
   if (status === 'Solo Artist') {
@@ -61,56 +47,84 @@ const instrumentsForApi = (intstruments) => {
   }
 }
 
-const ProfileSetup = ({ token, userType }) => {
+const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvatar }) => {
+  const profileForm = useRef()
+  const safeProfile = profile || {}
   const { type } = useParams()
   const history = useHistory()
-  const [name, setName] = useState('')
-  const [genres, setGenres] = useState([])
-  const [instruments, setInstruments] = useState([])
-  const [bio, setBio] = useState('')
-  const [zipcode, setZipcode] = useState(0)
-  const [email, setEmail] = useState('')
+  const [name, setName] = useState(safeProfile.name || '')
+  const [genres, setGenres] = useState(safeProfile.genres || [])
+  const [instruments, setInstruments] = useState(safeProfile.instruments || [])
+  const [bio, setBio] = useState(safeProfile.bio || '')
+  const [email, setEmail] = useState(safeProfile.email || '')
   const [site, setSite] = useState('')
-  const [bandLocation, setBandLocation] = useState('')
-  const [bandSize, setBandSize] = useState(1)
-  const [vacancy, setVacancy] = useState(false)
-  const [image, setImage] = useState([])
-  const [status, setStatus] = useState('Solo Artist')
-  const [wantedInstruments, setWantedInstruments] = useState([])
-  const [wantedInfo, setWantedInfo] = useState('')
+  const [location, setLocation] = useState(safeProfile.band_location || '')
+  const [state, setState] = useState('')
+  const [vacancy, setVacancy] = useState(safeProfile.vacancy || false)
+  const [image, setImage] = useState(safeProfile.image || [])
+  const [status, setStatus] = useState(safeProfile.individualorband || 'Solo Artist')
+  const [wantedInstruments, setWantedInstruments] = useState(safeProfile.wanted_instruments || [])
+  const [wantedInfo, setWantedInfo] = useState(safeProfile.wanted_info || '')
   const pendingProfile = {
-    // image: image,
+    pk: safeProfile.pk,
     bio: bio,
     name: name,
     instruments: instrumentsForApi(instruments),
-    ind_zipcode: zipcode,
+    state: state,
+    email: email,
+    website: site,
     genres: genreForApi(genres),
-    band_size: bandSize,
-    band_location: bandLocation,
+    location: location,
+    vacancy: vacancy,
     individualorband: statusForApi(status),
     wanted_instruments: wantedIntForAPI(vacancy, wantedInstruments),
-    wanted_info: wantedInfo,
-    vacancy: vacancy
-    // followers: followers
+    wanted_info: wantedInfo
+
   }
 
-  console.log('token', token)
+  console.log('location', location)
+  // console.log('image.length', image.length)
+  // console.log('image', image)
+  // console.log('typeOf(image', typeof image)
+  // console.log('safeProfile.image', safeProfile.image)
+  // console.log('token in ProfileSetup', token)
+  // console.log('vacancy', vacancy)
+  // console.log('safeProfile.pk', safeProfile.pk)
 
   function handleSubmit (event, token) {
     event.preventDefault()
 
-    const formData = new FormData()
-    formData.set('image', image)
+    if (safeProfile.pk) {
+      const formData = new FormData(profileForm.current)
+      formData.set('image', image)
 
-    console.log('pending profile', pendingProfile)
+      console.log('pending profile in isEditing', pendingProfile)
 
-    postProfiles(token, pendingProfile)
-      .then(data => {
-        uploadImage(token, formData, data.pk)
-          .then(data => {
+      updateProfile(token, pendingProfile, profile.pk)
+        .then(data => {
+          if (typeof image === 'object') {
+            uploadImage(token, formData, data.pk)
+              .then(data => {
+                history.push('/explore')
+              })
+          } else {
             history.push('/explore')
-          })
-      })
+          }
+        })
+    } else {
+      const formData = new FormData(profileForm.current)
+      formData.set('image', image)
+
+      console.log('pending profile in first Submit', pendingProfile)
+
+      postProfiles(token, pendingProfile)
+        .then(data => {
+          uploadImage(token, formData, data.pk)
+            .then(data => {
+              history.push('/explore')
+            })
+        })
+    }
   }
 
   function handleDeleteProfile (event, pk) {
@@ -128,6 +142,7 @@ const ProfileSetup = ({ token, userType }) => {
         <div className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
           <form
             className='flex flex-col'
+            ref={profileForm}
             onSubmit={(e) => {
               e.preventDefault()
               handleSubmit(e, token, history)
@@ -148,13 +163,12 @@ const ProfileSetup = ({ token, userType }) => {
               </div>
 
               <div className='mt-4'>
-                <Site site={site} setSite={setSite} />
+                <Location status={status} location={location} setLocation={setLocation} state={state} setState={setState} />
               </div>
 
-              {/* {status === 'Band' &&
-                <div className='mt-4'>
-                  <BandSize bandSize={bandSize} setBandSize={setBandSize} />
-                </div>} */}
+              <div className='mt-4'>
+                <Site site={site} setSite={setSite} />
+              </div>
 
               <div className='mt-4 h-60'>
                 <Genre genres={genres} setGenres={setGenres} status={status} />
@@ -200,9 +214,10 @@ const ProfileSetup = ({ token, userType }) => {
               >Submit
               </button>
             </div>
-            <div className='mt-12'>
-              <span><Delete /></span>
-            </div>
+            {isEditing &&
+              <div className='mt-12'>
+                <span><Delete /></span>
+              </div>}
           </form>
         </div>
       </div>

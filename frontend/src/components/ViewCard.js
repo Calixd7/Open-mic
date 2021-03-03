@@ -34,7 +34,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
           <div className='text-right m-4'>
             <button
               type='button'
-              class='inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+              className='inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
               onClick={() => history.push('/explore')}
             >
               <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-6 w-6'>
@@ -90,9 +90,26 @@ const ViewCard = ({ token, isLoggedIn }) => {
                 Location
               </dt>
               <dd className='mt-1 text-sm text-gray-900'>
-                {card.band_location}
+                {card.location}
               </dd>
             </div>
+
+            <div className='sm:col-span-1'>
+              <dt className='text-sm font-medium text-gray-500'>
+                Website
+              </dt>
+              <dd
+                className='mt-1 text-sm text-gray-900'
+              >
+                {/* <Link to={card.website}>{card.website}</Link> */}
+                <a
+                  className='text-blue-400'
+                  href={card.website}
+                >{card.website}
+                </a>
+              </dd>
+            </div>
+
             <div className='sm:col-span-2'>
               <dt className='text-sm font-medium text-gray-500'>
                 Bio
@@ -113,7 +130,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
                         <div className=''>
                           <div className='ml-2 flex-1 flex'>
                             <span>
-                              Instruments:
+                              Instruments:&nbsp;
                             </span>
                             {card.wanted_instruments.map((inst, idx) => (
                               <span
@@ -131,7 +148,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
                       </div>
                       <button
                         type='button'
-                        class='inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                        className='inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                         onClick={() => history.push(`/message/${pk}`)}
                       >
                         <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>

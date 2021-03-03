@@ -1,26 +1,84 @@
 /* eslint-disable react/style-prop-object */
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
 
-function Main () {
-  return (
-    <main className='min-w-0 flex-1 border-t border-gray-200 xl:flex'>
-      <section
-        aria-labelledby='message-heading'
-        className='min-w-0 flex-1 h-full flex flex-col overflow-hidden xl:order-last'
-      >
-        {/* <!-- Top section --> */}
-        <div className='flex-shrink-0 bg-white border-b border-gray-200'>
-          {/* <!-- Toolbar--> */}
-          <div className='h-16 flex flex-col justify-center'>
-            <div className='px-4 sm:px-6 lg:px-8'>
-              <div className='py-3 flex justify-between'>
-                {/* <!-- Left buttons --> */}
-                <div>
+function Main ({ messages, messageId, setShowReplyMessage, messageToRender, setMessageToRender }) {
+  console.log('messageToRender', messageToRender)
+
+  useEffect(() => {
+    const messageSearch = messages.map(message => message)
+    console.log('messageSearch', messageSearch)
+
+    messageSearch.forEach(message => {
+      if (messageId === message.id) {
+        setMessageToRender(message)
+      }
+    })
+  }, [messageId])
+
+  if (messageToRender) {
+    return (
+      <main className='min-w-0 w-screen flex-1 border-t border-gray-200 xl:flex'>
+        <section
+          aria-labelledby='message-heading'
+          className='min-w-0 flex-1 h-full flex flex-col overflow-hidden xl:order-last'
+        >
+          {/* <!-- Top section --> */}
+          <div className='flex-shrink-0 bg-white border-b border-gray-200'>
+            {/* <!-- Toolbar--> */}
+            <div className='h-16 flex flex-col justify-center'>
+              <div className='px-4 sm:px-6 lg:px-8'>
+                <div className='py-3 flex justify-between'>
+                  {/* <!-- Left buttons --> */}
+
+                </div>
+              </div>
+            </div>
+            {/* <!-- Message header --> */}
+          </div>
+          <div>
+            <div className='min-h-0 flex-1 overflow-y-auto'>
+              <div className='bg-white pt-5 pb-6 shadow'>
+                <div className='px-8 sm:flex sm:justify-between sm:items-baseline sm:px-14 lg:px-14'>
+                  <div className='sm:w-0 sm:flex-1'>
+                    <h1
+                      id='message-heading'
+                      className='text-lg font-medium text-gray-900'
+                    >
+                      Subject: {messageToRender.subject}
+                    </h1>
+                  </div>
+                </div>
+
+                <div className='mx-8 sm:mx-0 mt-4 flex items-center justify-between sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:justify-start'>
+                  {/* <!-- Thread section--> */}
+                  <ul className='py-4 space-y-2 sm:px-6 sm:space-y-4 lg:px-8'>
+                    <li className='bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6'>
+                      <div className='sm:flex sm:justify-between sm:items-baseline'>
+                        <h3 className='text-base font-medium'>
+                          <span className='text-gray-900'>
+                            From: {messageToRender.sender}
+                          </span>
+                        </h3>
+                        <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
+                          <time dateTime='2021-01-28T19:24'>
+                            {messageToRender.created_at}
+                          </time>
+                        </p>
+                      </div>
+                      <div className='mt-4 space-y-6 text-sm text-gray-800'>
+                        <p>{messageToRender.content}</p>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+                <div className='text-right sm:text-center mr-10'>
                   <span className='relative z-0 inline-flex shadow-sm rounded-md sm:shadow-none sm:space-x-3'>
                     <span className='inline-flex sm:shadow-sm'>
                       <button
                         type='button'
-                        className='relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
+                        className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                        onClick={() => setShowReplyMessage(true)}
                       >
                         {/* <!-- Heroicon name: solid/reply --> */}
                         <svg
@@ -40,782 +98,17 @@ function Main () {
                           Reply
                         </span>
                       </button>
-                      <button
-                        type='button'
-                        className='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
-                      >
-                        {/* <!-- Heroicon name: solid/pencil --> */}
-                        <svg
-                          className='mr-2.5 h-5 w-5 text-gray-400'
-                          xmlns='http://www.w3.org/2000/svg'
-                          viewBox='0 0 20 20'
-                          fill='currentColor'
-                          aria-hidden='true'
-                        >
-                          <path d='M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z' />
-                        </svg>
-                        <span>
-                          Note
-                        </span>
-                      </button>
-                      <button
-                        type='button'
-                        className='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
-                      >
-                        {/* <!-- Heroicon name: solid/user-add --> */}
-                        <svg
-                          className='mr-2.5 h-5 w-5 text-gray-400'
-                          xmlns='http://www.w3.org/2000/svg'
-                          viewBox='0 0 20 20'
-                          fill='currentColor'
-                          aria-hidden='true'
-                        >
-                          <path d='M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z' />
-                        </svg>
-                        <span>
-                          Assign
-                        </span>
-                      </button>
-                    </span>
-
-                    <span className='hidden lg:flex space-x-3'>
-                      <button
-                        type='button'
-                        className='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
-                      >
-                        {/* <!-- Heroicon name: solid/archive --> */}
-                        <svg
-                          className='mr-2.5 h-5 w-5 text-gray-400'
-                          xmlns='http://www.w3.org/2000/svg'
-                          viewBox='0 0 20 20'
-                          fill='currentColor'
-                          aria-hidden='true'
-                        >
-                          <path d='M4 3a2 2 0 100 4h12a2 2 0 100-4H4z' />
-                          <path
-                            fillRule='evenodd'
-                            d='M3 8h14v7a2 2 0 01-2 2H5a2 2 0 01-2-2V8zm5 3a1 1 0 011-1h2a1 1 0 110 2H9a1 1 0 01-1-1z'
-                            clipRule='evenodd'
-                          />
-                        </svg>
-                        <span>
-                          Archive
-                        </span>
-                      </button>
-                      <button
-                        type='button'
-                        className='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
-                      >
-                        {/* <!-- Heroicon name: solid/folder-download --> */}
-                        <svg
-                          className='mr-2.5 h-5 w-5 text-gray-400'
-                          xmlns='http://www.w3.org/2000/svg'
-                          viewBox='0 0 20 20'
-                          fill='currentColor'
-                          aria-hidden='true'
-                        >
-                          <path d='M2 6a2 2 0 012-2h5l2 2h5a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z' />
-                          <path
-                            stroke='#fff'
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            strokeWidth='2'
-                            d='M10 9v4m0 0l-2-2m2 2l2-2'
-                          />
-                        </svg>
-                        <span>
-                          Move
-                        </span>
-                      </button>
-                    </span>
-
-                    <span className='-ml-px relative block sm:shadow-sm lg:hidden'>
-                      <div>
-                        <button
-                          type='button'
-                          className='relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600 sm:rounded-md sm:px-3'
-                          id='menu-3'
-                          aria-expanded='false'
-                          aria-haspopup='true'
-                        >
-                          <span className='sr-only sm:hidden'>
-                            More
-                          </span>
-                          <span className='hidden sm:inline'>
-                            More
-                          </span>
-                          {/* <!-- Heroicon name: solid/chevron-down --> */}
-                          <svg
-                            className='h-5 w-5 text-gray-400 sm:ml-2 sm:-mr-1'
-                            xmlns='http://www.w3.org/2000/svg'
-                            viewBox='0 0 20 20'
-                            fill='currentColor'
-                            aria-hidden='true'
-                          >
-                            <path
-                              fillRule='evenodd'
-                              d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd'
-                            />
-                          </svg>
-                        </button>
-                      </div>
-
-                      {/* <!--
-                        Dropdown menu, show/hide based on menu state.
-
-                        Entering: "transition ease-out duration-100"
-                          From: "transform opacity-0 scale-95"
-                          To: "transform opacity-100 scale-100"
-                        Leaving: "transition ease-in duration-75"
-                          From: "transform opacity-100 scale-100"
-                          To: "transform opacity-0 scale-95"
-                      --> */}
-                      <div
-                        className='origin-top-right absolute right-0 mt-2 w-36 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'
-                        role='menu'
-                        aria-orientation='vertical'
-                        aria-labelledby='menu-3'
-                      >
-                        <div className='py-1'>
-                          <Link
-                            to='#'
-                            className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
-                            role='menuitem'
-                          >
-                            Note
-                          </Link>
-
-                          <Link
-                            to='#'
-                            className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
-                            role='menuitem'
-                          >
-                            Assign
-                          </Link>
-
-                          <Link
-                            to='#'
-                            className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
-                            role='menuitem'
-                          >
-                            Archive
-                          </Link>
-
-                          <Link
-                            to='#'
-                            className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
-                            role='menuitem'
-                          >
-                            Move
-                          </Link>
-                        </div>
-                      </div>
                     </span>
                   </span>
                 </div>
-
-                {/* <!-- Right buttons --> */}
-                <nav aria-label='Pagination'>
-                  <span
-                    className='relative z-0 inline-flex shadow-sm rounded-md'
-                  >
-                    <Link
-                      to='#'
-                      className='relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
-                    >
-                      <span className='sr-only'>
-                        Next
-                      </span>
-                      {/* <!-- Heroicon name: solid/chevron-up --> */}
-                      <svg
-                        className='h-5 w-5"'
-                        xmlns='http://www.w3.org/2000/svg'
-                        viewBox='0 0 20 20'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z'
-                          clipRule='evenodd'
-                        />
-                      </svg>
-                    </Link>
-                    <Link
-                      to='#'
-                      className='-ml-px relative inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
-                    >
-                      <span className='sr-only'>
-                        Previous
-                      </span>
-                      {/* <!-- Heroicon name: solid/chevron-down --> */}
-                      <svg
-                        className='h-5 w-5'
-                        xmlns='http://www.w3.org/2000/svg'
-                        viewBox='0 0 20 20'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'
-                          clipRule='evenodd'
-                        />
-                      </svg>
-                    </Link>
-                  </span>
-                </nav>
               </div>
             </div>
           </div>
-          {/* <!-- Message header --> */}
-        </div>
-        <div>
-          <div className='min-h-0 flex-1 overflow-y-auto'>
-            <div className='bg-white pt-5 pb-6 shadow'>
-              <div className='px-4 sm:flex sm:justify-between sm:items-baseline sm:px-6 lg:px-8'>
-                <div className='sm:w-0 sm:flex-1'>
-                  <h1
-                    id='message-heading'
-                    className='text-lg font-medium text-gray-900'
-                  >
-                    Re: New pricing for existing customers
-                  </h1>
-                  <p className='mt-1 text-sm text-gray-500 truncate'>
-                    joearmstrong@example.com
-                  </p>
-                </div>
-              </div>
-
-              <div className='mt-4 flex items-center justify-between sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:justify-start'>
-                {/* <span className='inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-cyan-100 text-cyan-800'>
-                  Open
-                </span>
-                <div className='ml-3 relative inline-block text-left'>
-                  <div> */}
-                {/* <button
-                type='button'
-                className='-my-2 p-2 rounded-full bg-white flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-600'
-                id='menu-4'
-                aria-expanded='false'
-                aria-haspopup='true'
-              >
-                <span className='sr-only'>
-                  Open options
-                </span> */}
-                {/* <!-- Heroicon name: solid/dots-vertical --> */}
-                {/* <svg
-                        className='h-5 w-5'
-                        xmlns='http://www.w3.org/2000/svg'
-                        viewBox='0 0 20 20'
-                        fill='currentColor'
-                        aria-hidden='true'
-                      >
-                        <path d='M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z' />
-                      </svg>
-                    </button>
-                  </div> */}
-
-                {/* <!--
-                    Dropdown menu, show/hide based on menu state.
-
-                    Entering: "transition ease-out duration-100"
-                      From: "transform opacity-0 scale-95"
-                      To: "transform opacity-100 scale-100"
-                    Leaving: "transition ease-in duration-75"
-                      From: "transform opacity-100 scale-100"
-                      To: "transform opacity-0 scale-95"
-                  --> */}
-                {/* <div
-                className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none'
-                role='menu'
-                aria-orientation='vertical'
-                aria-labelledby='menu-4'
-              >
-                <div className='py-1'>
-                  <button
-                    type='button'
-                    className='w-full flex justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
-                    role='menuitem'
-                  >
-                    <span>
-                      Copy email address
-                    </span>
-                  </button>
-                  <Link
-                    to='#'
-                    className='flex justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
-                    role='menuitem'
-                  >
-                    <span>
-                      Previous conversations
-                    </span>
-                  </Link>
-                  <Link
-                    to='#'
-                    className='flex justify-between px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900'
-                    role='menuitem'
-                  >
-                    <span>
-                      View original
-                    </span>
-                  </Link>
-                </div>
-              </div>
-            </div> */}
-                {/* </div>
-            </div> */}
-                {/* </div> */}
-                {/* <!-- Thread section--> */}
-                <ul className='py-4 space-y-2 sm:px-6 sm:space-y-4 lg:px-8'>
-                  <li className='bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6'>
-                    <div className='sm:flex sm:justify-between sm:items-baseline'>
-                      <h3 className='text-base font-medium'>
-                        <span className='text-gray-900'>
-                          Joe Armstrong
-                          <span className='text-gray-600'>
-                            wrote
-                          </span>
-                        </span>
-                      </h3>
-                      <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-                        <time dateTime='2021-01-28T19:24'>
-                          Yesterday at 7:24am
-                        </time>
-                      </p>
-                    </div>
-                    <div className='mt-4 space-y-6 text-sm text-gray-800'>
-                      <p>Thanks so much! Can't wait to try it out.</p>
-                    </div>
-                  </li>
-
-                  <li className='bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6'>
-                    <div className='sm:flex sm:justify-between sm:items-baseline'>
-                      <h3 className='text-base font-medium'>
-                        <span className='text-gray-900'>
-                          Monica White
-                        </span>
-                        <span className='text-gray-600'>
-                          wrote
-                        </span>
-                      </h3>
-                      <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-                        <time dateTime='2021-01-27T16:35'>
-                          Wednesday at 4:35pm
-                        </time>
-                      </p>
-                    </div>
-                    <div className='mt-4 space-y-6 text-sm text-gray-800'>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada at ultricies tincidunt elit et, enim. Habitant nunc, adipiscing non fermentum, sed est a, aliquet. Lorem in vel libero vel augue aliquet dui commodo.
-                      </p>
-                      <p>
-                        Nec malesuada sed sit ut aliquet. Cras ac pharetra, sapien purus vitae vestibulum auctor faucibus ullamcorper. Leo quam tincidunt porttitor neque, velit sed. Tortor mauris ornare ut tellus sed aliquet amet venenatis condimentum. Convallis accumsan et nunc eleifend.
-                      </p>
-                      <p>
-                        <strong className='font-semibold'>
-                          Monica White
-                        </strong>
-                        Customer Service
-                      </p>
-                    </div>
-                  </li>
-
-                  <li className='bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6'>
-                    <div className='sm:flex sm:justify-between sm:items-baseline'>
-                      <h3 className='text-base font-medium'>
-                        <span className='text-gray-900'>
-                          Joe Armstrong
-                        </span>
-                        <span className='text-gray-600'>
-                          wrote
-                        </span>
-                      </h3>
-                      <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-                        <time dateTime='2021-01-27T16:09'>
-                          Wednesday at 4:09pm
-                        </time>
-                      </p>
-                    </div>
-                    <div className='mt-4 space-y-6 text-sm text-gray-800'>
-                      <p>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Malesuada at ultricies tincidunt elit et, enim. Habitant nunc, adipiscing non fermentum, sed est a, aliquet. Lorem in vel libero vel augue aliquet dui commodo.
-                      </p>
-                      <p>
-                        Nec malesuada sed sit ut aliquet. Cras ac pharetra, sapien purus vitae vestibulum auctor faucibus ullamcorper. Leo quam tincidunt porttitor neque, velit sed. Tortor mauris ornare ut tellus sed aliquet amet venenatis condimentum. Convallis accumsan et nunc eleifend.
-                      </p>
-                      <p>
-                        – Joe
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* <!-- Message list--> */}
-      <aside className='hidden xl:block xl:flex-shrink-0 xl:order-first'>
-        <div className='h-full relative flex flex-col w-96 border-r border-gray-200 bg-gray-100'>
-          <div className='flex-shrink-0'>
-            <div className='h-16 bg-white px-6 flex flex-col justify-center'>
-              <div className='flex items-baseline space-x-3'>
-                <h2 className='text-ls font-medium text-gray-900'>
-                  Inbox
-                </h2>
-                <p className='text-sm font-medium text-gray-500'>
-                  12 messages
-                </p>
-              </div>
-            </div>
-            <div className='border-t border-b border-gray-200 bg-gray-50 px-6 py-2 text-sm font-medium text-gray-500'>
-              Sorted by date
-            </div>
-          </div>
-          <nav
-            aria-label='Message list'
-            className='min-h-0 flex-1 overflow-y-auto'
-          >
-            <ul className='border-b border-gray-200 divide-y divide-gray-200'>
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Gloria Roberston
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Velit placeat sit ducimus non sed
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Virginia Abshire
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Nemo mollitia repudiandae adipisci explicabo optio consequatur tempora ut nihil
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Kyle Gulgowski
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Doloremque reprehenderit et harum quas explicabo nulla architecto dicta voluptatibus
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Hattie Haag
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Eos sequi et aut ex impedit
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Wilma Glover
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Quisquam veniam explicabo
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Dolores Morissette
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Est ratione molestiae modi maiores consequatur eligendi et excepturi magni
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Guadalupe Walsh
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Commodi deserunt aut veniam rem ipsam
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Jasmine Hansen
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Illo illum aut debitis earum
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Ian Volkman
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Qui dolore iste ut est cumque sed
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
-                <div className='flex justify-between space-x-3'>
-                  <div className='min-w-0 flex-1'>
-                    <Link
-                      to='#'
-                      className='block focus:outline-none'
-                    >
-                      <span
-                        className='absolute inset-0'
-                        aria-hidden='true'
-                      />
-                      <p className='text-sm font-medium text-gray-900 truncate'>
-                        Rafael Klocko
-                      </p>
-                      <p className='text-sm text-gray-500 truncate'>
-                        Aut sed aut illum delectus maiores laboriosam ex
-                      </p>
-                    </Link>
-                  </div>
-                  <time
-                    dateTime='2021-01-27T16:35'
-                    className='flex-shrink-0 whitespace-nowrap text-sm text-gray-500'
-                  >
-                    1d ago
-                  </time>
-                </div>
-                <div className='mt-1'>
-                  <p className='line-clamp-2 text-sm text-gray-600'>
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
-                  </p>
-                </div>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </aside>
-    </main>
-  //   </div>
-  // </div>
-  )
+        </section>
+      </main>
+    )
+  }
+  return 'loading'
 }
 
 export default Main

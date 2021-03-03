@@ -1,22 +1,23 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useState } from 'react'
 import { Transition } from '@headlessui/react'
+import { INSTRUMENTS } from '../helperLists'
 
-const WANTEDINSTRUMENTS = [
-  'Vocals',
-  'Acoustic Guitar',
-  'Electric Guitar',
-  'Bass',
-  'Keyboards',
-  'Piano',
-  'Drums',
-  'Percussion',
-  'Turntables',
-  'Banjo',
-  'Ukulele',
-  'Fiddle',
-  'Violin'
-]
+// const WANTEDINSTRUMENTS = [
+//   'Vocals',
+//   'Acoustic Guitar',
+//   'Electric Guitar',
+//   'Bass',
+//   'Keyboards',
+//   'Piano',
+//   'Drums',
+//   'Percussion',
+//   'Turntables',
+//   'Banjo',
+//   'Ukulele',
+//   'Fiddle',
+//   'Violin'
+// ]
 
 const WantedInstruments = ({ wantedInstruments, setWantedInstruments }) => {
   const [showInstruments, setShowInstruments] = useState(false)
@@ -70,7 +71,7 @@ const WantedInstruments = ({ wantedInstruments, setWantedInstruments }) => {
           >
             <div className='absolute mt-1 w-full rounded-md bg-gray-50 shadow-lg'>
               <ul tabIndex='-1' role='listbox' aria-labelledby='listbox-label' aria-activedescendant='listbox-item-3' className='max-h-40 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm'>
-                {WANTEDINSTRUMENTS.map((instrument, idx) => (
+                {INSTRUMENTS.map((instrument, idx) => (
                   <li
                     key={`wanted-instrument-${instrument}`}
                     id={`wanted-instrument-${instrument}`}

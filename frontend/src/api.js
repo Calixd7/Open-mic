@@ -74,7 +74,7 @@ export function postProfiles (token, profile) {
     }
   })
     .then(res => {
-      console.log('api data', res.data)
+      // console.log('api data', res.data)
       return res.data
     })
 }
@@ -90,7 +90,7 @@ export function uploadImage (token, image, pk) {
     }
   })
     .then(res => {
-      console.log('image api return data', res.data)
+      // console.log('image api return data', res.data)
       return res.data
     })
 }
@@ -114,24 +114,91 @@ export function deleteProfile (token, pk) {
     .then(res => res.data)
 }
 
-export function updateProfile (token, pk) {
+export function updateProfile (token, updatedProfile, pk) {
   return apiUrl
-    .put(`api/userprofiles/${pk}/`, {
+    .put(`api/userprofiles/${pk}/`, updatedProfile, {
       headers: {
         Authorization: `Token ${token}`
       }
     })
-    .then(res => console.log('res.data api', res.data))
+    .then(res => {
+      // console.log('res.data api', res.data)
+      return res.data
+    })
 }
 
 export function getUserProfile (token) {
-  return apiUrl.get('/api/userprofiles/me/', {
+  return apiUrl.get('api/userprofiles/me/', {
     headers: {
       Authorization: `Token ${token}`
     }
   })
     .then(res => {
-      console.log('user api', res.data)
+      // console.log('user api', res.data)
+      return res.data[0]
+    })
+}
+
+// export function createMessage (token, pk) {
+//   // return apiUrl.post('/')
+// }
+
+export function getMessages (token) {
+  return apiUrl.get('api/messages/mine/', {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => {
       return res.data
     })
+}
+
+export function sendMessage (token, message) {
+  return apiUrl.post('api/messages/', message, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => {
+      return res.data
+    })
+}
+
+export function updateMessage (token, id, read) {
+  return apiUrl.put(`api/messages/${id}/`, {
+    read: read
+  }, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
+}
+
+export function deleteMessage (token, id) {
+  return apiUrl.delete(`api/messages/${id}/`, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
+}
+
+export function getConnections (token) {
+  return apiUrl.get('api/users/me', {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
+}
+
+export function searchProfiles (token, status, genre) {
+  return apiUrl.get(`api/userprofiles/?search=${status},${genre}`, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
 }

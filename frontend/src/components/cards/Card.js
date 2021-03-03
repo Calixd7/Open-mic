@@ -4,11 +4,13 @@ import Info from './Info'
 import Follow from './Follow'
 import MessageBtn from './MessageBtn'
 import ViewCard from '../ViewCard'
+import logo from '../images/logorough.jpg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Card ({ cards, profile }) {
+function Card ({ cards, profile, setMessageReceiverUser }) {
   const history = useHistory()
   const [follow, setFollow] = useState(false)
-  console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
+  // console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
 
   const properStatus = (card) => {
     if (card.individualorband === 'Individual') {
@@ -19,24 +21,52 @@ function Card ({ cards, profile }) {
   }
 
   return (
-    <div>
+    <div className='px-4'>
 
       <ul
         className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
       >
         {cards.map(card => (
-          <li key={`card-${card.pk}`} className={`${card.individualorband === 'Band' ? 'bg-gray-700' : 'bg-gray-700'} col-span-1 flex flex-col text-center rounded-lg shadow divide-y divide-indigo-200 ${card.vacancy === true ? 'border-8 border-solid border-green-500' : 'border-none'}`}>
+          <li key={`card-${card.pk}`} className={`${card.individualorband === 'Band' ? 'bg-gray-700' : 'bg-gray-700'} col-span-1 flex flex-col text-center rounded-lg shadow divide-y divide-indigo-200 ${card.vacancy === true ? 'border-8 border-solid border-yellow-200' : 'border-none'}`}>
+
+            <div className='flex justify-between items-center'>
+              <div className='flex-shrink-0 flex-items-center'>
+
+                <img
+                  className='block h-8 w-auto ml-2 my-2 rounded-md opacity-80'
+                  src={logo} alt='logo'
+                />
+              </div>
+              {card.vacancy === true &&
+                <p className='text-white font-bold text-yellow-200 text-sm mr-2'>Looking for instruments</p>}
+
+            </div>
+
             <div className='flex-1 flex flex-col p-8'>
-              <img
-                className='w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full object-cover'
-                src={card.image}
-                alt='avatar'
-              />
+              {card.image
+                ? <img
+                    className='w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full object-cover'
+                    src={card.image}
+                    alt='avatar'
+                  />
+                : <span className='w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full object-cover'>
+                  <FontAwesomeIcon
+                    icon={['far', 'user']}
+                    className='text-red-300 hover:text-red-500 text-7xl h-full w-auto'
+                  />
+                  </span>}
+
               <h3 className='mt-6 text-white text-sm font-medium'>{properStatus(card)}</h3>
               <dl className='mt-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
               <dt className='sr-only'>card Name</dt>
-              <dd className='text-white text-sm'>Genres: {card.genres}</dd>
-              <dd className='text-white text-sm'>Location: {card.band_location}</dd>
+
+              <dd className='text-white text-sm flex'> Genres:&nbsp;
+                {card.genres.map((genre, idx) => (
+                  <span key={`${genre}-${idx}`}>{`${idx ? ', ' : ''} ${genre}`}</span>
+                ))}
+              </dd>
+
+              <dd className='text-white text-sm'>Location: {card.location}</dd>
             </div>
             <div>
               <div className='mt=px flex divide-x divide-gray-200'>
@@ -49,7 +79,7 @@ function Card ({ cards, profile }) {
                       <button
                         type='button'
                         className='justify-center w-full inline-flex items-center px-2 py-1 mb-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 hover:text-white bg-indigo-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                        onClick={() => history.push(`view-card/${card.pk}`)}
+                        onClick={() => history.push(`/view-card/${card.pk}`)}
                       >
                         <span>
                           <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-5 w-5'>
@@ -60,28 +90,11 @@ function Card ({ cards, profile }) {
                       </button>
 
                       <div className='relative z-0 inline-flex shadow-sm rounded-md'>
-                        <button
-                          type='button'
-                          className='justify-center inline-flex flex-1 items-center px-2 py-1 mr-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 hover:text-white bg-indigo-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                          // onClick={() => history.push(`view-card/${card.pk}`)}
-                          onClick={() => setFollow(follow => !follow)}
-                        >
-                          <span>
-                            {follow
-                              ? <svg className='ml-0.5 mr-2 h-4 w-4' fill='currentColor' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'>
-                                <path d='M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z' />
-                              </svg>
-                              : <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
-                                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z' />
-                              </svg>}
-
-                          </span>
-                          Follow
-                        </button>
+                        <Follow follow={follow} setFollow={setFollow} />
                         <button
                           type='button'
                           className='justify-center inline-flex flex-1 items-center px-2 py-1 ml-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 hover:text-white bg-indigo-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                          onClick={() => history.push(`message/${card.pk}`)}
+                          onClick={() => { history.push('/message'); setMessageReceiverUser(card.user) }}
                         >
                           <span>
                             <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>

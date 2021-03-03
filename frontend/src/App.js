@@ -8,12 +8,12 @@ import Welcome from './components/Welcome'
 import Login from './components/Login'
 import Registration from './components/Registration'
 import ProfileSetup from './components/ProfileSetup'
-import Connections from './components/Friends'
 import Explore from './components/Explore'
 import { useState } from 'react'
 import ViewProfile from './components/ViewProfile'
 import ViewCard from './components/ViewCard'
 import Message from './components/Message'
+import Friends from './components/Friends'
 
 library.add(far, faTimes, faUser)
 
@@ -25,6 +25,9 @@ function App () {
   const [token, setToken] = useToken()
   const [pk, setPk] = useState(0)
   const isLoggedIn = (username && token)
+  const [isImage, setIsImage] = useState(false)
+  const [messageReceiverUser, setMessageReceiverUser] = useState('')
+  const [avatar, setAvatar] = useState('')
 
   // console.log('pk', pk)
 
@@ -40,32 +43,32 @@ function App () {
   return (
     <Router>
       <div className='App'>
-        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} pk={pk} />
+        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} />
         <main>
           <Switch>
-            <Route path='/registration/'>
+            <Route path='/registration'>
               <Registration setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
             </Route>
-            <Route path='/login/'>
+            <Route path='/login'>
               <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
             </Route>
-            <Route path='/profile-setup/'>
-              <ProfileSetup token={token} isLoggedIn={isLoggedIn} />
+            <Route path='/profile-setup'>
+              <ProfileSetup token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} />
             </Route>
-            <Route path='/connections/'>
-              <Connections isLoggedIn={isLoggedIn} />
+            <Route path='/friends'>
+              <Friends token={token} isLoggedIn={isLoggedIn} username={username} />
             </Route>
-            <Route path='/explore/'>
-              <Explore token={token} isLoggedIn={isLoggedIn} />
+            <Route path='/explore'>
+              <Explore setMessageReceiverUser={setMessageReceiverUser} token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} username={username} setAvatar={setAvatar} />
             </Route>
-            <Route path='/view-profile/:pk'>
+            <Route path='/view-profile'>
               <ViewProfile token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/view-card/:pk'>
               <ViewCard token={token} isLoggedIn={isLoggedIn} />
             </Route>
-            <Route path='/message/:pk'>
-              <Message token={token} isLoggedIn={isLoggedIn} />
+            <Route path='/message'>
+              <Message messageReceiverUser={messageReceiverUser} username={username} token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/'>
               <Welcome isLoggedIn={isLoggedIn} />
