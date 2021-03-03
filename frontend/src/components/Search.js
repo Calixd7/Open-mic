@@ -7,6 +7,7 @@ const Search = ({ token, setCards }) => {
   const [genre, setGenre] = useState('')
   const [instrument, setInstrument] = useState('')
   const [location, setLocation] = useState('')
+  const [vacancy, setVancy] = useState(false)
 
   const pendingSearch = [
     status,
@@ -17,12 +18,12 @@ const Search = ({ token, setCards }) => {
 
   function handleSearch (e) {
     e.preventDefault()
-    searchProfiles(token, pendingSearch)
+    searchProfiles(token, pendingSearch, vacancy)
       .then(cards => setCards(cards))
   }
 
   console.log('status', status)
-  // console.log('statusCheckbox', statusCheckbox)
+  console.log('vacancy', vacancy)
   console.log('genre', genre)
   // console.log('genreCheckbox', genreCheckbox)
 
@@ -94,6 +95,19 @@ const Search = ({ token, setCards }) => {
                 <option key={`${instrument}-${idx}`} value={instrument}>{instrument}</option>
               ))}
 
+            </select>
+          </span>
+
+          <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
+            <label htmlFor='status' className='block text-sm text-center font-medium text-gray-700'>Looking?</label>
+            <select
+              id='status'
+              name='status'
+              className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+              onChange={(e) => setVancy(e.currentTarget.value)}
+            >
+              <option value='false'>none</option>
+              <option value='true'>Looking</option>
             </select>
           </span>
 
