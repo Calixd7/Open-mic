@@ -54,13 +54,12 @@ function Card ({ cards, profile, setMessageReceiverUser }) {
                     icon={['far', 'user']}
                     className='text-red-300 hover:text-red-500 text-7xl h-full w-auto'
                   />
-                  </span>}
+                </span>}
 
               <h3 className='mt-6 text-white text-sm font-medium'>{properStatus(card)}</h3>
-              <dl className='mt-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
+              <dl className='my-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
               <dt className='sr-only'>card Name</dt>
-
-              <dd className='text-white text-sm flex'> Genres:&nbsp;
+              <dd className='text-white text-sm'> <strong>Genres:</strong>
                 {card.genres.map((genre, idx) => (
                   <span key={`${genre}-${idx}`}>{`${idx ? ', ' : ''} ${genre}`}</span>
                 ))}
