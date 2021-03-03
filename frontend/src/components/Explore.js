@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react'
 import Card from './cards/Card'
 import { getProfiles, getUserProfile, getConnections } from '../api'
 import Search from './Search'
-import { setAvatarImage } from './Avatar'
 
 function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUser }) {
   const [cards, setCards] = useState([])
@@ -22,10 +21,6 @@ function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUs
     getProfiles(token)
       .then(cards => setCards(cards))
       .then(getUserProfile(token).then(profile => {
-        // console.log('profile', profile.length)
-        // if (!profile) {
-        //   return 'loading'
-        // }
         if (profile) {
           console.log('profile before avatar', profile.image)
           setAvatar(profile.image)
