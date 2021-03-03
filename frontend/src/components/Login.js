@@ -1,6 +1,7 @@
 import { useHistory, Link } from 'react-router-dom'
 import { useState } from 'react'
 import { login } from '../api'
+import Errors from './Errors'
 
 function Login ({ setAuth, isLoggedIn, setProfilePk }) {
   const [username, setUsername] = useState('')
@@ -32,7 +33,9 @@ function Login ({ setAuth, isLoggedIn, setProfilePk }) {
           onSubmit={handleLogin}
         >
           {errors && (
-            <div>{errors}</div>
+            <div>
+              <Errors errors={errors} />
+            </div>
           )}
           <input
             type='hidden'
@@ -55,7 +58,7 @@ function Login ({ setAuth, isLoggedIn, setProfilePk }) {
                 required className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
                 placeholder='Username'
                 value={username}
-                onChange={event => setUsername(event.target.value)}
+                onChange={event => { setUsername(event.target.value); setErrors('') }}
               />
             </div>
             <div>
@@ -73,7 +76,7 @@ function Login ({ setAuth, isLoggedIn, setProfilePk }) {
                 required className='appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm'
                 placeholder='Password'
                 value={password}
-                onChange={event => setPassword(event.target.value)}
+                onChange={event => { setPassword(event.target.value); setErrors('') }}
               />
             </div>
             <div className='flex items-center justify-between'>
