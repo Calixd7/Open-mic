@@ -1,4 +1,3 @@
-//
 import { useState, useRef } from 'react'
 import Genre from './profileComponents/Genre'
 import Instruments from './profileComponents/Instruments'

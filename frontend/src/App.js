@@ -26,8 +26,8 @@ function App () {
   const [pk, setPk] = useState(0)
   const isLoggedIn = (username && token)
   const [isImage, setIsImage] = useState(false)
-  const [avatar, setAvatar] = useState('')
   const [messageReceiverUser, setMessageReceiverUser] = useState('')
+  const [avatar, setAvatar] = useState('')
 
   // console.log('pk', pk)
 
@@ -53,13 +53,13 @@ function App () {
               <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
             </Route>
             <Route path='/profile-setup'>
-              <ProfileSetup token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} setAvatar={setAvatar} />
+              <ProfileSetup token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} />
             </Route>
             <Route path='/friends'>
               <Friends token={token} isLoggedIn={isLoggedIn} username={username} />
             </Route>
             <Route path='/explore'>
-              <Explore setMessageReceiverUser={setMessageReceiverUser} token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} setAvatar={setAvatar} avatar={avatar} username={username} />
+              <Explore setMessageReceiverUser={setMessageReceiverUser} token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} username={username} setAvatar={setAvatar} />
             </Route>
             <Route path='/view-profile'>
               <ViewProfile token={token} isLoggedIn={isLoggedIn} />

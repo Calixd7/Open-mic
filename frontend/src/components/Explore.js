@@ -2,11 +2,12 @@ import { useState, useEffect } from 'react'
 import Card from './cards/Card'
 import { getProfiles, getUserProfile, getConnections } from '../api'
 import Search from './Search'
+import { setAvatarImage } from './Avatar'
 
 function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUser }) {
   const [cards, setCards] = useState([])
   const [profile, setProfile] = useState('')
-  const [userPk, setUserPk] = useState(null)
+  // const [userPk, setUserPk] = useState(null)
   const [connections, setConnections] = useState([])
 
   // console.log('profile', profile)
@@ -18,23 +19,19 @@ function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUs
   // console.log('connections state', connections)
 
   useEffect(() => {
-    getProfiles(token).then(cards => setCards(cards))
-    console.log('cards', cards)
-  }, [token])
-
-  useEffect(() => {
-    getUserProfile(token).then(profile => {
-      if (!profile.image || profile.image === null) {
-        return 'loading'
-      }
-      setUserPk(profile.pk)
-      if (profile.image.length === 0 || profile.image.length === null) {
-        setIsImage(false)
-      } else {
-        setAvatar(profile.image)
-        setIsImage(true)
-      }
-    })
+    getProfiles(token)
+      .then(cards => setCards(cards))
+      .then(getUserProfile(token).then(profile => {
+        // console.log('profile', profile.length)
+        // if (!profile) {
+        //   return 'loading'
+        // }
+        if (profile) {
+          console.log('profile before avatar', profile.image)
+          setAvatar(profile.image)
+        }
+      })
+      )
   }, [token])
 
   useEffect(() => {
