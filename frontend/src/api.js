@@ -165,10 +165,8 @@ export function sendMessage (token, message) {
     })
 }
 
-export function updateMessage (token, id, read) {
-  return apiUrl.put(`api/messages/${id}/`, {
-    read: read
-  }, {
+export function updateMessage (token, id, updateRead) {
+  return apiUrl.put(`api/messages/${id}/`, updateRead, {
     headers: {
       Authorization: `Token ${token}`
     }
