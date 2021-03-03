@@ -68,9 +68,9 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
             <div className='hidden sm:block sm:ml-6'>
               <div className='flex space-x-4'>
                 <Link
-                  to='/message'
+                  to='/explore'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-                >Messages
+                >Explore
                 </Link>
                 <Link
                   to='/friends'
@@ -78,9 +78,9 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 >Friends
                 </Link>
                 <Link
-                  to='/explore'
+                  to='/message'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-                >Explore
+                >Messages
                 </Link>
               </div>
             </div>
@@ -113,14 +113,15 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 aria-orientation='vertical'
                 aria-labelledby='user-menu'
               >
-                <div
+                <button
                 // to='view-profile/'
-                  className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+                  className='block px-4 py-2 w-full text-left text-sm text-gray-700 hover:bg-gray-100'
                   role='menuitem'
+                  disabled={!isLoggedIn}
                   onClick={() => { history.push('/view-profile'); setShowProfile(false) }}
                 >
                   Your Profile
-                </div>
+                </button>
                 {isLoggedIn
                   ? (
                     <Link

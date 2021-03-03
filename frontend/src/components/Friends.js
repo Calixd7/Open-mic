@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import Card from './cards/Card'
 import { Redirect } from 'react-router-dom'
 
-function Friends ({ token, username }) {
+function Friends ({ token, username, isLoggedIn }) {
   const [userFriends, setUserFriends] = useState([])
   const [allCards, setAllCards] = useState([])
   const [friendCards, setFriendCards] = useState([])
@@ -28,9 +28,9 @@ function Friends ({ token, username }) {
   // console.log('userFriends state', userFriends)
   // console.log('friendCards', friendCards)
 
-  // if (!isLoggedIn) {
-  //   return <Redirect to='/' />
-  // }
+  if (!isLoggedIn) {
+    return <Redirect to='/' />
+  }
 
   // if (userFriends) {
   return (

@@ -1,13 +1,13 @@
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const HeaderMobile = () => {
   return (
     <div>
       <div className='px-2 pt-2 pb-3 space-y-1'>
         <Link
-          to='/message'
+          to='/explore'
           className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
-        >Messages
+        >Explore
         </Link>
         <Link
           to='/friends'
@@ -15,9 +15,9 @@ const HeaderMobile = () => {
         >Friends
         </Link>
         <Link
-          to='/explore'
+          to='/message'
           className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
-        >Explore
+        >Messages
         </Link>
       </div>
     </div>

@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react'
 import Card from './cards/Card'
 import { getProfiles, getUserProfile, getConnections } from '../api'
 import Search from './Search'
+import { Redirect } from 'react-router-dom'
 
-function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUser }) {
+function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUser, isLoggedIn }) {
   const [cards, setCards] = useState([])
   const [profile, setProfile] = useState('')
   // const [userPk, setUserPk] = useState(null)
@@ -34,6 +35,10 @@ function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUs
       setConnections(connections.following.map(following => following.following_user))
     })
   }, [])
+
+  if (!isLoggedIn) {
+    return <Redirect to='/' />
+  }
 
   return (
     <div>

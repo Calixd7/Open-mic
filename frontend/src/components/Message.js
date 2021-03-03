@@ -1,4 +1,4 @@
-import { Link, useParams } from 'react-router-dom'
+import { useParams, Redirect } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getProfile, getMessages } from '../api'
 import { Transition } from '@headlessui/react'
@@ -7,7 +7,7 @@ import Main from './MessageCards/Main'
 import MessageList from './MessageCards/MessageList'
 import CreateMessage from './MessageCards/CreateMessage'
 
-function Message ({ token, username, messageReceiverUser }) {
+function Message ({ token, username, messageReceiverUser, isLoggedIn }) {
   const { pk } = useParams()
   const [messages, setMessages] = useState([])
   const [messageId, setMessageId] = useState('')
@@ -31,6 +31,10 @@ function Message ({ token, username, messageReceiverUser }) {
       setMessages(messages)
     })
   }, [token])
+
+  if (!isLoggedIn) {
+    return <Redirect to='/' />
+  }
 
   return (
     <div className='h-screen overflow-hidden bg-gray-100 flex flex-col'>
