@@ -35,7 +35,10 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
 class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
-    
+    permission_classes = [
+       IsAuthenticated
+    ]
+   
     def get_queryset(self):
         return User.objects.all()
     
@@ -84,6 +87,7 @@ class UserProfileViewSet(ModelViewSet):
 class MessageViewSet(ModelViewSet):
 
     serializer_class = MessagesSerializer
+
 
 
     def get_queryset(self):
