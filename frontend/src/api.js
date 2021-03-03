@@ -165,8 +165,19 @@ export function sendMessage (token, message) {
     })
 }
 
+export function updateMessage (token, id, read) {
+  return apiUrl.put(`api/messages/${id}/`, {
+    read: read
+  }, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
+}
+
 export function deleteMessage (token, id) {
-  return apiUrl.delete(`api/messages/${id}`, {
+  return apiUrl.delete(`api/messages/${id}/`, {
     headers: {
       Authorization: `Token ${token}`
     }
