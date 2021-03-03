@@ -46,7 +46,11 @@ class InstrumentSerializer (serializers.ModelSerializer):
         model = Instrument
         fields = [ 'name']
 
+class SenderSerializer (serializers.ModelSerializer):
 
+    class Meta: 
+        model = User
+        fields = ['username']
 
 class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(read_only=True, slug_field='username')
@@ -76,7 +80,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "wanted_info"
         ]
 class MessagesSerializer(serializers.ModelSerializer):
-    sender = serializers.SlugRelatedField(slug_field="username",queryset=User.objects.all() )
+    sender = SenderSerializer(read_only=True)
+    receiver = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    # sender = serializers.SlugRelatedField(slug_field="username",queryset=User.objects.all() )
     receiver = serializers.SlugRelatedField(slug_field="username", queryset=User.objects.all())
     class Meta:
         model = Messages
@@ -84,6 +90,8 @@ class MessagesSerializer(serializers.ModelSerializer):
             "id",
             "sender",
             "receiver", 
+            "sender_name",
+            "receiver_name",
             "image",
             "subject",
             "content",

@@ -80,6 +80,8 @@ class Messages(models.Model):
     content = models.TextField(max_length=10000, blank=True)
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null = True, related_name="sender")
     receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null = True, related_name="receiver")   
+    sender_name = models.TextField(max_length=100, blank=True, null=True)
+    receiver_name = models.TextField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to="uploads/", null=True, blank=True)
     read = models.BooleanField(default=False)
     created_at = models.DateField(auto_now_add=True)
