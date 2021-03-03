@@ -1,19 +1,18 @@
 import { Link, useHistory } from 'react-router-dom'
-import {Transition} from '@headlessui/react'
+import { Transition } from '@headlessui/react'
 import { useEffect, useState } from 'react'
 import logo from './images/logorough.jpg'
-import { getUserProfile} from '../api'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import { getUserProfile } from '../api'
+import Avatar from './Avatar'
 
 function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const history = useHistory()
 
-// console.log('avatar', avatar)
-// console.log('isImage', isImage)
-  
+  // console.log('avatar', avatar)
+  // console.log('isImage', isImage)
+
   return (
     <nav className='bg-gray-800'>
       <div className='max-w-7xl mx-auto px-2 sm:px-6 lg:px-8'>
@@ -61,10 +60,10 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
           <div className='flex-1 flex items-center justify center sm:items-stretch sm:justify-start'>
             <div className='flex-shrink-0 flex-items-center'>
               <img
-              className='block h-12 w-auto rounded-md'
-              src={logo} alt='OpenMic'
-              alt='logo'
-            />
+                className='block h-12 w-auto rounded-md'
+                src={logo} alt='OpenMic'
+                alt='logo'
+              />
             </div>
             <div className='hidden sm:block sm:ml-6'>
               <div className='flex space-x-4'>
@@ -95,74 +94,60 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 aria-haspopup='true'
                 onClick={() => setShowProfile(showProfile => !showProfile)}
               >
-                <span className='sr-only'>Open User Menu></span>
-                {isImage
-              ? <img
-              className='block h-12 w-auto rounded-full'
-              src={avatar}
-              alt='avatar'
-            />
-            : <span>
-              <FontAwesomeIcon
-                icon={['far', 'user']}
-                className='text-red-300 hover:text-red-500 text-lg mb-1'
-              />
-            </span>
-            }
+                <Avatar image={avatar} />
               </button>
             </div>
             <Transition
-            show={showProfile}
-            enter='transition ease-out duration-100'
+              show={showProfile}
+              enter='transition ease-out duration-100'
               enterFrom='transform opacity-0 scale-95'
               enterTo='transform opacity-100 scale-100'
-            leave='transition ease-in duration-75'
+              leave='transition ease-in duration-75'
               leaveFrom='transform opacity-100 scale-100'
               leaveTo='transform opacity-0 scale-95'
             >
 
-                <div
-              className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5'
-              role='menu'
-              aria-orientation='vertical'
-              aria-labelledby='user-menu'
-            >
               <div
+                className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5'
+                role='menu'
+                aria-orientation='vertical'
+                aria-labelledby='user-menu'
+              >
+                <div
                 // to='view-profile/'
-                className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
-                role='menuitem'
-                onClick={() => {history.push('/view-profile'); setShowProfile(false)}}
-              >
-                Your Profile
-              </div>
-              <Link
-                to='#'
-                className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
-              >
-                Settings
-              </Link>
-                {isLoggedIn 
-                ? (                
-                  <Link
-                to='/'
-                className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
-                onClick={() => {setToken(null); setShowProfile(false); setIsImage(false)}}
-              >
-                Sign Out
-              </Link>
-                )                
-              :(
+                  className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+                  role='menuitem'
+                  onClick={() => { history.push('/view-profile'); setShowProfile(false) }}
+                >
+                  Your Profile
+                </div>
                 <Link
-                to='/login'
-                className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
-                onClick={() => setShowProfile(false)}
-              >
-                Sign In
-              </Link>
-              
-              )
-                }
-            </div>
+                  to='#'
+                  className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+                >
+                  Settings
+                </Link>
+                {isLoggedIn
+                  ? (
+                    <Link
+                      to='/'
+                      className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+                      onClick={() => { setToken(null); setShowProfile(false); setAvatar(false) }}
+                    >
+                      Sign Out
+                    </Link>
+                    )
+                  : (
+                    <Link
+                      to='/login'
+                      className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
+                      onClick={() => setShowProfile(false)}
+                    >
+                      Sign In
+                    </Link>
+
+                    )}
+              </div>
             </Transition>
           </div>
         </div>
