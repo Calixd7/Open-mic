@@ -144,7 +144,7 @@ export function getUserProfile (token) {
 // }
 
 export function getMessages (token) {
-  return apiUrl.get('/api/messages/', {
+  return apiUrl.get('api/messages/mine/', {
     headers: {
       Authorization: `Token ${token}`
     }
@@ -154,8 +154,46 @@ export function getMessages (token) {
     })
 }
 
+export function sendMessage (token, message) {
+  return apiUrl.post('api/messages/', message, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => {
+      return res.data
+    })
+}
+
+export function updateMessage (token, id, updateRead) {
+  return apiUrl.put(`api/messages/${id}/`, updateRead, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
+}
+
+export function deleteMessage (token, id) {
+  return apiUrl.delete(`api/messages/${id}/`, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
+}
+
 export function getConnections (token) {
   return apiUrl.get('api/users/me', {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
+}
+
+export function searchProfiles (token, pendingSearch) {
+  return apiUrl.get(`api/userprofiles/?search=${pendingSearch}`, {
     headers: {
       Authorization: `Token ${token}`
     }

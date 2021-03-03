@@ -7,7 +7,7 @@ import ViewCard from '../ViewCard'
 import logo from '../images/logorough.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Card ({ cards, profile }) {
+function Card ({ cards, profile, setMessageReceiverUser }) {
   const history = useHistory()
   const [follow, setFollow] = useState(false)
   // console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
@@ -27,7 +27,7 @@ function Card ({ cards, profile }) {
         className='grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
       >
         {cards.map(card => (
-          <li key={`card-${card.pk}`} className={`${card.individualorband === 'Band' ? 'bg-gray-700' : 'bg-gray-700'} col-span-1 flex flex-col text-center rounded-lg shadow divide-y divide-indigo-200 ${card.vacancy === true ? 'border-8 border-solid border-green-500' : 'border-none'}`}>
+          <li key={`card-${card.pk}`} className={`${card.individualorband === 'Band' ? 'bg-gray-700' : 'bg-gray-700'} col-span-1 flex flex-col text-center rounded-lg shadow divide-y divide-indigo-200 ${card.vacancy === true ? 'border-8 border-solid border-yellow-200' : 'border-none'}`}>
 
             <div className='flex justify-between items-center'>
               <div className='flex-shrink-0 flex-items-center'>
@@ -38,7 +38,7 @@ function Card ({ cards, profile }) {
                 />
               </div>
               {card.vacancy === true &&
-                <p className='text-white font-bold text-green-500 text-xs mr-2'>Looking for instruments</p>}
+                <p className='text-white font-bold text-yellow-200 text-sm mr-2'>Looking for instruments</p>}
 
             </div>
 
@@ -54,13 +54,18 @@ function Card ({ cards, profile }) {
                     icon={['far', 'user']}
                     className='text-red-300 hover:text-red-500 text-7xl h-full w-auto'
                   />
-                  </span>}
+                </span>}
 
               <h3 className='mt-6 text-white text-sm font-medium'>{properStatus(card)}</h3>
-              <dl className='mt-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
+              <dl className='my-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
               <dt className='sr-only'>card Name</dt>
-              <dd className='text-white text-sm'>Genres: {card.genres}</dd>
-              <dd className='text-white text-sm'>Location: {card.band_location}</dd>
+              <dd className='text-white text-sm'> <strong>Genres:</strong>
+                {card.genres.map((genre, idx) => (
+                  <span key={`${genre}-${idx}`}>{`${idx ? ', ' : ''} ${genre}`}</span>
+                ))}
+              </dd>
+
+              <dd className='text-white text-sm'>Location: {card.location}</dd>
             </div>
             <div>
               <div className='mt=px flex divide-x divide-gray-200'>
@@ -88,7 +93,7 @@ function Card ({ cards, profile }) {
                         <button
                           type='button'
                           className='justify-center inline-flex flex-1 items-center px-2 py-1 ml-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 hover:text-white bg-indigo-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                          onClick={() => history.push(`/message/${card.pk}`)}
+                          onClick={() => { history.push('/message'); setMessageReceiverUser(card.user) }}
                         >
                           <span>
                             <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>

@@ -1,4 +1,3 @@
-//
 import { useState, useRef } from 'react'
 import Genre from './profileComponents/Genre'
 import Instruments from './profileComponents/Instruments'
@@ -7,7 +6,7 @@ import Images from './profileComponents/Images'
 import Name from './profileComponents/Name'
 import Email from './profileComponents/Email'
 import Site from './profileComponents/Site'
-import BandLocation from './profileComponents/BandLocation'
+import Location from './profileComponents/Location'
 import Vacancy from './profileComponents/Vacancy'
 import Status from './profileComponents/Status'
 import WantedInstruments from './profileComponents/WantedInstruments'
@@ -58,9 +57,9 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
   const [instruments, setInstruments] = useState(safeProfile.instruments || [])
   const [bio, setBio] = useState(safeProfile.bio || '')
   const [email, setEmail] = useState(safeProfile.email || '')
-  const [site, setSite] = useState('')
-  const [location, setLocation] = useState(safeProfile.band_location || '')
-  const [state, setState] = useState('')
+  const [site, setSite] = useState(safeProfile.website || '')
+  const [location, setLocation] = useState(safeProfile.location || '')
+  const [state, setState] = useState(safeProfile.state || '')
   const [vacancy, setVacancy] = useState(safeProfile.vacancy || false)
   const [image, setImage] = useState(safeProfile.image || [])
   const [status, setStatus] = useState(safeProfile.individualorband || 'Solo Artist')
@@ -83,6 +82,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
 
   }
 
+  console.log('location', location)
   // console.log('image.length', image.length)
   // console.log('image', image)
   // console.log('typeOf(image', typeof image)
@@ -160,6 +160,10 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
 
               <div className='mt-4'>
                 <Email email={email} setEmail={setEmail} />
+              </div>
+
+              <div className='mt-4'>
+                <Location status={status} location={location} setLocation={setLocation} state={state} setState={setState} />
               </div>
 
               <div className='mt-4'>

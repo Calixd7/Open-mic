@@ -3,39 +3,34 @@ import { useState, useEffect } from 'react'
 import Card from './cards/Card'
 import { Redirect } from 'react-router-dom'
 
-function Friends ({ token, username }) {
+function Friends ({ token, username, isLoggedIn }) {
   const [userFriends, setUserFriends] = useState([])
   const [allCards, setAllCards] = useState([])
   const [friendCards, setFriendCards] = useState([])
 
   useEffect(() => {
-    getConnections(token).then(connections => {
-      setUserFriends(connections.following.map(following => following.following_user))
-    })
-
-    getProfiles(token).then(cards => setAllCards(cards))
+    getProfiles(token)
+      .then(cards => setAllCards(cards))
+      .then(getConnections(token).then(connections => {
+        const friendsNames = connections.following.map(following => following.following_user)
+        const friendsProfiles = allCards.filter(profile => friendsNames.includes(profile.user))
+        setFriendCards(friendsProfiles)
+      })
+      )
   }, [])
 
-  // allCards.forEach(potentialFriend => {
-  //   userFriends.forEach(friend => {
-  //     if (friend === potentialFriend.user) {
-  //       setFriendCards(potentialFriend)
-  //     }
-  //   })
-  // })
+  // console.log('allCards.length', allCards.length)
+  // console.log(allCards)
+  // console.log('token', token)
+  // console.log('username', username)
+  // console.log('allCards', allCards)
+  // // console.log('cards usernames', allCards.map(card => card.user))
+  // console.log('userFriends state', userFriends)
+  // console.log('friendCards', friendCards)
 
-  console.log('allCards.length', allCards.length)
-  console.log(allCards)
-  console.log('token', token)
-  console.log('username', username)
-  console.log('allCards', allCards)
-  // console.log('cards usernames', allCards.map(card => card.user))
-  console.log('userFriends state', userFriends)
-  console.log('friendCards', friendCards)
-
-  // if (!isLoggedIn) {
-  //   return <Redirect to='/' />
-  // }
+  if (!isLoggedIn) {
+    return <Redirect to='/' />
+  }
 
   // if (userFriends) {
   return (

@@ -26,6 +26,7 @@ function App () {
   const [pk, setPk] = useState(0)
   const isLoggedIn = (username && token)
   const [isImage, setIsImage] = useState(false)
+  const [messageReceiverUser, setMessageReceiverUser] = useState('')
   const [avatar, setAvatar] = useState('')
 
   // console.log('pk', pk)
@@ -45,29 +46,29 @@ function App () {
         <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} />
         <main>
           <Switch>
-            <Route path='/registration/'>
+            <Route path='/registration'>
               <Registration setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
             </Route>
-            <Route path='/login/'>
+            <Route path='/login'>
               <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
             </Route>
-            <Route path='/profile-setup/'>
-              <ProfileSetup token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} setAvatar={setAvatar} />
+            <Route path='/profile-setup'>
+              <ProfileSetup token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} />
             </Route>
-            <Route path='/friends/'>
+            <Route path='/friends'>
               <Friends token={token} isLoggedIn={isLoggedIn} username={username} />
             </Route>
-            <Route path='/explore/'>
-              <Explore token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} setAvatar={setAvatar} avatar={avatar} username={username} />
+            <Route path='/explore'>
+              <Explore setMessageReceiverUser={setMessageReceiverUser} token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} username={username} setAvatar={setAvatar} />
             </Route>
-            <Route path='/view-profile/'>
+            <Route path='/view-profile'>
               <ViewProfile token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/view-card/:pk'>
               <ViewCard token={token} isLoggedIn={isLoggedIn} />
             </Route>
-            <Route path='/message/:pk'>
-              <Message token={token} isLoggedIn={isLoggedIn} />
+            <Route path='/message'>
+              <Message messageReceiverUser={messageReceiverUser} username={username} token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/'>
               <Welcome isLoggedIn={isLoggedIn} />
