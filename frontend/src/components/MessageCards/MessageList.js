@@ -1,15 +1,21 @@
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { deleteMessage } from '../../api'
+import { deleteMessage, updateMessage } from '../../api'
 
-function MessageList ({ token, messages, setMessageId }) {
+function MessageList ({ token, messages, messageId, setMessageId }) {
+  const [read, setRead] = useState(false)
   const handleDelete = (id) => {
     deleteMessage(token, id).then(res => res)
+  }
+
+  const handleRead = (id) => {
+    updateMessage(token, id, read)
   }
 
   if (!messages) {
     return 'loading'
   }
-  console.log('messages', messages.map(message => message.id))
+  console.log('messages', messages.map(message => message.read))
 
   return (
     <aside className='hidden sm:block sm:flex-shrink-0 sm:order-first'>
@@ -34,9 +40,9 @@ function MessageList ({ token, messages, setMessageId }) {
             <ul
               key={`message-${idx}`}
               className='border-b border-gray-200 divide-y divide-gray-200'
-              onClick={() => setMessageId(message.id)}
+              onClick={() => { setMessageId(message.id); setRead(read => !read); handleRead(message.id) }}
             >
-              <li className='relative bg-white py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600'>
+              <li className={`${message.read ? 'bg-white' : 'bg-blue-200 hover:bg-blue-300'} relative py-5 px-6 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-600`}>
                 <div className='flex justify-between space-x-3'>
                   <div className='min-w-0 flex-1'>
                     <Link

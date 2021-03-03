@@ -36,7 +36,7 @@ function Message ({ token, username, messageReceiverUser }) {
     <div className='h-screen overflow-hidden bg-gray-100 flex flex-col'>
       <div className='flex'>
         <div className='h-full relative flex flex-col w-96 border-r border-gray-200 bg-gray-100'>
-          <MessageList setMessageId={setMessageId} messages={messages} />
+          <MessageList messageId={messageId} setMessageId={setMessageId} messages={messages} />
         </div>
         <div>
           <div className='min-w-0 flex-1 border-t border-gray-200 xl:flex'>
