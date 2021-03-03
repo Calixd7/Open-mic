@@ -36,14 +36,14 @@ const Search = ({ token, setCards }) => {
         <div className='flex justify-evenly'>
           <span className='relative z-0 inline-flex shadow-sm rounded-md'>
             <span className='relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white'>
-              <label htmlFor='select-all' className='sr-only'>Select all</label>
+              <label htmlFor='status' className='sr-only'>Select all</label>
               <input
-                id='select-all'
-                type='checkbox'
+                id='status'
+                type='radio'
                 checked={statusCheckbox}
-                name='select-all'
+                name='status'
                 className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
-                onChange={() => setStatusCheckbox(statusCheckbox => !statusCheckbox)}
+                // onChange={() => setStatusCheckbox(statusCheckbox => !statusCheckbox)}
               />
             </span>
             <label htmlFor='message-type' className='sr-only'>Select message type</label>
@@ -53,19 +53,19 @@ const Search = ({ token, setCards }) => {
               className='-ml-px block w-full pl-3 pr-9 py-2 rounded-l-none rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
               onChange={(e) => setStatus(e.currentTarget.value)}
             >
-              <option defaultValue='Individual'>Solo Artist</option>
+              <option value='Individual'>Solo Artist</option>
               <option value='Band'>Band</option>
             </select>
           </span>
 
           <span className='relative z-0 inline-flex shadow-sm rounded-md'>
             <span className='relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white'>
-              <label htmlFor='select-all' className='sr-only'>Select all</label>
+              <label htmlFor='genre' className='sr-only'>Select all</label>
               <input
-                id='select-all'
-                type='checkbox'
+                id='genre'
+                type='radio'
                 checked={genreCheckbox}
-                name='select-all'
+                name='genre'
                 className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
                 onChange={() => setGenreCheckbox(genreCheckbox => !genreCheckbox)}
               />
