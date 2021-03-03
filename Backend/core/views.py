@@ -35,10 +35,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 
 class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
-    permission_classes = [
-       IsAuthenticated
-    ]
-   
+    
     def get_queryset(self):
         return User.objects.all()
     
@@ -88,8 +85,6 @@ class MessageViewSet(ModelViewSet):
 
     serializer_class = MessagesSerializer
 
-
-    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         return  Messages.objects.order_by('receiver', 'sender','created_at')
