@@ -165,6 +165,15 @@ export function sendMessage (token, message) {
     })
 }
 
+export function deleteMessage (token, id) {
+  return apiUrl.delete(`api/messages/${id}`, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
+}
+
 export function getConnections (token) {
   return apiUrl.get('api/users/me', {
     headers: {

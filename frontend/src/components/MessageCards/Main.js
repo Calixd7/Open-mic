@@ -18,7 +18,7 @@ function Main ({ messages, messageId, setShowReplyMessage, messageToRender, setM
 
   if (messageToRender) {
     return (
-      <main className='min-w-0 flex-1 border-t border-gray-200 xl:flex'>
+      <main className='min-w-0 w-screen flex-1 border-t border-gray-200 xl:flex'>
         <section
           aria-labelledby='message-heading'
           className='min-w-0 flex-1 h-full flex flex-col overflow-hidden xl:order-last'
@@ -39,25 +39,25 @@ function Main ({ messages, messageId, setShowReplyMessage, messageToRender, setM
           <div>
             <div className='min-h-0 flex-1 overflow-y-auto'>
               <div className='bg-white pt-5 pb-6 shadow'>
-                <div className='px-4 sm:flex sm:justify-between sm:items-baseline sm:px-6 lg:px-8'>
+                <div className='px-8 sm:flex sm:justify-between sm:items-baseline sm:px-14 lg:px-14'>
                   <div className='sm:w-0 sm:flex-1'>
                     <h1
                       id='message-heading'
                       className='text-lg font-medium text-gray-900'
                     >
-                      {messageToRender.subject}
+                      Subject: {messageToRender.subject}
                     </h1>
                   </div>
                 </div>
 
-                <div className='mt-4 flex items-center justify-between sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:justify-start'>
+                <div className='mx-8 sm:mx-0 mt-4 flex items-center justify-between sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:justify-start'>
                   {/* <!-- Thread section--> */}
                   <ul className='py-4 space-y-2 sm:px-6 sm:space-y-4 lg:px-8'>
                     <li className='bg-white px-4 py-6 shadow sm:rounded-lg sm:px-6'>
                       <div className='sm:flex sm:justify-between sm:items-baseline'>
                         <h3 className='text-base font-medium'>
                           <span className='text-gray-900'>
-                            {messageToRender.sender}
+                            From: {messageToRender.sender}
                           </span>
                         </h3>
                         <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
@@ -72,7 +72,7 @@ function Main ({ messages, messageId, setShowReplyMessage, messageToRender, setM
                     </li>
                   </ul>
                 </div>
-                <div className='text-right mr-10'>
+                <div className='text-right sm:text-center mr-10'>
                   <span className='relative z-0 inline-flex shadow-sm rounded-md sm:shadow-none sm:space-x-3'>
                     <span className='inline-flex sm:shadow-sm'>
                       <button
