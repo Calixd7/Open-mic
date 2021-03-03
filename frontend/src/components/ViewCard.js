@@ -93,6 +93,23 @@ const ViewCard = ({ token, isLoggedIn }) => {
                 {card.location}
               </dd>
             </div>
+
+            <div className='sm:col-span-1'>
+              <dt className='text-sm font-medium text-gray-500'>
+                Website
+              </dt>
+              <dd
+                className='mt-1 text-sm text-gray-900'
+              >
+                {/* <Link to={card.website}>{card.website}</Link> */}
+                <a
+                  className='text-blue-400'
+                  href={card.website}
+                >{card.website}
+                </a>
+              </dd>
+            </div>
+
             <div className='sm:col-span-2'>
               <dt className='text-sm font-medium text-gray-500'>
                 Bio

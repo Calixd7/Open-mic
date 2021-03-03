@@ -54,12 +54,18 @@ function Card ({ cards, profile, setMessageReceiverUser }) {
                     icon={['far', 'user']}
                     className='text-red-300 hover:text-red-500 text-7xl h-full w-auto'
                   />
-                </span>}
+                  </span>}
 
               <h3 className='mt-6 text-white text-sm font-medium'>{properStatus(card)}</h3>
               <dl className='mt-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
               <dt className='sr-only'>card Name</dt>
-              <dd className='text-white text-sm'>Genres: {card.genres}</dd>
+
+              <dd className='text-white text-sm flex'> Genres:&nbsp;
+                {card.genres.map((genre, idx) => (
+                  <span key={`${genre}-${idx}`}>{`${idx ? ', ' : ''} ${genre}`}</span>
+                ))}
+              </dd>
+
               <dd className='text-white text-sm'>Location: {card.location}</dd>
             </div>
             <div>
@@ -88,7 +94,7 @@ function Card ({ cards, profile, setMessageReceiverUser }) {
                         <button
                           type='button'
                           className='justify-center inline-flex flex-1 items-center px-2 py-1 ml-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 hover:text-white bg-indigo-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                          onClick={() => {history.push('/message'); setMessageReceiverUser(card.user) }}
+                          onClick={() => { history.push('/message'); setMessageReceiverUser(card.user) }}
                         >
                           <span>
                             <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
