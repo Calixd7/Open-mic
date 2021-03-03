@@ -192,8 +192,8 @@ export function getConnections (token) {
     .then(res => res.data)
 }
 
-export function searchProfiles (token, status, genre) {
-  return apiUrl.get(`api/userprofiles/?search=${status},${genre}`, {
+export function searchProfiles (token, pendingSearch) {
+  return apiUrl.get(`api/userprofiles/?search=${pendingSearch}`, {
     headers: {
       Authorization: `Token ${token}`
     }

@@ -1,84 +1,97 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { searchProfiles } from '../api'
-import { GENRES, INSTRUMENTS } from './helperLists'
+import { GENRES, INSTRUMENTS, LOCATION } from './helperLists'
 
 const Search = ({ token, setCards }) => {
   const [status, setStatus] = useState('')
-  const [statusCheckbox, setStatusCheckbox] = useState(false)
   const [genre, setGenre] = useState('')
-  const [genreCheckbox, setGenreCheckbox] = useState(false)
+  const [instrument, setInstrument] = useState('')
+  const [location, setLocation] = useState('')
 
-  console.log('status', status)
-  console.log('statusCheckbox', statusCheckbox)
-  console.log('genre', genre)
-  console.log('genreCheckbox', genreCheckbox)
-
-  useEffect(() => {
-    if (statusCheckbox === false) {
-      setStatus('')
-    } else {
-      return status
-    }
-    if (genreCheckbox === false) {
-      setStatus('')
-    }
-  }, [handleSearch])
+  const pendingSearch = [
+    status,
+    genre,
+    instrument,
+    location
+  ]
 
   function handleSearch (e) {
     e.preventDefault()
-
-    searchProfiles(token, status, genre).then(cards => setCards(cards))
+    searchProfiles(token, pendingSearch)
+      .then(cards => setCards(cards))
   }
+
+  console.log('status', status)
+  // console.log('statusCheckbox', statusCheckbox)
+  console.log('genre', genre)
+  // console.log('genreCheckbox', genreCheckbox)
 
   return (
     <div className='m-2 px-2'>
-      <form onClick={(e) => handleSearch(e)}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault()
+          handleSearch(e)
+        }}
+      >
         <div className='flex justify-evenly'>
-          <span className='relative z-0 inline-flex shadow-sm rounded-md'>
-            <span className='relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white'>
-              <label htmlFor='status' className='sr-only'>Select all</label>
-              <input
-                id='status'
-                type='radio'
-                checked={statusCheckbox}
-                name='status'
-                className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
-                // onChange={() => setStatusCheckbox(statusCheckbox => !statusCheckbox)}
-              />
-            </span>
-            <label htmlFor='message-type' className='sr-only'>Select message type</label>
+          <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
+            <label htmlFor='status' className='block text-sm text-center font-medium text-gray-700'>Status</label>
             <select
-              id='message-type'
-              name='message-type'
-              className='-ml-px block w-full pl-3 pr-9 py-2 rounded-l-none rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+              id='status'
+              name='status'
+              className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
               onChange={(e) => setStatus(e.currentTarget.value)}
             >
+              <option value=''>none</option>
               <option value='Individual'>Solo Artist</option>
               <option value='Band'>Band</option>
             </select>
           </span>
 
-          <span className='relative z-0 inline-flex shadow-sm rounded-md'>
-            <span className='relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white'>
-              <label htmlFor='genre' className='sr-only'>Select all</label>
-              <input
-                id='genre'
-                type='radio'
-                checked={genreCheckbox}
-                name='genre'
-                className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
-                onChange={() => setGenreCheckbox(genreCheckbox => !genreCheckbox)}
-              />
-            </span>
-            <label htmlFor='message-type' className='sr-only'>Select message type</label>
+          <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
+            <label htmlFor='location' className='block text-sm text-center font-medium text-gray-700'>Location</label>
             <select
-              id='message-type'
-              name='message-type'
-              className='-ml-px block w-full pl-3 pr-9 py-2 rounded-l-none rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+              id='location'
+              name='location'
+              className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+              onChange={(e) => setLocation(e.currentTarget.value)}
+            >
+              <option value=''>none</option>
+              {LOCATION.map((location, idx) => (
+                <option key={`${location}-${idx}`} value={location}>{location}</option>
+              ))}
+
+            </select>
+          </span>
+
+          <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
+            <label htmlFor='genre' className='block text-sm text-center font-medium text-gray-700'>Genre</label>
+            <select
+              id='genre'
+              name='genre'
+              className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
               onChange={(e) => setGenre(e.currentTarget.value)}
             >
+              <option value=''>none</option>
               {GENRES.map((genre, idx) => (
                 <option key={`${genre}-${idx}`} value={genre}>{genre}</option>
+              ))}
+
+            </select>
+          </span>
+
+          <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
+            <label htmlFor='instrument' className='block text-sm text-center font-medium text-gray-700'>Instrument</label>
+            <select
+              id='instrument'
+              name='instrument'
+              className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+              onChange={(e) => setInstrument(e.currentTarget.value)}
+            >
+              <option value=''>none</option>
+              {INSTRUMENTS.map((instrument, idx) => (
+                <option key={`${instrument}-${idx}`} value={instrument}>{instrument}</option>
               ))}
 
             </select>
