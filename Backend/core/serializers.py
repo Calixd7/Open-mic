@@ -52,6 +52,7 @@ class SenderSerializer (serializers.ModelSerializer):
         model = User
         fields = ['username']
 
+
 class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(read_only=True, slug_field='username')
     genres = serializers.SlugRelatedField(many=True,queryset=Genre.objects.all() ,slug_field='name')

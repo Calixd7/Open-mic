@@ -29,7 +29,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
                 return True
 
-        return obj.user == request.user
+        return obj.user == self.request.user
 
 
 
@@ -86,7 +86,7 @@ class UserProfileViewSet(ModelViewSet):
     
 class MessageViewSet(ModelViewSet):
 
-    permission_classes = [IsOwnerOrReadOnly]
+    
     serializer_class = MessagesSerializer
 
 
