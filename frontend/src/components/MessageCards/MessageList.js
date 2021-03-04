@@ -2,8 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { deleteMessage, updateMessage, getMessages } from '../../api'
 
-function MessageList ({ token, messages, setMessages, messageId, setMessageId }) {
-  const [triggerUseEffect, setTriggerUseEffect] = useState(false)
+function MessageList ({ token, messages, setMessages, messageId, setMessageId, setTriggerUseEffect }) {
   const [read, setRead] = useState(false)
   const [message, setMessage] = useState([])
   const updateRead = {
@@ -19,7 +18,7 @@ function MessageList ({ token, messages, setMessages, messageId, setMessageId })
 
   const handleRead = (id) => {
     updateMessage(token, id, updateRead)
-      .then(setTriggerUseEffect(true))
+      .then(data => setTriggerUseEffect(true))
     // .then(getMessages(token).then(messages => {
       //   setMessages(messages)
       // })

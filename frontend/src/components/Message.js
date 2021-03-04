@@ -7,19 +7,23 @@ import Main from './MessageCards/Main'
 import MessageList from './MessageCards/MessageList'
 import CreateMessage from './MessageCards/CreateMessage'
 
-function Message ({ token, username, messageReceiverUser, isLoggedIn, triggerUseEffect }) {
+function Message ({ token, username, messageReceiverUser, isLoggedIn }) {
   const { pk } = useParams()
+  const [triggerUseEffect, setTriggerUseEffect] = useState(false)
   const [messages, setMessages] = useState([])
   const [messageId, setMessageId] = useState('')
   const [showReplyMessage, setShowReplyMessage] = useState(false)
   const [messageToRender, setMessageToRender] = useState()
   console.log('messageId', messageId)
   console.log('messages', messages)
+  console.log('triggerUseEffect', triggerUseEffect)
 
   useEffect(() => {
     getMessages(token).then(messages => {
       console.log('message', messages)
+      console.log('TRIGGER WORKED')
       setMessages(messages)
+      setTriggerUseEffect(false)
     })
   }, [triggerUseEffect])
 
@@ -31,7 +35,7 @@ function Message ({ token, username, messageReceiverUser, isLoggedIn, triggerUse
     <div className='h-screen overflow-hidden bg-gray-100 flex flex-col'>
       <div className='flex'>
         <div className='h-full relative flex flex-col w-96 border-r border-gray-200 bg-gray-100'>
-          <MessageList token={token} messageId={messageId} setMessageId={setMessageId} messages={messages} setMessages={setMessages} />
+          <MessageList token={token} messageId={messageId} setMessageId={setMessageId} messages={messages} setMessages={setMessages} setTriggerUseEffect={setTriggerUseEffect} />
         </div>
         <div>
           <div className='min-w-0 flex-1 border-t border-gray-200 xl:flex'>
