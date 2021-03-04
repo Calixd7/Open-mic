@@ -17,6 +17,7 @@ function Message ({ token, username, messageReceiverUser, isLoggedIn, setCheckUn
   console.log('messageId', messageId)
   console.log('messages', messages)
   console.log('triggerUseEffect', triggerUseEffect)
+  console.log('messageToRender in MESSAGES', messageToRender)
 
   useEffect(() => {
     getMessages(token).then(messages => {
@@ -37,7 +38,7 @@ function Message ({ token, username, messageReceiverUser, isLoggedIn, setCheckUn
         </div>
         <div>
           <div className='min-w-0 flex-1 border-t border-gray-200 xl:flex'>
-            <Main messageToRender={messageToRender} setMessageToRender={setMessageToRender} setShowReplyMessage={setShowReplyMessage} messageId={messageId} messages={messages} />
+            <Main messageToRender={messageToRender} setMessageToRender={setMessageToRender} setShowReplyMessage={setShowReplyMessage} messageId={messageId} messages={messages} messageReceiverUser={messageReceiverUser} />
           </div>
           <div>
             <CreateMessage messageReceiverUser={messageReceiverUser} messageToRender={messageToRender} username={username} token={token} showReplyMessage={showReplyMessage} />
