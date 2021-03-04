@@ -19,7 +19,7 @@ function Main ({ messages, messageId, setShowReplyMessage, messageToRender, setM
 
   if (messages.length === 0) {
     return (
-      <div>
+      <div className='flex items-center justify-center h-screen px-4 sm:px-0'>
         <NoMessagesAlert />
       </div>
     )
