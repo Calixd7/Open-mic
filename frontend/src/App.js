@@ -28,6 +28,7 @@ function App () {
   const [isImage, setIsImage] = useState(false)
   const [messageReceiverUser, setMessageReceiverUser] = useState('')
   const [avatar, setAvatar] = useState('')
+  const [checkUnread, setCheckUnread] = useState(0)
 
   // console.log('pk', pk)
 
@@ -43,7 +44,7 @@ function App () {
   return (
     <Router>
       <div className='App'>
-        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} />
+        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} checkUnread={checkUnread} setCheckUnread={setCheckUnread} />
         <main>
           <Switch>
             <Route path='/registration'>
@@ -68,7 +69,7 @@ function App () {
               <ViewCard token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/message'>
-              <Message messageReceiverUser={messageReceiverUser} username={username} token={token} isLoggedIn={isLoggedIn} />
+              <Message messageReceiverUser={messageReceiverUser} username={username} token={token} isLoggedIn={isLoggedIn} setCheckUnread={setCheckUnread} checkUnread={checkUnread} />
             </Route>
             <Route path='/'>
               <Welcome isLoggedIn={isLoggedIn} />

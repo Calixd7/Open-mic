@@ -1,5 +1,5 @@
 
-const Alert = () => {
+const MessageSentAlert = () => {
   return (
     <div>
       <div className='rounded-md bg-green-50 p-4'>
@@ -32,4 +32,4 @@ const Alert = () => {
   )
 }
 
-export default Alert
+export default MessageSentAlert

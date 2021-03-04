@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { sendMessage } from '../../api'
-import Alert from '../Alert'
+import MessageSentAlert from '../alerts/MessageSentAlert'
 
 function CreateMessage ({ showReplyMessage, token, username, messageToRender, messageReceiverUser }) {
   const [content, setContent] = useState('')
@@ -47,7 +47,7 @@ function CreateMessage ({ showReplyMessage, token, username, messageToRender, me
   if (showAlert) {
     return (
       <div>
-        <Alert />
+        <MessageSentAlert />
       </div>
     )
   }
