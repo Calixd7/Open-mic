@@ -77,12 +77,12 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 <Link
                   to='/friends'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-                >Friends
+                >Following
                 </Link>
                 <Link
                   to='/message'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-                  onclick={() => setMessageReceiverUser('')}
+                  onClick={() => setMessageReceiverUser('')}
                 >
                   {checkUnread >= 1
                     ? `Messages (${checkUnread} unread)`

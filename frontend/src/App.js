@@ -30,7 +30,7 @@ function App () {
   const [avatar, setAvatar] = useState('')
   const [checkUnread, setCheckUnread] = useState(0)
 
-  // console.log('pk', pk)
+  console.log('messageReceiverUser from APP', messageReceiverUser)
 
   function setAuth (username, token) {
     setUsername(username)
