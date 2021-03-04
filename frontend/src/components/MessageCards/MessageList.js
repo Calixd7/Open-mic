@@ -19,6 +19,11 @@ function MessageList ({ token, messages, setMessages, messageId, setMessageId, s
       if (message.read === false) {
         unread.push(message)
         console.log('unread', unread.length)
+      }
+      if (unread.length === 0) {
+        setCheckUnread(0)
+      }
+      if (unread.length > 0) {
         setCheckUnread(unread.length)
       }
     })

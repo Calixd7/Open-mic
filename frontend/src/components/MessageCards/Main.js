@@ -1,6 +1,7 @@
 /* eslint-disable react/style-prop-object */
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import NoMessagesAlert from '../alerts/NoMessagesAlert'
 
 function Main ({ messages, messageId, setShowReplyMessage, messageToRender, setMessageToRender }) {
   console.log('messageToRender', messageToRender)
@@ -15,6 +16,14 @@ function Main ({ messages, messageId, setShowReplyMessage, messageToRender, setM
       }
     })
   }, [messageId])
+
+  if (messages.length === 0) {
+    return (
+      <div>
+        <NoMessagesAlert />
+      </div>
+    )
+  }
 
   if (messageToRender) {
     return (
