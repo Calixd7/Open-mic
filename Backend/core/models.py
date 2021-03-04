@@ -25,6 +25,7 @@ OPTIONS = (
 
 class User(AbstractUser):
     name= models.CharField(max_length=255, blank=True, null=True, default="")
+    profile_complete = models.BooleanField(default=False)
 
    
 class UserFollowing(models.Model):
