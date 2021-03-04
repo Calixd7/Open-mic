@@ -7,7 +7,7 @@ const Search = ({ token, setCards }) => {
   const [genre, setGenre] = useState('')
   const [instrument, setInstrument] = useState('')
   const [location, setLocation] = useState('')
-  const [vacancy, setVancy] = useState(false)
+  const [vacancy, setVancy] = useState(null)
 
   const pendingSearch = [
     status,
@@ -99,14 +99,15 @@ const Search = ({ token, setCards }) => {
           </span>
 
           <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
-            <label htmlFor='status' className='block text-sm text-center font-medium text-gray-700'>Looking?</label>
+            <label htmlFor='vacancy' className='block text-sm text-center font-medium text-gray-700'>Bands looking for Instrument</label>
             <select
-              id='status'
-              name='status'
+              id='vacancy'
+              name='vacancy'
               className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
               onChange={(e) => setVancy(e.currentTarget.value)}
             >
-              <option value='false'>none</option>
+              <option value='null'>n/a</option>
+              <option value='false'>Not looking</option>
               <option value='true'>Looking</option>
             </select>
           </span>
