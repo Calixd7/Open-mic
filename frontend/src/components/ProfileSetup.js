@@ -52,6 +52,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
   const safeProfile = profile || {}
   const { type } = useParams()
   const history = useHistory()
+  const [disableSubmit, setDisableSubmit] = useState(false)
   const [name, setName] = useState(safeProfile.name || '')
   const [genres, setGenres] = useState(safeProfile.genres || [])
   const [instruments, setInstruments] = useState(safeProfile.instruments || [])
@@ -93,7 +94,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
 
   function handleSubmit (event, token) {
     event.preventDefault()
-
+    setDisableSubmit(true)
     if (safeProfile.pk) {
       const formData = new FormData(profileForm.current)
       formData.set('image', image)
@@ -206,18 +207,18 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
             <div className='mt-4'>
               <button
                 className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                disabled={disableSubmit}
                 type='submit'
-                onSubmit={(e) => {
-                  e.preventDefault()
-                  handleDeleteProfile(e, token, history)
-                }}
-              >Submit
+              >
+                {isEditing
+                  ? 'Update'
+                  : 'Submit'}
               </button>
             </div>
-            {isEditing &&
+            {/* {isEditing &&
               <div className='mt-12'>
                 <span><Delete /></span>
-              </div>}
+              </div>} */}
           </form>
         </div>
       </div>
