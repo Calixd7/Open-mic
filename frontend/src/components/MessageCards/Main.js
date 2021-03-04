@@ -3,9 +3,7 @@ import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import NoMessagesAlert from '../alerts/NoMessagesAlert'
 
-function Main ({ messages, messageId, setShowReplyMessage, messageToRender, setMessageToRender }) {
-  console.log('messageToRender', messageToRender)
-
+function Main ({ messages, messageId, setShowReplyMessage, messageToRender, setMessageToRender, messageReceiverUser }) {
   useEffect(() => {
     const messageSearch = messages.map(message => message)
     console.log('messageSearch', messageSearch)
@@ -17,7 +15,9 @@ function Main ({ messages, messageId, setShowReplyMessage, messageToRender, setM
     })
   }, [messageId])
 
-  if (messages.length === 0) {
+  console.log('RECEIVE USER', messageReceiverUser)
+
+  if (messages.length === 0 && !messageReceiverUser) {
     return (
       <div className='flex items-center justify-center h-screen px-4 sm:px-0'>
         <NoMessagesAlert />
@@ -25,6 +25,7 @@ function Main ({ messages, messageId, setShowReplyMessage, messageToRender, setM
     )
   }
 
+  console.log('messageToRender', messageToRender)
   if (messageToRender) {
     return (
       <main className='min-w-0 w-screen flex-1 border-t border-gray-200 xl:flex'>

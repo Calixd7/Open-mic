@@ -6,7 +6,7 @@ import { getUserProfile } from '../api'
 import Avatar from './Avatar'
 import HeaderMobile from './HeaderMobile'
 
-function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, checkUnread, setCheckUnread }) {
+function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, checkUnread, setCheckUnread, setMessageReceiverUser }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const history = useHistory()
@@ -82,6 +82,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 <Link
                   to='/message'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                  onclick={() => setMessageReceiverUser('')}
                 >
                   {checkUnread >= 1
                     ? `Messages (${checkUnread} unread)`
