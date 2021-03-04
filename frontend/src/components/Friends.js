@@ -2,6 +2,7 @@ import { getProfiles, getConnections } from '../api'
 import { useState, useEffect } from 'react'
 import Card from './cards/Card'
 import { Redirect } from 'react-router-dom'
+import NoFriendsAlert from './alerts/NoFriendsAlert'
 
 function Friends ({ token, username, isLoggedIn }) {
   const [userFriends, setUserFriends] = useState([])
@@ -30,6 +31,14 @@ function Friends ({ token, username, isLoggedIn }) {
 
   if (!isLoggedIn) {
     return <Redirect to='/' />
+  }
+
+  if (userFriends.length < 1) {
+    return (
+      <div className='flex items-center justify-center h-screen px-4 sm:px-0'>
+        <NoFriendsAlert />
+      </div>
+    )
   }
 
   // if (userFriends) {
