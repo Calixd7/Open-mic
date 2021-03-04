@@ -7,11 +7,10 @@ function MessageList ({ token, messages, setMessages, messageId, setMessageId })
   const [read, setRead] = useState(false)
   const [message, setMessage] = useState([])
   const updateRead = {
-    sender: message.sender,
     receiver: message.receiver,
     read: read
   }
-  console.log('messages', messages.map(message => message.read))
+  console.log('messages', messages.map(message => message))
   console.log('message', message)
 
   const handleDelete = () => {
@@ -79,7 +78,7 @@ function MessageList ({ token, messages, setMessages, messageId, setMessageId })
                         aria-hidden='true'
                       />
                       <p className='text-sm font-medium text-gray-900 truncate'>
-                        {message.sender}
+                        {message.sender.username}
                       </p>
                       <p className='text-sm text-gray-500 truncate'>
                         {message.content}

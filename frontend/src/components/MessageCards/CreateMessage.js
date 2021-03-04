@@ -1,9 +1,11 @@
 import { useState } from 'react'
 import { sendMessage } from '../../api'
+import Alert from '../Alert'
 
 function CreateMessage ({ showReplyMessage, token, username, messageToRender, messageReceiverUser }) {
   const [content, setContent] = useState('')
   const [subject, setSubject] = useState('')
+  const [showAlert, setShowAlert] = useState(false)
 
   const pendingReplyMessage = {
     sender: username,
@@ -38,7 +40,16 @@ function CreateMessage ({ showReplyMessage, token, username, messageToRender, me
     } else {
       sendMessage(token, pendingNewMessage)
         .then(message => console.log('message', message))
+      setShowAlert(true)
     }
+  }
+
+  if (showAlert) {
+    return (
+      <div>
+        <Alert />
+      </div>
+    )
   }
 
   if (showReplyMessage) {
