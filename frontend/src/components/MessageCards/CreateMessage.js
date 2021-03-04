@@ -7,10 +7,14 @@ function CreateMessage ({ showReplyMessage, token, username, messageToRender, me
   const [subject, setSubject] = useState('')
   const [showAlert, setShowAlert] = useState(false)
 
+  if (!messageToRender) {
+    return ''
+  }
+
   const pendingReplyMessage = {
     sender: username,
-    // receiver: messageToRender.receiver,
-    // subject: messageToRender.subject,
+    receiver: messageToRender.receiver,
+    subject: messageToRender.subject,
     content: content
   }
 
@@ -21,12 +25,9 @@ function CreateMessage ({ showReplyMessage, token, username, messageToRender, me
     content: content
   }
 
-  //   if (!messageToRender.receiver) {
-  //     return 'loading'
-  //   }
+  //
 
   //   console.log('messageToRender.receiver', messageToRender.receiver)
-
   //   console.log('showReplyMessage', showReplyMessage)
   //   console.log('message receiver', messageReceiverUser)
   console.log('subject', subject)
