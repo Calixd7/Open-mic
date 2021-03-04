@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { deleteMessage, updateMessage, getMessages } from '../../api'
+import { deleteMessage, updateMessage } from '../../api'
 
-function MessageList ({ token, messages, setMessages, messageId, setMessageId, setTriggerUseEffect }) {
+function MessageList ({ token, messages, setMessages, messageId, setMessageId, setTriggerUseEffect, setCheckUnread, checkUnread }) {
   const [read, setRead] = useState(false)
   const [message, setMessage] = useState([])
   const updateRead = {
@@ -12,6 +12,18 @@ function MessageList ({ token, messages, setMessages, messageId, setMessageId, s
   console.log('messages', messages.map(message => message))
   console.log('message', message)
 
+  useEffect(() => {
+    console.log('useffect JUST RAN')
+    const unread = []
+    messages.forEach(message => {
+      if (message.read === false) {
+        unread.push(message)
+        console.log('unread', unread.length)
+        setCheckUnread(unread.length)
+      }
+    })
+  }, [])
+
   const handleDelete = () => {
     deleteMessage(token, message.id).then(res => res)
   }
@@ -19,10 +31,6 @@ function MessageList ({ token, messages, setMessages, messageId, setMessageId, s
   const handleRead = (id) => {
     updateMessage(token, id, updateRead)
       .then(data => setTriggerUseEffect(true))
-    // .then(getMessages(token).then(messages => {
-      //   setMessages(messages)
-      // })
-      // )
   }
 
   const toggleRead = (message) => {
@@ -32,7 +40,6 @@ function MessageList ({ token, messages, setMessages, messageId, setMessageId, s
     if (message.read === true) {
       setRead(false)
     }
-
     handleRead(message.id)
   }
 

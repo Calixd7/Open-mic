@@ -6,10 +6,12 @@ import { getUserProfile } from '../api'
 import Avatar from './Avatar'
 import HeaderMobile from './HeaderMobile'
 
-function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar }) {
+function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, checkUnread, setCheckUnread }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const history = useHistory()
+
+  console.log('checkUnread HEADER', checkUnread)
 
   return (
     <nav className='bg-gray-800'>
@@ -80,7 +82,10 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 <Link
                   to='/message'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-                >Messages
+                >
+                  {checkUnread >= 1
+                    ? `Messages (${checkUnread} unread)`
+                    : 'Messages'}
                 </Link>
               </div>
             </div>
@@ -127,7 +132,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                     <Link
                       to='/'
                       className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
-                      onClick={() => { setToken(null); setShowProfile(false); setAvatar(false) }}
+                      onClick={() => { setToken(null); setShowProfile(false); setAvatar(false); setCheckUnread(0) }}
                     >
                       Sign Out
                     </Link>
