@@ -57,7 +57,7 @@ function Main ({ messages, messageId, setShowReplyMessage, messageToRender, setM
                       <div className='sm:flex sm:justify-between sm:items-baseline'>
                         <h3 className='text-base font-medium'>
                           <span className='text-gray-900'>
-                            From: {messageToRender.sender}
+                            From: {messageToRender.sender.username}
                           </span>
                         </h3>
                         <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
@@ -108,7 +108,7 @@ function Main ({ messages, messageId, setShowReplyMessage, messageToRender, setM
       </main>
     )
   }
-  return 'loading'
+  return ''
 }
 
 export default Main

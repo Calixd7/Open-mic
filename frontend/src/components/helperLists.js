@@ -40,5 +40,13 @@ export const LOCATION = [
   'Durham',
   'Raleigh',
   'Chapel Hill',
-  'Hillsborough'
+  'Hillsborough',
+  'Greensboro',
+  'Wilmington',
+  'Richmond',
+  'Charlotte',
+  'Charleston',
+  'Winston-Salem',
+  'Asheville',
+  'Greenville'
 ]
