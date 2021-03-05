@@ -73,7 +73,7 @@ function App () {
               <Message messageReceiverUser={messageReceiverUser} username={username} token={token} isLoggedIn={isLoggedIn} setCheckUnread={setCheckUnread} checkUnread={checkUnread} />
             </Route> */}
             <Route path='/message'>
-              <MessageHub messageReceiverUser={messageReceiverUser} username={username} token={token} isLoggedIn={isLoggedIn} setCheckUnread={setCheckUnread} checkUnread={checkUnread} />
+              <MessageHub messageReceiverUser={messageReceiverUser} username={username} token={token} isLoggedIn={isLoggedIn} setCheckUnread={setCheckUnread} checkUnread={checkUnread} setMessageReceiverUser={setMessageReceiverUser} />
             </Route>
             <Route path='/'>
               <Welcome isLoggedIn={isLoggedIn} />

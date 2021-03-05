@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react'
 import { Transition } from '@headlessui/react'
 import { Link } from 'react-router-dom'
-import { deleteMessage, updateMessage, sendMessage } from '../../api'
+import { deleteMessage, updateMessage, getMessages } from '../../api'
 import MessageSentAlert from '../alerts/MessageSentAlert'
 import ReplyEditor from './ReplyEditor'
+import NewMessageEditor from './NewMessageEditor'
 
-const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, setTriggerUseEffect, checkUnread, setCheckUnread, username }) => {
+const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, setTriggerUseEffect, checkUnread, setCheckUnread, username, messageReceiverUser, setMessageReceiverUser }) => {
   const [read, setRead] = useState(false)
   const [message, setMessage] = useState([])
   const [showReplyForm, setShowReplyForm] = useState(false)
@@ -22,6 +23,7 @@ const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, 
   console.log('messageToRender', messageToRender)
   console.log('content', content)
   console.log('token in THREAD section', token)
+  console.log('messageReceiverUser', messageReceiverUser)
 
   useEffect(() => {
     console.log('useffect JUST RAN')
@@ -61,15 +63,15 @@ const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, 
 
   const handleRead = (id) => {
     updateMessage(token, id, updateRead)
-      .then(data => setTriggerUseEffect(true))
+      .then(data => {
+        getMessages(token)
+          .then(messages => setMessages(messages))
+      })
   }
 
   const toggleRead = (message) => {
     if (message.read === false) {
       setRead(true)
-    }
-    if (message.read === true) {
-      setRead(false)
     }
     handleRead(message.id)
   }
@@ -77,7 +79,15 @@ const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, 
   if (messageToRender) {
     return (
       <div>
-        <ReplyEditor token={token} messageToRender={messageToRender} setMessageToRender={setMessageToRender} username={username} content={content} setContent={setContent} message={message} setMessage={setMessage} showReplyForm={showReplyForm} setShowReplyForm={setShowReplyForm} setShowAlert={setShowAlert} messageId={messageId} />
+        <ReplyEditor token={token} messageToRender={messageToRender} setMessageToRender={setMessageToRender} username={username} content={content} setContent={setContent} message={message} setMessage={setMessage} showReplyForm={showReplyForm} setShowReplyForm={setShowReplyForm} setShowAlert={setShowAlert} messageId={messageId} setMessages={setMessages} />
+      </div>
+    )
+  }
+
+  if (messageReceiverUser) {
+    return (
+      <div className='mx-4'>
+        <NewMessageEditor token={token} username={username} setShowAlert={setShowAlert} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} setMessages={setMessages} />
       </div>
     )
   }
@@ -110,6 +120,12 @@ const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, 
                 <time dateTime='2021-01-28T19:24'>{message.created_at}</time>
               </p>
             </div>
+            <div className='sm:flex sm:justify-between sm:items-baseline mt-4'>
+              <p className='text-base font-medium'>
+                <span className='text-gray-900'>Subject:&nbsp;</span>
+                <span className='text-gray-600'>{message.subject}</span>
+              </p>
+            </div>
             <div className='mt-4 space-y-6 text-sm text-gray-800'>
               <p>{message.content}</p>
             </div>
@@ -121,9 +137,7 @@ const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, 
               leave='transition ease-in duration-75'
               leaveFrom='transform opacity-100 scale-100'
               leaveTo='transform opacity-0 scale-95'
-            >
-              Something to keep if from breaking
-            </Transition>
+            />
           </li>
 
         </ul>

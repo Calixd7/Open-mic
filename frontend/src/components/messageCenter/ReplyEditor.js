@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Transition } from '@headlessui/react'
-import { sendMessage } from '../../api'
+import { sendMessage, getMessages } from '../../api'
 
-const ReplyEditor = ({ token, messageToRender, username, content, setContent, message, setMessage, setMessageToRender, showReplyForm, setShowReplyForm, setShowAlert, messageId }) => {
+const ReplyEditor = ({ token, messageToRender, username, content, setContent, message, setMessage, setMessageToRender, showReplyForm, setShowReplyForm, setShowAlert, messageId, setMessages }) => {
   if (!messageToRender) {
     return ''
   }
@@ -17,10 +17,16 @@ const ReplyEditor = ({ token, messageToRender, username, content, setContent, me
   function handleSubmit (event) {
     event.preventDefault()
     sendMessage(token, pendingReplyMessage)
-      .then(message => console.log('message', message))
-    setMessageToRender(null)
-    setShowReplyForm(false)
-    setShowAlert(true)
+      .then(message => {
+        getMessages(token)
+          .then(messages => {
+            console.log('should include REPLY message', messages)
+            setMessages(messages)
+            setMessageToRender(null)
+            setShowReplyForm(false)
+            setShowAlert(true)
+          })
+      })
   }
 
   return (
@@ -40,8 +46,17 @@ const ReplyEditor = ({ token, messageToRender, username, content, setContent, me
               <time dateTime='2021-01-28T19:24'>{messageToRender.created_at}</time>
             </p>
           </div>
-          <div className='mt-4 space-y-6 text-sm text-gray-800'>
-            <p>{messageToRender.content}</p>
+          <div className='sm:flex sm:justify-between sm:items-baseline mt-4'>
+            <p className='text-base font-medium'>
+              <span className='text-gray-900'>Subject:&nbsp;</span>
+              <span className='text-gray-600'>{messageToRender.subject}</span>
+            </p>
+          </div>
+          <div className='sm:flex sm:justify-between sm:items-baseline my-4'>
+            <p className='text-base font-medium'>
+              <span className='text-gray-900'>Content:&nbsp;</span>
+              <span className='text-gray-600'>{messageToRender.content}</span>
+            </p>
           </div>
           <Transition
             show={showReplyForm}
@@ -83,8 +98,6 @@ const ReplyEditor = ({ token, messageToRender, username, content, setContent, me
                   </div>
                 </form>
               </div>
-
-              <div />
             </div>
           </Transition>
         </li>
