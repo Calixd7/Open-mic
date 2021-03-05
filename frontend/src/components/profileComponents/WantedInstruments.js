@@ -3,22 +3,6 @@ import { useState } from 'react'
 import { Transition } from '@headlessui/react'
 import { INSTRUMENTS } from '../helperLists'
 
-// const WANTEDINSTRUMENTS = [
-//   'Vocals',
-//   'Acoustic Guitar',
-//   'Electric Guitar',
-//   'Bass',
-//   'Keyboards',
-//   'Piano',
-//   'Drums',
-//   'Percussion',
-//   'Turntables',
-//   'Banjo',
-//   'Ukulele',
-//   'Fiddle',
-//   'Violin'
-// ]
-
 const WantedInstruments = ({ wantedInstruments, setWantedInstruments }) => {
   const [showInstruments, setShowInstruments] = useState(false)
   const [mouseEnter, setMouseEnter] = useState(false)
@@ -76,9 +60,7 @@ const WantedInstruments = ({ wantedInstruments, setWantedInstruments }) => {
                     key={`wanted-instrument-${instrument}`}
                     id={`wanted-instrument-${instrument}`}
                   // role='option'
-                    onMouseEnter={() => setMouseEnter(true)}
-                    onMouseLeave={() => setMouseEnter(false)}
-                    className={`${mouseEnter ? 'text-white bg-indigo-600' : 'text-gray-900'} cursor-default select-none relative py-2 pl-3 pr-9`}
+                    className='hover:text-white hover:bg-indigo-600 text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9'
                     onClick={(e) => handleInstrumentChange(e, instrument)}
                   >
                     {/* <!-- Selected: "font-semibold", Not Selected: "font-normal" --> */}
