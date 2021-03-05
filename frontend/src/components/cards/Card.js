@@ -11,11 +11,9 @@ function Card ({ cards, profile, setMessageReceiverUser }) {
   const history = useHistory()
   const [follow, setFollow] = useState(false)
   // console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
-  console.log('cards', cards)
+
   const properStatus = (card) => {
-    if (card.user === 'adminsupport') {
-      return 'Admin Support'
-    } else if (card.individualorband === 'Individual') {
+    if (card.individualorband === 'Individual') {
       return 'Solo Artist'
     } else {
       return card.individualorband
@@ -47,7 +45,7 @@ function Card ({ cards, profile, setMessageReceiverUser }) {
             <div className='flex-1 flex flex-col p-8'>
               {card.image
                 ? <img
-                    className='w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full object-cover'
+                    className='w-32 h-32 flex-shrink-0 bg-black rounded-full object-cover'
                     src={card.image}
                     alt='avatar'
                   />
@@ -58,7 +56,7 @@ function Card ({ cards, profile, setMessageReceiverUser }) {
                   />
                   </span>}
 
-              <h3 className={`${card.user === 'adminsupport' ? 'text-red-400 font-bold' : 'mt-6 text-white text-sm font-medium'}`}>{properStatus(card)}</h3>
+              <h3 className='mt-6 text-white text-sm font-medium'>{properStatus(card)}</h3>
               <dl className='my-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
               <dt className='sr-only'>card Name</dt>
               <dd className='text-white text-sm'> <strong>Genres:</strong>
@@ -67,7 +65,7 @@ function Card ({ cards, profile, setMessageReceiverUser }) {
                 ))}
               </dd>
 
-              <dd className='text-white text-sm'><strong>Location:</strong> {card.location}</dd>
+              <dd className='text-white text-sm'>Location: {card.location}</dd>
             </div>
             <div>
               <div className='mt=px flex divide-x divide-gray-200'>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useHistory, Link, useParams, Redirect } from 'react-router-dom'
 import { getProfile } from '../api'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const ViewCard = ({ token, isLoggedIn }) => {
   const history = useHistory()
@@ -47,12 +48,19 @@ const ViewCard = ({ token, isLoggedIn }) => {
 
           <dl className='grid grid-cols-1 gap-x-4 gap-y-8 sm:grid-cols-2'>
             <div>
-              <span className='text-sm font-medium text-gray-500'>
-                <img
-                  className='w-32 h-32 flex-shrink-0  bg-black rounded-full object-cover'
-                  src={card.image}
-                  alt='avatar'
-                />
+              <span className='text-xs font-medium'>
+                {card.image
+                  ? <img
+                      className='w-32 h-32 flex-shrink-0 bg-black rounded-full object-cover'
+                      src={card.image}
+                      alt='avatar'
+                    />
+                  : <span className='w-32 h-32 flex bg-black rounded-full object-cover'>
+                    <FontAwesomeIcon
+                      icon={['far', 'user']}
+                      className='text-red-300 hover:text-red-500 text-7xl h-auto w-auto mx-auto'
+                    />
+                    </span>}
               </span>
             </div>
             <div className='sm:col-span-1'>
