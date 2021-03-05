@@ -1,18 +1,27 @@
 import { useState, useEffect } from 'react'
 import { Transition } from '@headlessui/react'
 import { Link } from 'react-router-dom'
-import { deleteMessage, updateMessage } from '../../api'
+import { deleteMessage, updateMessage, sendMessage } from '../../api'
+import MessageSentAlert from '../alerts/MessageSentAlert'
+import ReplyEditor from './ReplyEditor'
 
-const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, setTriggerUseEffect, checkUnread, setCheckUnread }) => {
+const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, setTriggerUseEffect, checkUnread, setCheckUnread, username }) => {
   const [read, setRead] = useState(false)
   const [message, setMessage] = useState([])
   const [showReplyForm, setShowReplyForm] = useState(false)
+  const [messageToRender, setMessageToRender] = useState(null)
+  const [showAlert, setShowAlert] = useState(false)
+  const [content, setContent] = useState('')
   const updateRead = {
     receiver: message.receiver,
     read: read
   }
   console.log('messages', messages.map(message => message))
   console.log('message', message)
+  console.log('messageId', messageId)
+  console.log('messageToRender', messageToRender)
+  console.log('content', content)
+  console.log('token in THREAD section', token)
 
   useEffect(() => {
     console.log('useffect JUST RAN')
@@ -30,6 +39,21 @@ const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, 
       }
     })
   }, [])
+
+  useEffect(() => {
+    const messageSearch = messages.map(message => message)
+    console.log('messageSearch', messageSearch)
+
+    messageSearch.forEach(message => {
+      if (messageId === message.id) {
+        setMessageToRender(message)
+      }
+    })
+  }, [messageId])
+
+  if (!messages) {
+    return 'loading'
+  }
 
   const handleDelete = () => {
     deleteMessage(token, message.id).then(res => res)
@@ -50,17 +74,31 @@ const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, 
     handleRead(message.id)
   }
 
-  if (!messages) {
-    return 'loading'
+  if (messageToRender) {
+    return (
+      <div>
+        <ReplyEditor token={token} messageToRender={messageToRender} setMessageToRender={setMessageToRender} username={username} content={content} setContent={setContent} message={message} setMessage={setMessage} showReplyForm={showReplyForm} setShowReplyForm={setShowReplyForm} setShowAlert={setShowAlert} messageId={messageId} />
+      </div>
+    )
   }
 
   return (
     <>
+      {showAlert &&
+        <div>
+          <MessageSentAlert />
+        </div>}
       {messages.map((message, idx) => (
         <ul
           key={`message-${idx}`}
           className='py-4 space-y-2 sm:px-6 sm:space-y-4 lg:px-8'
-          onClick={() => { setMessageId(message.id); toggleRead(message); setMessage(message); setShowReplyForm(showReplyForm => !showReplyForm) }}
+          onClick={() => {
+            setMessageId(message.id)
+            toggleRead(message)
+            setMessage(message)
+            setShowReplyForm(showReplyForm => !showReplyForm)
+            setShowAlert(false)
+          }}
         >
           <li className={`${message.read ? 'bg-white hover:bg-gray-100' : 'bg-blue-200 hover:bg-blue-300'} px-4 py-6 shadow sm:rounded-lg sm:px-6`}>
             <div className='sm:flex sm:justify-between sm:items-baseline'>

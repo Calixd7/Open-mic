@@ -87,7 +87,7 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setCheck
               <div className='min-h-0 flex-1 overflow-y-auto'>
                 <MessageHeader />
                 {/* <!-- Thread section--> */}
-                <ThreadSection messages={messages} setMessages={setMessages} messageId={messageId} setMessageId={setMessageId} setTriggerUseEffect={setTriggerUseEffect} checkUnread={checkUnread} setCheckUnread={setCheckUnread} />
+                <ThreadSection messages={messages} setMessages={setMessages} messageId={messageId} setMessageId={setMessageId} setTriggerUseEffect={setTriggerUseEffect} checkUnread={checkUnread} setCheckUnread={setCheckUnread} username={username} token={token} />
               </div>
             </section>
 
