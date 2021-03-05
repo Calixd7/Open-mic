@@ -1,24 +1,30 @@
 import { Link } from 'react-router-dom'
+import { Transition } from '@headlessui/react'
+import {useState} from 'react'
 
 function Mobile () {
+  const [showOffCanvasMenu, setShowOffCanvasMenu] = useState(false)
   return (
+    // <!-- Mobile menu, show/hide this `div` based on menu open/closed state -->
     <div className='fixed inset-0 z-40'>
-      {/* <!--
-        Off-canvas menu overlay, show/hide based on off-canvas menu state.
 
-        Entering: "transition-opacity ease-linear duration-300"
-          From: "opacity-0"
-          To: "opacity-100"
-        Leaving: "transition-opacity ease-linear duration-300"
-          From: "opacity-100"
-          To: "opacity-0"
-      --> */}
-      <div
-        className='hidden sm:block sm:fixed sm:inset-0 lg:hidden'
-        aria-hidden='true'>
-      </div>
-        <div className='absolute inset-0 bg-gray-600 opacity-75'></div>
-      </div>
+        {/* Off-canvas menu overlay, show/hide based on off-canvas menu state. */}
+        <Transition
+          show={showOffCanvasMenu}
+          enter='transition-opacity ease-linear duration-300'
+          enterFrom='opacity-0'
+          enterTo='opacity-100'
+          leave='transition-opacity ease-linear duration-300'
+          leaveFrom='opacity-100'
+          leaveTo='opacity-0'
+          >
+        <div
+          className='hidden sm:block sm:fixed sm:inset-0 lg:hidden'
+          aria-hidden='true'>
+        </div>
+          <div className='absolute inset-0 bg-gray-600 opacity-75'></div>
+        </div>
+      </Transition>
 
       //* <!--
        // Mobile menu, toggle classes based on menu state.
