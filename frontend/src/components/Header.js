@@ -5,10 +5,12 @@ import logo from './images/logorough.jpg'
 import { getUserProfile } from '../api'
 import Avatar from './Avatar'
 import HeaderMobile from './HeaderMobile'
+import Search from './Search'
 
-function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, checkUnread, setCheckUnread, setMessageReceiverUser }) {
+function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, checkUnread, setCheckUnread, setMessageReceiverUser, setCards }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
+  const [showSearch, setShowSearch] = useState(false)
   const history = useHistory()
 
   console.log('checkUnread HEADER', checkUnread)
@@ -92,7 +94,15 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
             </div>
           </div>
           {/* profile dropdown */}
-          <div className='ml-3 relative'>
+          <div className='ml-3 relative flex justify-between'>
+            <button
+              className='mr-8 text-white'
+              onClick={() => setShowSearch(true)}
+            >
+              <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-4 h-6 w-6'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' />
+              </svg>
+            </button>
             <div>
               <button
                 className='bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
@@ -153,6 +163,14 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
           </div>
         </div>
       </div>
+      <Transition
+        show={showSearch}
+      >
+        <div>
+          <Search setCards={setCards} token={token} setShowSearch={setShowSearch} />
+        </div>
+      </Transition>
+
       <div
         className='sm:hidden'
         id='mobile-menu'

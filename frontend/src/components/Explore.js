@@ -1,16 +1,11 @@
 import { useState, useEffect } from 'react'
 import Card from './cards/Card'
 import { getProfiles, getUserProfile, getConnections } from '../api'
-import Search from './Search'
 import { Redirect } from 'react-router-dom'
 
-function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUser, isLoggedIn }) {
-  const [cards, setCards] = useState([])
-  const [profile, setProfile] = useState('')
-  // const [userPk, setUserPk] = useState(null)
+function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUser, isLoggedIn, cards, setCards }) {
   const [connections, setConnections] = useState([])
 
-  // console.log('profile', profile)
   // console.log('cards', cards)
   // console.log('token', token)
   // console.log('userPk', userPk)
@@ -42,12 +37,8 @@ function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUs
 
   return (
     <div>
-      <div>
-        <Search setCards={setCards} token={token} setProfile={setProfile} profile={profile} />
-      </div>
-      <div />
-      <div>
-        <Card setMessageReceiverUser={setMessageReceiverUser} cards={cards} profile={profile} />
+      <div className='mt-4'>
+        <Card setMessageReceiverUser={setMessageReceiverUser} cards={cards} />
       </div>
     </div>
 

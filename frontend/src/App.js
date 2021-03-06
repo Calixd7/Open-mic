@@ -29,6 +29,7 @@ function App () {
   const [messageReceiverUser, setMessageReceiverUser] = useState('')
   const [avatar, setAvatar] = useState('')
   const [checkUnread, setCheckUnread] = useState(0)
+  const [cards, setCards] = useState([])
 
   console.log('messageReceiverUser from APP', messageReceiverUser)
 
@@ -44,7 +45,7 @@ function App () {
   return (
     <Router>
       <div className='App'>
-        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} checkUnread={checkUnread} setCheckUnread={setCheckUnread} setMessageReceiverUser={setMessageReceiverUser} />
+        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} checkUnread={checkUnread} setCheckUnread={setCheckUnread} setMessageReceiverUser={setMessageReceiverUser} setCards={setCards} />
         <main>
           <Switch>
             <Route path='/registration'>
@@ -60,7 +61,7 @@ function App () {
               <Friends token={token} isLoggedIn={isLoggedIn} username={username} />
             </Route>
             <Route path='/explore'>
-              <Explore setMessageReceiverUser={setMessageReceiverUser} token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} username={username} setAvatar={setAvatar} />
+              <Explore setMessageReceiverUser={setMessageReceiverUser} token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} username={username} setAvatar={setAvatar} cards={cards} setCards={setCards} />
             </Route>
             <Route path='/view-profile'>
               <ViewProfile token={token} isLoggedIn={isLoggedIn} />
