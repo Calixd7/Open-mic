@@ -6,11 +6,13 @@ import { getUserProfile } from '../api'
 import Avatar from './Avatar'
 import HeaderMobile from './HeaderMobile'
 import Search from './Search'
+import SearchMobile from './SearchMobile'
 
-function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, checkUnread, setCheckUnread, setMessageReceiverUser, setCards }) {
+function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, checkUnread, setCheckUnread, setMessageReceiverUser, setCards, status, setStatus, genre, setGenre, instrument, setInstrument, location, setLocation, vacancy, setVacancy }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
+  // const [showOverlay, setShowOverlay] = useState(false)
   const history = useHistory()
 
   console.log('checkUnread HEADER', checkUnread)
@@ -163,20 +165,23 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
           </div>
         </div>
       </div>
-      <Transition
-        show={showSearch}
-      >
-        <div>
-          <Search setCards={setCards} token={token} setShowSearch={setShowSearch} />
-        </div>
-      </Transition>
+
+      {showSearch &&
+        <>
+          <div className='hidden lg:block'>
+            <Search token={token} setCards={setCards} setShowSearch={setShowSearch} status={status} setStatus={setStatus} genre={genre} setGenre={setGenre} instrument={instrument} setInstrument={setInstrument} location={location} setLocation={setLocation} vacancy={vacancy} setVacancy={setVacancy} />
+          </div>
+          <div className='lg:hidden'>
+            <SearchMobile token={token} setCards={setCards} showSearch={showSearch} setShowSearch={setShowSearch} status={status} setStatus={setStatus} genre={genre} setGenre={setGenre} instrument={instrument} setInstrument={setInstrument} location={location} setLocation={setLocation} vacancy={vacancy} setVacancy={setVacancy} />
+          </div>
+        </>}
 
       <div
-        className='sm:hidden'
+        className='md:hidden'
         id='mobile-menu'
       >
         {showMenu &&
-          <HeaderMobile />}
+          <HeaderMobile showSearch={showSearch} />}
       </div>
     </nav>
   )
