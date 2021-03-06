@@ -29,8 +29,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
         setUnreadStatus(0)
       }
     })
-    setTriggerReadEffect()
-  }, [triggerReadEffect])
+  }, [])
 
   console.log('messages', messages.map(message => message))
   console.log('messageToRender', messageToRender)
@@ -44,15 +43,6 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   // const handleDelete = () => {
   //   deleteMessage(token, message.id).then(res => res)
   // }
-
-  // const handleRead = (id) => {
-  //   updateMessage(token, id, updateRead)
-  //     .then(data => {
-  //       getMessages(token)
-  //         .then(messages => setMessages(messages))
-  //     })
-  // }
-  console.log('READ', read)
 
   const updateReadStatus = (messagetoUpdate) => {
     if (messagetoUpdate.read === false) {
