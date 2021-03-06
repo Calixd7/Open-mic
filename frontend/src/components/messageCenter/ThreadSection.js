@@ -6,80 +6,90 @@ import MessageSentAlert from '../alerts/MessageSentAlert'
 import ReplyEditor from './ReplyEditor'
 import NewMessageEditor from './NewMessageEditor'
 
-const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, setTriggerUseEffect, checkUnread, setCheckUnread, username, messageReceiverUser, setMessageReceiverUser }) => {
+const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTriggerReadEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, setMessageReceiverUser }) => {
   const [read, setRead] = useState(false)
-  const [message, setMessage] = useState([])
+  // const [message, setMessage] = useState([])
   const [showReplyForm, setShowReplyForm] = useState(false)
-  const [messageToRender, setMessageToRender] = useState()
+  const [messageToRender, setMessageToRender] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
   const [content, setContent] = useState('')
-  const updateRead = {
-    receiver: message.receiver,
-    read: read
-  }
-  console.log('messages', messages.map(message => message))
-  console.log('message', message)
-  console.log('messageId', messageId)
-  console.log('messageToRender', messageToRender)
-  console.log('content', content)
-  console.log('token in THREAD section', token)
-  console.log('messageReceiverUser', messageReceiverUser)
 
   useEffect(() => {
-    console.log('useffect JUST RAN')
+    console.log('read useffect JUST RAN')
     const unread = []
     messages.forEach(message => {
       if (message.read === false) {
         unread.push(message)
         console.log('unread', unread.length)
       }
-      if (unread.length === 0) {
-        setCheckUnread(0)
-      }
       if (unread.length > 0) {
-        setCheckUnread(unread.length)
+        setUnreadStatus(unread.length)
+      }
+      if (unread.length === 0) {
+        setUnreadStatus(0)
       }
     })
-  }, [])
+    setTriggerReadEffect()
+  }, [triggerReadEffect])
 
-  useEffect(() => {
-    const messageSearch = messages.map(message => message)
-    console.log('messageSearch', messageSearch)
-
-    messageSearch.forEach(message => {
-      if (messageId === message.id) {
-        setMessageToRender(message)
-      }
-    })
-  }, [messageId])
+  console.log('messages', messages.map(message => message))
+  console.log('messageToRender', messageToRender)
+  console.log('content', content)
+  // console.log('messageReceiverUser', messageReceiverUser)
 
   if (!messages) {
     return 'loading'
   }
 
-  const handleDelete = () => {
-    deleteMessage(token, message.id).then(res => res)
-  }
+  // const handleDelete = () => {
+  //   deleteMessage(token, message.id).then(res => res)
+  // }
 
-  const handleRead = (id) => {
-    updateMessage(token, id, updateRead)
-      .then(data => {
-        getMessages(token)
-          .then(messages => setMessages(messages))
-      })
-  }
+  // const handleRead = (id) => {
+  //   updateMessage(token, id, updateRead)
+  //     .then(data => {
+  //       getMessages(token)
+  //         .then(messages => setMessages(messages))
+  //     })
+  // }
+  console.log('READ', read)
 
-  const toggleRead = (message) => {
-    if (message.read === false) {
+  const updateReadStatus = (messagetoUpdate) => {
+    if (messagetoUpdate.read === false) {
       setRead(true)
+
+      const updateRead = {
+        receiver: messagetoUpdate.receiver,
+        read: read
+      }
+
+      updateMessage(token, messagetoUpdate.id, updateRead)
+        .then(updatedRead => {
+          getMessages(token)
+            .then(updatedMessages => {
+              setMessages(updatedMessages)
+              const unread = []
+              updatedMessages.forEach(updatedMessage => {
+                if (updatedMessage.read === false) {
+                  unread.push(updatedMessage)
+                  console.log('unread', unread.length)
+                }
+                if (unread.length === 0) {
+                  setUnreadStatus(0)
+                }
+                if (unread.length > 0) {
+                  setUnreadStatus(unread.length)
+                }
+              })
+            })
+        })
     }
-    handleRead(message.id)
   }
 
   if (messageToRender) {
     return (
       <div>
-        <ReplyEditor token={token} messageToRender={messageToRender} setMessageToRender={setMessageToRender} username={username} content={content} setContent={setContent} message={message} setMessage={setMessage} showReplyForm={showReplyForm} setShowReplyForm={setShowReplyForm} setShowAlert={setShowAlert} messageId={messageId} setMessages={setMessages} />
+        <ReplyEditor token={token} messageToRender={messageToRender} setMessageToRender={setMessageToRender} username={username} content={content} setContent={setContent} showReplyForm={showReplyForm} setShowReplyForm={setShowReplyForm} setShowAlert={setShowAlert} setMessages={setMessages} />
       </div>
     )
   }
@@ -91,7 +101,7 @@ const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, 
       </div>
     )
   }
-  console.log('MESSAGE', message)
+
   return (
     <>
       {showAlert &&
@@ -103,9 +113,8 @@ const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, 
           key={`message-${idx}`}
           className='py-4 space-y-2 sm:px-6 sm:space-y-4 lg:px-8'
           onClick={() => {
-            setMessageId(message.id)
-            toggleRead(message)
-            setMessage(message)
+            setMessageToRender(message)
+            updateReadStatus(message)
             setShowReplyForm(true)
             setShowAlert(false)
           }}
