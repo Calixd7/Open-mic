@@ -14,6 +14,7 @@ import WantedInfo from './profileComponents/WantedInfo'
 import { useParams, useHistory } from 'react-router-dom'
 import { postProfiles, deleteProfile, updateProfile, uploadImage } from '../api'
 import Delete from './Delete'
+import Spotify from './Spotify'
 
 const statusForApi = (status) => {
   if (status === 'Solo Artist') {
@@ -66,6 +67,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
   const [status, setStatus] = useState(safeProfile.individualorband || 'Solo Artist')
   const [wantedInstruments, setWantedInstruments] = useState(safeProfile.wanted_instruments || [])
   const [wantedInfo, setWantedInfo] = useState(safeProfile.wanted_info || '')
+  const [spotify, setSpotify] = useState(safeProfile.spotify || '')
   const pendingProfile = {
     pk: safeProfile.pk,
     bio: bio,
@@ -79,7 +81,8 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
     vacancy: vacancy,
     individualorband: statusForApi(status),
     wanted_instruments: wantedIntForAPI(vacancy, wantedInstruments),
-    wanted_info: wantedInfo
+    wanted_info: wantedInfo,
+    spotify: spotify
 
   }
 
@@ -91,6 +94,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
   // console.log('token in ProfileSetup', token)
   // console.log('vacancy', vacancy)
   // console.log('safeProfile.pk', safeProfile.pk)
+  console.log('spotify', spotify)
 
   function handleSubmit (event, token) {
     event.preventDefault()
@@ -170,6 +174,11 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
               <div className='mt-4'>
                 <Site site={site} setSite={setSite} />
               </div>
+
+              <div className='mt-4'>
+                <Spotify spotify={spotify} setSpotify={setSpotify} />
+              </div>
+
 
               <div className='mt-4 h-60'>
                 <Genre genres={genres} setGenres={setGenres} status={status} />
