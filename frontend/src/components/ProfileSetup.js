@@ -184,7 +184,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
                   <Vacancy vacancy={vacancy} setVacancy={setVacancy} />
                 </div>}
 
-              {vacancy === true &&
+              {vacancy === true && status === 'Band' &&
                 <span>
                   <div className='mt-4 h-60'>
                     <WantedInstruments wantedInstruments={wantedInstruments} setWantedInstruments={setWantedInstruments} />
