@@ -92,7 +92,7 @@ class MessagesSerializer(serializers.ModelSerializer):
             "id",
             "sender",
             "receiver", 
-            "sender_name",
+            "name",
             "receiver_name",
             "image",
             "subject",
@@ -100,6 +100,8 @@ class MessagesSerializer(serializers.ModelSerializer):
             'read',
             "created_at"
         ]
+
+    
 
 
 class FollowingSerializer(serializers.ModelSerializer):

@@ -76,14 +76,18 @@ class UserProfile(models.Model):
     wanted_instruments = models.ManyToManyField(to=WantedInstruments,related_name='users',  blank=True)
     wanted_info = models.CharField(max_length=500, blank=True, null=True )
 
+    def __str__(self):
+        return self.name
+   
+
 class Messages(models.Model):
     subject = models.TextField(max_length=100, blank=True)
     content = models.TextField(max_length=10000, blank=True)
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null = True, related_name="sender")
     receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null = True, related_name="receiver")   
-    sender_name = models.TextField(max_length=100, blank=True, null=True)
+    name = models.ForeignKey(UserProfile, on_delete=models.CASCADE, blank=True, null=True)
+    # display_for_user = models.ManyToManyField(User, related_name='display',null=True)
     receiver_name = models.TextField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to="uploads/", null=True, blank=True)
     read = models.BooleanField(default=False)
     created_at = models.DateField(auto_now_add=True)
-
