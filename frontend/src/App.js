@@ -12,7 +12,6 @@ import Explore from './components/Explore'
 import { useState } from 'react'
 import ViewProfile from './components/ViewProfile'
 import ViewCard from './components/ViewCard'
-import Message from './components/Message'
 import Friends from './components/Friends'
 import MessageHub from './components/messageCenter/MessageHub'
 
@@ -69,9 +68,6 @@ function App () {
             <Route path='/view-card/:pk'>
               <ViewCard token={token} isLoggedIn={isLoggedIn} />
             </Route>
-            {/* <Route path='/message'>
-              <Message messageReceiverUser={messageReceiverUser} username={username} token={token} isLoggedIn={isLoggedIn} setCheckUnread={setCheckUnread} checkUnread={checkUnread} />
-            </Route> */}
             <Route path='/message'>
               <MessageHub messageReceiverUser={messageReceiverUser} username={username} token={token} isLoggedIn={isLoggedIn} setCheckUnread={setCheckUnread} checkUnread={checkUnread} setMessageReceiverUser={setMessageReceiverUser} />
             </Route>
