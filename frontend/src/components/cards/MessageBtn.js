@@ -1,27 +1,22 @@
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
-const MessageBtn = ({ card }) => {
+const MessageBtn = ({ card, setMessageReceiverUser }) => {
+  const history = useHistory()
   return (
-    <div>
-      <div className='w-0 flex-1 flex'>
-        <Link
-          to='#'
-          className='relative -mr-px w-0 flex-1 inline-flex items-center justify-center py-4 text-sm text-gray-700 font-medium border border-transparent rounded-bl-lg hover:text-gray-500'
-        >
-          <svg
-            className='w-5 h-5 text-gray-400'
-            xmlns='http://wwww.w3.org/2000/svg'
-            viewBox='0 0 20 20'
-            fill='currentColor'
-            aria-hidden='true'
-          >
-            {/* <path d='M2.003 5.884L10 9.88217.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z' />
-                      <path d='M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8..118z' /> */}
+    <>
+      <button
+        type='button'
+        className='justify-center inline-flex flex-1 items-center px-2 py-1 ml-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 hover:text-white bg-indigo-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+        onClick={() => { history.push('/message'); setMessageReceiverUser(card.user) }}
+      >
+        <span>
+          <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
+            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z' />
           </svg>
-          <span className='ml-3'>Message</span>
-        </Link>
-      </div>
-    </div>
+        </span>
+        Message
+      </button>
+    </>
   )
 }
 

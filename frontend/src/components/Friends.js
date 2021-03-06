@@ -44,7 +44,7 @@ function Friends ({ token, username, isLoggedIn }) {
   // if (userFriends) {
   return (
     <div>
-      <p>Friends</p>
+      <p>Following</p>
       {/* <button
           onClick={() => grabProfiles(token, setAllCards)}
         >

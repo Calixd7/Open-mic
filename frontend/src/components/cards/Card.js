@@ -1,13 +1,13 @@
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
 import Info from './Info'
-import Follow from './Follow'
+import FollowBtn from './FollowBtn'
 import MessageBtn from './MessageBtn'
 import ViewCard from '../ViewCard'
 import logo from '../images/logorough.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Card ({ cards, setMessageReceiverUser }) {
+function Card ({ cards, setMessageReceiverUser, connections }) {
   const history = useHistory()
   const [follow, setFollow] = useState(false)
   // console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
@@ -21,6 +21,17 @@ function Card ({ cards, setMessageReceiverUser }) {
       return card.individualorband
     }
   }
+  console.log('cards', cards)
+  // const identifyConnections = () => {
+  //   const connectionCards = []
+  //   cards.map(card => {
+  //     if (card.user.includes(connections)) {
+  //       connectionCards.push(card)
+  //     }
+  //     console.log('connectionCards', connectionCards)
+  //   })
+  // }
+  // identifyConnections()
 
   return (
     <div className='px-4'>
@@ -56,7 +67,7 @@ function Card ({ cards, setMessageReceiverUser }) {
                     icon={['far', 'user']}
                     className='text-red-300 hover:text-red-500 text-7xl h-full w-auto'
                   />
-                </span>}
+                  </span>}
 
               <h3 className={`${card.user === 'adminsupport' ? 'text-red-400 font-bold' : 'mt-6 text-white text-sm font-medium'}`}>{properStatus(card)}</h3>
               <dl className='my-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
@@ -91,19 +102,8 @@ function Card ({ cards, setMessageReceiverUser }) {
                       </button>
 
                       <div className='relative z-0 inline-flex shadow-sm rounded-md'>
-                        <Follow follow={follow} setFollow={setFollow} />
-                        <button
-                          type='button'
-                          className='justify-center inline-flex flex-1 items-center px-2 py-1 ml-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 hover:text-white bg-indigo-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                          onClick={() => { history.push('/message'); setMessageReceiverUser(card.user) }}
-                        >
-                          <span>
-                            <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
-                              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z' />
-                            </svg>
-                          </span>
-                          Message
-                        </button>
+                        <FollowBtn follow={follow} setFollow={setFollow} connections={connections} card={card} />
+                        <MessageBtn card={card} setMessageReceiverUser={setMessageReceiverUser} />
                       </div>
                     </span>
                   </div>
