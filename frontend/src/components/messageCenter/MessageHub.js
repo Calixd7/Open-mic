@@ -16,7 +16,6 @@ import MessageList from './MessageList'
 const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnreadStatus, unreadStatus, setMessageReceiverUser, triggerReadEffect, setTriggerReadEffect }) => {
   const [showOffCanvasMenu, setShowOffCanvasMenu] = useState(false)
   const [messages, setMessages] = useState([])
-  //   const [showReplyMessage, setShowReplyMessage] = useState(false)
   //   console.log('messageId', messageId)
   //   console.log('messages', messages)
   //   console.log('triggerUseEffect', triggerUseEffect)

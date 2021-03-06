@@ -7,7 +7,7 @@ import ViewCard from '../ViewCard'
 import logo from '../images/logorough.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Card ({ cards, setMessageReceiverUser }) {
+function Card ({ cards, setMessageReceiverUser, connections }) {
   const history = useHistory()
   const [follow, setFollow] = useState(false)
   // console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
@@ -21,6 +21,17 @@ function Card ({ cards, setMessageReceiverUser }) {
       return card.individualorband
     }
   }
+  console.log('cards', cards)
+  const identifyConnections = () => {
+    const connectionCards = []
+    cards.map(card => {
+      if (card.user.includes(connections)) {
+        connectionCards.push(card)
+      }
+      console.log('connectionCards', connectionCards)
+    })
+  }
+  identifyConnections()
 
   return (
     <div className='px-4'>
@@ -91,7 +102,7 @@ function Card ({ cards, setMessageReceiverUser }) {
                       </button>
 
                       <div className='relative z-0 inline-flex shadow-sm rounded-md'>
-                        <Follow follow={follow} setFollow={setFollow} />
+                        <Follow follow={follow} setFollow={setFollow} connections={connections} />
                         <button
                           type='button'
                           className='justify-center inline-flex flex-1 items-center px-2 py-1 ml-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 hover:text-white bg-indigo-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
