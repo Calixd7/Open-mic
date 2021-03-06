@@ -30,6 +30,11 @@ function App () {
   const [avatar, setAvatar] = useState('')
   const [checkUnread, setCheckUnread] = useState(0)
   const [cards, setCards] = useState([])
+  const [status, setStatus] = useState('')
+  const [genre, setGenre] = useState('')
+  const [instrument, setInstrument] = useState('')
+  const [location, setLocation] = useState('')
+  const [vacancy, setVacancy] = useState(null)
 
   console.log('messageReceiverUser from APP', messageReceiverUser)
 
@@ -45,7 +50,7 @@ function App () {
   return (
     <Router>
       <div className='App'>
-        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} checkUnread={checkUnread} setCheckUnread={setCheckUnread} setMessageReceiverUser={setMessageReceiverUser} setCards={setCards} />
+        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} checkUnread={checkUnread} setCheckUnread={setCheckUnread} setMessageReceiverUser={setMessageReceiverUser} setCards={setCards} status={status} setStatus={setStatus} genre={genre} setGenre={setGenre} instrument={instrument} setInstrument={setInstrument} location={location} setLocation={setLocation} vacancy={vacancy} setVacancy={setVacancy} />
         <main>
           <Switch>
             <Route path='/registration'>

@@ -1,109 +1,181 @@
-import { Link } from 'react-router-dom'
 import { Transition } from '@headlessui/react'
+import { searchProfiles } from '../api'
+import { GENRES, INSTRUMENTS, LOCATION } from './helperLists'
 
-function SearchMobile () {
+function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, setStatus, genre, setGenre, instrument, setInstrument, location, setLocation, vacancy, setVacancy }) {
+  const pendingSearch = [
+    status,
+    genre,
+    instrument,
+    location
+  ]
+
+  function handleSearch (e) {
+    e.preventDefault()
+    searchProfiles(token, pendingSearch, vacancy)
+      .then(cards => setCards(cards))
+    setShowSearch(false)
+  }
   return (
-    <div>
-      <div className='px-2 pt-2 pb-3 space-y-1'>
-        <Link
-          to='/explore'
-          className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
-        >ALL CAPS
-        </Link>
-        <Link
-          to='/friends'
-          className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
-        >Following
-        </Link>
-        <Link
-          to='/message'
-          className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'
-        >Messages
-        </Link>
+    <div className='fixed inset-0 overflow-hidden z-10 '>
+      <div className='absolute inset-0 overflow-hidden'>
+        <section className='absolute inset-y-0 right-0 pl-10 max-w-full flex sm:pl-16' aria-labelledby='slide-over-heading'>
+
+          {/* Slide-over panel, show/hide based on slide-over state. */}
+          <Transition
+            show={showSearch}
+            enter='transform transition ease-in-out duration-500 sm:duration-700'
+            enterFrom='translate-x-full'
+            enterTo='translate-x-0'
+            leave='transform transition ease-in-out duration-500 sm:duration-700'
+            leaveFrom='translate-x-0'
+            leaveTo='translate-x-full'
+          >
+            <div className='w-screen max-w-md'>
+              <div className='h-full flex flex-col bg-white shadow-xl overflow-y-scroll'>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault()
+                    handleSearch(e)
+                  }}
+                >
+                  <div className='p-6'>
+                    <div className='flex items-start justify-between'>
+                      <h2 id='slide-over-heading' className='text-lg font-medium text-gray-900'>
+                        Search
+                      </h2>
+                      <div className='ml-3 h-7 flex items-center'>
+                        <button
+                          type='button'
+                          className='bg-white rounded-md text-gray-400 hover:text-gray-500 focus:ring-2 focus:ring-indigo-500'
+                          onClick={() => setShowSearch(false)}
+                        >
+                          <span className='sr-only'>Close panel</span>
+                          {/* <!-- Heroicon name: outline/x --> */}
+                          <svg className='h-6 w-6' xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' aria-hidden='true'>
+                            <path strokeLinecap='round' strokeLinejoin='round' strokeWidth='2' d='M6 18L18 6M6 6l12 12' />
+                          </svg>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='border-b border-gray-200'>
+
+                    <div className='px-6'>
+                      <button
+                        type='submit'
+                        className='mb-1 inline-flex items-center px-2.5 py-1.5 h-1/2 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                      >
+                        <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
+                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' />
+                        </svg>
+                        <span>Search</span>
+                      </button>
+                    </div>
+                  </div>
+                  <ul className='divide-y divide-gray-200 overflow-y-auto'>
+                    <li className='px-6 py-5 relative'>
+                      <div className='group flex justify-between items-center'>
+                        <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
+                          <select
+                            id='status'
+                            name='status'
+                            className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+                            onChange={(e) => setStatus(e.currentTarget.value)}
+                          >
+                            <option value=''>any</option>
+                            <option value='Individual'>Solo Artist</option>
+                            <option value='Band'>Band</option>
+                          </select>
+                        </span>
+                        <label htmlFor='status' className='block text-sm text-center font-medium text-gray-700'>Status</label>
+                      </div>
+                    </li>
+
+                    <li className='px-6 py-5 relative'>
+                      <div className='group flex justify-between items-center'>
+                        <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
+                          <select
+                            id='location'
+                            name='location'
+                            className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+                            onChange={(e) => setLocation(e.currentTarget.value)}
+                          >
+                            <option value=''>any</option>
+                            {LOCATION.map((location, idx) => (
+                              <option key={`${location}-${idx}`} value={location}>{location}</option>
+                            ))}
+                          </select>
+                        </span>
+                        <label htmlFor='location' className='block text-sm text-center font-medium text-gray-700'>Location</label>
+                      </div>
+                    </li>
+
+                    <li className='px-6 py-5 relative'>
+                      <div className='group flex justify-between items-center'>
+                        <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
+                          <select
+                            id='genre'
+                            name='genre'
+                            className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+                            onChange={(e) => setGenre(e.currentTarget.value)}
+                          >
+                            <option value=''>any</option>
+                            {GENRES.map((genre, idx) => (
+                              <option key={`${genre}-${idx}`} value={genre}>{genre}</option>
+                            ))}
+                          </select>
+                        </span>
+                        <label htmlFor='genre' className='block text-sm text-center font-medium text-gray-700'>Genre</label>
+                      </div>
+                    </li>
+
+                    <li className='px-6 py-5 relative'>
+                      <div className='group flex justify-between items-center'>
+                        <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
+                          <select
+                            id='instrument'
+                            name='instrument'
+                            className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+                            onChange={(e) => setInstrument(e.currentTarget.value)}
+                          >
+                            <option value=''>any</option>
+                            {INSTRUMENTS.map((instrument, idx) => (
+                              <option key={`${instrument}-${idx}`} value={instrument}>{instrument}</option>
+                            ))}
+                          </select>
+                        </span>
+                        <label htmlFor='instrument' className='block text-sm text-center font-medium text-gray-700'>Instrument</label>
+                      </div>
+                    </li>
+
+                    <li className='px-6 py-5 relative'>
+                      <div className='group flex justify-between items-center'>
+                        <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
+                          <select
+                            id='vacancy'
+                            name='vacancy'
+                            className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+                            onChange={(e) => setVacancy(e.currentTarget.value)}
+                          >
+                            <option value='null'>n/a</option>
+                            <option value='false'>Not looking</option>
+                            <option value='true'>Looking</option>
+                          </select>
+                        </span>
+                        <label htmlFor='vacancy' className='block text-sm text-center font-medium text-gray-700'>Bands looking <br />for Instrument
+                        </label>
+                      </div>
+                    </li>
+                  </ul>
+                </form>
+              </div>
+            </div>
+          </Transition>
+        </section>
       </div>
     </div>
-  /* <div className='relative inline-block text-left'>
-      <div>
-        <button
-          type='button'
-          className='inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500'
-          id='options-menu'
-          aria-haspopup='true'
-          aria-expanded='true'
-        >
-          Search
-          {/* <!-- Heroicon name: solid/chevron-down --> */
-  //       <svg
-  //         className='-mr-1 ml-2 h-5 w-5'
-  //         xmlns='http://www.w3.org/2000/svg'
-  //         viewBox='0 0 20 20'
-  //         fill='currentColor'
-  //         aria-hidden='true'
-  //       >
-  //         <path
-  //           fillRule='evenodd'
-  //           d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'
-  //           clipRule='evenodd'
-  //         />
-  //       </svg>
-  //     </button>
-  //   </div>
 
-  //   <Transition
-  //   show={}
-  //     enter='transition ease-out duration-100'
-  //     enterFrom='transform opacity-0 scale-95'
-  //     enterTo='transform opacity-100 scale-100'
-  //     leave='transition ease-in duration-75'
-  //     leaveFrom='transform opacity-100 scale-100'
-  //     leaveTo='transform opacity-0 scale-95'
-  //   >
-
-  //     <div className='origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5'>
-  //       <div class='py-1' role='menu' aria-orientation='vertical' aria-labelledby='options-menu'>
-  //         <Link
-  //           to='#'
-  //           className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-  //           role='menuitem'
-  //         >
-  //           Status
-  //         </Link>
-  //         <Link
-  //           to='#'
-  //           className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-  //           role='menuitem'
-  //         >
-  //           Location
-  //         </Link>
-  //         <Link
-  //           to='#'
-  //           className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-  //           role='menuitem'
-  //         >
-  //           Genre
-  //         </Link>
-  //         <Link
-  //           to='#'
-  //           className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-  //           role='menuitem'
-  //         >
-  //           Instrument
-  //         </Link>
-  //         <Link
-  //           to='#'
-  //           className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900'
-  //           role='menuitem'
-  //         >
-  //           Bands Looking for Instrument
-  //         </Link>
-  //         <form
-  //           method='POST'
-  //           action='#'
-  //         />
-  //       </div>
-  //     </div>
-  //   </Transition>
-  // </div> */}
   )
 }
 
