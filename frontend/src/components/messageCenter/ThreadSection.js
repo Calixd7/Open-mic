@@ -6,32 +6,31 @@ import MessageSentAlert from '../alerts/MessageSentAlert'
 import ReplyEditor from './ReplyEditor'
 import NewMessageEditor from './NewMessageEditor'
 
-const ThreadSection = ({ token, messages, setMessages, setTriggerUseEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, setMessageReceiverUser }) => {
+const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTriggerReadEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, setMessageReceiverUser }) => {
   const [read, setRead] = useState(false)
   // const [message, setMessage] = useState([])
   const [showReplyForm, setShowReplyForm] = useState(false)
   const [messageToRender, setMessageToRender] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
   const [content, setContent] = useState('')
-  const [triggerReadEffect, setTriggerReadEffect] = useState('')
 
-  // useEffect(() => {
-  //   console.log('read useffect JUST RAN')
-  //   const unread = []
-  //   messages.forEach(message => {
-  //     if (message.read === false) {
-  //       unread.push(message)
-  //       console.log('unread', unread.length)
-  //     }
-  //     if (unread.length === 0) {
-  //       setUnreadStatus(0)
-  //     }
-  //     if (unread.length > 0) {
-  //       setUnreadStatus(unread.length)
-  //     }
-  //   })
-  //   setTriggerReadEffect('')
-  // }, [triggerReadEffect])
+  useEffect(() => {
+    console.log('read useffect JUST RAN')
+    const unread = []
+    messages.forEach(message => {
+      if (message.read === false) {
+        unread.push(message)
+        console.log('unread', unread.length)
+      }
+      if (unread.length > 0) {
+        setUnreadStatus(unread.length)
+      }
+      if (unread.length === 0) {
+        setUnreadStatus(0)
+      }
+    })
+    setTriggerReadEffect()
+  }, [triggerReadEffect])
 
   console.log('messages', messages.map(message => message))
   console.log('messageToRender', messageToRender)
@@ -56,11 +55,6 @@ const ThreadSection = ({ token, messages, setMessages, setTriggerUseEffect, unre
   console.log('READ', read)
 
   const updateReadStatus = (messagetoUpdate) => {
-    console.log('UPDATE read status RAN')
-    // if (messageToRender === null) {
-    //   return 'loading'
-    // }
-    console.log('BEFORE messageToRender.read', messagetoUpdate.read)
     if (messagetoUpdate.read === false) {
       setRead(true)
 
@@ -68,14 +62,25 @@ const ThreadSection = ({ token, messages, setMessages, setTriggerUseEffect, unre
         receiver: messagetoUpdate.receiver,
         read: read
       }
-      console.log('AFTER messagetoUpdate.read', messagetoUpdate.read)
+
       updateMessage(token, messagetoUpdate.id, updateRead)
         .then(updatedRead => {
           getMessages(token)
             .then(updatedMessages => {
               setMessages(updatedMessages)
-              setUnreadStatus(updatedMessages.read.length)
-              setTriggerReadEffect('trigger')
+              const unread = []
+              updatedMessages.forEach(updatedMessage => {
+                if (updatedMessage.read === false) {
+                  unread.push(updatedMessage)
+                  console.log('unread', unread.length)
+                }
+                if (unread.length === 0) {
+                  setUnreadStatus(0)
+                }
+                if (unread.length > 0) {
+                  setUnreadStatus(unread.length)
+                }
+              })
             })
         })
     }

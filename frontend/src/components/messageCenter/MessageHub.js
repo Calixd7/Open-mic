@@ -13,7 +13,7 @@ import NarrowSidebar from './NarrowSidebar'
 import ThreadSection from './ThreadSection'
 import MessageList from './MessageList'
 
-const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnreadStatus, unreadStatus, setMessageReceiverUser }) => {
+const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnreadStatus, unreadStatus, setMessageReceiverUser, triggerReadEffect, setTriggerReadEffect }) => {
   const [showOffCanvasMenu, setShowOffCanvasMenu] = useState(false)
   const [messages, setMessages] = useState([])
   //   const [showReplyMessage, setShowReplyMessage] = useState(false)
@@ -82,7 +82,7 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnrea
               <div className='min-h-0 flex-1 overflow-y-auto'>
                 {/* <MessageHeader /> */}
                 {/* <!-- Thread section--> */}
-                <ThreadSection messages={messages} setMessages={setMessages} unreadStatus={unreadStatus} setUnreadStatus={setUnreadStatus} username={username} token={token} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} />
+                <ThreadSection messages={messages} setMessages={setMessages} unreadStatus={unreadStatus} setUnreadStatus={setUnreadStatus} username={username} token={token} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} triggerReadEffect={triggerReadEffect} setTriggerReadEffect={setTriggerReadEffect} />
               </div>
             </section>
 

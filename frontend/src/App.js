@@ -35,8 +35,10 @@ function App () {
   const [instrument, setInstrument] = useState('')
   const [location, setLocation] = useState('')
   const [vacancy, setVacancy] = useState(null)
+  const [triggerReadEffect, setTriggerReadEffect] = useState()
 
   console.log('messageReceiverUser from APP', messageReceiverUser)
+  console.log('triggerReadEffect', triggerReadEffect)
 
   function setAuth (username, token) {
     setUsername(username)
@@ -50,7 +52,7 @@ function App () {
   return (
     <Router>
       <div className='App'>
-        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} unreadStatus={unreadStatus} setUnreadStatus={setUnreadStatus} setMessageReceiverUser={setMessageReceiverUser} setCards={setCards} status={status} setStatus={setStatus} genre={genre} setGenre={setGenre} instrument={instrument} setInstrument={setInstrument} location={location} setLocation={setLocation} vacancy={vacancy} setVacancy={setVacancy} />
+        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} unreadStatus={unreadStatus} setUnreadStatus={setUnreadStatus} setMessageReceiverUser={setMessageReceiverUser} setCards={setCards} status={status} setStatus={setStatus} genre={genre} setGenre={setGenre} instrument={instrument} setInstrument={setInstrument} location={location} setLocation={setLocation} vacancy={vacancy} setVacancy={setVacancy} setTriggerReadEffect={setTriggerReadEffect} />
         <main>
           <Switch>
             <Route path='/registration'>
@@ -66,7 +68,7 @@ function App () {
               <Friends token={token} isLoggedIn={isLoggedIn} username={username} />
             </Route>
             <Route path='/explore'>
-              <Explore setMessageReceiverUser={setMessageReceiverUser} token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} username={username} setAvatar={setAvatar} cards={cards} setCards={setCards} />
+              <Explore setMessageReceiverUser={setMessageReceiverUser} token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} username={username} setAvatar={setAvatar} cards={cards} setCards={setCards} setTriggerReadEffect={setTriggerReadEffect} />
             </Route>
             <Route path='/view-profile'>
               <ViewProfile token={token} isLoggedIn={isLoggedIn} />
@@ -75,7 +77,7 @@ function App () {
               <ViewCard token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/message'>
-              <MessageHub messageReceiverUser={messageReceiverUser} username={username} token={token} isLoggedIn={isLoggedIn} setUnreadStatus={setUnreadStatus} unreadStatus={unreadStatus} setMessageReceiverUser={setMessageReceiverUser} />
+              <MessageHub messageReceiverUser={messageReceiverUser} username={username} token={token} isLoggedIn={isLoggedIn} setUnreadStatus={setUnreadStatus} unreadStatus={unreadStatus} setMessageReceiverUser={setMessageReceiverUser} triggerReadEffect={triggerReadEffect} setTriggerReadEffect={setTriggerReadEffect} />
             </Route>
             <Route path='/'>
               <Welcome isLoggedIn={isLoggedIn} />

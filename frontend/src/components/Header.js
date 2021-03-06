@@ -8,7 +8,7 @@ import HeaderMobile from './HeaderMobile'
 import Search from './Search'
 import SearchMobile from './SearchMobile'
 
-function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, unreadStatus, setUnreadStatus, setMessageReceiverUser, setCards, status, setStatus, genre, setGenre, instrument, setInstrument, location, setLocation, vacancy, setVacancy }) {
+function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, unreadStatus, setUnreadStatus, setMessageReceiverUser, setCards, status, setStatus, genre, setGenre, instrument, setInstrument, location, setLocation, vacancy, setVacancy, setTriggerReadEffect }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
@@ -86,7 +86,10 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 <Link
                   to='/message'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-                  onClick={() => setMessageReceiverUser('')}
+                  onClick={() => {
+                    setMessageReceiverUser('')
+                    setTriggerReadEffect('trigger')
+                  }}
                 >
                   {unreadStatus >= 1
                     ? `Messages (${unreadStatus} unread)`
@@ -145,7 +148,12 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                     <Link
                       to='/'
                       className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
-                      onClick={() => { setToken(null); setShowProfile(false); setAvatar(false); setUnreadStatus(0) }}
+                      onClick={() => {
+                        setToken(null)
+                        setShowProfile(false)
+                        setAvatar(false)
+                        setUnreadStatus(0)
+                      }}
                     >
                       Sign Out
                     </Link>
