@@ -45,7 +45,7 @@ function Card ({ cards, profile, setMessageReceiverUser }) {
             <div className='flex-1 flex flex-col p-8'>
               {card.image
                 ? <img
-                    className='w-32 h-32 flex-shrink-0 bg-black rounded-full object-cover'
+                    className='w-32 h-32 flex-shrink-0 mx-auto bg-black rounded-full object-cover'
                     src={card.image}
                     alt='avatar'
                   />
@@ -54,7 +54,7 @@ function Card ({ cards, profile, setMessageReceiverUser }) {
                     icon={['far', 'user']}
                     className='text-red-300 hover:text-red-500 text-7xl h-full w-auto'
                   />
-                  </span>}
+                </span>}
 
               <h3 className='mt-6 text-white text-sm font-medium'>{properStatus(card)}</h3>
               <dl className='my-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
