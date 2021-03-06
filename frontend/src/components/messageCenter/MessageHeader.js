@@ -8,23 +8,24 @@ const MessageHeader = () => {
       <div className='px-4 sm:flex sm:justify-between sm:items-baseline sm:px-6 lg:px-8'>
         <div className='sm:w-0 sm:flex-1'>
           <h1 id='message-heading' className='text-lg font-medium text-gray-900'>
-            Re: New pricing for existing customers
+            {/* Re: New pricing for existing customers */}
           </h1>
           <p className='mt-1 text-sm text-gray-500 truncate'>
-            joearmstrong@example.com
+            {/* joearmstrong@example.com */}
           </p>
         </div>
 
         <div className='mt-4 flex items-center justify-between sm:mt-0 sm:ml-6 sm:flex-shrink-0 sm:justify-start'>
-          <span className='inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-cyan-100 text-cyan-800'>
+          {/* <span className='inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-cyan-100 text-cyan-800'>
             Open
-          </span>
+          </span> */}
           <div className='ml-3 relative inline-block text-left'>
             <div>
               <button
                 type='button'
                 className='-my-2 p-2 rounded-full bg-white flex items-center text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-600'
                 id='menu-4'
+                disabled
                 aria-expanded='false'
                 aria-haspopup='true'
                 onClick={() => setShowHeaderOptions(showHeaderOption => !showHeaderOption)}

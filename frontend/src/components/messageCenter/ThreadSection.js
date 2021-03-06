@@ -10,7 +10,7 @@ const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, 
   const [read, setRead] = useState(false)
   const [message, setMessage] = useState([])
   const [showReplyForm, setShowReplyForm] = useState(false)
-  const [messageToRender, setMessageToRender] = useState(null)
+  const [messageToRender, setMessageToRender] = useState()
   const [showAlert, setShowAlert] = useState(false)
   const [content, setContent] = useState('')
   const updateRead = {
@@ -91,7 +91,7 @@ const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, 
       </div>
     )
   }
-
+  console.log('MESSAGE', message)
   return (
     <>
       {showAlert &&
@@ -106,15 +106,21 @@ const ThreadSection = ({ token, messages, setMessages, messageId, setMessageId, 
             setMessageId(message.id)
             toggleRead(message)
             setMessage(message)
-            setShowReplyForm(showReplyForm => !showReplyForm)
+            setShowReplyForm(true)
             setShowAlert(false)
           }}
         >
           <li className={`${message.read ? 'bg-white hover:bg-gray-100' : 'bg-blue-200 hover:bg-blue-300'} px-4 py-6 shadow sm:rounded-lg sm:px-6`}>
             <div className='sm:flex sm:justify-between sm:items-baseline'>
               <h3 className='text-base font-medium'>
-                <span className='text-gray-900'>{message.sender.username}&nbsp;</span>
-                <span className='text-gray-600'>wrote</span>
+                <div>
+                  <span className='text-gray-600'>From:&nbsp;</span>
+                  <span className='text-gray-900'>{message.sender.username}</span>
+                </div>
+                <div>
+                  <span className='text-gray-600'>To:&nbsp;</span>
+                  <span className='text-gray-900'>{message.receiver}</span>
+                </div>
               </h3>
               <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
                 <time dateTime='2021-01-28T19:24'>{message.created_at}</time>

@@ -39,23 +39,23 @@ const ReplyEditor = ({ token, messageToRender, username, content, setContent, me
         >
           <div className='sm:flex sm:justify-between sm:items-baseline'>
             <h3 className='text-base font-medium'>
-              <span className='text-gray-900'>{messageToRender.sender.username}&nbsp;</span>
-              <span className='text-gray-600'>wrote</span>
+              <span className='text-gray-600'>Reply to:&nbsp;</span>
+              <span className='text-gray-900'>{message.sender.username}</span>
             </h3>
             <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-              <time dateTime='2021-01-28T19:24'>{messageToRender.created_at}</time>
+              <time dateTime='2021-01-28T19:24'>{message.created_at}</time>
             </p>
           </div>
           <div className='sm:flex sm:justify-between sm:items-baseline mt-4'>
             <p className='text-base font-medium'>
               <span className='text-gray-900'>Subject:&nbsp;</span>
-              <span className='text-gray-600'>{messageToRender.subject}</span>
+              <span className='text-gray-600'>{message.subject}</span>
             </p>
           </div>
           <div className='sm:flex sm:justify-between sm:items-baseline my-4'>
             <p className='text-base font-medium'>
-              <span className='text-gray-900'>Content:&nbsp;</span>
-              <span className='text-gray-600'>{messageToRender.content}</span>
+              <span className='text-gray-900'>{message.sender.username}'s message:&nbsp;</span>
+              <span className='text-gray-600'>{message.content}</span>
             </p>
           </div>
           <Transition
@@ -79,7 +79,8 @@ const ReplyEditor = ({ token, messageToRender, username, content, setContent, me
                       type='button'
                       className='inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-xs leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                       onClick={() => {
-                        setMessageToRender(null)
+                        setMessageToRender()
+                        setMessage([])
                         setShowReplyForm(false)
                       }}
                     >
