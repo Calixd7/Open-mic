@@ -13,7 +13,9 @@ function Card ({ cards, profile, setMessageReceiverUser }) {
   // console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
 
   const properStatus = (card) => {
-    if (card.individualorband === 'Individual') {
+    if (card.user === 'adminsupport') {
+      return 'Admin Support'
+    } else if (card.individualorband === 'Individual') {
       return 'Solo Artist'
     } else {
       return card.individualorband
@@ -54,9 +56,9 @@ function Card ({ cards, profile, setMessageReceiverUser }) {
                     icon={['far', 'user']}
                     className='text-red-300 hover:text-red-500 text-7xl h-full w-auto'
                   />
-                </span>}
+                  </span>}
 
-              <h3 className='mt-6 text-white text-sm font-medium'>{properStatus(card)}</h3>
+              <h3 className={`${card.user === 'adminsupport' ? 'text-red-400 font-bold' : 'mt-6 text-white text-sm font-medium'}`}>{properStatus(card)}</h3>
               <dl className='my-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
               <dt className='sr-only'>card Name</dt>
               <dd className='text-white text-sm'> <strong>Genres:</strong>
