@@ -79,7 +79,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'vacancy', 
             "individualorband",
             "wanted_instruments",
-            "wanted_info"
+            "wanted_info",
+            "spotify"
         ]
 class MessagesSerializer(serializers.ModelSerializer):
     sender = SenderSerializer(read_only=True)
@@ -99,6 +100,7 @@ class MessagesSerializer(serializers.ModelSerializer):
             "content",
             'read',
             "created_at"
+            
         ]
 
     
