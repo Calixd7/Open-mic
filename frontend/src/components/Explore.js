@@ -3,7 +3,7 @@ import Card from './cards/Card'
 import { getProfiles, getUserProfile, getConnections } from '../api'
 import { Redirect } from 'react-router-dom'
 
-function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUser, isLoggedIn, cards, setCards }) {
+function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUser, isLoggedIn, cards, setCards, setTriggerReadEffect }) {
   const [connections, setConnections] = useState([])
 
   // console.log('cards', cards)
@@ -23,6 +23,7 @@ function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUs
         }
       })
       )
+    setTriggerReadEffect('trigger')
   }, [token])
 
   useEffect(() => {
