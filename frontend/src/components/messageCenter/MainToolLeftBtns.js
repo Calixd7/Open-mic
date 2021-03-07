@@ -1,15 +1,15 @@
 import { Transition } from '@headlessui/react'
 import { useState } from 'react'
 
-const MainToolLeftBtns = ({ messages, setMessages }) => {
+const MainToolLeftBtns = () => {
   const [showLeftBtns, setShowLeftBtns] = useState(false)
 
-  const sortMessages = () => {
-    console.log('messages', messages)
-    const sortedMessages = messages.slice().sort((a, b) => new Date(b.id) - new Date(a.id))
-    console.log('sortedMessages', sortedMessages)
-    setMessages(sortedMessages)
-  }
+  // const sortMessages = () => {
+  //   console.log('messages', messages)
+  //   const sortedMessages = messages.slice().sort((a, b) => new Date(b.id) - new Date(a.id))
+  //   console.log('sortedMessages', sortedMessages)
+  //   setMessages(sortedMessages)
+  // }
 
   return (
     <div>
@@ -25,7 +25,7 @@ const MainToolLeftBtns = ({ messages, setMessages }) => {
           <button
             type='button'
             className='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
-            onClick={() => sortMessages()}
+            // onClick={() => sortMessages()}
           >
             {/* <!-- Heroicon name: solid/pencil --> */}
             <svg className='mr-2.5 h-5 w-5 text-gray-400' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
