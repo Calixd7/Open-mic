@@ -37,6 +37,7 @@ function App () {
   const [location, setLocation] = useState('')
   const [vacancy, setVacancy] = useState(null)
   const [triggerReadEffect, setTriggerReadEffect] = useState()
+  const [messages, setMessages] = useState([])
 
   console.log('messageReceiverUser from APP', messageReceiverUser)
   console.log('triggerReadEffect', triggerReadEffect)
@@ -78,7 +79,7 @@ function App () {
               <ViewCard token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/message'>
-              <MessageHub messageReceiverUser={messageReceiverUser} username={username} token={token} isLoggedIn={isLoggedIn} setUnreadStatus={setUnreadStatus} unreadStatus={unreadStatus} setMessageReceiverUser={setMessageReceiverUser} triggerReadEffect={triggerReadEffect} setTriggerReadEffect={setTriggerReadEffect} />
+              <MessageHub messageReceiverUser={messageReceiverUser} username={username} token={token} isLoggedIn={isLoggedIn} setUnreadStatus={setUnreadStatus} unreadStatus={unreadStatus} setMessageReceiverUser={setMessageReceiverUser} triggerReadEffect={triggerReadEffect} setTriggerReadEffect={setTriggerReadEffect} messages={messages} setMessages={setMessages} />
             </Route>
             <Route path='/'>
               <Welcome isLoggedIn={isLoggedIn} />

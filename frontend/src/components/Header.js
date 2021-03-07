@@ -3,12 +3,17 @@ import { Transition } from '@headlessui/react'
 import { useEffect, useState } from 'react'
 import logo from './images/logorough.jpg'
 import { getUserProfile } from '../api'
+import { updateReadMessageStatus } from './helperFunctions'
 import Avatar from './Avatar'
 import HeaderMobile from './HeaderMobile'
 import Search from './Search'
 import SearchMobile from './SearchMobile'
 
+<<<<<<< HEAD
 function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, unreadStatus, setUnreadStatus, setMessageReceiverUser, setCards, status, setStatus, genre, setGenre, instrument, setInstrument, wantedInstrument, setWantedInstrument, location, setLocation, vacancy, setVacancy, setTriggerReadEffect }) {
+=======
+function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, unreadStatus, setUnreadStatus, setMessageReceiverUser, setCards, status, setStatus, genre, setGenre, instrument, setInstrument, location, setLocation, vacancy, setVacancy, setTriggerReadEffect, messages }) {
+>>>>>>> b14c1a5ca1277be52e72d36cd8038e810c61944e
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
@@ -16,6 +21,24 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
   const history = useHistory()
 
   console.log('unreadStatus HEADER', unreadStatus)
+
+  const updateReadStatus = (messages) => {
+    console.log('BEFORE unread header', unreadStatus)
+    const unread = []
+    messages.forEach(message => {
+      if (message.read === false) {
+        unread.push(message)
+        console.log('unread', unread.length)
+      }
+      if (unread.length === 0) {
+        setUnreadStatus(0)
+      }
+      if (unread.length > 0) {
+        setUnreadStatus(unread.length)
+      }
+      console.log('After unread header', unreadStatus)
+    })
+  }
 
   return (
     <nav className='bg-gray-800'>
@@ -88,7 +111,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
                   onClick={() => {
                     setMessageReceiverUser('')
-                    setTriggerReadEffect('trigger')
+                    updateReadStatus(messages)
                   }}
                 >
                   {unreadStatus >= 1
