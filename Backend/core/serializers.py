@@ -78,7 +78,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'years_active',
             'vacancy', 
             "individualorband",
-            "wanted_instruments",
+            "wantedinstruments",
             "wanted_info",
             "spotify"
         ]

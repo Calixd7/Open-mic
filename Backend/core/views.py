@@ -85,7 +85,7 @@ class UserProfileViewSet(ModelViewSet):
 
     filter_backends = [filters.SearchFilter, DjangoFilterBackend]
     filterset_fields = ['vacancy']
-    search_fields = ['individualorband', 'instruments__name', 'genres__name', 'location', "wanted_instruments__name"]
+    search_fields = ['individualorband', 'instruments__name', 'genres__name', 'location', "wantedinstruments__name"]
     
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
