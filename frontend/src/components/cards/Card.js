@@ -7,7 +7,7 @@ import ViewCard from '../ViewCard'
 import logo from '../images/logorough.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Card ({ token, cards, setCards, setMessageReceiverUser, connections, setConnections }) {
+function Card ({ token, cards, setCards, setMessageReceiverUser, setMessageReceiverName, connections, setConnections }) {
   const history = useHistory()
   const [follow, setFollow] = useState(false)
   // console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
@@ -58,7 +58,7 @@ function Card ({ token, cards, setCards, setMessageReceiverUser, connections, se
                     icon={['far', 'user']}
                     className='text-red-300 hover:text-red-500 text-7xl h-full w-auto'
                   />
-                </span>}
+                  </span>}
               <span className='flex flex-col flex-1 justify-evenly'>
                 <h3 className={`${card.user === 'adminsupport' ? 'text-red-400 font-bold mt-4 mb-2' : 'mt-4 mb-2 text-white text-md font-normal'}`}>{properStatus(card)}</h3>
                 {card.vacancy === true
@@ -66,12 +66,12 @@ function Card ({ token, cards, setCards, setMessageReceiverUser, connections, se
                     {card.wantedinstruments.map((wantedInst, idx) => (
                       <span key={`wanted-${wantedInst}-${idx}`}>{`${idx ? ', ' : ''} ${wantedInst}`}</span>
                     ))}
-                    </dl>
+                  </dl>
                   : <dl className='text-white text-white text-sm mr-2 my-2'><strong>Instruments:</strong>
                     {card.instruments.map((inst, idx) => (
                       <span key={`${inst}-${idx}`}>{`${idx ? ', ' : ''} ${inst}`}</span>
                     ))}
-                    </dl>}
+                  </dl>}
                 {/* <dl className='my-2 flex-grow flex flex-col justify-between text-white'>{card.name}</dl> */}
                 <dt className='sr-only'>card Name</dt>
                 <dd className='text-white text-sm my-2'> <strong>Genres:</strong>
@@ -106,7 +106,7 @@ function Card ({ token, cards, setCards, setMessageReceiverUser, connections, se
 
                       <div className='relative z-0 inline-flex shadow-sm rounded-md'>
                         <FollowBtn token={token} follow={follow} setFollow={setFollow} connections={connections} setConnections={setConnections} card={card} setCards={setCards} />
-                        <MessageBtn card={card} setMessageReceiverUser={setMessageReceiverUser} />
+                        <MessageBtn card={card} setMessageReceiverUser={setMessageReceiverUser} setMessageReceiverName={setMessageReceiverName} />
                       </div>
                     </span>
                   </div>

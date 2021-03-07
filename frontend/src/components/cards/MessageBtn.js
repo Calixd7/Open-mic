@@ -1,13 +1,17 @@
 import { useHistory } from 'react-router-dom'
 
-const MessageBtn = ({ card, setMessageReceiverUser }) => {
+const MessageBtn = ({ card, setMessageReceiverUser, setMessageReceiverName }) => {
   const history = useHistory()
   return (
     <>
       <button
         type='button'
         className='justify-center inline-flex flex-1 items-center px-2 py-1 ml-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 hover:text-white bg-indigo-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-        onClick={() => { history.push('/message'); setMessageReceiverUser(card.user) }}
+        onClick={() => {
+          history.push('/message')
+          setMessageReceiverUser(card.user)
+          setMessageReceiverName(card.name)
+        }}
       >
         <span>
           <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
