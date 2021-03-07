@@ -9,11 +9,7 @@ import HeaderMobile from './HeaderMobile'
 import Search from './Search'
 import SearchMobile from './SearchMobile'
 
-<<<<<<< HEAD
-function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, unreadStatus, setUnreadStatus, setMessageReceiverUser, setCards, status, setStatus, genre, setGenre, instrument, setInstrument, wantedInstrument, setWantedInstrument, location, setLocation, vacancy, setVacancy, setTriggerReadEffect }) {
-=======
-function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, unreadStatus, setUnreadStatus, setMessageReceiverUser, setCards, status, setStatus, genre, setGenre, instrument, setInstrument, location, setLocation, vacancy, setVacancy, setTriggerReadEffect, messages }) {
->>>>>>> b14c1a5ca1277be52e72d36cd8038e810c61944e
+function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, unreadStatus, setUnreadStatus, setMessageReceiverUser, setCards, status, setStatus, genre, setGenre, instrument, setInstrument, wantedInstrument, setWantedInstrument, location, setLocation, vacancy, setVacancy, setTriggerReadEffect, messages }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const [showSearch, setShowSearch] = useState(false)

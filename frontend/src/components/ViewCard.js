@@ -155,7 +155,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
                             <span>
                               Instruments:&nbsp;
                             </span>
-                            {card.wanted_instruments.map((inst, idx) => (
+                            {card.wantedinstruments.map((inst, idx) => (
                               <span
                                 key={`wanted-${inst}`}
                                 className='flex'

@@ -54,7 +54,7 @@ function App () {
   return (
     <Router>
       <div className='App'>
-        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} unreadStatus={unreadStatus} setUnreadStatus={setUnreadStatus} setMessageReceiverUser={setMessageReceiverUser} setCards={setCards} status={status} setStatus={setStatus} genre={genre} setGenre={setGenre} instrument={instrument} setInstrument={setInstrument} wantedInstrument={wantedInstrument} setWantedInstrument={setWantedInstrument} location={location} setLocation={setLocation} vacancy={vacancy} setVacancy={setVacancy} setTriggerReadEffect={setTriggerReadEffect} />
+        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} unreadStatus={unreadStatus} setUnreadStatus={setUnreadStatus} setMessageReceiverUser={setMessageReceiverUser} setCards={setCards} status={status} setStatus={setStatus} genre={genre} setGenre={setGenre} instrument={instrument} setInstrument={setInstrument} wantedInstrument={wantedInstrument} setWantedInstrument={setWantedInstrument} location={location} setLocation={setLocation} vacancy={vacancy} setVacancy={setVacancy} setTriggerReadEffect={setTriggerReadEffect} messages={messages} />
         <main>
           <Switch>
             <Route path='/registration'>
