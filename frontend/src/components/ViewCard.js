@@ -97,8 +97,13 @@ const ViewCard = ({ token, isLoggedIn }) => {
               <dt className='text-sm font-medium text-gray-500'>
                 Location
               </dt>
-              <dd className='mt-1 text-sm text-gray-900'>
-                {card.location}
+              <dd className='mt-1 text-sm text-gray-900 flex'>
+                <span>
+                  {card.location},&nbsp;
+                </span>
+                <span>
+                  {card.state}
+                </span>
               </dd>
             </div>
 
@@ -116,6 +121,16 @@ const ViewCard = ({ token, isLoggedIn }) => {
                 >{card.website}
                 </a>
               </dd>
+            </div>
+
+            <div className='sm:col-span-1'>
+              <iframe
+                src={card.spotify}
+                height='380'
+                frameBorder='0'
+                allowtransparency='true'
+                allow='encrypted-media'
+              />
             </div>
 
             <div className='sm:col-span-2'>
