@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Transition } from '@headlessui/react'
 import { Link } from 'react-router-dom'
 import { deleteMessage, updateMessage, getMessages } from '../../api'
+import { dateStamp, formatDate } from '../helperFunctions'
 import MessageSentAlert from '../alerts/MessageSentAlert'
 import ReplyEditor from './ReplyEditor'
 import NewMessageEditor from './NewMessageEditor'
@@ -31,6 +32,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
     })
   }, [])
 
+  console.log('messages', messages)
   // console.log('messages', messages.map(message => message))
   // console.log('messageToRender', messageToRender)
   // console.log('content', content)
@@ -122,7 +124,10 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
                 </div>
               </h3>
               <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-                <time dateTime='2021-01-28T19:24'>{message.created_at}</time>
+                <time dateTime='2021-01-28T19:24'>
+                  {formatDate(message.created_at)}
+                  {/* {message.created_at} */}
+                </time>
               </p>
             </div>
             <div className='sm:flex sm:justify-between sm:items-baseline mt-4'>

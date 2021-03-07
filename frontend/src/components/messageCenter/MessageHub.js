@@ -7,7 +7,7 @@ import MenuButtonArea from './MenuButtonArea'
 import DesktopNavArea from './DesktopNavArea'
 import MobileMessageMenu from './MobileMessageMenu'
 import NarrowSidebar from './NarrowSidebar'
-// import MainToolLeftBtns from './MainToolLeftBtns'
+import MainToolLeftBtns from './MainToolLeftBtns'
 // import MainToolRightBtns from './MainToolRightBtns'
 // import MessageHeader from './MessageHeader'
 import ThreadSection from './ThreadSection'
@@ -15,11 +15,7 @@ import MessageList from './MessageList'
 
 const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnreadStatus, unreadStatus, setMessageReceiverUser, triggerReadEffect, setTriggerReadEffect, setMessages, messages }) => {
   const [showOffCanvasMenu, setShowOffCanvasMenu] = useState(false)
-<<<<<<< HEAD
-  //   const [showReplyMessage, setShowReplyMessage] = useState(false)
-=======
-  const [messages, setMessages] = useState([])
->>>>>>> 034b275acd1b81ed5bcfc9ab803ec01e88737393
+  // const [messages, setMessages] = useState([])
   //   console.log('messageId', messageId)
   //   console.log('messages', messages)
   //   console.log('triggerUseEffect', triggerUseEffect)
