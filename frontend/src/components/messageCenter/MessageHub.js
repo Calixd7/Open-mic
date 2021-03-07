@@ -69,7 +69,7 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnrea
                   <div className='px-4 sm:px-6 lg:px-8'>
                     <div className='py-3 flex justify-between'>
                       {/* <!-- Left buttons --> */}
-                      {/* <MainToolLeftBtns /> */}
+                      {/* <MainToolLeftBtns messages={messages} setMessages={setMessages} /> */}
 
                       {/* <!-- Right buttons --> */}
                       {/* <MainToolRightBtns /> */}
