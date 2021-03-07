@@ -1,24 +1,23 @@
-import { useState } from 'react'
 import { searchProfiles } from '../api'
 import { GENRES, INSTRUMENTS, LOCATION } from './helperLists'
 
-const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setGenre, instrument, setInstrument, location, setLocation, vacancy, setVacancy }) => {
+const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setGenre, instrument, setInstrument, wantedInstrument, setWantedInstrument, location, setLocation, vacancy, setVacancy }) => {
   const pendingSearch = [
     status,
     genre,
-    instrument,
     location
   ]
 
   function handleSearch (e) {
     e.preventDefault()
-    searchProfiles(token, pendingSearch, vacancy)
+    searchProfiles(token, pendingSearch, vacancy, instrument, wantedInstrument)
       .then(cards => setCards(cards))
   }
 
   console.log('status', status)
   console.log('vacancy', vacancy)
   console.log('genre', genre)
+  console.log('instrument', instrument)
   // console.log('genreCheckbox', genreCheckbox)
 
   return (

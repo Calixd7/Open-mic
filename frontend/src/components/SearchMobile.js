@@ -2,7 +2,7 @@ import { Transition } from '@headlessui/react'
 import { searchProfiles } from '../api'
 import { GENRES, INSTRUMENTS, LOCATION } from './helperLists'
 
-function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, setStatus, genre, setGenre, instrument, setInstrument, location, setLocation, vacancy, setVacancy }) {
+function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, setStatus, genre, setGenre, instrument, setInstrument, wantedInstrument, setWantedInstrument, location, setLocation, vacancy, setVacancy }) {
   const pendingSearch = [
     status,
     genre,
