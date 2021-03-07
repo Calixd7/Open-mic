@@ -200,3 +200,25 @@ export function searchProfiles (token, pendingSearch, vacancy) {
   })
     .then(res => res.data)
 }
+
+export function addFollower (token, user) {
+  return apiUrl.post('api/connections/', {
+    following_user: user
+  }, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
+}
+
+export function deleteFollower (token, id) {
+  return apiUrl.post('api/connections/', {
+    id: id
+  }, {
+    headers: {
+      Authorization: `Token ${token}`
+    }
+  })
+    .then(res => res.data)
+}

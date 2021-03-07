@@ -1,13 +1,13 @@
-import { Link, useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { useState } from 'react'
 import Info from './Info'
-import Follow from './Follow'
+import FollowBtn from './FollowBtn'
 import MessageBtn from './MessageBtn'
 import ViewCard from '../ViewCard'
 import logo from '../images/logorough.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Card ({ cards, setMessageReceiverUser }) {
+function Card ({ token, cards, setCards, setMessageReceiverUser, connections, setConnections }) {
   const history = useHistory()
   const [follow, setFollow] = useState(false)
   // console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
@@ -21,6 +21,17 @@ function Card ({ cards, setMessageReceiverUser }) {
       return card.individualorband
     }
   }
+  console.log('cards', cards)
+  // const identifyConnections = () => {
+  //   const connectionCards = []
+  //   cards.map(card => {
+  //     if (card.user.includes(connections)) {
+  //       connectionCards.push(card)
+  //     }
+  //     console.log('connectionCards', connectionCards)
+  //   })
+  // }
+  // identifyConnections()
 
   return (
     <div className='px-4'>
@@ -32,16 +43,7 @@ function Card ({ cards, setMessageReceiverUser }) {
           <li key={`card-${card.pk}`} className={`${card.individualorband === 'Band' ? 'bg-gray-700' : 'bg-gray-700'} col-span-1 flex flex-col text-center rounded-lg shadow divide-y divide-indigo-200 ${card.vacancy === true ? 'border-8 border-solid border-yellow-200' : 'border-none'}`}>
 
             <div className='flex justify-between items-center'>
-              <div className='flex-shrink-0 flex-items-center'>
-
-                <img
-                  className='block h-8 w-auto ml-2 my-2 rounded-md opacity-80'
-                  src={logo} alt='logo'
-                />
-              </div>
-              {card.vacancy === true &&
-                <p className='text-white font-bold text-yellow-200 text-sm mr-2'>Looking for instruments</p>}
-
+              <h3 className='ml-4 my-2 text-indigo-300 text-md font-medium'>{card.name}</h3>
             </div>
 
             <div className='flex-1 flex flex-col p-8'>
@@ -56,18 +58,30 @@ function Card ({ cards, setMessageReceiverUser }) {
                     icon={['far', 'user']}
                     className='text-red-300 hover:text-red-500 text-7xl h-full w-auto'
                   />
-                </span>}
+                  </span>}
+              <span className='flex flex-col flex-1 justify-evenly'>
+                <h3 className={`${card.user === 'adminsupport' ? 'text-red-400 font-bold mt-4 mb-2' : 'mt-4 mb-2 text-white text-md font-normal'}`}>{properStatus(card)}</h3>
+                {card.vacancy === true
+                  ? <dl className='text-white font-bold text-yellow-200 text-sm mr-2 my-2'>Looking for
+                    {card.wanted_instruments.map((wantedInst, idx) => (
+                      <span key={`wanted-${wantedInst}-${idx}`}>{`${idx ? ', ' : ''} ${wantedInst}`}</span>
+                    ))}
+                  </dl>
+                  : <dl className='text-white text-white text-sm mr-2 my-2'><strong>Instruments:</strong>
+                    {card.instruments.map((inst, idx) => (
+                      <span key={`${inst}-${idx}`}>{`${idx ? ', ' : ''} ${inst}`}</span>
+                    ))}
+                  </dl>}
+                {/* <dl className='my-2 flex-grow flex flex-col justify-between text-white'>{card.name}</dl> */}
+                <dt className='sr-only'>card Name</dt>
+                <dd className='text-white text-sm my-2'> <strong>Genres:</strong>
+                  {card.genres.map((genre, idx) => (
+                    <span key={`${genre}-${idx}`}>{`${idx ? ', ' : ''} ${genre}`}</span>
+                  ))}
+                </dd>
 
-              <h3 className={`${card.user === 'adminsupport' ? 'text-red-400 font-bold' : 'mt-6 text-white text-sm font-medium'}`}>{properStatus(card)}</h3>
-              <dl className='my-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
-              <dt className='sr-only'>card Name</dt>
-              <dd className='text-white text-sm'> <strong>Genres:</strong>
-                {card.genres.map((genre, idx) => (
-                  <span key={`${genre}-${idx}`}>{`${idx ? ', ' : ''} ${genre}`}</span>
-                ))}
-              </dd>
-
-              <dd className='text-white text-sm'>Location: {card.location}</dd>
+                <dd className='text-white text-sm my-2'><strong>Location:</strong> {card.location}</dd>
+              </span>
             </div>
             <div>
               <div className='mt=px flex divide-x divide-gray-200'>
@@ -91,19 +105,8 @@ function Card ({ cards, setMessageReceiverUser }) {
                       </button>
 
                       <div className='relative z-0 inline-flex shadow-sm rounded-md'>
-                        <Follow follow={follow} setFollow={setFollow} />
-                        <button
-                          type='button'
-                          className='justify-center inline-flex flex-1 items-center px-2 py-1 ml-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 hover:text-white bg-indigo-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                          onClick={() => { history.push('/message'); setMessageReceiverUser(card.user) }}
-                        >
-                          <span>
-                            <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
-                              <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z' />
-                            </svg>
-                          </span>
-                          Message
-                        </button>
+                        <FollowBtn token={token} follow={follow} setFollow={setFollow} connections={connections} setConnections={setConnections} card={card} setCards={setCards} />
+                        <MessageBtn card={card} setMessageReceiverUser={setMessageReceiverUser} />
                       </div>
                     </span>
                   </div>

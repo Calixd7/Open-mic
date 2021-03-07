@@ -12,7 +12,7 @@ import Explore from './components/Explore'
 import { useState } from 'react'
 import ViewProfile from './components/ViewProfile'
 import ViewCard from './components/ViewCard'
-import Friends from './components/Friends'
+import Following from './components/Following'
 import MessageHub from './components/messageCenter/MessageHub'
 
 library.add(far, faTimes, faUser)
@@ -66,7 +66,7 @@ function App () {
               <ProfileSetup token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} />
             </Route>
             <Route path='/friends'>
-              <Friends token={token} isLoggedIn={isLoggedIn} username={username} />
+              <Following token={token} isLoggedIn={isLoggedIn} username={username} />
             </Route>
             <Route path='/explore'>
               <Explore setMessageReceiverUser={setMessageReceiverUser} token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} username={username} setAvatar={setAvatar} cards={cards} setCards={setCards} setTriggerReadEffect={setTriggerReadEffect} />

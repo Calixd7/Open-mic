@@ -14,6 +14,27 @@ import WantedInfo from './profileComponents/WantedInfo'
 import { useParams, useHistory } from 'react-router-dom'
 import { postProfiles, deleteProfile, updateProfile, uploadImage } from '../api'
 import Delete from './Delete'
+import Spotify from './Spotify'
+
+
+const changeWebsiteUrl = (site) => {
+  const http = 'http://'
+  if (site === '') {
+    return ''
+  } else if (site.includes('http://')) {
+    return site
+  } else { return http.concat(site) }
+}
+
+const changeSpotifyUrl = (spotify) => {
+  const https = 'https://'
+  if (spotify === '') {
+    return ''
+  } else if (spotify.includes('https://')) {
+    return spotify
+  } else { return https.concat(spotify) }
+}
+
 
 const statusForApi = (status) => {
   if (status === 'Solo Artist') {
@@ -66,6 +87,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
   const [status, setStatus] = useState(safeProfile.individualorband || 'Solo Artist')
   const [wantedInstruments, setWantedInstruments] = useState(safeProfile.wanted_instruments || [])
   const [wantedInfo, setWantedInfo] = useState(safeProfile.wanted_info || '')
+  const [spotify, setSpotify] = useState(safeProfile.spotify || '')
   const pendingProfile = {
     pk: safeProfile.pk,
     bio: bio,
@@ -73,14 +95,14 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
     instruments: instrumentsForApi(instruments),
     state: state,
     email: email,
-    website: site,
+    website: changeWebsiteUrl(site),
     genres: genreForApi(genres),
     location: location,
     vacancy: vacancy,
     individualorband: statusForApi(status),
     wanted_instruments: wantedIntForAPI(vacancy, wantedInstruments),
-    wanted_info: wantedInfo
-
+    wanted_info: wantedInfo,
+    spotify: changeSpotifyUrl(spotify)
   }
 
   console.log('location', location)
@@ -91,6 +113,12 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
   // console.log('token in ProfileSetup', token)
   // console.log('vacancy', vacancy)
   // console.log('safeProfile.pk', safeProfile.pk)
+
+  console.log('instruments', instruments)
+  console.log('genres', genres)
+  console.log('genreForApi(genres)', genreForApi(genres))
+  console.log('spotify', spotify)
+
 
   function handleSubmit (event, token) {
     event.preventDefault()
@@ -169,6 +197,10 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
 
               <div className='mt-4'>
                 <Site site={site} setSite={setSite} />
+              </div>
+
+              <div className='mt-4'>
+                <Spotify spotify={spotify} setSpotify={setSpotify} />
               </div>
 
               <div className='mt-4 h-60'>

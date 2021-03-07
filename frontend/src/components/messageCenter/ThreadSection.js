@@ -20,7 +20,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
     messages.forEach(message => {
       if (message.read === false) {
         unread.push(message)
-        console.log('unread', unread.length)
+        // console.log('unread', unread.length)
       }
       if (unread.length > 0) {
         setUnreadStatus(unread.length)
@@ -31,9 +31,9 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
     })
   }, [])
 
-  console.log('messages', messages.map(message => message))
-  console.log('messageToRender', messageToRender)
-  console.log('content', content)
+  // console.log('messages', messages.map(message => message))
+  // console.log('messageToRender', messageToRender)
+  // console.log('content', content)
   // console.log('messageReceiverUser', messageReceiverUser)
 
   if (!messages) {
