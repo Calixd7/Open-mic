@@ -83,7 +83,7 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
               className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
               onChange={(e) => setInstrument(e.currentTarget.value)}
             >
-              <option value=''>any</option>
+              <option value='null'>any</option>
               {INSTRUMENTS.map((instrument, idx) => (
                 <option key={`${instrument}-${idx}`} value={instrument}>{instrument}</option>
               ))}
