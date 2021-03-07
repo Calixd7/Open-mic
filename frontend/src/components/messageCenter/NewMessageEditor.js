@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { sendMessage, getMessages } from '../../api'
 
-const NewMessageEditor = ({ token, username, messageReceiverUser, setMessageReceiverUser, setShowAlert, setMessages }) => {
+const NewMessageEditor = ({ token, username, messageReceiverUser, setMessageReceiverUser, messageReceiverName, setShowAlert, setMessages }) => {
   const [newMessageContent, setNewMessageContent] = useState('')
   const [newMessageSubject, setNewMessageSubject] = useState('')
 
@@ -38,7 +38,7 @@ const NewMessageEditor = ({ token, username, messageReceiverUser, setMessageRece
                 htmlFor='about'
                 className='form-label'
               >
-                Message to: {messageReceiverUser}
+                Message to: {messageReceiverName}
               </label>
               <div>
                 <label
