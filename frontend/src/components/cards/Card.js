@@ -43,16 +43,7 @@ function Card ({ token, cards, setCards, setMessageReceiverUser, connections, se
           <li key={`card-${card.pk}`} className={`${card.individualorband === 'Band' ? 'bg-gray-700' : 'bg-gray-700'} col-span-1 flex flex-col text-center rounded-lg shadow divide-y divide-indigo-200 ${card.vacancy === true ? 'border-8 border-solid border-yellow-200' : 'border-none'}`}>
 
             <div className='flex justify-between items-center'>
-              <div className='flex-shrink-0 flex-items-center'>
-
-                <img
-                  className='block h-8 w-auto ml-2 my-2 rounded-md opacity-80'
-                  src={logo} alt='logo'
-                />
-              </div>
-              {card.vacancy === true &&
-                <p className='text-white font-bold text-yellow-200 text-sm mr-2'>Looking for instruments</p>}
-
+              <h3 className='ml-4 my-2 text-indigo-300 text-md font-medium'>{card.name}</h3>
             </div>
 
             <div className='flex-1 flex flex-col p-8'>
@@ -67,18 +58,30 @@ function Card ({ token, cards, setCards, setMessageReceiverUser, connections, se
                     icon={['far', 'user']}
                     className='text-red-300 hover:text-red-500 text-7xl h-full w-auto'
                   />
-                </span>}
+                  </span>}
+              <span className='flex flex-col flex-1 justify-evenly'>
+                <h3 className={`${card.user === 'adminsupport' ? 'text-red-400 font-bold mt-4 mb-2' : 'mt-4 mb-2 text-white text-md font-normal'}`}>{properStatus(card)}</h3>
+                {card.vacancy === true
+                  ? <dl className='text-white font-bold text-yellow-200 text-sm mr-2 my-2'>Looking for
+                    {card.wanted_instruments.map((wantedInst, idx) => (
+                      <span key={`wanted-${wantedInst}-${idx}`}>{`${idx ? ', ' : ''} ${wantedInst}`}</span>
+                    ))}
+                  </dl>
+                  : <dl className='text-white text-white text-sm mr-2 my-2'><strong>Instruments:</strong>
+                    {card.instruments.map((inst, idx) => (
+                      <span key={`${inst}-${idx}`}>{`${idx ? ', ' : ''} ${inst}`}</span>
+                    ))}
+                  </dl>}
+                {/* <dl className='my-2 flex-grow flex flex-col justify-between text-white'>{card.name}</dl> */}
+                <dt className='sr-only'>card Name</dt>
+                <dd className='text-white text-sm my-2'> <strong>Genres:</strong>
+                  {card.genres.map((genre, idx) => (
+                    <span key={`${genre}-${idx}`}>{`${idx ? ', ' : ''} ${genre}`}</span>
+                  ))}
+                </dd>
 
-              <h3 className={`${card.user === 'adminsupport' ? 'text-red-400 font-bold' : 'mt-6 text-white text-sm font-medium'}`}>{properStatus(card)}</h3>
-              <dl className='my-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
-              <dt className='sr-only'>card Name</dt>
-              <dd className='text-white text-sm'> <strong>Genres:</strong>
-                {card.genres.map((genre, idx) => (
-                  <span key={`${genre}-${idx}`}>{`${idx ? ', ' : ''} ${genre}`}</span>
-                ))}
-              </dd>
-
-              <dd className='text-white text-sm'>Location: {card.location}</dd>
+                <dd className='text-white text-sm my-2'><strong>Location:</strong> {card.location}</dd>
+              </span>
             </div>
             <div>
               <div className='mt=px flex divide-x divide-gray-200'>
