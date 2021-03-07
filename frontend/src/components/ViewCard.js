@@ -133,16 +133,6 @@ const ViewCard = ({ token, isLoggedIn }) => {
               />
             </div>
 
-            <div className='sm:col-span-1'>
-              <iframe
-                src={card.spotify}
-                height='380'
-                frameBorder='0'
-                allowtransparency='true'
-                allow='encrypted-media'
-              />
-            </div>
-
             <div className='sm:col-span-2'>
               <dt className='text-sm font-medium text-gray-500'>
                 Bio
