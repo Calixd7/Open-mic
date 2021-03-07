@@ -7,7 +7,7 @@ import ViewCard from '../ViewCard'
 import logo from '../images/logorough.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Card ({ cards, setMessageReceiverUser, connections }) {
+function Card ({ token, cards, setCards, setMessageReceiverUser, connections, setConnections }) {
   const history = useHistory()
   const [follow, setFollow] = useState(false)
   // console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
@@ -67,7 +67,7 @@ function Card ({ cards, setMessageReceiverUser, connections }) {
                     icon={['far', 'user']}
                     className='text-red-300 hover:text-red-500 text-7xl h-full w-auto'
                   />
-                  </span>}
+                </span>}
 
               <h3 className={`${card.user === 'adminsupport' ? 'text-red-400 font-bold' : 'mt-6 text-white text-sm font-medium'}`}>{properStatus(card)}</h3>
               <dl className='my-1 flex-grow flex flex-col justify-between text-white'>{card.name}</dl>
@@ -102,7 +102,7 @@ function Card ({ cards, setMessageReceiverUser, connections }) {
                       </button>
 
                       <div className='relative z-0 inline-flex shadow-sm rounded-md'>
-                        <FollowBtn follow={follow} setFollow={setFollow} connections={connections} card={card} />
+                        <FollowBtn token={token} follow={follow} setFollow={setFollow} connections={connections} setConnections={setConnections} card={card} setCards={setCards} />
                         <MessageBtn card={card} setMessageReceiverUser={setMessageReceiverUser} />
                       </div>
                     </span>
