@@ -23,7 +23,6 @@ function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUs
         }
       })
       )
-    setTriggerReadEffect('trigger')
   }, [token])
 
   useEffect(() => {
@@ -32,6 +31,8 @@ function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUs
     })
   }, [])
 
+  console.log('connections', connections)
+
   if (!isLoggedIn) {
     return <Redirect to='/' />
   }
@@ -39,7 +40,7 @@ function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUs
   return (
     <div>
       <div className='mt-4'>
-        <Card setMessageReceiverUser={setMessageReceiverUser} cards={cards} />
+        <Card token={token} setMessageReceiverUser={setMessageReceiverUser} cards={cards} setCards={setCards} connections={connections} setConnections={setConnections} />
       </div>
     </div>
 

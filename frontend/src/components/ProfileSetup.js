@@ -16,6 +16,7 @@ import { postProfiles, deleteProfile, updateProfile, uploadImage } from '../api'
 import Delete from './Delete'
 import Spotify from './Spotify'
 
+
 const changeWebsiteUrl = (site) => {
   const http = 'http://'
   if (site === '') {
@@ -33,6 +34,7 @@ const changeSpotifyUrl = (spotify) => {
     return spotify
   } else { return https.concat(spotify) }
 }
+
 
 const statusForApi = (status) => {
   if (status === 'Solo Artist') {
@@ -101,7 +103,6 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
     wanted_instruments: wantedIntForAPI(vacancy, wantedInstruments),
     wanted_info: wantedInfo,
     spotify: changeSpotifyUrl(spotify)
-
   }
 
   console.log('location', location)
@@ -112,9 +113,12 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
   // console.log('token in ProfileSetup', token)
   // console.log('vacancy', vacancy)
   // console.log('safeProfile.pk', safeProfile.pk)
+
   console.log('instruments', instruments)
   console.log('genres', genres)
   console.log('genreForApi(genres)', genreForApi(genres))
+  console.log('spotify', spotify)
+
 
   function handleSubmit (event, token) {
     event.preventDefault()
