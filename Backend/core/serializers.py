@@ -58,7 +58,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(read_only=True, slug_field='username')
     genres = serializers.SlugRelatedField(many=True,queryset=Genre.objects.all() ,slug_field='name')
     instruments = serializers.SlugRelatedField(many=True,queryset= Instrument.objects.all() ,slug_field='name')
-    wanted_instruments = serializers.SlugRelatedField(many=True, queryset=WantedInstruments.objects.all(), slug_field='name')
+    wantedinstruments = serializers.SlugRelatedField(many=True, queryset=WantedInstruments.objects.all(), slug_field='name')
  
     class Meta:
         model = UserProfile
