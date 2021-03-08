@@ -193,7 +193,7 @@ export function getConnections (token) {
 }
 
 export function searchProfiles (token, pendingSearch, vacancy, instrument, wantedInstrument) {
-  return apiUrl.get(`api/userprofiles/?search=${pendingSearch}&vacancy=${vacancy}&instrument=${instrument}&wantedinstrument=null`, {
+  return apiUrl.get(`api/userprofiles/?search=${pendingSearch}&vacancy=${vacancy}&instruments__name=${instrument}&wantedinstruments__name=${wantedInstrument}`, {
     headers: {
       Authorization: `Token ${token}`
     }

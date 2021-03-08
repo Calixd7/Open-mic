@@ -83,7 +83,7 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
               className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
               onChange={(e) => setInstrument(e.currentTarget.value)}
             >
-              <option value='null'>any</option>
+              <option value=''>any</option>
               {INSTRUMENTS.map((instrument, idx) => (
                 <option key={`${instrument}-${idx}`} value={instrument}>{instrument}</option>
               ))}
@@ -99,11 +99,28 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
               className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
               onChange={(e) => setVacancy(e.currentTarget.value)}
             >
-              <option value='null'>n/a</option>
+              <option value=''>n/a</option>
               <option value='false'>Not looking</option>
               <option value='true'>Looking</option>
             </select>
           </span>
+
+          <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
+            <label htmlFor='instrument' className='block text-sm text-center font-medium text-white'>Wanted Instrument</label>
+            <select
+              id='instrument'
+              name='instrument'
+              className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+              onChange={(e) => setWantedInstrument(e.currentTarget.value)}
+            >
+              <option value=''>any</option>
+              {INSTRUMENTS.map((wantedInstrument, idx) => (
+                <option key={`${wantedInstrument}-${idx}`} value={wantedInstrument}>{wantedInstrument}</option>
+              ))}
+
+            </select>
+          </span>
+
           <div className=' flex flex-col'>
             <button
               type='submit'
