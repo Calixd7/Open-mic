@@ -12,8 +12,8 @@ import Explore from './components/Explore'
 import { useState } from 'react'
 import ViewProfile from './components/ViewProfile'
 import ViewCard from './components/ViewCard'
-import Message from './components/Message'
-import Friends from './components/Friends'
+import Following from './components/Following'
+import MessageHub from './components/messageCenter/MessageHub'
 
 library.add(far, faTimes, faUser)
 
@@ -27,9 +27,20 @@ function App () {
   const isLoggedIn = (username && token)
   const [isImage, setIsImage] = useState(false)
   const [messageReceiverUser, setMessageReceiverUser] = useState('')
+  const [messageReceiverName, setMessageReceiverName] = useState('')
   const [avatar, setAvatar] = useState('')
+  const [unreadStatus, setUnreadStatus] = useState(0)
+  const [cards, setCards] = useState([])
+  const [status, setStatus] = useState('')
+  const [genre, setGenre] = useState('')
+  const [instrument, setInstrument] = useState('')
+  const [location, setLocation] = useState('')
+  const [vacancy, setVacancy] = useState(null)
+  const [triggerReadEffect, setTriggerReadEffect] = useState()
+  const [messages, setMessages] = useState([])
 
-  // console.log('pk', pk)
+  console.log('messageReceiverUser from APP', messageReceiverUser)
+  console.log('triggerReadEffect', triggerReadEffect)
 
   function setAuth (username, token) {
     setUsername(username)
@@ -43,7 +54,7 @@ function App () {
   return (
     <Router>
       <div className='App'>
-        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} />
+        <Header username={username} token={token} setToken={setToken} isLoggedIn={isLoggedIn} isImage={isImage} pk={pk} setIsImage={setIsImage} avatar={avatar} setAvatar={setAvatar} unreadStatus={unreadStatus} setUnreadStatus={setUnreadStatus} setMessageReceiverUser={setMessageReceiverUser} setCards={setCards} status={status} setStatus={setStatus} genre={genre} setGenre={setGenre} instrument={instrument} setInstrument={setInstrument} location={location} setLocation={setLocation} vacancy={vacancy} setVacancy={setVacancy} setTriggerReadEffect={setTriggerReadEffect} messages={messages} />
         <main>
           <Switch>
             <Route path='/registration'>
@@ -56,10 +67,10 @@ function App () {
               <ProfileSetup token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} />
             </Route>
             <Route path='/friends'>
-              <Friends token={token} isLoggedIn={isLoggedIn} username={username} />
+              <Following token={token} isLoggedIn={isLoggedIn} username={username} />
             </Route>
             <Route path='/explore'>
-              <Explore setMessageReceiverUser={setMessageReceiverUser} token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} username={username} setAvatar={setAvatar} />
+              <Explore setMessageReceiverUser={setMessageReceiverUser} setMessageReceiverName={setMessageReceiverName} token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} username={username} setAvatar={setAvatar} cards={cards} setCards={setCards} setTriggerReadEffect={setTriggerReadEffect} />
             </Route>
             <Route path='/view-profile'>
               <ViewProfile token={token} isLoggedIn={isLoggedIn} />
@@ -68,7 +79,7 @@ function App () {
               <ViewCard token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/message'>
-              <Message messageReceiverUser={messageReceiverUser} username={username} token={token} isLoggedIn={isLoggedIn} />
+              <MessageHub messageReceiverUser={messageReceiverUser} messageReceiverName={messageReceiverName} username={username} token={token} isLoggedIn={isLoggedIn} setUnreadStatus={setUnreadStatus} unreadStatus={unreadStatus} setMessageReceiverUser={setMessageReceiverUser} triggerReadEffect={triggerReadEffect} setTriggerReadEffect={setTriggerReadEffect} messages={messages} setMessages={setMessages} />
             </Route>
             <Route path='/'>
               <Welcome isLoggedIn={isLoggedIn} />

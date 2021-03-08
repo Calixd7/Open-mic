@@ -100,7 +100,7 @@ const ViewProfile = ({ token }) => {
               <p className=''>The instruments you are looking for. . .</p>
               <div className='bg-white shadow overflow-hidden sm:rounded-md'>
                 <ul className='divide-y divide-gray-200'>
-                  {profile.wanted_instruments.map(instrument => (
+                  {profile.wantedinstruments.map(instrument => (
                     <li key={`wanted-${instrument}`} className='px-4 py-4 sm:px-6'>
                       {instrument}
                     </li>

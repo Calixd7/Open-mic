@@ -1,16 +1,11 @@
 import { useState, useEffect } from 'react'
 import Card from './cards/Card'
 import { getProfiles, getUserProfile, getConnections } from '../api'
-import Search from './Search'
 import { Redirect } from 'react-router-dom'
 
-function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUser, isLoggedIn }) {
-  const [cards, setCards] = useState([])
-  const [profile, setProfile] = useState('')
-  // const [userPk, setUserPk] = useState(null)
+function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUser, setMessageReceiverName, isLoggedIn, cards, setCards }) {
   const [connections, setConnections] = useState([])
 
-  // console.log('profile', profile)
   // console.log('cards', cards)
   // console.log('token', token)
   // console.log('userPk', userPk)
@@ -33,8 +28,11 @@ function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUs
   useEffect(() => {
     getConnections(token).then(connections => {
       setConnections(connections.following.map(following => following.following_user))
+      console.log('connections.following.map(following => following)', connections.following.map(following => following.id))
     })
   }, [])
+
+  console.log('connections', connections)
 
   if (!isLoggedIn) {
     return <Redirect to='/' />
@@ -42,12 +40,8 @@ function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUs
 
   return (
     <div>
-      <div>
-        <Search setCards={setCards} token={token} setProfile={setProfile} profile={profile} />
-      </div>
-      <div />
-      <div>
-        <Card setMessageReceiverUser={setMessageReceiverUser} cards={cards} profile={profile} />
+      <div className='mt-4'>
+        <Card token={token} setMessageReceiverUser={setMessageReceiverUser} setMessageReceiverName={setMessageReceiverName} cards={cards} setCards={setCards} connections={connections} setConnections={setConnections} />
       </div>
     </div>
 

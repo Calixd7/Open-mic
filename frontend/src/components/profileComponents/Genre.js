@@ -3,32 +3,8 @@ import { useState } from 'react'
 import { Transition } from '@headlessui/react'
 import { GENRES } from '../helperLists'
 
-// const GENRES = [
-//   'Soul',
-//   'Hip Hop',
-//   'Reggae',
-//   'Funk',
-//   'Rap',
-//   'Punk',
-//   'Rock',
-//   'Heavy Metal',
-//   'Pop',
-//   'Country',
-//   'Jazz',
-//   'Blues',
-//   'Folk',
-//   'Electronic',
-//   'Classical',
-//   'Alternative Rock',
-//   'Instrumental',
-//   'Techno'
-// ]
-
 const Genre = ({ genres, setGenres, status }) => {
   const [showGenres, setShowGenres] = useState(false)
-  const [mouseEnter, setMouseEnter] = useState(false)
-
-  // const length = instruments.length
 
   const removeGenre = (event, idx) => {
     const newGenres = [
@@ -80,12 +56,10 @@ const Genre = ({ genres, setGenres, status }) => {
               <ul tabIndex='-1' role='listbox' aria-labelledby='listbox-label' aria-activedescendant='listbox-item-3' className='max-h-40 rounded-md py-1 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm'>
                 {GENRES.map((genre, idx) => (
                   <li
-                    key={`genre-${genre}`}
+                    key={`genre-${idx}`}
                     id={`genre-${genre}`}
-                  // role='option'
-                    onMouseEnter={() => setMouseEnter(true)}
-                    onMouseLeave={() => setMouseEnter(false)}
-                    className={`${mouseEnter ? 'text-white bg-indigo-600' : 'text-gray-900'} cursor-default select-none relative py-2 pl-3 pr-9`}
+                    data-idx={idx}
+                    className='hover:text-white hover:bg-indigo-600 text-gray-900 cursor-default select-none relative py-2 pl-3 pr-9'
                     onClick={(e) => handleGenreChange(e, genre)}
                   >
                     {/* <!-- Selected: "font-semibold", Not Selected: "font-normal" --> */}

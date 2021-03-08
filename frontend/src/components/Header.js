@@ -3,13 +3,38 @@ import { Transition } from '@headlessui/react'
 import { useEffect, useState } from 'react'
 import logo from './images/logorough.jpg'
 import { getUserProfile } from '../api'
+import { updateReadMessageStatus } from './helperFunctions'
 import Avatar from './Avatar'
 import HeaderMobile from './HeaderMobile'
+import Search from './Search'
+import SearchMobile from './SearchMobile'
 
-function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar }) {
+function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, unreadStatus, setUnreadStatus, setMessageReceiverUser, setCards, status, setStatus, genre, setGenre, instrument, setInstrument, location, setLocation, vacancy, setVacancy, setTriggerReadEffect, messages }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
+  const [showSearch, setShowSearch] = useState(false)
+  // const [showOverlay, setShowOverlay] = useState(false)
   const history = useHistory()
+
+  console.log('unreadStatus HEADER', unreadStatus)
+
+  const updateReadStatus = (messages) => {
+    console.log('BEFORE unread header', unreadStatus)
+    const unread = []
+    messages.forEach(message => {
+      if (message.read === false) {
+        unread.push(message)
+        console.log('unread', unread.length)
+      }
+      if (unread.length === 0) {
+        setUnreadStatus(0)
+      }
+      if (unread.length > 0) {
+        setUnreadStatus(unread.length)
+      }
+      console.log('After unread header', unreadStatus)
+    })
+  }
 
   return (
     <nav className='bg-gray-800'>
@@ -75,18 +100,33 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 <Link
                   to='/friends'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-                >Friends
+                >Following
                 </Link>
                 <Link
                   to='/message'
                   className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
-                >Messages
+                  onClick={() => {
+                    setMessageReceiverUser('')
+                    updateReadStatus(messages)
+                  }}
+                >
+                  {unreadStatus >= 1
+                    ? `Messages (${unreadStatus} unread)`
+                    : 'Messages'}
                 </Link>
               </div>
             </div>
           </div>
           {/* profile dropdown */}
-          <div className='ml-3 relative'>
+          <div className='ml-3 relative flex justify-between'>
+            <button
+              className='mr-8 text-white'
+              onClick={() => setShowSearch(true)}
+            >
+              <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-4 h-6 w-6'>
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' />
+              </svg>
+            </button>
             <div>
               <button
                 className='bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
@@ -108,7 +148,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
             >
 
               <div
-                className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5'
+                className='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 z-10'
                 role='menu'
                 aria-orientation='vertical'
                 aria-labelledby='user-menu'
@@ -127,7 +167,12 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                     <Link
                       to='/'
                       className='block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100'
-                      onClick={() => { setToken(null); setShowProfile(false); setAvatar(false) }}
+                      onClick={() => {
+                        setToken(null)
+                        setShowProfile(false)
+                        setAvatar(false)
+                        setUnreadStatus(0)
+                      }}
                     >
                       Sign Out
                     </Link>
@@ -147,12 +192,23 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
           </div>
         </div>
       </div>
+
+      {showSearch &&
+        <>
+          <div className='hidden lg:block'>
+            <Search token={token} setCards={setCards} setShowSearch={setShowSearch} status={status} setStatus={setStatus} genre={genre} setGenre={setGenre} instrument={instrument} setInstrument={setInstrument} location={location} setLocation={setLocation} vacancy={vacancy} setVacancy={setVacancy} />
+          </div>
+          <div className='lg:hidden'>
+            <SearchMobile token={token} setCards={setCards} showSearch={showSearch} setShowSearch={setShowSearch} status={status} setStatus={setStatus} genre={genre} setGenre={setGenre} instrument={instrument} setInstrument={setInstrument} location={location} setLocation={setLocation} vacancy={vacancy} setVacancy={setVacancy} />
+          </div>
+        </>}
+
       <div
-        className='sm:hidden'
+        className='md:hidden'
         id='mobile-menu'
       >
         {showMenu &&
-          <HeaderMobile />}
+          <HeaderMobile showSearch={showSearch} />}
       </div>
     </nav>
   )
