@@ -8,12 +8,12 @@ import Avatar from './Avatar'
 import HeaderMobile from './HeaderMobile'
 import Search from './Search'
 import SearchMobile from './SearchMobile'
+import UpdateUnreadMessageCount from './UpdateUnreadMessageCount'
 
 function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, unreadStatus, setUnreadStatus, setMessageReceiverUser, setCards, status, setStatus, genre, setGenre, instrument, setInstrument, wantedInstrument, setWantedInstrument, location, setLocation, vacancy, setVacancy, setTriggerReadEffect, messages }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
-  // const [showOverlay, setShowOverlay] = useState(false)
   const history = useHistory()
   const [highlightExplore, setHighlightExplore] = useState(false)
   const [highlightFollowing, setHighlightFollowing] = useState(false)
@@ -21,24 +21,6 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
   const [mobileDisplayPage, setMobileDisplayPage] = useState('')
 
   console.log('unreadStatus HEADER', unreadStatus)
-
-  const updateReadStatus = (messages) => {
-    console.log('BEFORE unread header', unreadStatus)
-    const unread = []
-    messages.forEach(message => {
-      if (message.read === false) {
-        unread.push(message)
-        console.log('unread', unread.length)
-      }
-      if (unread.length === 0) {
-        setUnreadStatus(0)
-      }
-      if (unread.length > 0) {
-        setUnreadStatus(unread.length)
-      }
-      console.log('After unread header', unreadStatus)
-    })
-  }
 
   return (
     <nav className='bg-gray-800'>
@@ -127,15 +109,12 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                   className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${highlightMessages && 'bg-red-700'}`}
                   onClick={() => {
                     setMessageReceiverUser('')
-                    updateReadStatus(messages)
                     setHighlightExplore(false)
                     setHighlightFollowing(false)
                     setHighlightMessages(true)
                   }}
                 >
-                  {unreadStatus >= 1
-                    ? `Messages (${unreadStatus} unread)`
-                    : 'Messages'}
+                  <UpdateUnreadMessageCount unreadStatus={unreadStatus} messages={messages} setUnreadStatus={setUnreadStatus} />
                 </Link>
               </div>
             </div>
@@ -149,10 +128,10 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
               {showSearch
                 ? <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-4 h-8 w-8'>
                   <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z' />
-                </svg>
+                  </svg>
                 : <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-4 h-6 w-6'>
                   <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' />
-                </svg>}
+                  </svg>}
 
             </button>
             <div>
@@ -200,6 +179,9 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                         setShowProfile(false)
                         setAvatar(false)
                         setUnreadStatus(0)
+                        setHighlightExplore(false)
+                        setHighlightFollowing(false)
+                        setHighlightMessages(false)
                       }}
                     >
                       Sign Out
