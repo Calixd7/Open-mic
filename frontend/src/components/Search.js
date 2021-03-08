@@ -2,16 +2,34 @@ import { searchProfiles } from '../api'
 import { GENRES, INSTRUMENTS, LOCATION } from './helperLists'
 
 const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setGenre, instrument, setInstrument, wantedInstrument, setWantedInstrument, location, setLocation, vacancy, setVacancy }) => {
+  // const vacancySetting = (selection) => {
+  //   console.log('selection', selection)
+
+  // }
+
   function handleSearch (e) {
     e.preventDefault()
-    searchProfiles(token, status, location, genre, vacancy, instrument, wantedInstrument)
+    let newWanted = ''
+    let newVacancy = null
+    if (wantedInstrument === 'any') {
+      newWanted = ''
+      newVacancy = true
+    } else if (wantedInstrument === '') {
+      newWanted = ''
+      newVacancy = null
+    } else {
+      newWanted = wantedInstrument
+      newVacancy = null
+    }
+    searchProfiles(token, status, location, genre, newVacancy, instrument, newWanted)
       .then(cards => setCards(cards))
   }
 
-  console.log('status')
+  // console.log('status')
   console.log('vacancy', vacancy)
-  console.log('genre', genre)
-  console.log('instrument', instrument)
+  console.log('wantedInstrument', wantedInstrument)
+  // console.log('genre', genre)
+  // console.log('instrument', instrument)
   // console.log('genreCheckbox', genreCheckbox)
 
   return (
@@ -107,7 +125,8 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
               className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
               onChange={(e) => setWantedInstrument(e.currentTarget.value)}
             >
-              <option value=''>any</option>
+              <option value=''>none</option>
+              <option value='any'>Any Instrument</option>
               {INSTRUMENTS.map((wantedInstrument, idx) => (
                 <option key={`${wantedInstrument}-${idx}`} value={wantedInstrument}>{wantedInstrument}</option>
               ))}
@@ -131,9 +150,9 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
               onClick={() => setShowSearch(false)}
             >
               <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
-                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z' />
+                <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15' />
               </svg>
-              <span>Close</span>
+              <span>Clear</span>
             </button>
           </div>
         </div>
