@@ -67,7 +67,7 @@ function App () {
             <Route path='/profile-setup'>
               <ProfileSetup token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} />
             </Route>
-            <Route path='/friends'>
+            <Route path='/following'>
               <Following token={token} isLoggedIn={isLoggedIn} username={username} />
             </Route>
             <Route path='/explore'>
