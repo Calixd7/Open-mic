@@ -60,7 +60,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
                       icon={['far', 'user']}
                       className='text-red-300 hover:text-red-500 text-7xl h-auto w-auto mx-auto'
                     />
-                    </span>}
+                  </span>}
               </span>
             </div>
             <div className='sm:col-span-1'>

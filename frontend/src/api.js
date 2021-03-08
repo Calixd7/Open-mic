@@ -213,9 +213,7 @@ export function addFollower (token, user) {
 }
 
 export function deleteFollower (token, id) {
-  return apiUrl.post('api/connections/', {
-    id: id
-  }, {
+  return apiUrl.delete(`api/connections/${id}`, {
     headers: {
       Authorization: `Token ${token}`
     }

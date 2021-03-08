@@ -12,6 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
             "name", 
             'first_name',
             'last_name',
+            "profile_complete",
             'email',
             'username',
             'password',
@@ -52,11 +53,12 @@ class SenderSerializer (serializers.ModelSerializer):
         model = User
         fields = ['username']
 
+
 class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(read_only=True, slug_field='username')
     genres = serializers.SlugRelatedField(many=True,queryset=Genre.objects.all() ,slug_field='name')
     instruments = serializers.SlugRelatedField(many=True,queryset= Instrument.objects.all() ,slug_field='name')
-    wanted_instruments = serializers.SlugRelatedField(many=True, queryset=WantedInstruments.objects.all(), slug_field='name')
+    wantedinstruments = serializers.SlugRelatedField(many=True, queryset=WantedInstruments.objects.all(), slug_field='name')
  
     class Meta:
         model = UserProfile
@@ -76,8 +78,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'years_active',
             'vacancy', 
             "individualorband",
-            "wanted_instruments",
-            "wanted_info"
+            "wantedinstruments",
+            "wanted_info",
+            "spotify"
         ]
 class MessagesSerializer(serializers.ModelSerializer):
     sender = SenderSerializer(read_only=True)
@@ -90,14 +93,17 @@ class MessagesSerializer(serializers.ModelSerializer):
             "id",
             "sender",
             "receiver", 
-            "sender_name",
+            "name",
             "receiver_name",
             "image",
             "subject",
             "content",
             'read',
             "created_at"
+            
         ]
+
+    
 
 
 class FollowingSerializer(serializers.ModelSerializer):

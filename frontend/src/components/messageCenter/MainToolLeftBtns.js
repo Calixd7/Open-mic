@@ -4,6 +4,13 @@ import { useState } from 'react'
 const MainToolLeftBtns = () => {
   const [showLeftBtns, setShowLeftBtns] = useState(false)
 
+  // const sortMessages = () => {
+  //   console.log('messages', messages)
+  //   const sortedMessages = messages.slice().sort((a, b) => new Date(b.id) - new Date(a.id))
+  //   console.log('sortedMessages', sortedMessages)
+  //   setMessages(sortedMessages)
+  // }
+
   return (
     <div>
       <span className='relative z-0 inline-flex shadow-sm rounded-md sm:shadow-none sm:space-x-3'>
@@ -15,12 +22,16 @@ const MainToolLeftBtns = () => {
             </svg>
             <span>Reply</span>
           </button>
-          <button type='button' className='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'>
+          <button
+            type='button'
+            className='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'
+            // onClick={() => sortMessages()}
+          >
             {/* <!-- Heroicon name: solid/pencil --> */}
             <svg className='mr-2.5 h-5 w-5 text-gray-400' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
               <path d='M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z' />
             </svg>
-            <span>Note</span>
+            <span>Sort</span>
           </button>
           <button type='button' className='hidden sm:inline-flex -ml-px relative items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'>
             {/* <!-- Heroicon name: solid/user-add --> */}

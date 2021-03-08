@@ -6,14 +6,14 @@ from django.contrib.auth import get_user_model
 from rest_framework import permissions
 from rest_framework.decorators import action
 from rest_framework.response import Response 
-from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
+from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS 
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework.exceptions import ParseError
 from rest_framework.parsers import FileUploadParser
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
-from rest_framework import filters
+from rest_framework import filters 
 from django_filters.rest_framework import DjangoFilterBackend
 class IsOwnerOrReadOnly(permissions.BasePermission):
      
@@ -29,9 +29,28 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
                 return True
 
-        return obj.user == request.user
+        if obj.user == request.user:
+            return True
 
+        return False
 
+class IsSenderOrReadOnly(permissions.BasePermission):
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        if request.user.is_authenticated:
+            return True
+
+        return False
+
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+                return True
+
+        if obj.sender == request.user:
+            return True
+
+        return False
 
 class UserViewSet(ModelViewSet):
     serializer_class = UserSerializer
@@ -52,6 +71,8 @@ class UserViewSet(ModelViewSet):
         serializer = self.get_serializer(self.object)
         return Response(serializer.data)
 
+    
+
 class UserProfileViewSet(ModelViewSet):
     serializer_class = UserProfileSerializer
     parser_classes = [MultiPartParser, FormParser, JSONParser, FileUploadParser]
@@ -62,16 +83,13 @@ class UserProfileViewSet(ModelViewSet):
     def get_queryset(self):
         return UserProfile.objects.all()
 
-    filter_backends = [filters.SearchFilter, DjangoFilterBackend]
-    filterset_fields = ['vacancy']
-    search_fields = ['individualorband', 'instruments__name', 'genres__name', 'location']
+    filter_backends = [filters.SearchFilter]
+    filter_backends = [ DjangoFilterBackend]
+    filterset_fields = ['vacancy','wantedinstruments__name','instruments__name'] 
+    search_fields = ['individualorband', 'genres__name', 'location']
     
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
-
-    
-
-    
 
     @action(detail=False, methods=['get'])
     def me (self, request):
@@ -86,7 +104,7 @@ class UserProfileViewSet(ModelViewSet):
     
 class MessageViewSet(ModelViewSet):
 
-    permission_classes = [IsOwnerOrReadOnly]
+    
     serializer_class = MessagesSerializer
 
 
@@ -99,6 +117,20 @@ class MessageViewSet(ModelViewSet):
         if not self.request.user.is_authenticated:
             raise PermissionDenied()
         serializer.save(sender=self.request.user)
+    
+    def get_permissions(self):
+        if self.request.method in ['DELETE']:
+            return [IsSenderOrReadOnly()]
+        return [permissions.IsAuthenticated()]
+
+    #  def put(self, request, pk, format=None):
+    #     message = self.get_object(pk)
+    #     serializer = MessagesSerializer(message, data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save(update_fields=['display_for_user'])
+    #         return Response(serializer.data)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
     @action(detail=False, methods=['get'])
     def mine (self, request):
@@ -106,8 +138,8 @@ class MessageViewSet(ModelViewSet):
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
-
-
+        
+     
   
 class UserFollowingViewSet(ModelViewSet):
 

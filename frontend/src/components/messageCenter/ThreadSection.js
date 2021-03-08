@@ -7,7 +7,7 @@ import MessageSentAlert from '../alerts/MessageSentAlert'
 import ReplyEditor from './ReplyEditor'
 import NewMessageEditor from './NewMessageEditor'
 
-const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTriggerReadEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, setMessageReceiverUser }) => {
+const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTriggerReadEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, messageReceiverName, setMessageReceiverUser }) => {
   const [read, setRead] = useState(false)
   // const [message, setMessage] = useState([])
   const [showReplyForm, setShowReplyForm] = useState(false)
@@ -45,6 +45,14 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   // const handleDelete = () => {
   //   deleteMessage(token, message.id).then(res => res)
   // }
+
+  const sortMessages = () => {
+    console.log('messages', messages)
+    const sortedMessages = messages.slice().sort((a, b) => new Date(b.id) - new Date(a.id))
+    console.log('sortedMessages', sortedMessages)
+    return sortedMessages
+    // setMessages(sortedMessages)
+  }
 
   const updateReadStatus = (messagetoUpdate) => {
     if (messagetoUpdate.read === false) {
@@ -89,7 +97,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   if (messageReceiverUser) {
     return (
       <div className='mx-4'>
-        <NewMessageEditor token={token} username={username} setShowAlert={setShowAlert} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} setMessages={setMessages} />
+        <NewMessageEditor token={token} username={username} setShowAlert={setShowAlert} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} setMessages={setMessages} />
       </div>
     )
   }
@@ -100,7 +108,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
         <div>
           <MessageSentAlert />
         </div>}
-      {messages.map((message, idx) => (
+      {sortMessages().map((message, idx) => (
         <ul
           key={`message-${idx}`}
           className='py-4 space-y-2 sm:px-6 sm:space-y-4 lg:px-8'

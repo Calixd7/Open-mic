@@ -7,7 +7,7 @@ import ViewCard from '../ViewCard'
 import logo from '../images/logorough.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Card ({ token, cards, setCards, setMessageReceiverUser, connections, setConnections }) {
+function Card ({ token, cards, setCards, setMessageReceiverUser, setMessageReceiverName, connections, setConnections }) {
   const history = useHistory()
   const [follow, setFollow] = useState(false)
   // console.log('cards.pk in Cards.js', cards.map((card) => card.pk))
@@ -106,7 +106,7 @@ function Card ({ token, cards, setCards, setMessageReceiverUser, connections, se
 
                       <div className='relative z-0 inline-flex shadow-sm rounded-md'>
                         <FollowBtn token={token} follow={follow} setFollow={setFollow} connections={connections} setConnections={setConnections} card={card} setCards={setCards} />
-                        <MessageBtn card={card} setMessageReceiverUser={setMessageReceiverUser} />
+                        <MessageBtn card={card} setMessageReceiverUser={setMessageReceiverUser} setMessageReceiverName={setMessageReceiverName} />
                       </div>
                     </span>
                   </div>

@@ -3,7 +3,7 @@ import Card from './cards/Card'
 import { getProfiles, getUserProfile, getConnections } from '../api'
 import { Redirect } from 'react-router-dom'
 
-function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUser, isLoggedIn, cards, setCards }) {
+function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUser, setMessageReceiverName, isLoggedIn, cards, setCards }) {
   const [connections, setConnections] = useState([])
 
   // console.log('cards', cards)
@@ -28,6 +28,7 @@ function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUs
   useEffect(() => {
     getConnections(token).then(connections => {
       setConnections(connections.following.map(following => following.following_user))
+      console.log('connections.following.map(following => following)', connections.following.map(following => following.id))
     })
   }, [])
 
@@ -40,7 +41,7 @@ function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUs
   return (
     <div>
       <div className='mt-4'>
-        <Card token={token} setMessageReceiverUser={setMessageReceiverUser} cards={cards} setCards={setCards} connections={connections} setConnections={setConnections} />
+        <Card token={token} setMessageReceiverUser={setMessageReceiverUser} setMessageReceiverName={setMessageReceiverName} cards={cards} setCards={setCards} connections={connections} setConnections={setConnections} />
       </div>
     </div>
 
