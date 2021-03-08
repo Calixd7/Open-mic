@@ -98,7 +98,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
     location: location,
     vacancy: vacancy,
     individualorband: statusForApi(status),
-    wanted_instruments: wantedIntForAPI(vacancy, wantedInstruments),
+    wantedinstruments: wantedIntForAPI(vacancy, wantedInstruments),
     wanted_info: wantedInfo,
     spotify: changeSpotifyUrl(spotify)
   }
