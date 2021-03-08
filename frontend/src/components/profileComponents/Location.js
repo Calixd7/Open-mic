@@ -10,7 +10,7 @@ const Location = ({ location, setLocation, state, setState, status }) => {
             name='city'
             id='city'
             value={location}
-            className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+            className='mt-1 focus:ring-indigo-500 bg-gray-50 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
             onChange={(e) => setLocation(e.target.value)}
           />
         </div>
@@ -21,7 +21,7 @@ const Location = ({ location, setLocation, state, setState, status }) => {
             type='text'
             name='state'
             id='state'
-            className='mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
+            className='mt-1 focus:ring-indigo-500 bg-gray-50 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md'
             value={state}
             onChange={(e) => setState(e.target.value)}
           />
