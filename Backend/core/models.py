@@ -18,6 +18,7 @@ from django.conf import settings
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+        
 OPTIONS = (
     ("Individual", "Individual"),
     ("Band", "Band"),  
@@ -80,6 +81,16 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.name
    
+class CustomQuerySet(models.QuerySet):
+    def delete(self):
+        self.update(active=False)
+
+class ActiveManager(models.Manager):
+    def active(self):
+        return self.model.objects.filter(active=True)
+    
+    def get_queryset(self):
+        return CustomQuerySet(self.model, using=self._db)
 
 class Messages(models.Model):
     subject = models.TextField(max_length=100, blank=True)
@@ -91,4 +102,11 @@ class Messages(models.Model):
     receiver_name = models.TextField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to="uploads/", null=True, blank=True)
     read = models.BooleanField(default=False)
+    active = models.BooleanField(default=True, editable=False)
     created_at = models.DateField(auto_now_add=True)
+
+    objects = ActiveManager()
+
+    def delete(self):
+        self.active = False
+        self.save()

@@ -110,7 +110,8 @@ class MessagesSerializer(serializers.ModelSerializer):
             "subject",
             "content",
             'read',
-            "created_at"
+            "created_at",
+            "active"
             
         ]
 

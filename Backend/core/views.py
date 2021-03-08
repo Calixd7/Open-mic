@@ -108,18 +108,18 @@ class MessageViewSet(ModelViewSet):
 
 
     def get_queryset(self):
-        return  Messages.objects.order_by('receiver', 'sender','created_at')
+        return  Messages.objects.order_by('receiver', 'sender','created_at').filter(active=True)
 
 
     def perform_create(self, serializer):
         if not self.request.user.is_authenticated:
             raise PermissionDenied()
         serializer.save(sender=self.request.user)
-    
-    def get_permissions(self):
-        if self.request.method in ['DELETE']:
-            return [IsSenderOrReadOnly()]
-        return [permissions.IsAuthenticated()]
+ 
+    # def get_permissions(self):
+    #     if self.request.method in ['DELETE']:
+    #         return [IsSenderOrReadOnly()]
+    #     return [permissions.IsAuthenticated()]
 
 
     @action(detail=False, methods=['get'])
