@@ -2,19 +2,13 @@ import { searchProfiles } from '../api'
 import { GENRES, INSTRUMENTS, LOCATION } from './helperLists'
 
 const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setGenre, instrument, setInstrument, wantedInstrument, setWantedInstrument, location, setLocation, vacancy, setVacancy }) => {
-  const pendingSearch = [
-    status,
-    genre,
-    location
-  ]
-
   function handleSearch (e) {
     e.preventDefault()
-    searchProfiles(token, pendingSearch, vacancy, instrument, wantedInstrument)
+    searchProfiles(token, status, location, genre, vacancy, instrument, wantedInstrument)
       .then(cards => setCards(cards))
   }
 
-  console.log('status', status)
+  console.log('status')
   console.log('vacancy', vacancy)
   console.log('genre', genre)
   console.log('instrument', instrument)
@@ -91,7 +85,7 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
             </select>
           </span>
 
-          <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
+          {/* <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
             <label htmlFor='vacancy' className='block text-sm text-center font-medium text-white'>Bands looking for Instrument</label>
             <select
               id='vacancy'
@@ -103,10 +97,10 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
               <option value='false'>Not looking</option>
               <option value='true'>Looking</option>
             </select>
-          </span>
+          </span> */}
 
           <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
-            <label htmlFor='instrument' className='block text-sm text-center font-medium text-white'>Wanted Instrument</label>
+            <label htmlFor='instrument' className='block text-sm text-center font-medium text-white'>Bands looking for</label>
             <select
               id='instrument'
               name='instrument'
