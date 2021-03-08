@@ -84,7 +84,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 <Link
                   exact activeClassName='active'
                   to='/explore'
-                  className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${highlightExplore && 'bg-red-700'}`}
+                  className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${highlightExplore && 'bg-green-600'}`}
                   onClick={() => {
                     setHighlightExplore(true)
                     setHighlightFollowing(false)
@@ -95,7 +95,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 <Link
                   exact activeClassName='active'
                   to='/following'
-                  className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${highlightFollowing && 'bg-red-700'}`}
+                  className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${highlightFollowing && 'bg-green-600'}`}
                   onClick={() => {
                     setHighlightExplore(false)
                     setHighlightFollowing(true)
@@ -106,7 +106,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 <Link
                   exact activeClassName='active'
                   to='/message'
-                  className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${highlightMessages && 'bg-red-700'}`}
+                  className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${highlightMessages && 'bg-green-600'}`}
                   onClick={() => {
                     setMessageReceiverUser('')
                     setHighlightExplore(false)

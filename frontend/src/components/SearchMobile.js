@@ -35,7 +35,7 @@ function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, set
             leaveFrom='translate-x-0'
             leaveTo='translate-x-full'
           >
-            <div className='w-screen max-w-md'>
+            <div className='max-w-md'>
               <div className='h-full flex flex-col bg-white shadow-xl overflow-y-scroll'>
                 <form
                   onSubmit={(e) => {
@@ -211,7 +211,7 @@ function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, set
                             ))}
                           </select>
                         </span>
-                        <label htmlFor='instrument' className='block text-sm text-center font-medium text-gray-700'>Instruments bands are needing</label>
+                        <label htmlFor='instrument' className='block text-sm text-center font-medium text-gray-700'>Band needs</label>
                       </div>
                     </li>
                   </ul>
