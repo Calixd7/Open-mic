@@ -18,6 +18,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
   const [highlightExplore, setHighlightExplore] = useState(false)
   const [highlightFollowing, setHighlightFollowing] = useState(false)
   const [highlightMessages, setHighlightMessages] = useState(false)
+  const [mobileDisplayPage, setMobileDisplayPage] = useState('')
 
   console.log('unreadStatus HEADER', unreadStatus)
 
@@ -85,7 +86,10 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
               </svg>
             </button>
           </div>
-          <div className='flex-1 flex items-center ml-10 sm:ml-0 justify-center sm:items-stretch sm:justify-start'>
+          <div className='flex-1 flex items-center ml-10 sm:ml-0 justify-center sm:justify-start'>
+            <div className='sm:hidden bg-red-500 py-1 px-2 mx-2 rounded-md'>
+              {mobileDisplayPage}
+            </div>
             <div className='flex-shrink-0 flex-items-center'>
               <img
                 className='block h-12 w-auto rounded-md'
@@ -108,7 +112,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 </Link>
                 <Link
                   exact activeClassName='active'
-                  to='/friends'
+                  to='/following'
                   className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${highlightFollowing && 'bg-red-700'}`}
                   onClick={() => {
                     setHighlightExplore(false)
@@ -145,10 +149,10 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
               {showSearch
                 ? <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-4 h-8 w-8'>
                   <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z' />
-                  </svg>
+                </svg>
                 : <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-4 h-6 w-6'>
                   <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' />
-                  </svg>}
+                </svg>}
 
             </button>
             <div>
@@ -232,7 +236,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
         id='mobile-menu'
       >
         {showMenu &&
-          <HeaderMobile showSearch={showSearch} />}
+          <HeaderMobile showSearch={showSearch} setShowMenu={setShowMenu} setMobileDisplayPage={setMobileDisplayPage} />}
       </div>
     </nav>
   )
