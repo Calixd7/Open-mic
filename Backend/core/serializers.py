@@ -24,7 +24,8 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         user = User(
             email=validated_data['email'],
-            username=validated_data['username']
+            username=validated_data['username'],
+           
         )
         user.set_password(validated_data['password'])
         user.save()
@@ -46,13 +47,6 @@ class InstrumentSerializer (serializers.ModelSerializer):
     class Meta:
         model = Instrument
         fields = [ 'name']
-
-class SenderSerializer (serializers.ModelSerializer):
-
-    class Meta: 
-        model = User
-        fields = ['username']
-
 
 class UserProfileSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(read_only=True, slug_field='username')
@@ -83,23 +77,26 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "spotify"
         ]
 
-        # def create(self, validated_data):
-        #     userprofile = userprofile
+class SenderSerializer (serializers.ModelSerializer):
+
+    class Meta: 
+        model = User
+        fields = ['username']
+
+#Tried it this way just like I did with username but it would just post null value 
 
 # class NameSerializer(serializers.ModelSerializer):
     
 #     class Meta:
 #         model = UserProfile
-#         fields = [
-#             'name'
-#         ]
+#         fields =['name']
 
 
 class MessagesSerializer(serializers.ModelSerializer):
     sender = SenderSerializer(read_only=True)
-    receiver = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     # name = NameSerializer(read_only=True)
-    # sender = serializers.SlugRelatedField(slug_field="username",queryset=User.objects.all() )
+    # name = serializers.SlugRelatedField(slug_field="name",read_only=True)
+    receiver = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     receiver = serializers.SlugRelatedField(slug_field="username", queryset=User.objects.all())
     class Meta:
         model = Messages
@@ -116,9 +113,6 @@ class MessagesSerializer(serializers.ModelSerializer):
             "created_at"
             
         ]
-
-    
-
 
 class FollowingSerializer(serializers.ModelSerializer):
     following_user = serializers.SlugRelatedField(slug_field="username", queryset=User.objects.all())

@@ -86,8 +86,6 @@ class UserProfileViewSet(ModelViewSet):
     filter_backends = [filters.SearchFilter]
     filter_backends = [ DjangoFilterBackend]
     filterset_fields = ['vacancy','wantedinstruments__name','instruments__name', 'individualorband', 'genres__name', 'location'] 
-    # search_fields = ['individualorband', 'genres__name', 'location']
-    
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
 
@@ -123,14 +121,6 @@ class MessageViewSet(ModelViewSet):
             return [IsSenderOrReadOnly()]
         return [permissions.IsAuthenticated()]
 
-    #  def put(self, request, pk, format=None):
-    #     message = self.get_object(pk)
-    #     serializer = MessagesSerializer(message, data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save(update_fields=['display_for_user'])
-    #         return Response(serializer.data)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
 
     @action(detail=False, methods=['get'])
     def mine (self, request):
