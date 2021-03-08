@@ -9,7 +9,7 @@ import HeaderMobile from './HeaderMobile'
 import Search from './Search'
 import SearchMobile from './SearchMobile'
 
-function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, unreadStatus, setUnreadStatus, setMessageReceiverUser, setCards, status, setStatus, genre, setGenre, instrument, setInstrument, location, setLocation, vacancy, setVacancy, setTriggerReadEffect, messages }) {
+function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImage, avatar, setAvatar, unreadStatus, setUnreadStatus, setMessageReceiverUser, setCards, status, setStatus, genre, setGenre, instrument, setInstrument, wantedInstrument, setWantedInstrument, location, setLocation, vacancy, setVacancy, setTriggerReadEffect, messages }) {
   const [showMenu, setShowMenu] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
@@ -196,10 +196,10 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
       {showSearch &&
         <>
           <div className='hidden lg:block'>
-            <Search token={token} setCards={setCards} setShowSearch={setShowSearch} status={status} setStatus={setStatus} genre={genre} setGenre={setGenre} instrument={instrument} setInstrument={setInstrument} location={location} setLocation={setLocation} vacancy={vacancy} setVacancy={setVacancy} />
+            <Search token={token} setCards={setCards} setShowSearch={setShowSearch} status={status} setStatus={setStatus} genre={genre} setGenre={setGenre} instrument={instrument} setInstrument={setInstrument} wantedInstrument={wantedInstrument} setWantedInstrument={setWantedInstrument} location={location} setLocation={setLocation} vacancy={vacancy} setVacancy={setVacancy} />
           </div>
           <div className='lg:hidden'>
-            <SearchMobile token={token} setCards={setCards} showSearch={showSearch} setShowSearch={setShowSearch} status={status} setStatus={setStatus} genre={genre} setGenre={setGenre} instrument={instrument} setInstrument={setInstrument} location={location} setLocation={setLocation} vacancy={vacancy} setVacancy={setVacancy} />
+            <SearchMobile token={token} setCards={setCards} showSearch={showSearch} setShowSearch={setShowSearch} status={status} setStatus={setStatus} genre={genre} setGenre={setGenre} instrument={instrument} setInstrument={setInstrument} wantedInstrument={wantedInstrument} setWantedInstrument={setWantedInstrument} location={location} setLocation={setLocation} vacancy={vacancy} setVacancy={setVacancy} />
           </div>
         </>}
 

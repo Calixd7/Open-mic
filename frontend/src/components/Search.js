@@ -1,24 +1,17 @@
-import { useState } from 'react'
 import { searchProfiles } from '../api'
 import { GENRES, INSTRUMENTS, LOCATION } from './helperLists'
 
-const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setGenre, instrument, setInstrument, location, setLocation, vacancy, setVacancy }) => {
-  const pendingSearch = [
-    status,
-    genre,
-    instrument,
-    location
-  ]
-
+const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setGenre, instrument, setInstrument, wantedInstrument, setWantedInstrument, location, setLocation, vacancy, setVacancy }) => {
   function handleSearch (e) {
     e.preventDefault()
-    searchProfiles(token, pendingSearch, vacancy)
+    searchProfiles(token, status, location, genre, vacancy, instrument, wantedInstrument)
       .then(cards => setCards(cards))
   }
 
-  console.log('status', status)
+  console.log('status')
   console.log('vacancy', vacancy)
   console.log('genre', genre)
+  console.log('instrument', instrument)
   // console.log('genreCheckbox', genreCheckbox)
 
   return (
@@ -92,7 +85,7 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
             </select>
           </span>
 
-          <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
+          {/* <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
             <label htmlFor='vacancy' className='block text-sm text-center font-medium text-white'>Bands looking for Instrument</label>
             <select
               id='vacancy'
@@ -100,11 +93,28 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
               className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
               onChange={(e) => setVacancy(e.currentTarget.value)}
             >
-              <option value='null'>n/a</option>
+              <option value=''>n/a</option>
               <option value='false'>Not looking</option>
               <option value='true'>Looking</option>
             </select>
+          </span> */}
+
+          <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
+            <label htmlFor='instrument' className='block text-sm text-center font-medium text-white'>Bands looking for</label>
+            <select
+              id='instrument'
+              name='instrument'
+              className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
+              onChange={(e) => setWantedInstrument(e.currentTarget.value)}
+            >
+              <option value=''>any</option>
+              {INSTRUMENTS.map((wantedInstrument, idx) => (
+                <option key={`${wantedInstrument}-${idx}`} value={wantedInstrument}>{wantedInstrument}</option>
+              ))}
+
+            </select>
           </span>
+
           <div className=' flex flex-col'>
             <button
               type='submit'

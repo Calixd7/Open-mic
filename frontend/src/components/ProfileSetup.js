@@ -16,7 +16,6 @@ import { postProfiles, deleteProfile, updateProfile, uploadImage } from '../api'
 import Delete from './Delete'
 import Spotify from './Spotify'
 
-
 const changeWebsiteUrl = (site) => {
   const http = 'http://'
   if (site === '') {
@@ -34,7 +33,6 @@ const changeSpotifyUrl = (spotify) => {
     return spotify
   } else { return https.concat(spotify) }
 }
-
 
 const statusForApi = (status) => {
   if (status === 'Solo Artist') {
@@ -85,7 +83,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
   const [vacancy, setVacancy] = useState(safeProfile.vacancy || false)
   const [image, setImage] = useState(safeProfile.image || [])
   const [status, setStatus] = useState(safeProfile.individualorband || 'Solo Artist')
-  const [wantedInstruments, setWantedInstruments] = useState(safeProfile.wanted_instruments || [])
+  const [wantedInstruments, setWantedInstruments] = useState(safeProfile.wantedinstruments || [])
   const [wantedInfo, setWantedInfo] = useState(safeProfile.wanted_info || '')
   const [spotify, setSpotify] = useState(safeProfile.spotify || '')
   const pendingProfile = {
@@ -118,7 +116,6 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
   console.log('genres', genres)
   console.log('genreForApi(genres)', genreForApi(genres))
   console.log('spotify', spotify)
-
 
   function handleSubmit (event, token) {
     event.preventDefault()
