@@ -1,4 +1,5 @@
 import { useParams, useHistory, Redirect } from 'react-router-dom'
+import logo from './images/blue_instruments.jpg'
 import { useState } from 'react'
 import { registration } from '../api'
 import Errors from './Errors'
@@ -31,6 +32,9 @@ function Registration ({ setAuth, isLoggedIn, setProfilePk }) {
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-md w-full space-y-8'>
+        <div>
+          <img className='mx-auto w-auto rounded-md' src={logo} alt='OpenMic' />
+        </div>
         <form
           className='mt-8 space-y-6'
           onSubmit={handleRegistration}
@@ -79,22 +83,6 @@ function Registration ({ setAuth, isLoggedIn, setProfilePk }) {
                 onChange={event => { setPassword(event.target.value); setErrors('') }}
               />
             </div>
-            {/* <div className='flex items-center justify-between'>
-              <div className='flex items-center my-4'>
-                <input
-                  id='remember_me'
-                  name='remember_me'
-                  type='checkbox'
-                  className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
-                />
-                <label
-                  htmlFor='remember_me'
-                  className='ml-2 block text-sm text-gray-900'
-                >
-                  Remember Me
-                </label>
-              </div>
-            </div> */}
             <div className='pt-4'>
               <button
                 type='submit'
