@@ -28,6 +28,7 @@ function Explore ({ token, setIsImage, setAvatar, username, setMessageReceiverUs
   useEffect(() => {
     getConnections(token).then(connections => {
       setConnections(connections.following.map(following => following.following_user))
+      console.log('connections.following.map(following => following)', connections.following.map(following => following.id))
     })
   }, [])
 
