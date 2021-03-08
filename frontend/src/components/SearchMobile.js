@@ -3,10 +3,21 @@ import { searchProfiles } from '../api'
 import { GENRES, INSTRUMENTS, LOCATION } from './helperLists'
 
 function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, setStatus, genre, setGenre, instrument, setInstrument, wantedInstrument, setWantedInstrument, location, setLocation, vacancy, setVacancy }) {
-  console.log('location', location)
   function handleSearch (e) {
     e.preventDefault()
-    searchProfiles(token, status, location, genre, vacancy, instrument, wantedInstrument)
+    let newWanted = ''
+    let newVacancy = null
+    if (wantedInstrument === 'any') {
+      newWanted = ''
+      newVacancy = true
+    } else if (wantedInstrument === '') {
+      newWanted = ''
+      newVacancy = null
+    } else {
+      newWanted = wantedInstrument
+      newVacancy = null
+    }
+    searchProfiles(token, status, location, genre, newVacancy, instrument, newWanted)
       .then(cards => setCards(cards))
   }
   return (
@@ -165,7 +176,7 @@ function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, set
                       </div>
                     </li>
 
-                    <li className='px-6 py-5 relative'>
+                    {/* <li className='px-6 py-5 relative'>
                       <div className='group flex justify-between items-center'>
                         <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
                           <select
@@ -182,7 +193,7 @@ function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, set
                         <label htmlFor='vacancy' className='block text-sm text-center font-medium text-gray-700'>Bands looking <br />for Instrument
                         </label>
                       </div>
-                    </li>
+                    </li> */}
 
                     <li className='px-6 py-5 relative'>
                       <div className='group flex justify-between items-center'>
@@ -193,13 +204,14 @@ function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, set
                             className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
                             onChange={(e) => setWantedInstrument(e.currentTarget.value)}
                           >
-                            <option value=''>any</option>
+                            <option value=''>none</option>
+                            <option value='any'>Any Instrument</option>
                             {INSTRUMENTS.map((wantedInstrument, idx) => (
                               <option key={`${wantedInstrument}-${idx}`} value={wantedInstrument}>{wantedInstrument}</option>
                             ))}
                           </select>
                         </span>
-                        <label htmlFor='instrument' className='block text-sm text-center font-medium text-gray-700'>Wanted Instrument</label>
+                        <label htmlFor='instrument' className='block text-sm text-center font-medium text-gray-700'>Instruments bands are needing</label>
                       </div>
                     </li>
                   </ul>
