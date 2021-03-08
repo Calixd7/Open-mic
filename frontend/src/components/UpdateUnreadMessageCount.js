@@ -6,7 +6,7 @@ const UpdateUnreadMessageCount = ({ messages, setUnreadStatus, unreadStatus }) =
       const unreadCount = messages.reduce((count, msg) => msg.read ? count : count + 1, 0)
       setUnreadStatus(unreadCount)
     }
-  }, [])
+  }, [setUnreadStatus, messages])
   return (
     <>
       {unreadStatus > 0
