@@ -1,5 +1,5 @@
 import { Link, Redirect } from 'react-router-dom'
-import logo from './images/logorough.jpg'
+import logo from './images/blue_instruments.jpg'
 
 function Welcome ({ isLoggedIn }) {
   if (isLoggedIn) {
@@ -10,7 +10,7 @@ function Welcome ({ isLoggedIn }) {
     <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-md w-full space-y-8'>
         <div>
-          <img className='mx-auto w-auto' src={logo} alt='OpenMic' />
+          <img className='mx-auto w-auto rounded-md' src={logo} alt='OpenMic' />
           <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
             Welcome to OpenMic!
           </h2>
