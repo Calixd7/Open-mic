@@ -82,9 +82,23 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "wanted_info",
             "spotify"
         ]
+
+        # def create(self, validated_data):
+        #     userprofile = userprofile
+
+# class NameSerializer(serializers.ModelSerializer):
+    
+#     class Meta:
+#         model = UserProfile
+#         fields = [
+#             'name'
+#         ]
+
+
 class MessagesSerializer(serializers.ModelSerializer):
     sender = SenderSerializer(read_only=True)
     receiver = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    # name = NameSerializer(read_only=True)
     # sender = serializers.SlugRelatedField(slug_field="username",queryset=User.objects.all() )
     receiver = serializers.SlugRelatedField(slug_field="username", queryset=User.objects.all())
     class Meta:
