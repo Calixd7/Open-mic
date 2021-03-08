@@ -46,9 +46,15 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   //   deleteMessage(token, message.id).then(res => res)
   // }
 
-  const sortMessages = () => {
-    console.log('messages', messages)
-    const sortedMessages = messages.slice().sort((a, b) => new Date(b.id) - new Date(a.id))
+  const renderReceivedMessages = (allMessages) => {
+    const receivedMessages = allMessages.filter(msg => msg.sender.username !== username)
+    // sortMessages(receivedMessages)
+    return sortMessages(receivedMessages)
+  }
+
+  const sortMessages = (receivedMessages) => {
+    console.log('messages', receivedMessages)
+    const sortedMessages = receivedMessages.slice().sort((a, b) => new Date(b.id) - new Date(a.id))
     console.log('sortedMessages', sortedMessages)
     return sortedMessages
     // setMessages(sortedMessages)
@@ -108,7 +114,8 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
         <div>
           <MessageSentAlert />
         </div>}
-      {sortMessages().map((message, idx) => (
+      {renderReceivedMessages(messages).map((message, idx) => (
+
         <ul
           key={`message-${idx}`}
           className='py-4 space-y-2 sm:px-6 sm:space-y-4 lg:px-8'
@@ -159,6 +166,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
           </li>
 
         </ul>
+
       ))}
 
     </>

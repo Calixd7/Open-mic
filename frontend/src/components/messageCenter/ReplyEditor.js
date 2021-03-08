@@ -9,10 +9,12 @@ const ReplyEditor = ({ token, messageToRender, username, content, setContent, se
 
   const pendingReplyMessage = {
     sender: username,
-    receiver: messageToRender.receiver,
+    receiver: messageToRender.sender.username,
     subject: messageToRender.subject,
     content: content
   }
+  console.log('messageToRender', messageToRender)
+  console.log('messageToRender.receiver', messageToRender.sender.username)
 
   function handleSubmit (event) {
     event.preventDefault()
