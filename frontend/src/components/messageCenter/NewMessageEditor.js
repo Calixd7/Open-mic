@@ -24,6 +24,7 @@ const NewMessageEditor = ({ token, username, messageReceiverUser, setMessageRece
             setMessages(messages)
             setMessageReceiverUser('')
             setMessageReceiverName('')
+            setNewMessage(false)
             setShowAlert(true)
           })
       })
@@ -102,7 +103,7 @@ const NewMessageEditor = ({ token, username, messageReceiverUser, setMessageRece
               `}
 
               </label>
-              <div>
+              <div className='mb-4'>
                 <label
                   className='form-label'
                   htmlFor='name'
@@ -134,6 +135,9 @@ const NewMessageEditor = ({ token, username, messageReceiverUser, setMessageRece
                 onClick={() => {
                   setMessageReceiverUser('')
                   setMessageReceiverName('')
+                  setNewMessageContent('')
+                  setNewMessageSubject('')
+                  setNewMessage(false)
                 }}
               >
                 <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-auto'>

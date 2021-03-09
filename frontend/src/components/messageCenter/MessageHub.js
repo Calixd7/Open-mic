@@ -2,7 +2,7 @@ import { Redirect } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getMessages, getUserProfile, getProfiles } from '../../api'
 // import LogoArea from './LogoArea'
-// import PickerArea from './PickerArea'
+import PickerArea from './PickerArea'
 import MenuButtonArea from './MenuButtonArea'
 import DesktopNavArea from './DesktopNavArea'
 import MobileMessageMenu from './MobileMessageMenu'
@@ -20,6 +20,9 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnrea
   const [newMessage, setNewMessage] = useState(false)
   const [newMessageContent, setNewMessageContent] = useState('')
   const [newMessageSubject, setNewMessageSubject] = useState('')
+  const [messageToRender, setMessageToRender] = useState(null)
+  const [threadStatus, setThreadStatus] = useState('Inbox')
+  const [showSent, setShowSent] = useState(false)
   // const [messages, setMessages] = useState([])
   //   console.log('messageId', messageId)
   //   console.log('messages', messages)
@@ -76,7 +79,7 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnrea
         {/* <!-- Bottom section --> */}
         <div className='min-h-0 flex-1 flex overflow-hidden'>
           {/* <!-- Narrow sidebar--> */}
-          <NarrowSidebar setNewMessage={setNewMessage} setMessageReceiverName={setMessageReceiverName} setMessageReceiverUser={setMessageReceiverUser} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} newMessageSubject={newMessageSubject} setNewMessageSubject={setNewMessageSubject} />
+          <NarrowSidebar setNewMessage={setNewMessage} setMessageReceiverName={setMessageReceiverName} setMessageReceiverUser={setMessageReceiverUser} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} newMessageSubject={newMessageSubject} setNewMessageSubject={setNewMessageSubject} messageToRender={messageToRender} setMessageToRender={setMessageToRender} setThreadStatus={setThreadStatus} setShowSent={setShowSent} />
 
           {/* <!-- Main area --> */}
           <main className='min-w-0 flex-1 border-t border-gray-200 xl:flex'>
@@ -88,7 +91,7 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnrea
                   <div className='px-4 sm:px-6 lg:px-8'>
                     <div className='py-3 flex justify-between'>
                       {/* <!-- Left buttons --> */}
-                      {/* <MainToolLeftBtns messages={messages} setMessages={setMessages} /> */}
+                      <MainToolLeftBtns messages={messages} setMessages={setMessages} threadStatus={threadStatus} />
 
                       {/* <!-- Right buttons --> */}
                       {/* <MainToolRightBtns /> */}
@@ -100,7 +103,7 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnrea
               <div className='min-h-0 flex-1 overflow-y-auto'>
                 {/* <MessageHeader /> */}
                 {/* <!-- Thread section--> */}
-                <ThreadSection messages={messages} setMessages={setMessages} unreadStatus={unreadStatus} setUnreadStatus={setUnreadStatus} username={username} token={token} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} setMessageReceiverName={setMessageReceiverName} triggerReadEffect={triggerReadEffect} setTriggerReadEffect={setTriggerReadEffect} name={name} profilesForMessage={profilesForMessage} newMessage={newMessage} setNewMessage={setNewMessage} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} newMessageSubject={newMessageSubject} setNewMessageSubject={setNewMessageSubject} />
+                <ThreadSection messages={messages} setMessages={setMessages} unreadStatus={unreadStatus} setUnreadStatus={setUnreadStatus} username={username} token={token} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} setMessageReceiverName={setMessageReceiverName} triggerReadEffect={triggerReadEffect} setTriggerReadEffect={setTriggerReadEffect} name={name} profilesForMessage={profilesForMessage} newMessage={newMessage} setNewMessage={setNewMessage} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} newMessageSubject={newMessageSubject} setNewMessageSubject={setNewMessageSubject} messageToRender={messageToRender} setMessageToRender={setMessageToRender} showSent={showSent} />
               </div>
             </section>
 
