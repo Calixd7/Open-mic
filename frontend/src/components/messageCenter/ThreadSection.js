@@ -7,11 +7,10 @@ import MessageSentAlert from '../alerts/MessageSentAlert'
 import ReplyEditor from './ReplyEditor'
 import NewMessageEditor from './NewMessageEditor'
 
-const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTriggerReadEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, messageReceiverName, setMessageReceiverUser, name, profilesForMessage }) => {
+const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTriggerReadEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, messageReceiverName, setMessageReceiverName, setMessageReceiverUser, name, profilesForMessage, newMessage, setNewMessage, newMessageContent, setNewMessageContent, newMessageSubject, setNewMessageSubject, messageToRender, setMessageToRender, showSent }) => {
   const [read, setRead] = useState(false)
   // const [message, setMessage] = useState([])
   const [showReplyForm, setShowReplyForm] = useState(false)
-  const [messageToRender, setMessageToRender] = useState(null)
   const [showAlert, setShowAlert] = useState(false)
   const [content, setContent] = useState('')
 
@@ -42,14 +41,22 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
     return 'loading'
   }
 
-  // const handleDelete = () => {
-  //   deleteMessage(token, message.id).then(res => res)
-  // }
+  const handleDelete = (id) => {
+    deleteMessage(token, id)
+      .then(res => {
+        getMessages(token)
+          .then(messages => setMessages(messages))
+      })
+  }
 
   const renderReceivedMessages = (allMessages) => {
-    const receivedMessages = allMessages.filter(msg => msg.sender.username !== username)
-    // sortMessages(receivedMessages)
-    return sortMessages(receivedMessages)
+    if (showSent) {
+      const sentMessages = allMessages.filter(msg => msg.sender.username === username)
+      return sortMessages(sentMessages)
+    } else {
+      const receivedMessages = allMessages.filter(msg => msg.sender.username !== username)
+      return sortMessages(receivedMessages)
+    }
   }
 
   const sortMessages = (receivedMessages) => {
@@ -100,10 +107,10 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
     )
   }
 
-  if (messageReceiverUser) {
+  if (messageReceiverUser || newMessage) {
     return (
       <div className='mx-4'>
-        <NewMessageEditor token={token} username={username} setShowAlert={setShowAlert} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} setMessages={setMessages} name={name} />
+        <NewMessageEditor token={token} username={username} setShowAlert={setShowAlert} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} setMessageReceiverName={setMessageReceiverName} setMessages={setMessages} name={name} newMessage={newMessage} setNewMessage={setNewMessage} profilesForMessage={profilesForMessage} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} newMessageSubject={newMessageSubject} setNewMessageSubject={setNewMessageSubject} />
       </div>
     )
   }
@@ -141,15 +148,26 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
               <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
                 <time dateTime='2021-01-28T19:24'>
                   {formatDate(message.created_at)}
-                  {/* {message.created_at} */}
                 </time>
               </p>
             </div>
             <div className='sm:flex sm:justify-between sm:items-baseline mt-4'>
-              <p className='text-base font-medium'>
-                <span className='text-indigo-800'>Subject:&nbsp;</span>
-                <span className='text-gray-900'>{message.subject}</span>
-              </p>
+              <div>
+                <p className='text-base font-medium'>
+                  <span className='text-indigo-800'>Subject:&nbsp;</span>
+                  <span className='text-gray-900'>{message.subject}</span>
+                </p>
+                <button
+                  type='button'
+                  className='z-20'
+                  onClick={() => {
+                    console.log('btn clicked')
+                    handleDelete(message.id)
+                  }}
+                >
+                  delete
+                </button>
+              </div>
             </div>
             <div className='sm:flex sm:justify-between sm:items-baseline mt-8'>
               <p className='text-base font-medium'>
