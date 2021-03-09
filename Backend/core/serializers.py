@@ -12,7 +12,6 @@ class UserSerializer(serializers.ModelSerializer):
             "name", 
             'first_name',
             'last_name',
-            "profile_complete",
             'email',
             'username',
             'password',
@@ -37,6 +36,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     def get_followers(self, obj):
         return FollowersSerializer(obj.followers.all(), many=True).data
+
 
 class GenreSerializer (serializers.ModelSerializer):
     class Meta:
@@ -74,7 +74,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
             "individualorband",
             "wantedinstruments",
             "wanted_info",
-            "spotify"
+            "spotify",
+            "profile_complete"
         ]
 
 class SenderSerializer (serializers.ModelSerializer):
@@ -83,19 +84,8 @@ class SenderSerializer (serializers.ModelSerializer):
         model = User
         fields = ['username']
 
-#Tried it this way just like I did with username but it would just post null value 
-
-# class NameSerializer(serializers.ModelSerializer):
-    
-#     class Meta:
-#         model = UserProfile
-#         fields =['name']
-
-
 class MessagesSerializer(serializers.ModelSerializer):
     sender = SenderSerializer(read_only=True)
-    # name = NameSerializer(read_only=True)
-    # name = serializers.SlugRelatedField(slug_field="name",read_only=True)
     receiver = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
     receiver = serializers.SlugRelatedField(slug_field="username", queryset=User.objects.all())
     class Meta:
@@ -105,6 +95,7 @@ class MessagesSerializer(serializers.ModelSerializer):
             "sender",
             "receiver", 
             "name",
+            "display_for_user",
             "receiver_name",
             "image",
             "subject",
@@ -120,6 +111,7 @@ class FollowingSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserFollowing
         fields = ('id', "following_user", "created")
+
 class FollowersSerializer(serializers.ModelSerializer):
     user = serializers.SlugRelatedField(slug_field="username", queryset=User.objects.all())
     class Meta:
@@ -131,6 +123,13 @@ class UserFollowingSerializer(serializers.ModelSerializer):
     following_user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all()) 
     following_user = serializers.SlugRelatedField(slug_field="username",queryset=User.objects.all())
     class Meta:
-         model = UserFollowing
-         fields = ("user", "following_user")
+        model = UserFollowing
+        fields = ("user", "following_user")
+
+# class FollowingProfilesSerializer(serializers.ModelSerializer):
+#     following_userprofile = UserProfile(read_only=True)
+    
+#     class Meta: 
+#     model = UserFollowing
+#     fields = ('id', "following_user", "created")
 

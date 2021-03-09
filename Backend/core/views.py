@@ -72,7 +72,6 @@ class UserViewSet(ModelViewSet):
         return Response(serializer.data)
 
     
-
 class UserProfileViewSet(ModelViewSet):
     serializer_class = UserProfileSerializer
     parser_classes = [MultiPartParser, FormParser, JSONParser, FileUploadParser]
@@ -101,21 +100,19 @@ class UserProfileViewSet(ModelViewSet):
         return Response(serializer.data)
     
 class MessageViewSet(ModelViewSet):
-
     
     serializer_class = MessagesSerializer
 
-
-
     def get_queryset(self):
-        return  Messages.objects.order_by('receiver', 'sender','created_at').filter(active=True)
+        return  Messages.objects.order_by('created_at').filter(Q(sender=self.request.user) | Q(receiver=self.request.user), active=True)
 
 
     def perform_create(self, serializer):
         if not self.request.user.is_authenticated:
             raise PermissionDenied()
         serializer.save(sender=self.request.user)
- 
+    
+
     # def get_permissions(self):
     #     if self.request.method in ['DELETE']:
     #         return [IsSenderOrReadOnly()]
@@ -140,4 +137,6 @@ class UserFollowingViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
+
+
 
