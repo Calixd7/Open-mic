@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { sendMessage, getMessages } from '../../api'
 
-const NewMessageEditor = ({ token, username, messageReceiverUser, setMessageReceiverUser, messageReceiverName, setShowAlert, setMessages }) => {
+const NewMessageEditor = ({ token, username, messageReceiverUser, setMessageReceiverUser, messageReceiverName, setShowAlert, setMessages, name }) => {
   const [newMessageContent, setNewMessageContent] = useState('')
   const [newMessageSubject, setNewMessageSubject] = useState('')
 
@@ -10,6 +10,8 @@ const NewMessageEditor = ({ token, username, messageReceiverUser, setMessageRece
   const pendingNewMessage = {
     sender: username,
     receiver: messageReceiverUser,
+    name: name,
+    receiver_name: messageReceiverName,
     subject: newMessageSubject,
     content: newMessageContent
   }

@@ -1,6 +1,6 @@
 import { Redirect } from 'react-router-dom'
 import { useEffect, useState } from 'react'
-import { getMessages } from '../../api'
+import { getMessages, getUserProfile, getProfiles } from '../../api'
 // import LogoArea from './LogoArea'
 // import PickerArea from './PickerArea'
 import MenuButtonArea from './MenuButtonArea'
@@ -15,6 +15,8 @@ import MessageList from './MessageList'
 
 const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnreadStatus, unreadStatus, setMessageReceiverUser, messageReceiverName, triggerReadEffect, setTriggerReadEffect, setMessages, messages }) => {
   const [showOffCanvasMenu, setShowOffCanvasMenu] = useState(false)
+  const [name, setName] = useState('')
+  const [profilesForMessage, setProfilesForMessage] = useState([])
   // const [messages, setMessages] = useState([])
   //   console.log('messageId', messageId)
   //   console.log('messages', messages)
@@ -26,6 +28,18 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnrea
       setMessages(messages)
     })
   }, [])
+
+  useEffect(() => {
+    getUserProfile(token)
+      .then(data => setName(data.name))
+  }, [])
+
+  useEffect(() => {
+    getProfiles(token)
+      .then(profiles => setProfilesForMessage(profiles))
+  }, [])
+
+  console.log('name', name)
 
   if (!isLoggedIn) {
     return <Redirect to='/' />
@@ -81,7 +95,7 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnrea
               <div className='min-h-0 flex-1 overflow-y-auto'>
                 {/* <MessageHeader /> */}
                 {/* <!-- Thread section--> */}
-                <ThreadSection messages={messages} setMessages={setMessages} unreadStatus={unreadStatus} setUnreadStatus={setUnreadStatus} username={username} token={token} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} triggerReadEffect={triggerReadEffect} setTriggerReadEffect={setTriggerReadEffect} />
+                <ThreadSection messages={messages} setMessages={setMessages} unreadStatus={unreadStatus} setUnreadStatus={setUnreadStatus} username={username} token={token} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} triggerReadEffect={triggerReadEffect} setTriggerReadEffect={setTriggerReadEffect} name={name} profilesForMessage={profilesForMessage} />
               </div>
             </section>
 

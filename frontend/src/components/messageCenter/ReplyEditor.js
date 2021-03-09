@@ -2,14 +2,39 @@ import { useState, useEffect } from 'react'
 import { Transition } from '@headlessui/react'
 import { sendMessage, getMessages } from '../../api'
 
-const ReplyEditor = ({ token, messageToRender, username, content, setContent, setMessageToRender, showReplyForm, setShowReplyForm, setShowAlert, setMessages }) => {
+const ReplyEditor = ({ token, messageToRender, username, content, setContent, setMessageToRender, showReplyForm, setShowReplyForm, setShowAlert, setMessages, name, profilesForMessage }) => {
+  const [receiverName, setReceiverName] = useState('')
+  useEffect(() => {
+    profilesForMessage.forEach(profile => {
+      if (profile.user === messageToRender.sender.username) {
+        setReceiverName(profile.name)
+      }
+    })
+  }, [showReplyForm])
+
   if (!messageToRender) {
     return ''
   }
 
+  console.log('profilesForMessage', profilesForMessage)
+  console.log('PROFILE USER', profilesForMessage.map(profile => profile.user))
+
+  // const findReceiverUserName = () => {
+  //   profilesForMessage.forEach(profile => {
+  //     if (profile.user === messageToRender.sender.username) {
+  //       setReceiverName(profile.name)
+  //     }
+  //   })
+  // }
+
+  // findReceiverUserProfile()
+  console.log('receiverName', receiverName)
+
   const pendingReplyMessage = {
     sender: username,
     receiver: messageToRender.sender.username,
+    name: name,
+    receiver_name: receiverName,
     subject: messageToRender.subject,
     content: content
   }
@@ -43,8 +68,8 @@ const ReplyEditor = ({ token, messageToRender, username, content, setContent, se
           >
             <div className='sm:flex sm:justify-between sm:items-baseline'>
               <h3 className='text-base font-medium'>
-                <span className='text-gray-600'>Reply to:&nbsp;</span>
-                <span className='text-gray-900'>{messageToRender.sender.username}</span>
+                <span className='text-indigo-800'>Reply to:&nbsp;</span>
+                <span className='text-gray-600'>{receiverName}</span>
               </h3>
               <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
                 <time dateTime='2021-01-28T19:24'>{messageToRender.created_at}</time>
@@ -52,13 +77,13 @@ const ReplyEditor = ({ token, messageToRender, username, content, setContent, se
             </div>
             <div className='sm:flex sm:justify-between sm:items-baseline mt-4'>
               <p className='text-base font-medium'>
-                <span className='text-gray-900'>Subject:&nbsp;</span>
+                <span className='text-indigo-800'>Subject:&nbsp;</span>
                 <span className='text-gray-600'>{messageToRender.subject}</span>
               </p>
             </div>
-            <div className='sm:flex sm:justify-between sm:items-baseline my-4'>
+            <div className='sm:flex sm:justify-between sm:items-baseline my-8'>
               <p className='text-base font-medium'>
-                <span className='text-gray-900'>{messageToRender.sender.username}'s message:&nbsp;</span>
+                <span className='text-indigo-800'>Message:&nbsp;</span>
                 <span className='text-gray-600'>{messageToRender.content}</span>
               </p>
             </div>
