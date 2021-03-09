@@ -23,11 +23,7 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnrea
   const [messageToRender, setMessageToRender] = useState(null)
   const [threadStatus, setThreadStatus] = useState('Inbox')
   const [showSent, setShowSent] = useState(false)
-  // const [messages, setMessages] = useState([])
-  //   console.log('messageId', messageId)
-  //   console.log('messages', messages)
-  //   console.log('triggerUseEffect', triggerUseEffect)
-  //   console.log('messageToRender in MESSAGES', messageToRender)
+  const [messagesLength, setMessagesLength] = useState(0)
 
   useEffect(() => {
     getMessages(token).then(messages => {
@@ -73,7 +69,7 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnrea
 
           {/* <!-- Mobile menu, show/hide this `div` based on menu open/closed state --> */}
           {showOffCanvasMenu &&
-            <MobileMessageMenu showOffCanvasMenu={showOffCanvasMenu} setShowOffCanvasMenu={setShowOffCanvasMenu} />}
+            <MobileMessageMenu showOffCanvasMenu={showOffCanvasMenu} setShowOffCanvasMenu={setShowOffCanvasMenu} setNewMessage={setNewMessage} setMessageReceiverName={setMessageReceiverName} setMessageReceiverUser={setMessageReceiverUser} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} newMessageSubject={newMessageSubject} setNewMessageSubject={setNewMessageSubject} messageToRender={messageToRender} setMessageToRender={setMessageToRender} setThreadStatus={setThreadStatus} setShowSent={setShowSent} />}
         </header>
 
         {/* <!-- Bottom section --> */}
@@ -91,7 +87,7 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnrea
                   <div className='px-4 sm:px-6 lg:px-8'>
                     <div className='py-3 flex justify-between'>
                       {/* <!-- Left buttons --> */}
-                      <MainToolLeftBtns messages={messages} setMessages={setMessages} threadStatus={threadStatus} />
+                      <MainToolLeftBtns messages={messages} setMessages={setMessages} threadStatus={threadStatus} messagesLength={messagesLength} />
 
                       {/* <!-- Right buttons --> */}
                       {/* <MainToolRightBtns /> */}
@@ -100,10 +96,10 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnrea
                 </div>
               </div>
               {/* <!-- Message header --> */}
-              <div className='min-h-0 flex-1 overflow-y-auto'>
+              <div className='mx-4 min-h-0 flex-1 overflow-y-auto'>
                 {/* <MessageHeader /> */}
                 {/* <!-- Thread section--> */}
-                <ThreadSection messages={messages} setMessages={setMessages} unreadStatus={unreadStatus} setUnreadStatus={setUnreadStatus} username={username} token={token} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} setMessageReceiverName={setMessageReceiverName} triggerReadEffect={triggerReadEffect} setTriggerReadEffect={setTriggerReadEffect} name={name} profilesForMessage={profilesForMessage} newMessage={newMessage} setNewMessage={setNewMessage} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} newMessageSubject={newMessageSubject} setNewMessageSubject={setNewMessageSubject} messageToRender={messageToRender} setMessageToRender={setMessageToRender} showSent={showSent} />
+                <ThreadSection messages={messages} setMessages={setMessages} unreadStatus={unreadStatus} setUnreadStatus={setUnreadStatus} username={username} token={token} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} setMessageReceiverName={setMessageReceiverName} triggerReadEffect={triggerReadEffect} setTriggerReadEffect={setTriggerReadEffect} name={name} profilesForMessage={profilesForMessage} newMessage={newMessage} setNewMessage={setNewMessage} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} newMessageSubject={newMessageSubject} setNewMessageSubject={setNewMessageSubject} messageToRender={messageToRender} setMessageToRender={setMessageToRender} showSent={showSent} setMessagesLength={setMessagesLength} />
               </div>
             </section>
 

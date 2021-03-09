@@ -7,7 +7,7 @@ import MessageSentAlert from '../alerts/MessageSentAlert'
 import ReplyEditor from './ReplyEditor'
 import NewMessageEditor from './NewMessageEditor'
 
-const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTriggerReadEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, messageReceiverName, setMessageReceiverName, setMessageReceiverUser, name, profilesForMessage, newMessage, setNewMessage, newMessageContent, setNewMessageContent, newMessageSubject, setNewMessageSubject, messageToRender, setMessageToRender, showSent }) => {
+const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTriggerReadEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, messageReceiverName, setMessageReceiverName, setMessageReceiverUser, name, profilesForMessage, newMessage, setNewMessage, newMessageContent, setNewMessageContent, newMessageSubject, setNewMessageSubject, messageToRender, setMessageToRender, showSent, setMessagesLength }) => {
   const [read, setRead] = useState(false)
   // const [message, setMessage] = useState([])
   const [showReplyForm, setShowReplyForm] = useState(false)
@@ -52,9 +52,11 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   const renderReceivedMessages = (allMessages) => {
     if (showSent) {
       const sentMessages = allMessages.filter(msg => msg.sender.username === username)
+      setMessagesLength(sentMessages.length)
       return sortMessages(sentMessages)
     } else {
       const receivedMessages = allMessages.filter(msg => msg.sender.username !== username)
+      setMessagesLength(receivedMessages.length)
       return sortMessages(receivedMessages)
     }
   }
