@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useHistory, Link, useParams, Redirect } from 'react-router-dom'
 import { getProfile } from '../api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import MobileViewCard from './MobileViewCard'
 
 const ViewCard = ({ token, isLoggedIn }) => {
   const history = useHistory()
@@ -28,9 +29,28 @@ const ViewCard = ({ token, isLoggedIn }) => {
       <div className='bg-white shadow overflow-hidden sm:rounded-lg sm:px-10'>
         <div className='flex flex-col justify-between'>
           <div className='px-4 py-5 sm:px-6'>
-            <h3 className='text-lg leading-6 font-medium text-gray-900'>
+            <h3 className='text-lg leading-6 font-medium text-gray-900 hidden sm:block'>
               Additional Information
             </h3>
+            <div className='flex sm:hidden justify-between'>
+              <h3 className='text-lg leading-6 font-medium text-gray-900 sm:hidden'>
+                {card.name}
+              </h3>
+              <span className='text-xs font-medium'>
+                {card.image
+                  ? <img
+                      className='w-10 h-10 flex-shrink-0 bg-black rounded-full object-cover'
+                      src={card.image}
+                      alt='avatar'
+                    />
+                  : <span className='w-10 h-10 flex bg-black rounded-full object-cover'>
+                    <FontAwesomeIcon
+                      icon={['far', 'user']}
+                      className='text-red-300 hover:text-red-500 text-7xl h-auto w-auto mx-auto'
+                    />
+                    </span>}
+              </span>
+            </div>
           </div>
           {card.vacancy === true &&
             <div className='px-4 py-5 w-screen flex-col'>
@@ -38,9 +58,9 @@ const ViewCard = ({ token, isLoggedIn }) => {
                 We're Looking. . .
               </dt>
               <dd className='mt-1 w-full text-sm text-gray-900'>
-                <ul className='border-4 border-yellow-200 bg-gray-700 rounded-md divide-y divide-gray-200 mr-16'>
-                  <li className='pl-3 pr-4 py-3 flex items-center justify-between text-sm'>
-                    <div className='w-0 flex-1 flex items-center'>
+                <ul className='border-4 border-yellow-200 bg-gray-700 rounded-md divide-y divide-gray-200 sm:mr-16'>
+                  <li className='pl-3 pr-4 py-3 sm:flex-row sm:flex flex-col items-center justify-between text-sm'>
+                    <div className='flex-1 flex items-center'>
                       <div className=''>
                         <div className='ml-2 flex-auto text-white'>
                           <span>
@@ -55,26 +75,28 @@ const ViewCard = ({ token, isLoggedIn }) => {
                             </span>
                           ))}
                         </div>
-                        <div className='ml-2 flex text-white'>
+                        <div className='mt-4 ml-2 flex text-white'>
                           Info: {card.wanted_info}
                         </div>
                       </div>
                     </div>
-                    <button
-                      type='button'
-                      className='mr-4 inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                      onClick={() => history.push(`/message/${pk}`)}
-                    >
-                      <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
-                        <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z' />
-                      </svg>
-                      Message
-                    </button>
+                    <div className='text-right'>
+                      <button
+                        type='button'
+                        className='mr-4 inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                        onClick={() => history.push(`/message/${pk}`)}
+                      >
+                        <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
+                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z' />
+                        </svg>
+                        Message
+                      </button>
+                    </div>
                   </li>
                 </ul>
               </dd>
             </div>}
-          <div className='text-right m-4'>
+          <div className='text-right m-4 hidden sm:block'>
             <button
               type='button'
               className='mr-50 inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
@@ -87,8 +109,11 @@ const ViewCard = ({ token, isLoggedIn }) => {
           </div>
         </div>
         <div className='border-t border-gray-200 px-4 py-5 sm:px-6'>
+          <span className='flex sm:hidden'>
+            <MobileViewCard card={card} history={history} />
+          </span>
 
-          <dl className='grid grid-cols-1 sm:grid-cols-4'>
+          <dl className='sm:grid grid-cols-1 sm:grid-cols-4 hidden'>
             <div>
               <span className='text-xs font-medium'>
                 {card.image
@@ -143,7 +168,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
             </div>
 
             <div className='sm:col-auto mt-4'>
-              <iframe 
+              <iframe
                 src={card.spotify}
                 width='240'
                 height='180'
