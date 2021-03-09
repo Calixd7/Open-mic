@@ -2,6 +2,7 @@ import { useHistory } from 'react-router-dom'
 
 const MessageBtn = ({ card, setMessageReceiverUser, setMessageReceiverName }) => {
   const history = useHistory()
+  console.log('card', card)
   return (
     <>
       <button

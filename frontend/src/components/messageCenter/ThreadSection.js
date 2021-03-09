@@ -7,7 +7,7 @@ import MessageSentAlert from '../alerts/MessageSentAlert'
 import ReplyEditor from './ReplyEditor'
 import NewMessageEditor from './NewMessageEditor'
 
-const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTriggerReadEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, messageReceiverName, setMessageReceiverUser }) => {
+const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTriggerReadEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, messageReceiverName, setMessageReceiverUser, name, profilesForMessage }) => {
   const [read, setRead] = useState(false)
   // const [message, setMessage] = useState([])
   const [showReplyForm, setShowReplyForm] = useState(false)
@@ -95,7 +95,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   if (messageToRender) {
     return (
       <div>
-        <ReplyEditor token={token} messageToRender={messageToRender} setMessageToRender={setMessageToRender} username={username} content={content} setContent={setContent} showReplyForm={showReplyForm} setShowReplyForm={setShowReplyForm} setShowAlert={setShowAlert} setMessages={setMessages} />
+        <ReplyEditor token={token} messageToRender={messageToRender} setMessageToRender={setMessageToRender} username={username} content={content} setContent={setContent} showReplyForm={showReplyForm} setShowReplyForm={setShowReplyForm} setShowAlert={setShowAlert} setMessages={setMessages} name={name} profilesForMessage={profilesForMessage} />
       </div>
     )
   }
@@ -103,7 +103,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   if (messageReceiverUser) {
     return (
       <div className='mx-4'>
-        <NewMessageEditor token={token} username={username} setShowAlert={setShowAlert} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} setMessages={setMessages} />
+        <NewMessageEditor token={token} username={username} setShowAlert={setShowAlert} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} setMessages={setMessages} name={name} />
       </div>
     )
   }
@@ -130,13 +130,13 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
             <div className='sm:flex sm:justify-between sm:items-baseline'>
               <h3 className='text-base font-medium'>
                 <div>
-                  <span className='text-gray-600'>From:&nbsp;</span>
-                  <span className='text-gray-900'>{message.sender.username}</span>
+                  <span className='text-indigo-800'>From:&nbsp;</span>
+                  <span className='text-gray-600'>{message.name}</span>
                 </div>
-                <div>
+                {/* <div>
                   <span className='text-gray-600'>To:&nbsp;</span>
-                  <span className='text-gray-900'>{message.receiver}</span>
-                </div>
+                  <span className='text-gray-900'>{message.receiver_name}</span>
+                </div> */}
               </h3>
               <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
                 <time dateTime='2021-01-28T19:24'>
@@ -147,12 +147,15 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
             </div>
             <div className='sm:flex sm:justify-between sm:items-baseline mt-4'>
               <p className='text-base font-medium'>
-                <span className='text-gray-900'>Subject:&nbsp;</span>
-                <span className='text-gray-600'>{message.subject}</span>
+                <span className='text-indigo-800'>Subject:&nbsp;</span>
+                <span className='text-gray-900'>{message.subject}</span>
               </p>
             </div>
-            <div className='mt-4 space-y-6 text-sm text-gray-800'>
-              <p>{message.content}</p>
+            <div className='sm:flex sm:justify-between sm:items-baseline mt-8'>
+              <p className='text-base font-medium'>
+                <span className='text-indigo-800'>Message:&nbsp;</span>
+                <span className='text-gray-800'>{message.content}</span>
+              </p>
             </div>
             <Transition
               show={showReplyForm}
