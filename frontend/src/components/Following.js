@@ -14,22 +14,19 @@ function Following ({ token, username, isLoggedIn }) {
       .then(cards => setAllCards(cards))
       .then(getConnections(token).then(connections => {
         setConnections(connections.following.map(following => following.following_user))
-        const followingNames = connections.following.map(following => following.following_user)
-        // setConnections(followingNames)
-        const followingProfiles = allCards.filter(profile => followingNames.includes(profile.user))
-        setFollowingCards(followingProfiles)
       })
       )
-  }, [])
+  }, [token])
 
-  // console.log('allCards.length', allCards.length)
-  // console.log(allCards)
-  // console.log('token', token)
-  // console.log('username', username)
+  useEffect(() => {
+    // const followingNames = connections.following.map(following => following.following_user)
+    const followingProfiles = allCards.filter(profile => connections.includes(profile.user))
+    setFollowingCards(followingProfiles)
+  }, [allCards, connections])
+
   console.log('allCards', allCards)
   console.log('connections', connections)
   console.log('followingCards', followingCards)
-  // // console.log('cards usernames', allCards.map(card => card.user))
 
   if (!followingCards) {
     return 'loading'
