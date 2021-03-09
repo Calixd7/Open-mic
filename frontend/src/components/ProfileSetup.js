@@ -81,7 +81,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
   const [location, setLocation] = useState(safeProfile.location || '')
   const [state, setState] = useState(safeProfile.state || '')
   const [vacancy, setVacancy] = useState(safeProfile.vacancy || false)
-  const [image, setImage] = useState(safeProfile.image || [])
+  const [image, setImage] = useState(safeProfile.image || null)
   const [status, setStatus] = useState(safeProfile.individualorband || 'Solo Artist')
   const [wantedInstruments, setWantedInstruments] = useState(safeProfile.wantedinstruments || [])
   const [wantedInfo, setWantedInfo] = useState(safeProfile.wanted_info || '')
@@ -139,7 +139,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
         })
     } else {
       const formData = new FormData(profileForm.current)
-      formData.set('image', image)
+      formData.set('image', image || [])
 
       console.log('pending profile in first Submit', pendingProfile)
 
