@@ -104,7 +104,7 @@ class MessageViewSet(ModelViewSet):
     serializer_class = MessagesSerializer
 
     def get_queryset(self):
-        return  Messages.objects.order_by('created_at').filter(Q(sender=self.request.user) | Q(receiver=self.request.user), active=True)
+        return  Messages.objects.order_by('created_at')
 
 
     def perform_create(self, serializer):
@@ -121,7 +121,7 @@ class MessageViewSet(ModelViewSet):
 
     @action(detail=False, methods=['get'])
     def mine (self, request):
-        queryset = Messages.objects.filter(Q(sender=self.request.user) | Q(receiver=self.request.user)).order_by('created_at')
+        queryset = Messages.objects.filter(Q(sender=self.request.user) | Q(receiver=self.request.user),active=True).order_by('created_at')
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
