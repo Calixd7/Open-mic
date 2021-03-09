@@ -7,7 +7,7 @@ import MessageSentAlert from '../alerts/MessageSentAlert'
 import ReplyEditor from './ReplyEditor'
 import NewMessageEditor from './NewMessageEditor'
 
-const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTriggerReadEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, messageReceiverName, setMessageReceiverName, setMessageReceiverUser, name, profilesForMessage, newMessage, setNewMessage, newMessageContent, setNewMessageContent, newMessageSubject, setNewMessageSubject, messageToRender, setMessageToRender, showSent, setMessagesLength }) => {
+const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTriggerReadEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, messageReceiverName, setMessageReceiverName, setMessageReceiverUser, name, profilesForMessage, newMessage, setNewMessage, newMessageContent, setNewMessageContent, newMessageSubject, setNewMessageSubject, messageToRender, setMessageToRender, showSent, setMessagesLength, threadStatus }) => {
   const [read, setRead] = useState(false)
   // const [message, setMessage] = useState([])
   const [showReplyForm, setShowReplyForm] = useState(false)
@@ -139,8 +139,16 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
             <div className='sm:flex sm:justify-between sm:items-baseline'>
               <h3 className='text-base font-medium'>
                 <div>
-                  <span className='text-indigo-800'>From:&nbsp;</span>
-                  <span className='text-gray-600'>{message.name}</span>
+                  {threadStatus === 'Inbox'
+                    ? <>
+                      <span className='text-indigo-800'>From:&nbsp;</span>
+                      <span className='text-gray-600'>{message.name}</span>
+                      </>
+                    : <>
+                      <span className='text-indigo-800'>To:&nbsp;</span>
+                      <span className='text-gray-600'>{message.receiver_name}</span>
+                      </>}
+
                 </div>
                 {/* <div>
                   <span className='text-gray-600'>To:&nbsp;</span>
