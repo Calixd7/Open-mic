@@ -1,4 +1,4 @@
-import { Link, useHistory } from 'react-router-dom'
+import { Link, useHistory, useLocation } from 'react-router-dom'
 import { Transition } from '@headlessui/react'
 import { useEffect, useState } from 'react'
 import logo from './images/blue_instruments.jpg'
@@ -19,8 +19,10 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
   const [highlightFollowing, setHighlightFollowing] = useState(false)
   const [highlightMessages, setHighlightMessages] = useState(false)
   const [mobileDisplayPage, setMobileDisplayPage] = useState('')
+  const path = useLocation()
 
   console.log('unreadStatus HEADER', unreadStatus)
+  console.log('path', path)
 
   return (
     <nav className='bg-gray-800'>
@@ -84,34 +86,21 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 <Link
                   // exact activeclassname='active'
                   to='/explore'
-                  className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${highlightExplore && 'bg-green-600'}`}
-                  onClick={() => {
-                    setHighlightExplore(true)
-                    setHighlightFollowing(false)
-                    setHighlightMessages(false)
-                  }}
+                  className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${path.pathname === '/explore' && 'bg-green-600'}`}
                 >Explore
                 </Link>
                 <Link
                   // exact activeclassname='active'
                   to='/following'
-                  className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${highlightFollowing && 'bg-green-600'}`}
-                  onClick={() => {
-                    setHighlightExplore(false)
-                    setHighlightFollowing(true)
-                    setHighlightMessages(false)
-                  }}
+                  className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${path.pathname === '/following' && 'bg-green-600'}`}
                 >Following
                 </Link>
                 <Link
                   // exact activeclassname='active'
                   to='/message'
-                  className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${highlightMessages && 'bg-green-600'}`}
+                  className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${path.pathname === '/message' && 'bg-green-600'}`}
                   onClick={() => {
                     setMessageReceiverUser('')
-                    setHighlightExplore(false)
-                    setHighlightFollowing(false)
-                    setHighlightMessages(true)
                   }}
                 >
                   <UpdateUnreadMessageCount unreadStatus={unreadStatus} messages={messages} setUnreadStatus={setUnreadStatus} />
@@ -128,10 +117,10 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
               {showSearch
                 ? <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-4 h-8 w-8'>
                   <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z' />
-                  </svg>
+                </svg>
                 : <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-4 h-6 w-6'>
                   <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' />
-                  </svg>}
+                </svg>}
 
             </button>
             <div>
