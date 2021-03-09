@@ -26,43 +26,43 @@ const ViewCard = ({ token, isLoggedIn }) => {
   return (
     <div>
       <div className='bg-white shadow overflow-hidden sm:rounded-lg sm:px-10'>
-        <div className='flex justify-between'>
+        <div className='flex flex-col justify-between'>
           <div className='px-4 py-5 sm:px-6'>
             <h3 className='text-lg leading-6 font-medium text-gray-900'>
               Additional Information
             </h3>
           </div>
           {card.vacancy === true &&
-            <div className='sm:col-span-2 inline-flex'>
-              <dt className='text-sm font-medium text-gray-500'>
+            <div className='px-4 py-5 w-screen flex-col'>
+              <dt className='text-sm font-extrabold text-indigo-800'>
                 We're Looking. . .
               </dt>
-              <dd className='mt-1 text-sm text-gray-900'>
-                <ul className='border border-gray-200 rounded-md divide-y divide-gray-200'>
+              <dd className='mt-1 w-full text-sm text-gray-900'>
+                <ul className='border-4 border-yellow-200 bg-gray-700 rounded-md divide-y divide-gray-200 mr-16'>
                   <li className='pl-3 pr-4 py-3 flex items-center justify-between text-sm'>
                     <div className='w-0 flex-1 flex items-center'>
                       <div className=''>
-                        <div className='ml-2 flex-auto'>
+                        <div className='ml-2 flex-auto text-white'>
                           <span>
                             Instruments:&nbsp;
                           </span>
                           {card.wantedinstruments.map((inst, idx) => (
                             <span
                               key={`wanted-${inst}`}
-                              className='flex'
+                              className='flex-col'
                             >
                               {`${idx ? ', ' : ''} ${inst}`}
                             </span>
                           ))}
                         </div>
-                        <div className='ml-2 flex-1'>
+                        <div className='ml-2 flex text-white'>
                           Info: {card.wanted_info}
                         </div>
                       </div>
                     </div>
                     <button
                       type='button'
-                      className='inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                      className='mr-4 inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                       onClick={() => history.push(`/message/${pk}`)}
                     >
                       <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
@@ -77,7 +77,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
           <div className='text-right m-4'>
             <button
               type='button'
-              className='inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+              className='mr-50 inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
               onClick={() => history.push('/explore')}
             >
               <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-6 w-6'>
@@ -88,7 +88,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
         </div>
         <div className='border-t border-gray-200 px-4 py-5 sm:px-6'>
 
-          <dl className='grid grid-cols-2 sm:grid-cols-4'>
+          <dl className='grid grid-cols-1 sm:grid-cols-4'>
             <div>
               <span className='text-xs font-medium'>
                 {card.image
@@ -115,12 +115,14 @@ const ViewCard = ({ token, isLoggedIn }) => {
                 {card.name}
               </dd>
             </div>
-            <div className='sm:col-auto'>
+            <div className='sm:col-auto ml-4'>
               <dt className='text-sm font-extrabold text-indigo-700'>
-                Bio
+                Instruments
               </dt>
               <dd className='mt-1 text-sm text-gray-900'>
-                {card.bio}
+                {card.instruments.map(int => (
+                  <p key={int}>{int}</p>
+                ))}
               </dd>
             </div>
 
@@ -141,7 +143,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
             </div>
 
             <div className='sm:col-auto mt-4'>
-              <iframe
+              <iframe 
                 src={card.spotify}
                 width='240'
                 height='180'
@@ -152,16 +154,14 @@ const ViewCard = ({ token, isLoggedIn }) => {
             </div>
             <div className='sm:col-auto'>
               <dt className='text-sm font-extrabold text-indigo-700'>
-                Instruments
+                Bio
               </dt>
               <dd className='mt-1 text-sm text-gray-900'>
-                {card.instruments.map(int => (
-                  <p key={int}>{int}</p>
-                ))}
+                {card.bio}
               </dd>
             </div>
 
-            <div className='sm:col-auto'>
+            <div className='sm:col-auto ml-4'>
               <dt className='text-sm font-extrabold text-indigo-700'>
                 Genres
               </dt>
