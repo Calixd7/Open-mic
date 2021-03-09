@@ -15,14 +15,35 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
   const [showProfile, setShowProfile] = useState(false)
   const [showSearch, setShowSearch] = useState(false)
   const history = useHistory()
-  const [highlightExplore, setHighlightExplore] = useState(false)
-  const [highlightFollowing, setHighlightFollowing] = useState(false)
-  const [highlightMessages, setHighlightMessages] = useState(false)
   const [mobileDisplayPage, setMobileDisplayPage] = useState('')
   const path = useLocation()
 
   console.log('unreadStatus HEADER', unreadStatus)
   console.log('path', path)
+
+  const mobileNav = () => {
+    if (path.pathname === '/explore') {
+      return (
+        <div className='sm:hidden bg-green-400 bg-opacity-50 text-white py-1 px-2 mx-2 rounded-md'>
+          Explore
+        </div>
+      )
+    } else if (path.pathname === '/following') {
+      return (
+        <div className='sm:hidden bg-green-400 bg-opacity-50 text-white py-1 px-2 mx-2 rounded-md'>
+          Following
+        </div>
+      )
+    } else if (path.pathname === '/message') {
+      return (
+        <div className='sm:hidden bg-green-400 bg-opacity-50 text-white py-1 px-2 mx-2 rounded-md'>
+          Messages
+        </div>
+      )
+    } else {
+      return ''
+    }
+  }
 
   return (
     <nav className='bg-gray-800'>
@@ -71,10 +92,10 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
             </button>
           </div>
           <div className='flex-1 flex items-center ml-10 sm:ml-0 justify-center sm:justify-start'>
-            <div className='sm:hidden bg-red-500 py-1 px-2 mx-2 rounded-md'>
-              {mobileDisplayPage}
-            </div>
-            <div className='flex-shrink-0 flex-items-center'>
+            <span className='sm:hidden'>
+              {mobileNav()}
+            </span>
+            <div className='hidden sm:flex flex-shrink-0 flex-items-center'>
               <img
                 className='block h-12 w-auto rounded-md'
                 src={logo}
@@ -111,7 +132,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
           {/* profile dropdown */}
           <div className='ml-3 relative flex justify-between'>
             <button
-              className='mr-8 text-white'
+              className='sm:mr-8 text-white'
               onClick={() => setShowSearch(showSearch => !showSearch)}
             >
               {showSearch
@@ -123,7 +144,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 </svg>}
 
             </button>
-            <div>
+            <div className='hidden sm:block'>
               <button
                 className='bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white'
                 id='user-menu'
@@ -150,7 +171,6 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                 aria-labelledby='user-menu'
               >
                 <button
-                // to='view-profile/'
                   className='block px-4 py-2 w-full text-left text-sm text-gray-700 hover:bg-gray-100'
                   role='menuitem'
                   disabled={!isLoggedIn}
@@ -168,9 +188,6 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                         setShowProfile(false)
                         setAvatar(false)
                         setUnreadStatus(0)
-                        setHighlightExplore(false)
-                        setHighlightFollowing(false)
-                        setHighlightMessages(false)
                       }}
                     >
                       Sign Out
@@ -207,7 +224,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
         id='mobile-menu'
       >
         {showMenu &&
-          <HeaderMobile showSearch={showSearch} setShowMenu={setShowMenu} setMobileDisplayPage={setMobileDisplayPage} />}
+          <HeaderMobile showSearch={showSearch} setShowMenu={setShowMenu} setMobileDisplayPage={setMobileDisplayPage} location={location} isLoggedIn={isLoggedIn} setShowProfile={setShowProfile} setToken={setToken} setAvatar={setAvatar} history={history} setUnreadStatus={setUnreadStatus} />}
       </div>
     </nav>
   )

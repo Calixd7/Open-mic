@@ -25,13 +25,6 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
       .then(cards => setCards(cards))
   }
 
-  // console.log('status')
-  console.log('vacancy', vacancy)
-  console.log('wantedInstrument', wantedInstrument)
-  // console.log('genre', genre)
-  // console.log('instrument', instrument)
-  // console.log('genreCheckbox', genreCheckbox)
-
   return (
     <div className='m-2 px-2'>
       <form
