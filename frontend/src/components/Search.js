@@ -46,10 +46,11 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
             <select
               id='status'
               name='status'
+              value={status}
               className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
               onChange={(e) => setStatus(e.currentTarget.value)}
             >
-              <option defaultValue={!status} value=''>any</option>
+              <option value=''>any</option>
               <option value='Individual'>Solo Artist</option>
               <option value='Band'>Band</option>
             </select>
@@ -60,6 +61,7 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
             <select
               id='location'
               name='location'
+              value={location}
               className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
               onChange={(e) => setLocation(e.currentTarget.value)}
             >
@@ -76,6 +78,7 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
             <select
               id='genre'
               name='genre'
+              value={genre}
               className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
               onChange={(e) => setGenre(e.currentTarget.value)}
             >
@@ -92,6 +95,7 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
             <select
               id='instrument'
               name='instrument'
+              value={instrument}
               className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
               onChange={(e) => setInstrument(e.currentTarget.value)}
             >
@@ -108,6 +112,7 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
             <select
               id='instrument'
               name='instrument'
+              value={wantedInstrument}
               className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
               onChange={(e) => setWantedInstrument(e.currentTarget.value)}
             >
@@ -133,7 +138,15 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
             <button
               type='submit'
               className='my-1 inline-flex items-center px-2.5 py-1.5 h-1/2 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-              // onClick={() => setShowSearch(false)}
+              onClick={() => {
+                setStatus('')
+                setLocation('')
+                setGenre('')
+                setInstrument('')
+                setVacancy(null)
+                setWantedInstrument('')
+              }}
+
             >
               <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
                 <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15' />
