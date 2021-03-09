@@ -19,6 +19,7 @@ function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, set
     }
     searchProfiles(token, status, location, genre, newVacancy, instrument, newWanted)
       .then(cards => setCards(cards))
+    setShowSearch(false)
   }
   return (
     <div className='fixed inset-0 overflow-hidden z-10 '>
