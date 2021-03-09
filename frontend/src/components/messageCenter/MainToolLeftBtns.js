@@ -1,7 +1,7 @@
 import { Transition } from '@headlessui/react'
 import { useState } from 'react'
 
-const MainToolLeftBtns = ({ threadStatus }) => {
+const MainToolLeftBtns = ({ threadStatus, messagesLength }) => {
   const [showLeftBtns, setShowLeftBtns] = useState(false)
 
   // const sortMessages = () => {
@@ -13,9 +13,12 @@ const MainToolLeftBtns = ({ threadStatus }) => {
 
   return (
     <div>
-      <span className='relative z-0 inline-flex shadow-sm rounded-md sm:shadow-none sm:space-x-3'>
-        <div className='block text-xl'>
+      <span className='relative z-0 inline-flex shadow-sm rounded-md sm:shadow-none sm:space-x-3 items-center'>
+        <div className='block text-xl mr-2 '>
           {threadStatus}
+        </div>
+        <div className='block text-xl'>
+          {messagesLength}
         </div>
         {/* **** the following is hidden at large. See className on span **** */}
         <span className='inline-flex sm:shadow-sm hidden'>
