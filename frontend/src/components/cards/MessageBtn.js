@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom'
 
-const MessageBtn = ({ card, setMessageReceiverUser, setMessageReceiverName }) => {
+const MessageBtn = ({ card, setMessageReceiverUser, setMessageReceiverName, setThreadStatus }) => {
   const history = useHistory()
   console.log('card', card)
   return (
@@ -12,6 +12,7 @@ const MessageBtn = ({ card, setMessageReceiverUser, setMessageReceiverName }) =>
           history.push('/message')
           setMessageReceiverUser(card.user)
           setMessageReceiverName(card.name)
+          setThreadStatus('New Message')
         }}
       >
         <span>

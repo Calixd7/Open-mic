@@ -13,7 +13,7 @@ import MainToolLeftBtns from './MainToolLeftBtns'
 import ThreadSection from './ThreadSection'
 import MessageList from './MessageList'
 
-const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnreadStatus, unreadStatus, setMessageReceiverUser, messageReceiverName, setMessageReceiverName, triggerReadEffect, setTriggerReadEffect, setMessages, messages }) => {
+const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnreadStatus, unreadStatus, setMessageReceiverUser, messageReceiverName, setMessageReceiverName, triggerReadEffect, setTriggerReadEffect, setMessages, messages, threadStatus, setThreadStatus }) => {
   const [showOffCanvasMenu, setShowOffCanvasMenu] = useState(false)
   const [name, setName] = useState('')
   const [profilesForMessage, setProfilesForMessage] = useState([])
@@ -21,7 +21,6 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnrea
   const [newMessageContent, setNewMessageContent] = useState('')
   const [newMessageSubject, setNewMessageSubject] = useState('')
   const [messageToRender, setMessageToRender] = useState(null)
-  const [threadStatus, setThreadStatus] = useState('Inbox')
   const [showSent, setShowSent] = useState(false)
   const [messagesLength, setMessagesLength] = useState(0)
 

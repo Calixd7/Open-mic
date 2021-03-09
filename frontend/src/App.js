@@ -39,6 +39,7 @@ function App () {
   const [vacancy, setVacancy] = useState(null)
   const [triggerReadEffect, setTriggerReadEffect] = useState()
   const [messages, setMessages] = useState([])
+  const [threadStatus, setThreadStatus] = useState('Inbox')
 
   console.log('messageReceiverUser from APP', messageReceiverUser)
   console.log('triggerReadEffect', triggerReadEffect)
@@ -71,7 +72,7 @@ function App () {
               <Following token={token} isLoggedIn={isLoggedIn} username={username} />
             </Route>
             <Route path='/explore'>
-              <Explore setMessageReceiverUser={setMessageReceiverUser} setMessageReceiverName={setMessageReceiverName} token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} username={username} setAvatar={setAvatar} cards={cards} setCards={setCards} setTriggerReadEffect={setTriggerReadEffect} />
+              <Explore setMessageReceiverUser={setMessageReceiverUser} setMessageReceiverName={setMessageReceiverName} token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} username={username} setAvatar={setAvatar} cards={cards} setCards={setCards} setTriggerReadEffect={setTriggerReadEffect} setThreadStatus={setThreadStatus} />
             </Route>
             <Route path='/view-profile'>
               <ViewProfile token={token} isLoggedIn={isLoggedIn} />
@@ -80,7 +81,7 @@ function App () {
               <ViewCard token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/message'>
-              <MessageHub messageReceiverUser={messageReceiverUser} messageReceiverName={messageReceiverName} setMessageReceiverName={setMessageReceiverName} username={username} token={token} isLoggedIn={isLoggedIn} setUnreadStatus={setUnreadStatus} unreadStatus={unreadStatus} setMessageReceiverUser={setMessageReceiverUser} triggerReadEffect={triggerReadEffect} setTriggerReadEffect={setTriggerReadEffect} messages={messages} setMessages={setMessages} />
+              <MessageHub messageReceiverUser={messageReceiverUser} messageReceiverName={messageReceiverName} setMessageReceiverName={setMessageReceiverName} username={username} token={token} isLoggedIn={isLoggedIn} setUnreadStatus={setUnreadStatus} unreadStatus={unreadStatus} setMessageReceiverUser={setMessageReceiverUser} triggerReadEffect={triggerReadEffect} setTriggerReadEffect={setTriggerReadEffect} messages={messages} setMessages={setMessages} threadStatus={threadStatus} setThreadStatus={setThreadStatus} />
             </Route>
             <Route path='/'>
               <Welcome isLoggedIn={isLoggedIn} />

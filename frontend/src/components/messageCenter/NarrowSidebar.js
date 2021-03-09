@@ -44,6 +44,10 @@ const NarrowSidebar = ({ setNewMessage, setMessageReceiverName, setMessageReceiv
             setShowSent(true)
             setMessageToRender(null)
             setNewMessage(false)
+            setMessageReceiverName('')
+            setMessageReceiverUser('')
+            setNewMessageContent('')
+            setNewMessageSubject('')
           }}
         >
           <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className=' h-6 w-6 text-gray-400'>

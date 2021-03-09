@@ -17,9 +17,10 @@ const MainToolLeftBtns = ({ threadStatus, messagesLength }) => {
         <div className='block text-xl mr-2 '>
           {threadStatus}
         </div>
-        <div className='block text-xl'>
-          {messagesLength}
-        </div>
+        {threadStatus !== 'New Message' &&
+          <div className='block text-xl'>
+            {messagesLength}
+          </div>}
         {/* **** the following is hidden at large. See className on span **** */}
         <span className='inline-flex sm:shadow-sm hidden'>
           <button type='button' className='relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'>
