@@ -80,7 +80,7 @@ function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, set
 
                       <div className='px-6 mb-2 h-full'>
                         <button
-                          type='button'
+                          type='submit'
                           className='mb-1 inline-flex items-center px-2.5 py-1.5 h-1/2 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
                           onClick={() => {
                             setStatus('')
@@ -107,6 +107,7 @@ function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, set
                           <select
                             id='status'
                             name='status'
+                            value={status}
                             className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
                             onChange={(e) => setStatus(e.currentTarget.value)}
                           >
@@ -125,6 +126,7 @@ function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, set
                           <select
                             id='location'
                             name='location'
+                            value={location}
                             className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
                             onChange={(e) => setLocation(e.currentTarget.value)}
                           >
@@ -144,6 +146,7 @@ function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, set
                           <select
                             id='genre'
                             name='genre'
+                            value={genre}
                             className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
                             onChange={(e) => setGenre(e.currentTarget.value)}
                           >
@@ -163,6 +166,7 @@ function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, set
                           <select
                             id='instrument'
                             name='instrument'
+                            value={instrument}
                             className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
                             onChange={(e) => setInstrument(e.currentTarget.value)}
                           >
@@ -176,31 +180,13 @@ function SearchMobile ({ token, setCards, showSearch, setShowSearch, status, set
                       </div>
                     </li>
 
-                    {/* <li className='px-6 py-5 relative'>
-                      <div className='group flex justify-between items-center'>
-                        <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
-                          <select
-                            id='vacancy'
-                            name='vacancy'
-                            className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
-                            onChange={(e) => setVacancy(e.currentTarget.value)}
-                          >
-                            <option value='null'>n/a</option>
-                            <option value='false'>Not looking</option>
-                            <option value='true'>Looking</option>
-                          </select>
-                        </span>
-                        <label htmlFor='vacancy' className='block text-sm text-center font-medium text-gray-700'>Bands looking <br />for Instrument
-                        </label>
-                      </div>
-                    </li> */}
-
                     <li className='px-6 py-5 relative'>
                       <div className='group flex justify-between items-center'>
                         <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
                           <select
                             id='instrument'
                             name='instrument'
+                            value={wantedInstrument}
                             className='-ml-px block w-full pl-3 pr-9 py-2 rounded-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500'
                             onChange={(e) => setWantedInstrument(e.currentTarget.value)}
                           >
