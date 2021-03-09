@@ -14,11 +14,11 @@ const MainToolLeftBtns = ({ threadStatus }) => {
   return (
     <div>
       <span className='relative z-0 inline-flex shadow-sm rounded-md sm:shadow-none sm:space-x-3'>
-        <div className='hidden lg:block text-xl'>
+        <div className='block text-xl'>
           {threadStatus}
         </div>
         {/* **** the following is hidden at large. See className on span **** */}
-        <span className='inline-flex sm:shadow-sm lg:hidden'>
+        <span className='inline-flex sm:shadow-sm hidden'>
           <button type='button' className='relative inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-900 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-blue-600 focus:border-blue-600'>
             {/* <!-- Heroicon name: solid/reply --> */}
             <svg className='mr-2.5 h-5 w-5 text-gray-400' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
@@ -65,7 +65,8 @@ const MainToolLeftBtns = ({ threadStatus }) => {
           </button>
         </span>
 
-        <span className='-ml-px relative block sm:shadow-sm lg:hidden'>
+        {/* **** This is hidden with a sm:hidden. Originally was a lg:hidden **** */}
+        <span className='-ml-px relative block sm:shadow-sm hidden'>
           <div>
             <button
               type='button'
@@ -75,7 +76,7 @@ const MainToolLeftBtns = ({ threadStatus }) => {
               aria-haspopup='true'
               onClick={() => setShowLeftBtns(showLeftBtns => !showLeftBtns)}
             >
-              <span className='sr-only sm:hidden'>More</span>
+              <span className='sr-only hidden'>More</span>
               <span className='hidden sm:inline'>More</span>
               {/* <!-- Heroicon name: solid/chevron-down --> */}
               <svg className='h-5 w-5 text-gray-400 sm:ml-2 sm:-mr-1' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>

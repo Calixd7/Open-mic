@@ -1,7 +1,7 @@
 
 const NarrowSidebar = ({ setNewMessage, setMessageReceiverName, setMessageReceiverUser, newMessageContent, setNewMessageContent, newMessageSubject, setNewMessageSubject, messageToRender, setMessageToRender, setThreadStatus, setShowSent }) => {
   return (
-    <nav aria-label='Sidebar' className='hidden lg:block lg:flex-shrink-0 lg:bg-gray-800 lg:overflow-y-auto'>
+    <nav aria-label='Sidebar' className='hidden sm:block sm:flex-shrink-0 sm:bg-gray-800 sm:overflow-y-auto'>
       <div className='relative w-20 flex flex-col p-3 space-y-3'>
         <button
           className='bg-gray-900 text-white flex-shrink-0 inline-flex items-center justify-center h-14 w-14 rounded-lg'

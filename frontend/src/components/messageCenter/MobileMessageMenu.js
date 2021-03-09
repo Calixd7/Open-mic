@@ -1,6 +1,7 @@
 import { Transition } from '@headlessui/react'
+import logo from '../images/blue_instruments.jpg'
 
-const MobileMessageMenu = ({ setShowOffCanvasMenu, showOffCanvasMenu }) => {
+const MobileMessageMenu = ({ setShowOffCanvasMenu, showOffCanvasMenu, setNewMessage, setMessageReceiverName, setMessageReceiverUser, newMessageContent, setNewMessageContent, newMessageSubject, setNewMessageSubject, messageToRender, setMessageToRender, setThreadStatus, setShowSent }) => {
   return (
     <div className='fixed inset-0 z-40'>
 
@@ -32,7 +33,7 @@ const MobileMessageMenu = ({ setShowOffCanvasMenu, showOffCanvasMenu }) => {
         <nav className='fixed z-40 inset-0 h-full w-full bg-white sm:inset-y-0 sm:left-auto sm:right-0 sm:max-w-sm sm:w-full sm:shadow-lg lg:hidden' aria-label='Global'>
           <div className='h-16 flex items-center justify-between px-4 sm:px-6'>
             <a href='#'>
-              <img className='block h-8 w-auto' src='https://tailwindui.com/img/logos/workflow-mark.svg?color=cyan&shade=400' alt='Workflow' />
+              <img className='block h-8 w-auto' src={logo} alt='Workflow' />
             </a>
             <button
               type='button'
@@ -49,8 +50,8 @@ const MobileMessageMenu = ({ setShowOffCanvasMenu, showOffCanvasMenu }) => {
           </div>
           <div className='mt-2 max-w-8xl mx-auto px-4 sm:px-6'>
             <div className='relative text-gray-400 focus-within:text-gray-500'>
-              <label htmlFor='search' className='sr-only'>Search all inboxes</label>
-              <input id='search' type='search' placeholder='Search all inboxes' className='block w-full border-gray-300 rounded-md pl-10 placeholder-gray-500 focus:border-blue-600 focus:ring-blue-600' />
+              <label htmlFor='search' className='sr-only'>Search messages</label>
+              <input id='search' type='search' placeholder='Search messages' className='block w-full border-gray-300 rounded-md pl-10 placeholder-gray-500 focus:border-blue-600 focus:ring-blue-600' />
               <div className='absolute inset-y-0 left-0 flex items-center justify-center pl-3'>
                 {/* <!-- Heroicon name: solid/search --> */}
                 <svg className='h-5 w-5' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='currentColor' aria-hidden='true'>
@@ -60,17 +61,52 @@ const MobileMessageMenu = ({ setShowOffCanvasMenu, showOffCanvasMenu }) => {
             </div>
           </div>
           <div className='max-w-8xl mx-auto py-3 px-2 sm:px-4'>
-            <a href='#' className='block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100'>Inboxes</a>
+            <button
+              className='block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100'
+              onClick={() => {
+                setNewMessage(false)
+                setMessageToRender(null)
+                setThreadStatus('Inbox')
+                setShowSent(false)
+                setMessageReceiverName('')
+                setMessageReceiverUser('')
+                setNewMessageContent('')
+                setNewMessageSubject('')
+                setShowOffCanvasMenu(false)
+              }}
+            >
+              Inboxes
+            </button>
 
-            <a href='#' className='block rounded-md py-2 pl-5 pr-3 text-base font-medium text-gray-500 hover:bg-gray-100'>Technical Support</a>
+            <button
+              className='block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100'
+              onClick={() => {
+                setNewMessage(true)
+                setMessageReceiverName('')
+                setMessageReceiverUser('')
+                setNewMessageContent('')
+                setNewMessageSubject('')
+                setThreadStatus('New Message')
+                setMessageToRender(null)
+                setShowOffCanvasMenu(false)
+              }}
+            >
+              New Message
+            </button>
 
-            <a href='#' className='block rounded-md py-2 pl-5 pr-3 text-base font-medium text-gray-500 hover:bg-gray-100'>Sales</a>
+            <button
+              className='block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100'
+              onClick={() => {
+                setThreadStatus('Sent Messages')
+                setShowSent(true)
+                setMessageToRender(null)
+                setNewMessage(false)
+                setShowOffCanvasMenu(false)
+              }}
+            >
+              Sent Messages
+            </button>
 
-            <a href='#' className='block rounded-md py-2 pl-5 pr-3 text-base font-medium text-gray-500 hover:bg-gray-100'>General</a>
-
-            <a href='#' className='block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100'>Reporting</a>
-
-            <a href='#' className='block rounded-md py-2 px-3 text-base font-medium text-gray-900 hover:bg-gray-100'>Settings</a>
           </div>
           <div className='border-t border-gray-200 pt-4 pb-3'>
             <div className='max-w-8xl mx-auto px-4 flex items-center sm:px-6'>
