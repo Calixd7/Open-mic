@@ -15,6 +15,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { postProfiles, deleteProfile, updateProfile, uploadImage } from '../api'
 import Delete from './Delete'
 import Spotify from './Spotify'
+import Errors from './Errors'
 
 const changeWebsiteUrl = (site) => {
   const http = 'http://'
@@ -71,6 +72,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
   const safeProfile = profile || {}
   const { type } = useParams()
   const history = useHistory()
+  const [errors, setErrors] = useState('')
   const [disableSubmit, setDisableSubmit] = useState(false)
   const [name, setName] = useState(safeProfile.name || '')
   const [genres, setGenres] = useState(safeProfile.genres || [])
@@ -150,6 +152,9 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
               history.push('/explore')
             })
         })
+        .catch(error => {
+          setErrors(error.message)
+        })
     }
   }
 
@@ -163,7 +168,11 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
     <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-md w-full space-y-8'>
         <div>
-          <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Profile Setup</h2>
+          <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
+            {isEditing
+              ? 'Update Profile'
+              : 'Profile Setup'}
+          </h2>
         </div>
         <div className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
           <form
@@ -177,7 +186,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
             <div className='flex flex-col'>
 
               <div className='mt-4'>
-                <Status status={status} setStatus={setStatus} />
+                <Status status={status} setStatus={setStatus} isEditing={isEditing} />
               </div>
 
               <div className='mt-4'>
@@ -233,10 +242,15 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
               </div>
 
             </div>
+            {errors && (
+              <div className='mt-4'>
+                <Errors errors={errors} />
+              </div>
+            )}
             <div className='mt-4'>
               <button
                 className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                // disabled={disableSubmit}
+                disabled={disableSubmit}
                 type='submit'
               >
                 {isEditing

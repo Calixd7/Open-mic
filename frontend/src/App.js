@@ -3,6 +3,7 @@ import createPersistedState from 'use-persisted-state'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { far, faUser } from '@fortawesome/free-regular-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { getMessages } from './api'
 import Header from './components/Header'
 import Welcome from './components/Welcome'
 import Login from './components/Login'
@@ -41,6 +42,12 @@ function App () {
   const [messages, setMessages] = useState([])
   const [threadStatus, setThreadStatus] = useState('Inbox')
 
+<<<<<<< HEAD
+=======
+  // console.log('messageReceiverUser from APP', messageReceiverUser)
+  // console.log('triggerReadEffect', triggerReadEffect)
+
+>>>>>>> 80b696cc9864eef1b38f730584e6342b86e27c27
   function setAuth (username, token) {
     setUsername(username)
     setToken(token)
@@ -48,6 +55,17 @@ function App () {
 
   function setProfilePk (pk) {
     setPk(pk)
+  }
+
+  const countOnLogin = (authToken) => {
+    getMessages(authToken)
+      .then(messages => {
+        const receivedMessages = messages.filter(msg => msg.sender.username !== username)
+        if (receivedMessages.length > 0) {
+          const unreadCount = receivedMessages.reduce((count, msg) => msg.read ? count : count + 1, 0)
+          setUnreadStatus(unreadCount)
+        }
+      })
   }
 
   return (
@@ -60,7 +78,7 @@ function App () {
               <Registration setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
             </Route>
             <Route path='/login'>
-              <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
+              <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} countOnLogin={countOnLogin} />
             </Route>
             <Route path='/profile-setup'>
               <ProfileSetup token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} />

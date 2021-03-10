@@ -1,20 +1,18 @@
 import { useState, useEffect } from 'react'
 import { Transition } from '@headlessui/react'
-import { Link } from 'react-router-dom'
-import { deleteMessage, updateMessage, getMessages } from '../../api'
-import { dateStamp, formatDate } from '../helperFunctions'
+import { updateMessage, getMessages } from '../../api'
 import MessageSentAlert from '../alerts/MessageSentAlert'
 import ReplyEditor from './ReplyEditor'
 import NewMessageEditor from './NewMessageEditor'
 
 const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTriggerReadEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, messageReceiverName, setMessageReceiverName, setMessageReceiverUser, name, profilesForMessage, newMessage, setNewMessage, newMessageContent, setNewMessageContent, newMessageSubject, setNewMessageSubject, messageToRender, setMessageToRender, showSent, setMessagesLength, threadStatus }) => {
-  const [read, setRead] = useState(false)
   // const [message, setMessage] = useState([])
   const [showReplyForm, setShowReplyForm] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [content, setContent] = useState('')
   const [date, setDate] = useState('')
 
+<<<<<<< HEAD
   useEffect(() => {
     // console.log('read useffect JUST RAN')
     const unread = []
@@ -31,6 +29,24 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
       }
     })
   }, [])
+=======
+  // useEffect(() => {
+  //   // console.log('read useffect JUST RAN')
+  //   const unread = []
+  //   messages.forEach(message => {
+  //     if (message.read === false) {
+  //       unread.push(message)
+  //       // console.log('unread', unread.length)
+  //     }
+  //     if (unread.length > 0) {
+  //       setUnreadStatus(unread.length)
+  //     }
+  //     if (unread.length === 0) {
+  //       setUnreadStatus(0)
+  //     }
+  //   })
+  // }, [])
+>>>>>>> 80b696cc9864eef1b38f730584e6342b86e27c27
 
   console.log('messages', messages)
   console.log('date', date)
@@ -41,14 +57,6 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
 
   if (!messages) {
     return 'loading'
-  }
-
-  const handleDelete = (id) => {
-    deleteMessage(token, id)
-      .then(res => {
-        getMessages(token)
-          .then(messages => setMessages(messages))
-      })
   }
 
   const renderReceivedMessages = (allMessages) => {
@@ -70,18 +78,17 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
 
   const updateReadStatus = (messagetoUpdate) => {
     if (messagetoUpdate.read === false) {
-      setRead(true)
-
+      const newRead = true
       const updateRead = {
         receiver: messagetoUpdate.receiver,
-        read: read
+        read: newRead
       }
-
       updateMessage(token, messagetoUpdate.id, updateRead)
         .then(updatedRead => {
           getMessages(token)
             .then(updatedMessages => {
               setMessages(updatedMessages)
+<<<<<<< HEAD
               const unread = []
               updatedMessages.forEach(updatedMessage => {
                 if (updatedMessage.read === false) {
@@ -95,6 +102,22 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
                   setUnreadStatus(unread.length)
                 }
               })
+=======
+              // setUnreadStatus(0)
+              // const unread = []
+              // updatedMessages.forEach(updatedMessage => {
+              //   if (updatedMessage.read === false) {
+              //     unread.push(updatedMessage)
+              //     console.log('unread', unread.length)
+              //   }
+              //   if (unread.length === 0) {
+              //     setUnreadStatus(0)
+              //   }
+              //   if (unread.length > 0) {
+              //     setUnreadStatus(unread.length)
+              //   }
+              // })
+>>>>>>> 80b696cc9864eef1b38f730584e6342b86e27c27
             })
         })
     }
@@ -157,7 +180,10 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
               <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
                 <time dateTime='2021-01-28T19:24'>
                   {message.created_at}
+<<<<<<< HEAD
 
+=======
+>>>>>>> 80b696cc9864eef1b38f730584e6342b86e27c27
                 </time>
               </p>
             </div>
@@ -167,16 +193,6 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
                   <span className='text-indigo-800'>Subject:&nbsp;</span>
                   <span className='text-gray-900'>{message.subject}</span>
                 </p>
-                <button
-                  type='button'
-                  className='z-20'
-                  onClick={() => {
-                    console.log('btn clicked')
-                    handleDelete(message.id)
-                  }}
-                >
-                  delete
-                </button>
               </div>
             </div>
             <div className='sm:flex sm:justify-between sm:items-baseline mt-8'>

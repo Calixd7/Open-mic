@@ -17,6 +17,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
   if (!token) {
     return <Redirect to='/login' />
   }
+  console.log('token', token)
 
   if (!card) {
     return 'loading'
@@ -48,7 +49,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
                       icon={['far', 'user']}
                       className='text-red-300 hover:text-red-500 text-7xl h-auto w-auto mx-auto'
                     />
-                  </span>}
+                    </span>}
               </span>
             </div>
           </div>
@@ -127,10 +128,10 @@ const ViewCard = ({ token, isLoggedIn }) => {
                       icon={['far', 'user']}
                       className='text-red-300 hover:text-red-500 text-7xl h-auto w-auto mx-auto'
                     />
-                  </span>}
+                    </span>}
               </span>
             </div>
-            <div className='sm:col-auto'>
+            <div className='sm:col-auto ml-9'>
               <dt className='text-sm font-extrabold text-indigo-700'>
                 {card.individualorband === 'Band'
                   ? 'Band Name'
@@ -171,14 +172,14 @@ const ViewCard = ({ token, isLoggedIn }) => {
               {card.spotify &&
                 <iframe
                   src={`https://open.spotify.com/embed/artist/${card.spotify}`}
-                  width='240'
+                  width='222'
                   height='180'
                   frameBorder='0'
                   allowtransparency='true'
                   allow='encrypted-media'
                 />}
             </div>
-            <div className='sm:col-auto'>
+            <div className='sm:col-auto ml-9'>
               <dt className='text-sm font-extrabold text-indigo-700'>
                 Bio
               </dt>

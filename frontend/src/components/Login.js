@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { login } from '../api'
 import Errors from './Errors'
 
-function Login ({ setAuth, isLoggedIn, setProfilePk }) {
+function Login ({ setAuth, isLoggedIn, setProfilePk, countOnLogin }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState()
@@ -19,6 +19,7 @@ function Login ({ setAuth, isLoggedIn, setProfilePk }) {
           setAuth(username, data.auth_token)
           setProfilePk(data.pk)
           history.push('/explore')
+          countOnLogin(data.auth_token)
         }
       })
       .catch(error => {
