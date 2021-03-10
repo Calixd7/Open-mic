@@ -53,6 +53,14 @@ function App () {
     setPk(pk)
   }
 
+  const countOnLogin = () => {
+    const receivedMessages = messages.filter(msg => msg.sender.username !== username)
+    if (receivedMessages.length > 0) {
+      const unreadCount = receivedMessages.reduce((count, msg) => msg.read ? count : count + 1, 0)
+      setUnreadStatus(unreadCount)
+    }
+  }
+
   return (
     <Router>
       <div className='App'>
@@ -63,7 +71,7 @@ function App () {
               <Registration setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
             </Route>
             <Route path='/login'>
-              <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
+              <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} countOnLogin={countOnLogin} />
             </Route>
             <Route path='/profile-setup'>
               <ProfileSetup token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} />
