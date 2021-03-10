@@ -2,7 +2,7 @@ import { Link, useHistory, useLocation } from 'react-router-dom'
 import { Transition } from '@headlessui/react'
 import { useEffect, useState } from 'react'
 import logo from './images/blue_instruments.jpg'
-import { getUserProfile } from '../api'
+import { getUserProfile, getProfiles } from '../api'
 import { updateReadMessageStatus } from './helperFunctions'
 import Avatar from './Avatar'
 import HeaderMobile from './HeaderMobile'
@@ -19,7 +19,6 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
   const path = useLocation()
 
   console.log('unreadStatus HEADER', unreadStatus)
-  console.log('path', path)
 
   const mobileNav = () => {
     if (path.pathname === '/explore') {
@@ -176,7 +175,10 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                   className='block px-4 py-2 w-full text-left text-sm text-gray-700 hover:bg-gray-100'
                   role='menuitem'
                   disabled={!isLoggedIn}
-                  onClick={() => { history.push('/view-profile'); setShowProfile(false) }}
+                  onClick={() => {
+                    history.push('/view-profile')
+                    setShowProfile(false)
+                  }}
                 >
                   Your Profile
                 </button>
