@@ -19,7 +19,7 @@ function Login ({ setAuth, isLoggedIn, setProfilePk, countOnLogin }) {
           setAuth(username, data.auth_token)
           setProfilePk(data.pk)
           history.push('/explore')
-          countOnLogin()
+          countOnLogin(data.auth_token)
         }
       })
       .catch(error => {

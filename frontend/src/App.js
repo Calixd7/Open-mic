@@ -3,6 +3,7 @@ import createPersistedState from 'use-persisted-state'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { far, faUser } from '@fortawesome/free-regular-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { getMessages } from './api'
 import Header from './components/Header'
 import Welcome from './components/Welcome'
 import Login from './components/Login'
@@ -53,12 +54,15 @@ function App () {
     setPk(pk)
   }
 
-  const countOnLogin = () => {
-    const receivedMessages = messages.filter(msg => msg.sender.username !== username)
-    if (receivedMessages.length > 0) {
-      const unreadCount = receivedMessages.reduce((count, msg) => msg.read ? count : count + 1, 0)
-      setUnreadStatus(unreadCount)
-    }
+  const countOnLogin = (authToken) => {
+    getMessages(authToken)
+      .then(messages => {
+        const receivedMessages = messages.filter(msg => msg.sender.username !== username)
+        if (receivedMessages.length > 0) {
+          const unreadCount = receivedMessages.reduce((count, msg) => msg.read ? count : count + 1, 0)
+          setUnreadStatus(unreadCount)
+        }
+      })
   }
 
   return (
