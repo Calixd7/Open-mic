@@ -12,24 +12,6 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   const [content, setContent] = useState('')
   const [date, setDate] = useState('')
 
-<<<<<<< HEAD
-  useEffect(() => {
-    // console.log('read useffect JUST RAN')
-    const unread = []
-    messages.forEach(message => {
-      if (message.read === false) {
-        unread.push(message)
-        // console.log('unread', unread.length)
-      }
-      if (unread.length > 0) {
-        setUnreadStatus(unread.length)
-      }
-      if (unread.length === 0) {
-        setUnreadStatus(0)
-      }
-    })
-  }, [])
-=======
   // useEffect(() => {
   //   // console.log('read useffect JUST RAN')
   //   const unread = []
@@ -46,7 +28,6 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   //     }
   //   })
   // }, [])
->>>>>>> 80b696cc9864eef1b38f730584e6342b86e27c27
 
   console.log('messages', messages)
   console.log('date', date)
@@ -88,21 +69,6 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
           getMessages(token)
             .then(updatedMessages => {
               setMessages(updatedMessages)
-<<<<<<< HEAD
-              const unread = []
-              updatedMessages.forEach(updatedMessage => {
-                if (updatedMessage.read === false) {
-                  unread.push(updatedMessage)
-                  // console.log('unread', unread.length)
-                }
-                if (unread.length === 0) {
-                  setUnreadStatus(0)
-                }
-                if (unread.length > 0) {
-                  setUnreadStatus(unread.length)
-                }
-              })
-=======
               // setUnreadStatus(0)
               // const unread = []
               // updatedMessages.forEach(updatedMessage => {
@@ -117,7 +83,6 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
               //     setUnreadStatus(unread.length)
               //   }
               // })
->>>>>>> 80b696cc9864eef1b38f730584e6342b86e27c27
             })
         })
     }

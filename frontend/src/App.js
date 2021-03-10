@@ -42,12 +42,6 @@ function App () {
   const [messages, setMessages] = useState([])
   const [threadStatus, setThreadStatus] = useState('Inbox')
 
-<<<<<<< HEAD
-=======
-  // console.log('messageReceiverUser from APP', messageReceiverUser)
-  // console.log('triggerReadEffect', triggerReadEffect)
-
->>>>>>> 80b696cc9864eef1b38f730584e6342b86e27c27
   function setAuth (username, token) {
     setUsername(username)
     setToken(token)
