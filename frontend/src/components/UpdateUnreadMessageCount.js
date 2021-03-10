@@ -8,6 +8,7 @@ const UpdateUnreadMessageCount = ({ token, messages, setUnreadStatus, unreadStat
       setUnreadStatus(unreadCount)
     }
   }, [messages])
+
   return (
     <>
       {unreadStatus > 0
