@@ -51,11 +51,8 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   }
 
   const sortMessages = (receivedMessages) => {
-    // console.log('messages', receivedMessages)
     const sortedMessages = receivedMessages.slice().sort((a, b) => new Date(b.id) - new Date(a.id))
-    // console.log('sortedMessages', sortedMessages)
     return sortedMessages
-    // setMessages(sortedMessages)
   }
 
   const updateReadStatus = (messagetoUpdate) => {
@@ -131,11 +128,11 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
                     ? <>
                       <span className='text-indigo-800'>From:&nbsp;</span>
                       <span className='text-gray-600'>{message.name}</span>
-                    </>
+                      </>
                     : <>
                       <span className='text-indigo-800'>To:&nbsp;</span>
                       <span className='text-gray-600'>{message.receiver_name}</span>
-                    </>}
+                      </>}
 
                 </div>
                 {/* <div>
