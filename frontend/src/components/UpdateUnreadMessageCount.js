@@ -1,12 +1,13 @@
 import { useEffect } from 'react'
 
-const UpdateUnreadMessageCount = ({ messages, setUnreadStatus, unreadStatus }) => {
+const UpdateUnreadMessageCount = ({ token, messages, setUnreadStatus, unreadStatus, username }) => {
   useEffect(() => {
-    if (messages.length > 0) {
-      const unreadCount = messages.reduce((count, msg) => msg.read ? count : count + 1, 0)
+    const receivedMessages = messages.filter(msg => msg.sender.username !== username)
+    if (receivedMessages.length > 0) {
+      const unreadCount = receivedMessages.reduce((count, msg) => msg.read ? count : count + 1, 0)
       setUnreadStatus(unreadCount)
     }
-  }, [setUnreadStatus, messages])
+  }, [messages])
   return (
     <>
       {unreadStatus > 0
