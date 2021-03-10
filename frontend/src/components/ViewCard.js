@@ -48,7 +48,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
                       icon={['far', 'user']}
                       className='text-red-300 hover:text-red-500 text-7xl h-auto w-auto mx-auto'
                     />
-                    </span>}
+                  </span>}
               </span>
             </div>
           </div>
@@ -127,7 +127,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
                       icon={['far', 'user']}
                       className='text-red-300 hover:text-red-500 text-7xl h-auto w-auto mx-auto'
                     />
-                    </span>}
+                  </span>}
               </span>
             </div>
             <div className='sm:col-auto'>
@@ -169,7 +169,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
 
             <div className='sm:col-auto mt-4'>
               <iframe
-                src={card.spotify}
+                src={`https://open.spotify.com/embed/artist/${card.spotify}`}
                 width='240'
                 height='180'
                 frameBorder='0'
