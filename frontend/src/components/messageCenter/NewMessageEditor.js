@@ -2,8 +2,9 @@ import { useState } from 'react'
 import { sendMessage, getMessages } from '../../api'
 import { Transition } from '@headlessui/react'
 import { faUsersSlash } from '@fortawesome/free-solid-svg-icons'
+import { dateStamp } from '../helperFunctions'
 
-const NewMessageEditor = ({ token, username, messageReceiverUser, setMessageReceiverUser, messageReceiverName, setMessageReceiverName, setShowAlert, setMessages, name, newMessage, setNewMessage, profilesForMessage, newMessageContent, setNewMessageContent, newMessageSubject, setNewMessageSubject }) => {
+const NewMessageEditor = ({ token, username, messageReceiverUser, setMessageReceiverUser, messageReceiverName, setMessageReceiverName, setShowAlert, setMessages, name, newMessage, setNewMessage, profilesForMessage, newMessageContent, setNewMessageContent, newMessageSubject, setNewMessageSubject, setDate, date }) => {
   const [showRecipients, setShowRecipients] = useState(false)
 
   const pendingNewMessage = {
@@ -12,7 +13,8 @@ const NewMessageEditor = ({ token, username, messageReceiverUser, setMessageRece
     name: name,
     receiver_name: messageReceiverName,
     subject: newMessageSubject,
-    content: newMessageContent
+    content: newMessageContent,
+    created_at: date
   }
 
   function handleSubmit (event) {
@@ -26,6 +28,7 @@ const NewMessageEditor = ({ token, username, messageReceiverUser, setMessageRece
             setMessageReceiverName('')
             setNewMessage(false)
             setShowAlert(true)
+            setDate(dateStamp(new Date()))
           })
       })
   }

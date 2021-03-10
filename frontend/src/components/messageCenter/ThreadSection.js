@@ -13,9 +13,10 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   const [showReplyForm, setShowReplyForm] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [content, setContent] = useState('')
+  const [date, setDate] = useState('')
 
   useEffect(() => {
-    console.log('read useffect JUST RAN')
+    // console.log('read useffect JUST RAN')
     const unread = []
     messages.forEach(message => {
       if (message.read === false) {
@@ -32,6 +33,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   }, [])
 
   console.log('messages', messages)
+  console.log('date', date)
   // console.log('messages', messages.map(message => message))
   // console.log('messageToRender', messageToRender)
   // console.log('content', content)
@@ -62,11 +64,8 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   }
 
   const sortMessages = (receivedMessages) => {
-    console.log('messages', receivedMessages)
     const sortedMessages = receivedMessages.slice().sort((a, b) => new Date(b.id) - new Date(a.id))
-    console.log('sortedMessages', sortedMessages)
     return sortedMessages
-    // setMessages(sortedMessages)
   }
 
   const updateReadStatus = (messagetoUpdate) => {
@@ -87,7 +86,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
               updatedMessages.forEach(updatedMessage => {
                 if (updatedMessage.read === false) {
                   unread.push(updatedMessage)
-                  console.log('unread', unread.length)
+                  // console.log('unread', unread.length)
                 }
                 if (unread.length === 0) {
                   setUnreadStatus(0)
@@ -112,7 +111,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   if (messageReceiverUser || newMessage) {
     return (
       <div className='mx-4'>
-        <NewMessageEditor token={token} username={username} setShowAlert={setShowAlert} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} setMessageReceiverName={setMessageReceiverName} setMessages={setMessages} name={name} newMessage={newMessage} setNewMessage={setNewMessage} profilesForMessage={profilesForMessage} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} newMessageSubject={newMessageSubject} setNewMessageSubject={setNewMessageSubject} />
+        <NewMessageEditor token={token} username={username} setShowAlert={setShowAlert} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} setMessageReceiverName={setMessageReceiverName} setMessages={setMessages} name={name} newMessage={newMessage} setNewMessage={setNewMessage} profilesForMessage={profilesForMessage} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} newMessageSubject={newMessageSubject} setNewMessageSubject={setNewMessageSubject} setDate={setDate} date={date} />
       </div>
     )
   }
@@ -143,11 +142,11 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
                     ? <>
                       <span className='text-indigo-800'>From:&nbsp;</span>
                       <span className='text-gray-600'>{message.name}</span>
-                      </>
+                    </>
                     : <>
                       <span className='text-indigo-800'>To:&nbsp;</span>
                       <span className='text-gray-600'>{message.receiver_name}</span>
-                      </>}
+                    </>}
 
                 </div>
                 {/* <div>
@@ -157,7 +156,8 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
               </h3>
               <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
                 <time dateTime='2021-01-28T19:24'>
-                  {formatDate(message.created_at)}
+                  {message.created_at}
+
                 </time>
               </p>
             </div>
