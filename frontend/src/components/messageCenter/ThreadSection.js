@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Transition } from '@headlessui/react'
-import { Link } from 'react-router-dom'
-import { deleteMessage, updateMessage, getMessages } from '../../api'
-import { dateStamp, formatDate } from '../helperFunctions'
+import { updateMessage, getMessages } from '../../api'
 import MessageSentAlert from '../alerts/MessageSentAlert'
 import ReplyEditor from './ReplyEditor'
 import NewMessageEditor from './NewMessageEditor'
@@ -39,14 +37,6 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
 
   if (!messages) {
     return 'loading'
-  }
-
-  const handleDelete = (id) => {
-    deleteMessage(token, id)
-      .then(res => {
-        getMessages(token)
-          .then(messages => setMessages(messages))
-      })
   }
 
   const renderReceivedMessages = (allMessages) => {
@@ -157,7 +147,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
               </h3>
               <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
                 <time dateTime='2021-01-28T19:24'>
-                  {formatDate(message.created_at)}
+                  {message.created_at}
                 </time>
               </p>
             </div>
@@ -167,16 +157,6 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
                   <span className='text-indigo-800'>Subject:&nbsp;</span>
                   <span className='text-gray-900'>{message.subject}</span>
                 </p>
-                <button
-                  type='button'
-                  className='z-20'
-                  onClick={() => {
-                    console.log('btn clicked')
-                    handleDelete(message.id)
-                  }}
-                >
-                  delete
-                </button>
               </div>
             </div>
             <div className='sm:flex sm:justify-between sm:items-baseline mt-8'>
