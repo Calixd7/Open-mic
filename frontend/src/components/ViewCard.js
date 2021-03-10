@@ -130,7 +130,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
                   </span>}
               </span>
             </div>
-            <div className='sm:col-auto'>
+            <div className='sm:col-auto ml-9'>
               <dt className='text-sm font-extrabold text-indigo-700'>
                 {card.individualorband === 'Band'
                   ? 'Band Name'
@@ -171,14 +171,14 @@ const ViewCard = ({ token, isLoggedIn }) => {
               {card.spotify &&
                 <iframe
                   src={`https://open.spotify.com/embed/artist/${card.spotify}`}
-                  width='240'
+                  width='222'
                   height='180'
                   frameBorder='0'
                   allowtransparency='true'
                   allow='encrypted-media'
                 />}
             </div>
-            <div className='sm:col-auto'>
+            <div className='sm:col-auto ml-9'>
               <dt className='text-sm font-extrabold text-indigo-700'>
                 Bio
               </dt>
