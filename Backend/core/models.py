@@ -105,7 +105,7 @@ class Messages(models.Model):
     image = models.ImageField(upload_to="uploads/", null=True, blank=True)
     read = models.BooleanField(default=False)
     active = models.BooleanField(default=True, editable=False)
-    created_at = models.DateField()
+    created_at = models.CharField(max_length=100, blank=True, null=True)
 
     objects = ActiveManager()
 
