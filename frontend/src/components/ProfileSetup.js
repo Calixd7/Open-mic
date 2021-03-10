@@ -15,6 +15,7 @@ import { useParams, useHistory } from 'react-router-dom'
 import { postProfiles, deleteProfile, updateProfile, uploadImage } from '../api'
 import Delete from './Delete'
 import Spotify from './Spotify'
+import Errors from './Errors'
 
 const changeWebsiteUrl = (site) => {
   const http = 'http://'
@@ -71,6 +72,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
   const safeProfile = profile || {}
   const { type } = useParams()
   const history = useHistory()
+  const [errors, setErrors] = useState('')
   const [disableSubmit, setDisableSubmit] = useState(false)
   const [name, setName] = useState(safeProfile.name || '')
   const [genres, setGenres] = useState(safeProfile.genres || [])
@@ -149,6 +151,9 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
             .then(data => {
               history.push('/explore')
             })
+        })
+        .catch(error => {
+          setErrors(error.message)
         })
     }
   }
@@ -233,10 +238,15 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
               </div>
 
             </div>
+            {errors && (
+              <div className='mt-4'>
+                <Errors errors={errors} />
+              </div>
+            )}
             <div className='mt-4'>
               <button
                 className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                // disabled={disableSubmit}
+                disabled={disableSubmit}
                 type='submit'
               >
                 {isEditing
