@@ -24,9 +24,9 @@ function Following ({ token, username, isLoggedIn }) {
     setFollowingCards(followingProfiles)
   }, [allCards, connections])
 
-  console.log('allCards', allCards)
-  console.log('connections', connections)
-  console.log('followingCards', followingCards)
+  // console.log('allCards', allCards)
+  // console.log('connections', connections)
+  // console.log('followingCards', followingCards)
 
   if (!followingCards) {
     return 'loading'
@@ -36,17 +36,13 @@ function Following ({ token, username, isLoggedIn }) {
     return <Redirect to='/' />
   }
 
-  // if (userFriends) {
   return (
     <div>
-      {/* {friendCards && */}
       <div className='mt-4'>
         <Card cards={followingCards} connections={connections} />
       </div>
-      {/* } */}
     </div>
   )
-  // }
 }
 
 export default Following

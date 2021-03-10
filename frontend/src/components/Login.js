@@ -66,7 +66,7 @@ function Login ({ setAuth, isLoggedIn, setProfilePk }) {
                 onChange={event => { setUsername(event.target.value); setErrors('') }}
               />
             </div>
-            <div>
+            <div className='pb-4'>
               <label
                 htmlFor='password'
                 className='sr-only'
@@ -84,7 +84,7 @@ function Login ({ setAuth, isLoggedIn, setProfilePk }) {
                 onChange={event => { setPassword(event.target.value); setErrors('') }}
               />
             </div>
-            <div className='flex items-center justify-between'>
+            {/* <div className='flex items-center justify-between'>
               <div className='flex items-center my-4'>
                 <input
                   id='remember_me'
@@ -104,7 +104,7 @@ function Login ({ setAuth, isLoggedIn, setProfilePk }) {
               <Link to='#' className='font-medium text-indigo-600 hover:text-indigo-500'>
                 Forgot Your Password?
               </Link>
-            </div>
+            </div> */}
             <div>
               <button
                 type='submit'

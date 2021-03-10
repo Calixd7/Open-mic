@@ -1,11 +1,8 @@
-import { useParams } from 'react-router-dom'
-import Card from './cards/Card'
 import { useEffect, useState } from 'react'
 import { getUserProfile } from '../api'
 import ProfileSetup from './ProfileSetup'
 
 const ViewProfile = ({ token }) => {
-  const { pk } = useParams()
   const [profile, setProfile] = useState(null)
   const [isEditing, setIsEditing] = useState(false)
 
@@ -47,6 +44,15 @@ const ViewProfile = ({ token }) => {
           </ul>
 
           <ul className='space-y-3'>
+            <p>
+              Email
+            </p>
+            <li className='bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md'>
+              <div>{profile.email}</div>
+            </li>
+          </ul>
+
+          <ul className='space-y-3'>
             <p>Location</p>
             <div className='flex'>
               <li className='bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md flex-1 mr-2'>
@@ -56,6 +62,24 @@ const ViewProfile = ({ token }) => {
                 <div>{profile.state}</div>
               </li>
             </div>
+          </ul>
+
+          <ul className='space-y-3'>
+            <p>
+              Website
+            </p>
+            <li className='bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md'>
+              <div>{profile.site}</div>
+            </li>
+          </ul>
+
+          <ul className='space-y-3'>
+            <p>
+              Spotify
+            </p>
+            <li className='bg-white shadow overflow-hidden px-4 py-4 sm:px-6 sm:rounded-md'>
+              <div>{profile.spotify}</div>
+            </li>
           </ul>
 
           <p>Genres</p>
