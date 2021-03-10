@@ -84,8 +84,7 @@ class UserProfile(models.Model):
    
 class CustomQuerySet(models.QuerySet):
     def delete(self):
-        if request.user.is_authenticated:
-            self.update(active=False)
+       self.update(active=False)
 
 class ActiveManager(models.Manager):
     def active(self):
