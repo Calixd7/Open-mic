@@ -168,14 +168,15 @@ const ViewCard = ({ token, isLoggedIn }) => {
             </div>
 
             <div className='sm:col-auto mt-4'>
-              <iframe
-                src={`https://open.spotify.com/embed/artist/${card.spotify}`}
-                width='240'
-                height='180'
-                frameBorder='0'
-                allowtransparency='true'
-                allow='encrypted-media'
-              />
+              {card.spotify &&
+                <iframe
+                  src={`https://open.spotify.com/embed/artist/${card.spotify}`}
+                  width='240'
+                  height='180'
+                  frameBorder='0'
+                  allowtransparency='true'
+                  allow='encrypted-media'
+                />}
             </div>
             <div className='sm:col-auto'>
               <dt className='text-sm font-extrabold text-indigo-700'>
