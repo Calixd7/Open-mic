@@ -13,7 +13,7 @@ const Spotify = ({ spotify, setSpotify }) => {
           name='spotify-link'
           id='spotify-link'
           className='focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-none rounded-r-md text-sm sm:text-lg border-gray-300 bg-gray-50 border pl-2'
-          placeholder='www.example.com'
+          placeholder='7B95GLKUlOhpK8fkJ1sGjh'
           value={spotify}
           onChange={(e) => setSpotify(e.target.value)}
         />
