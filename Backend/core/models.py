@@ -76,7 +76,7 @@ class UserProfile(models.Model):
     individualorband = models.CharField(max_length=100, choices=OPTIONS, null=True)
     wantedinstruments = models.ManyToManyField(to=WantedInstruments,related_name='users',  blank=True)
     wanted_info = models.CharField(max_length=500, blank=True, null=True )
-    spotify = models.URLField(blank=True, null=True)
+    spotify = models.CharField(max_length=100, blank=True, null=True)
     profile_complete = models.BooleanField(default=False)
 
     def __str__(self):
