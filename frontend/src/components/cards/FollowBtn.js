@@ -43,7 +43,7 @@ const FollowBtn = ({ token, follow, setFollow, connections, setConnections, card
       {/* {connections && */}
       <button
         type='button'
-        className='justify-center inline-flex flex-1 items-center px-2 py-1 mr-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 hover:text-white bg-indigo-200 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+        className='justify-center inline-flex flex-1 items-center px-2 py-1 mr-1 border border-gray-300 shadow-sm text-base font-medium rounded-md text-gray-700 hover:text-white bg-indigo-200 hover:bg-indigo-500 focus:outline-none  focus:offset-2 focus:indigo-500'
         onClick={() => handleFollow(card.user)}
       >
         {connections.includes(card.user)

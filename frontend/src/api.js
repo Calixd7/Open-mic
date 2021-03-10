@@ -77,6 +77,24 @@ export function postProfiles (token, profile) {
       // console.log('api data', res.data)
       return res.data
     })
+    .catch(error => {
+      let errors = []
+      if (error.response) {
+        const data = error.response.data
+        if (data.username) {
+          errors = errors.concat(data.username)
+        }
+        if (data.password) {
+          errors = errors.concat(data.password)
+        }
+      }
+
+      if (errors.length === 0) {
+        errors.push('There was a problem registering.')
+      }
+      const err = new Error(errors[0])
+      throw err
+    })
 }
 
 // ************************************************
