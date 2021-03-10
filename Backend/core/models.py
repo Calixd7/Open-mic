@@ -11,13 +11,14 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from rest_framework.authtoken.models import Token
 from django.conf import settings
-
+from rest_framework.permissions import IsAuthenticated
 
 # This code is triggered whenever a new user has been created and saved to the database
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
     if created:
         Token.objects.create(user=instance)
+
 OPTIONS = (
     ("Individual", "Individual"),
     ("Band", "Band"),  
@@ -25,7 +26,7 @@ OPTIONS = (
 
 class User(AbstractUser):
     name= models.CharField(max_length=255, blank=True, null=True, default="")
-    profile_complete = models.BooleanField(default=False)
+   
 
    
 class UserFollowing(models.Model):
@@ -75,20 +76,41 @@ class UserProfile(models.Model):
     individualorband = models.CharField(max_length=100, choices=OPTIONS, null=True)
     wantedinstruments = models.ManyToManyField(to=WantedInstruments,related_name='users',  blank=True)
     wanted_info = models.CharField(max_length=500, blank=True, null=True )
-    spotify = models.URLField(blank=True, null=True)
+    spotify = models.CharField(max_length=100, blank=True, null=True)
+    profile_complete = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
    
+class CustomQuerySet(models.QuerySet):
+    def delete(self):
+        if request.user.is_authenticated:
+            self.update(active=False)
+
+class ActiveManager(models.Manager):
+    def active(self):
+        return self.model.objects.filter(active=True)
+    
+    def get_queryset(self):
+        return CustomQuerySet(self.model, using=self._db)
 
 class Messages(models.Model):
     subject = models.TextField(max_length=100, blank=True)
     content = models.TextField(max_length=10000, blank=True)
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null = True, related_name="sender")
     receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null = True, related_name="receiver")   
-    name = models.ForeignKey(UserProfile, on_delete=models.CASCADE, blank=True, null=True)
-    # display_for_user = models.ManyToManyField(User, related_name='display',null=True)
+    name = models.TextField(max_length=100, blank=True, null=True)
+    display_for_user = models.ManyToManyField(User, related_name='display',null=True)
     receiver_name = models.TextField(max_length=100, blank=True, null=True)
     image = models.ImageField(upload_to="uploads/", null=True, blank=True)
     read = models.BooleanField(default=False)
+    active = models.BooleanField(default=True, editable=False)
     created_at = models.DateField(auto_now_add=True)
+
+    objects = ActiveManager()
+
+
+    def delete(self):
+        self.active = False
+        self.save()
+

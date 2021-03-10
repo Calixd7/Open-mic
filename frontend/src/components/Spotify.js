@@ -8,9 +8,6 @@ const Spotify = ({ spotify, setSpotify }) => {
         Spotify
       </label>
       <div className='mt-1 flex rounded-md shadow-sm'>
-        <span className='inline-flex items-center px-3 rounded-l-md border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-sm sm:text-large'>
-          http://
-        </span>
         <input
           type='text'
           name='spotify-link'
@@ -21,7 +18,11 @@ const Spotify = ({ spotify, setSpotify }) => {
           onChange={(e) => setSpotify(e.target.value)}
         />
       </div>
-      <p className='mt-1 text-left text-sm text-gray-500 font-normal' id='email-description'>Link to your Spotify profile</p>
+      <p className='mt-1 text-left text-sm text-gray-500 font-normal' id='email-description'>
+        Link to your Spotify profile by entering in your 22 digit URI.
+        On the Spotify app click "more" -> "share" -> "Copy Spotify URI". Only submit the 22 digit URI in the input field.
+      </p>
+
     </div>
   )
 }
