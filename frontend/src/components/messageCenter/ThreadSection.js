@@ -6,28 +6,27 @@ import ReplyEditor from './ReplyEditor'
 import NewMessageEditor from './NewMessageEditor'
 
 const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTriggerReadEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, messageReceiverName, setMessageReceiverName, setMessageReceiverUser, name, profilesForMessage, newMessage, setNewMessage, newMessageContent, setNewMessageContent, newMessageSubject, setNewMessageSubject, messageToRender, setMessageToRender, showSent, setMessagesLength, threadStatus }) => {
-  const [read, setRead] = useState(false)
   // const [message, setMessage] = useState([])
   const [showReplyForm, setShowReplyForm] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [content, setContent] = useState('')
 
-  useEffect(() => {
-    console.log('read useffect JUST RAN')
-    const unread = []
-    messages.forEach(message => {
-      if (message.read === false) {
-        unread.push(message)
-        // console.log('unread', unread.length)
-      }
-      if (unread.length > 0) {
-        setUnreadStatus(unread.length)
-      }
-      if (unread.length === 0) {
-        setUnreadStatus(0)
-      }
-    })
-  }, [])
+  // useEffect(() => {
+  //   // console.log('read useffect JUST RAN')
+  //   const unread = []
+  //   messages.forEach(message => {
+  //     if (message.read === false) {
+  //       unread.push(message)
+  //       // console.log('unread', unread.length)
+  //     }
+  //     if (unread.length > 0) {
+  //       setUnreadStatus(unread.length)
+  //     }
+  //     if (unread.length === 0) {
+  //       setUnreadStatus(0)
+  //     }
+  //   })
+  // }, [])
 
   console.log('messages', messages)
   // console.log('messages', messages.map(message => message))
@@ -52,40 +51,39 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   }
 
   const sortMessages = (receivedMessages) => {
-    console.log('messages', receivedMessages)
+    // console.log('messages', receivedMessages)
     const sortedMessages = receivedMessages.slice().sort((a, b) => new Date(b.id) - new Date(a.id))
-    console.log('sortedMessages', sortedMessages)
+    // console.log('sortedMessages', sortedMessages)
     return sortedMessages
     // setMessages(sortedMessages)
   }
 
   const updateReadStatus = (messagetoUpdate) => {
     if (messagetoUpdate.read === false) {
-      setRead(true)
-
+      const newRead = true
       const updateRead = {
         receiver: messagetoUpdate.receiver,
-        read: read
+        read: newRead
       }
-
       updateMessage(token, messagetoUpdate.id, updateRead)
         .then(updatedRead => {
           getMessages(token)
             .then(updatedMessages => {
               setMessages(updatedMessages)
-              const unread = []
-              updatedMessages.forEach(updatedMessage => {
-                if (updatedMessage.read === false) {
-                  unread.push(updatedMessage)
-                  console.log('unread', unread.length)
-                }
-                if (unread.length === 0) {
-                  setUnreadStatus(0)
-                }
-                if (unread.length > 0) {
-                  setUnreadStatus(unread.length)
-                }
-              })
+              // setUnreadStatus(0)
+              // const unread = []
+              // updatedMessages.forEach(updatedMessage => {
+              //   if (updatedMessage.read === false) {
+              //     unread.push(updatedMessage)
+              //     console.log('unread', unread.length)
+              //   }
+              //   if (unread.length === 0) {
+              //     setUnreadStatus(0)
+              //   }
+              //   if (unread.length > 0) {
+              //     setUnreadStatus(unread.length)
+              //   }
+              // })
             })
         })
     }
@@ -133,11 +131,11 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
                     ? <>
                       <span className='text-indigo-800'>From:&nbsp;</span>
                       <span className='text-gray-600'>{message.name}</span>
-                      </>
+                    </>
                     : <>
                       <span className='text-indigo-800'>To:&nbsp;</span>
                       <span className='text-gray-600'>{message.receiver_name}</span>
-                      </>}
+                    </>}
 
                 </div>
                 {/* <div>

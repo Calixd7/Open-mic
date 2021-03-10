@@ -124,7 +124,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                     setMessageReceiverUser('')
                   }}
                 >
-                  <UpdateUnreadMessageCount unreadStatus={unreadStatus} messages={messages} setUnreadStatus={setUnreadStatus} />
+                  <UpdateUnreadMessageCount token={token} unreadStatus={unreadStatus} messages={messages} setUnreadStatus={setUnreadStatus} username={username} />
                 </Link>
               </div>
             </div>
