@@ -24,6 +24,7 @@ djoser = "*"
 pillow = "*"
 boto3 = "*"
 django-storages = "*"
+drf-flex-fields = "*"
 
 [requires]
 python_version = "3.8"

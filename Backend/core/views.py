@@ -72,7 +72,6 @@ class UserViewSet(ModelViewSet):
         return Response(serializer.data)
 
     
-
 class UserProfileViewSet(ModelViewSet):
     serializer_class = UserProfileSerializer
     parser_classes = [MultiPartParser, FormParser, JSONParser, FileUploadParser]
@@ -86,8 +85,6 @@ class UserProfileViewSet(ModelViewSet):
     filter_backends = [filters.SearchFilter]
     filter_backends = [ DjangoFilterBackend]
     filterset_fields = ['vacancy','wantedinstruments__name','instruments__name', 'individualorband', 'genres__name', 'location'] 
-    # search_fields = ['individualorband', 'genres__name', 'location']
-    
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
 
@@ -103,14 +100,11 @@ class UserProfileViewSet(ModelViewSet):
         return Response(serializer.data)
     
 class MessageViewSet(ModelViewSet):
-
     
     serializer_class = MessagesSerializer
 
-
-
     def get_queryset(self):
-        return  Messages.objects.order_by('receiver', 'sender','created_at')
+        return  Messages.objects.order_by('created_at')
 
 
     def perform_create(self, serializer):
@@ -118,23 +112,16 @@ class MessageViewSet(ModelViewSet):
             raise PermissionDenied()
         serializer.save(sender=self.request.user)
     
-    def get_permissions(self):
-        if self.request.method in ['DELETE']:
-            return [IsSenderOrReadOnly()]
-        return [permissions.IsAuthenticated()]
 
-    #  def put(self, request, pk, format=None):
-    #     message = self.get_object(pk)
-    #     serializer = MessagesSerializer(message, data=request.data)
-    #     if serializer.is_valid():
-    #         serializer.save(update_fields=['display_for_user'])
-    #         return Response(serializer.data)
-    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
+    # def get_permissions(self):
+    #     if self.request.method in ['DELETE']:
+    #         return [IsSenderOrReadOnly()]
+    #     return [permissions.IsAuthenticated()]
+
 
     @action(detail=False, methods=['get'])
     def mine (self, request):
-        queryset = Messages.objects.filter(Q(sender=self.request.user) | Q(receiver=self.request.user)).order_by('created_at')
+        queryset = Messages.objects.filter(Q(sender=self.request.user) | Q(receiver=self.request.user),active=True).order_by('created_at')
 
         serializer = self.get_serializer(queryset, many=True)
         return Response(serializer.data)
@@ -150,4 +137,6 @@ class UserFollowingViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         return serializer.save(user=self.request.user)
+
+
 
