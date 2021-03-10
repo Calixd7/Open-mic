@@ -25,14 +25,14 @@ const changeWebsiteUrl = (site) => {
   } else { return http.concat(site) }
 }
 
-const changeSpotifyUrl = (spotify) => {
-  const https = 'https://'
-  if (spotify === '') {
-    return ''
-  } else if (spotify.includes('https://')) {
-    return spotify
-  } else { return https.concat(spotify) }
-}
+// const changeSpotifyUrl = (spotify) => {
+//   const https = 'https://'
+//   if (spotify === '') {
+//     return ''
+//   } else if (spotify.includes('https://')) {
+//     return spotify
+//   } else { return https.concat(spotify) }
+// }
 
 const statusForApi = (status) => {
   if (status === 'Solo Artist') {
@@ -100,7 +100,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
     individualorband: statusForApi(status),
     wantedinstruments: wantedIntForAPI(vacancy, wantedInstruments),
     wanted_info: wantedInfo,
-    spotify: changeSpotifyUrl(spotify)
+    spotify: spotify
   }
 
   console.log('location', location)
