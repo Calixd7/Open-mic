@@ -143,13 +143,9 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
                 </div> */}
               </h3>
               <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-                <time dateTime='2021-01-28T19:24'>
+                <span dateTime='2021-01-28T19:24'>
                   {message.created_at}
-<<<<<<< HEAD
-
-=======
->>>>>>> 80b696cc9864eef1b38f730584e6342b86e27c27
-                </time>
+                </span>
               </p>
             </div>
             <div className='sm:flex sm:justify-between sm:items-baseline mt-4'>

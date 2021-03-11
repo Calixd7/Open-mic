@@ -19,6 +19,7 @@ export const dateStamp = async (date) => {
   const month = await monthNumberToString(date.getMonth())
   const year = date.getFullYear()
   const day = date.getDate()
+  console.log('month', month)
   return month + ' ' + day + ', ' + year
 }
 
