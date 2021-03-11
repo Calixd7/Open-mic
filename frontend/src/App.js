@@ -87,7 +87,7 @@ function App () {
               <ViewProfile token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/view-card/:pk'>
-              <ViewCard token={token} isLoggedIn={isLoggedIn} />
+              <ViewCard token={token} isLoggedIn={isLoggedIn} setMessageReceiverName={setMessageReceiverName} setMessageReceiverUser={setMessageReceiverUser} setThreadStatus={setThreadStatus} />
             </Route>
             <Route path='/message'>
               <MessageHub messageReceiverUser={messageReceiverUser} messageReceiverName={messageReceiverName} setMessageReceiverName={setMessageReceiverName} username={username} token={token} isLoggedIn={isLoggedIn} setUnreadStatus={setUnreadStatus} unreadStatus={unreadStatus} setMessageReceiverUser={setMessageReceiverUser} triggerReadEffect={triggerReadEffect} setTriggerReadEffect={setTriggerReadEffect} messages={messages} setMessages={setMessages} threadStatus={threadStatus} setThreadStatus={setThreadStatus} />

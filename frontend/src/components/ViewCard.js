@@ -4,7 +4,7 @@ import { getProfile } from '../api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MobileViewCard from './MobileViewCard'
 
-const ViewCard = ({ token, isLoggedIn }) => {
+const ViewCard = ({ token, isLoggedIn, setMessageReceiverUser, setMessageReceiverName, setThreadStatus }) => {
   const history = useHistory()
   const { pk } = useParams()
   const [card, setCard] = useState(null)
@@ -49,7 +49,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
                       icon={['far', 'user']}
                       className='text-red-300 hover:text-red-500 text-7xl h-auto w-auto mx-auto'
                     />
-                    </span>}
+                  </span>}
               </span>
             </div>
           </div>
@@ -85,7 +85,12 @@ const ViewCard = ({ token, isLoggedIn }) => {
                       <button
                         type='button'
                         className='mr-4 inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                        onClick={() => history.push(`/message/${pk}`)}
+                        onClick={() => {
+                          history.push('/message')
+                          setMessageReceiverUser(card.user)
+                          setMessageReceiverName(card.name)
+                          setThreadStatus('New Message')
+                        }}
                       >
                         <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
                           <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z' />
@@ -128,7 +133,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
                       icon={['far', 'user']}
                       className='text-red-300 hover:text-red-500 text-7xl h-auto w-auto mx-auto'
                     />
-                    </span>}
+                  </span>}
               </span>
             </div>
             <div className='sm:col-auto ml-9'>
