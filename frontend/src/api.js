@@ -172,8 +172,17 @@ export function getMessages (token) {
     })
 }
 
-export function sendMessage (token, message) {
-  return apiUrl.post('api/messages/', message, {
+export function sendMessage (token, date, username, messageReceiverUser, name, messageReceiverName, newMessageSubject, newMessageContent) {
+  console.log('token, message, date', token, date)
+  return apiUrl.post('api/messages/', {
+    sender: username,
+    receiver: messageReceiverUser,
+    name: name,
+    receiver_name: messageReceiverName,
+    subject: newMessageSubject,
+    content: newMessageContent,
+    created_at: date
+  }, {
     headers: {
       Authorization: `Token ${token}`
     }

@@ -10,6 +10,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   const [showReplyForm, setShowReplyForm] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [content, setContent] = useState('')
+  const [date, setDate] = useState('')
 
   // useEffect(() => {
   //   // console.log('read useffect JUST RAN')
@@ -29,6 +30,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   // }, [])
 
   console.log('messages', messages)
+  console.log('date', date)
   // console.log('messages', messages.map(message => message))
   // console.log('messageToRender', messageToRender)
   // console.log('content', content)
@@ -97,7 +99,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   if (messageReceiverUser || newMessage) {
     return (
       <div className='mx-4'>
-        <NewMessageEditor token={token} username={username} setShowAlert={setShowAlert} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} setMessageReceiverName={setMessageReceiverName} setMessages={setMessages} name={name} newMessage={newMessage} setNewMessage={setNewMessage} profilesForMessage={profilesForMessage} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} newMessageSubject={newMessageSubject} setNewMessageSubject={setNewMessageSubject} />
+        <NewMessageEditor token={token} username={username} setShowAlert={setShowAlert} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} setMessageReceiverName={setMessageReceiverName} setMessages={setMessages} name={name} newMessage={newMessage} setNewMessage={setNewMessage} profilesForMessage={profilesForMessage} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} newMessageSubject={newMessageSubject} setNewMessageSubject={setNewMessageSubject} setDate={setDate} date={date} />
       </div>
     )
   }
@@ -128,11 +130,11 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
                     ? <>
                       <span className='text-indigo-800'>From:&nbsp;</span>
                       <span className='text-gray-600'>{message.name}</span>
-                      </>
+                    </>
                     : <>
                       <span className='text-indigo-800'>To:&nbsp;</span>
                       <span className='text-gray-600'>{message.receiver_name}</span>
-                      </>}
+                    </>}
 
                 </div>
                 {/* <div>
@@ -141,9 +143,9 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
                 </div> */}
               </h3>
               <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-                <time dateTime='2021-01-28T19:24'>
+                <span dateTime='2021-01-28T19:24'>
                   {message.created_at}
-                </time>
+                </span>
               </p>
             </div>
             <div className='sm:flex sm:justify-between sm:items-baseline mt-4'>
