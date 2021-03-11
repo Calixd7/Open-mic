@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Transition } from '@headlessui/react'
 import { sendMessage, getMessages, deleteMessage } from '../../api'
+import { dateStamp } from '../helperFunctions'
 
-const ReplyEditor = ({ token, messageToRender, username, content, setContent, setMessageToRender, showReplyForm, setShowReplyForm, setShowAlert, setMessages, name, profilesForMessage }) => {
+const ReplyEditor = ({ token, messageToRender, username, content, setContent, setMessageToRender, showReplyForm, setShowReplyForm, setShowAlert, setMessages, name, profilesForMessage, setDate, date }) => {
   const [receiverName, setReceiverName] = useState('')
   useEffect(() => {
     profilesForMessage.forEach(profile => {
@@ -18,27 +19,31 @@ const ReplyEditor = ({ token, messageToRender, username, content, setContent, se
 
   console.log('receiverName', receiverName)
 
-  const pendingReplyMessage = {
-    sender: username,
-    receiver: messageToRender.sender.username,
-    name: name,
-    receiver_name: receiverName,
-    subject: messageToRender.subject,
-    content: content
-  }
-  console.log('messageToRender', messageToRender)
-  console.log('messageToRender.receiver', messageToRender.sender.username)
+  // const pendingReplyMessage = {
+  //   sender: username,
+  //   receiver: messageToRender.sender.username,
+  //   name: name,
+  //   receiver_name: receiverName,
+  //   subject: messageToRender.subject,
+  //   content: content
+  // }
+  // console.log('messageToRender', messageToRender)
+  // console.log('messageToRender.receiver', messageToRender.sender.username)
 
   function handleSubmit (event) {
     event.preventDefault()
-    sendMessage(token, pendingReplyMessage)
-      .then(sentMessage => {
-        getMessages(token)
-          .then(updatedMessages => {
-            setMessages(updatedMessages)
-            setMessageToRender(null)
-            setShowReplyForm(false)
-            setShowAlert(true)
+    dateStamp(new Date())
+      .then(date => {
+        setDate(date)
+        sendMessage(token, date, username, messageToRender.sender.username, name, receiverName, messageToRender.subject, content)
+          .then(sentMessage => {
+            getMessages(token)
+              .then(updatedMessages => {
+                setMessages(updatedMessages)
+                setShowReplyForm(false)
+                setShowAlert(true)
+                setMessageToRender(null)
+              })
           })
       })
   }
@@ -69,7 +74,7 @@ const ReplyEditor = ({ token, messageToRender, username, content, setContent, se
                 <span className='text-gray-600'>{receiverName}</span>
               </h3>
               <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-                <time dateTime='2021-01-28T19:24'>{messageToRender.created_at}</time>
+                <time dateTime='2021-01-28T19:24'>{date}</time>
               </p>
             </div>
             <div className='sm:flex sm:justify-between sm:items-baseline mt-4'>

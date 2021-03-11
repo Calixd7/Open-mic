@@ -91,7 +91,7 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
   if (messageToRender) {
     return (
       <div>
-        <ReplyEditor token={token} messageToRender={messageToRender} setMessageToRender={setMessageToRender} username={username} content={content} setContent={setContent} showReplyForm={showReplyForm} setShowReplyForm={setShowReplyForm} setShowAlert={setShowAlert} setMessages={setMessages} name={name} profilesForMessage={profilesForMessage} />
+        <ReplyEditor token={token} messageToRender={messageToRender} setMessageToRender={setMessageToRender} username={username} content={content} setContent={setContent} showReplyForm={showReplyForm} setShowReplyForm={setShowReplyForm} setShowAlert={setShowAlert} setMessages={setMessages} name={name} profilesForMessage={profilesForMessage} setDate={setDate} date={date} />
       </div>
     )
   }
@@ -130,11 +130,11 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
                     ? <>
                       <span className='text-indigo-800'>From:&nbsp;</span>
                       <span className='text-gray-600'>{message.name}</span>
-                    </>
+                      </>
                     : <>
                       <span className='text-indigo-800'>To:&nbsp;</span>
                       <span className='text-gray-600'>{message.receiver_name}</span>
-                    </>}
+                      </>}
 
                 </div>
                 {/* <div>
