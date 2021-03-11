@@ -49,7 +49,7 @@ const ViewCard = ({ token, isLoggedIn, setMessageReceiverUser, setMessageReceive
                       icon={['far', 'user']}
                       className='text-red-300 hover:text-red-500 text-7xl h-auto w-auto mx-auto'
                     />
-                  </span>}
+                    </span>}
               </span>
             </div>
           </div>
@@ -114,12 +114,12 @@ const ViewCard = ({ token, isLoggedIn, setMessageReceiverUser, setMessageReceive
             </button>
           </div>
         </div>
-        <div className='border-t border-gray-200 px-4 py-5 sm:px-6'>
+        <div className='border-t border-gray-200 pl-4 py-5 sm:px-6'>
           <span className='flex sm:hidden'>
             <MobileViewCard card={card} history={history} />
           </span>
 
-          <dl className='sm:grid grid-cols-1 sm:grid-cols-4 hidden'>
+          <dl className='sm:grid sm:grid-cols-1 sm:grid-cols-4 hidden'>
             <div>
               <span className='text-xs font-medium'>
                 {card.image
@@ -133,7 +133,7 @@ const ViewCard = ({ token, isLoggedIn, setMessageReceiverUser, setMessageReceive
                       icon={['far', 'user']}
                       className='text-red-300 hover:text-red-500 text-7xl h-auto w-auto mx-auto'
                     />
-                  </span>}
+                    </span>}
               </span>
             </div>
             <div className='sm:col-auto ml-9'>
@@ -185,7 +185,7 @@ const ViewCard = ({ token, isLoggedIn, setMessageReceiverUser, setMessageReceive
                 />}
             </div>
             <div className='sm:col-auto ml-9'>
-              <dt className='text-sm font-extrabold text-indigo-700'>
+              <dt className='mt-4 text-sm font-extrabold text-indigo-700'>
                 Bio
               </dt>
               <dd className='mt-1 text-sm text-gray-900'>
@@ -194,7 +194,7 @@ const ViewCard = ({ token, isLoggedIn, setMessageReceiverUser, setMessageReceive
             </div>
 
             <div className='sm:col-auto ml-4'>
-              <dt className='text-sm font-extrabold text-indigo-700'>
+              <dt className='mt-4 text-sm font-extrabold text-indigo-700'>
                 Genres
               </dt>
               <dd className='mt-1 text-sm text-gray-900'>
@@ -204,7 +204,7 @@ const ViewCard = ({ token, isLoggedIn, setMessageReceiverUser, setMessageReceive
               </dd>
             </div>
             <div className='sm:col-auto'>
-              <dt className='text-sm font-extrabold text-indigo-700'>
+              <dt className='mt-4 text-sm font-extrabold text-indigo-700'>
                 Location
               </dt>
               <dd className='mt-1 text-sm text-gray-900 flex'>
