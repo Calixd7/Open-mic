@@ -51,7 +51,19 @@ function App () {
     setPk(pk)
   }
 
-  const countOnLogin = (authToken) => {
+  // this function does an initial check on login to
+  // see if the user has any unread messages.
+  // BUG (4/1/2021): saying that user has 5 msgs when user
+  // actually has 0. Looks like it's reading the sent
+  // messages instead of received. What is happening is
+  // persisted state is keeping the last logged in user
+  // which is passed into the filter on login. This
+  // function is running before unsername state can
+  // be updated. FIXED bug (4/1/2021) by simply passing username
+  // directly into the function instead of waiting
+  // for state to update.
+  const countOnLogin = (username, authToken) => {
+    console.log('username', username)
     getMessages(authToken)
       .then(messages => {
         const receivedMessages = messages.filter(msg => msg.sender.username !== username)

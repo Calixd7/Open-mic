@@ -1,4 +1,4 @@
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import logo from './images/blue_instruments.jpg'
 import { useState } from 'react'
 import { login } from '../api'
@@ -18,8 +18,8 @@ function Login ({ setAuth, isLoggedIn, setProfilePk, countOnLogin }) {
         if (data && data.auth_token) {
           setAuth(username, data.auth_token)
           setProfilePk(data.pk)
+          countOnLogin(username, data.auth_token)
           history.push('/')
-          countOnLogin(data.auth_token)
         }
       })
       .catch(error => {
@@ -85,27 +85,6 @@ function Login ({ setAuth, isLoggedIn, setProfilePk, countOnLogin }) {
                 onChange={event => { setPassword(event.target.value); setErrors('') }}
               />
             </div>
-            {/* <div className='flex items-center justify-between'>
-              <div className='flex items-center my-4'>
-                <input
-                  id='remember_me'
-                  name='remember_me'
-                  type='checkbox'
-                  className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
-                />
-                <label
-                  htmlFor='remember_me'
-                  className='ml-2 block text-sm text-gray-900'
-                >
-                  Remember Me
-                </label>
-              </div>
-            </div>
-            <div className='text-sm'>
-              <Link to='#' className='font-medium text-indigo-600 hover:text-indigo-500'>
-                Forgot Your Password?
-              </Link>
-            </div> */}
             <div>
               <button
                 type='submit'
