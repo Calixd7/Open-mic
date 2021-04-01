@@ -2,7 +2,7 @@ import { Redirect } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { getMessages, getUserProfile, getProfiles } from '../../api'
 // import LogoArea from './LogoArea'
-import PickerArea from './PickerArea'
+// import PickerArea from './PickerArea'
 import MenuButtonArea from './MenuButtonArea'
 import DesktopNavArea from './DesktopNavArea'
 import MobileMessageMenu from './MobileMessageMenu'
@@ -12,6 +12,15 @@ import MainToolLeftBtns from './MainToolLeftBtns'
 // import MessageHeader from './MessageHeader'
 import ThreadSection from './ThreadSection'
 import MessageList from './MessageList'
+
+// MessageHub is the skelaton of the entire message center. This
+// components is used from Tailwind components. It's massive
+// and is more than what we need for this app. However, I
+// have left everything here in the code in case we need something
+// new in the future. NOTE: to preserve the overall styling I
+// had to leave some sub components commented in but have 'hidden'
+// the styling inside the component. I've tried to indicate that
+// when I did this.
 
 const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnreadStatus, unreadStatus, setMessageReceiverUser, messageReceiverName, setMessageReceiverName, triggerReadEffect, setTriggerReadEffect, setMessages, messages, threadStatus, setThreadStatus }) => {
   const [showOffCanvasMenu, setShowOffCanvasMenu] = useState(false)
@@ -30,6 +39,9 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnrea
     })
   }, [])
 
+  // grabing the users name for sending msgs
+  // with their name attached
+
   useEffect(() => {
     getUserProfile(token)
       .then(data => setName(data.name))
@@ -41,8 +53,6 @@ const MessageHub = ({ token, username, messageReceiverUser, isLoggedIn, setUnrea
         setProfilesForMessage(profiles)
       })
   }, [])
-
-  console.log('name', name)
 
   if (!isLoggedIn) {
     return <Redirect to='/' />

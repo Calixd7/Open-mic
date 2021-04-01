@@ -1,6 +1,16 @@
 import { addFollower, getConnections, deleteFollower } from '../../api'
 
 const FollowBtn = ({ token, follow, setFollow, connections, setConnections, card, setCards }) => {
+  // currently, our backend does not have our followers endpoint nested with
+  // user profiles. The handleFollow function first gets all the connections
+  // that a user has. It returns usernames. If the list of returned usersnames
+  // includes a match of the username of the 'user' variable, then we need to
+  // unfollow by looping through the connections for the user that matches and
+  // then grabbing that id. Once we have the id then we can send it to
+  // deleteFollower and then refresh the page so that the card no longer shows
+  // that following. If there is no match of current followers then we addFollower
+  // and reset the cards on the page.
+
   const handleFollow = (user) => {
     getConnections(token)
       .then(connections => {
@@ -26,15 +36,6 @@ const FollowBtn = ({ token, follow, setFollow, connections, setConnections, card
               })
             })
         }
-      })
-  }
-
-  const handleDeleteFollow = (id) => {
-    deleteFollower(token, id)
-      .then(data => {
-        getConnections(token).then(connections => {
-          setConnections(connections.following.map(following => following.following_user))
-        })
       })
   }
 

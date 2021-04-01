@@ -1,12 +1,18 @@
-import axios from 'axios'
-import { useState } from 'react'
 
-const Images = ({ token, image, setImage }) => {
+const Images = ({ token, image, setImage, isEditing }) => {
   const handleFile = (event) => {
     setImage(event.target.files[0])
   }
   console.log('image', image)
   console.log('image', typeof image)
+
+  const imageNote = () => {
+    if (isEditing) {
+      return 'Image already uploaded'
+    } else {
+      return 'Upload Successful'
+    }
+  }
 
   return (
     <div>
@@ -18,7 +24,7 @@ const Images = ({ token, image, setImage }) => {
           {image
 
             ? <>
-              <p className='text-lg'>Upload Successful</p>
+              <p className='text-lg'>{imageNote()}</p>
               <button
                 type='button'
                 className='text-sm text-blue-600'
