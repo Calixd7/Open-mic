@@ -4,7 +4,7 @@ import { getProfile } from '../api'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import MobileViewCard from './MobileViewCard'
 
-const ViewCard = ({ token, isLoggedIn }) => {
+const ViewCard = ({ token, isLoggedIn, setMessageReceiverUser, setMessageReceiverName, setThreadStatus }) => {
   const history = useHistory()
   const { pk } = useParams()
   const [card, setCard] = useState(null)
@@ -17,6 +17,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
   if (!token) {
     return <Redirect to='/login' />
   }
+  console.log('token', token)
 
   if (!card) {
     return 'loading'
@@ -48,7 +49,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
                       icon={['far', 'user']}
                       className='text-red-300 hover:text-red-500 text-7xl h-auto w-auto mx-auto'
                     />
-                  </span>}
+                    </span>}
               </span>
             </div>
           </div>
@@ -84,7 +85,12 @@ const ViewCard = ({ token, isLoggedIn }) => {
                       <button
                         type='button'
                         className='mr-4 inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-sm leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                        onClick={() => history.push(`/message/${pk}`)}
+                        onClick={() => {
+                          history.push('/message')
+                          setMessageReceiverUser(card.user)
+                          setMessageReceiverName(card.name)
+                          setThreadStatus('New Message')
+                        }}
                       >
                         <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
                           <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z' />
@@ -108,12 +114,12 @@ const ViewCard = ({ token, isLoggedIn }) => {
             </button>
           </div>
         </div>
-        <div className='border-t border-gray-200 px-4 py-5 sm:px-6'>
+        <div className='border-t border-gray-200 pl-4 py-5 sm:px-6'>
           <span className='flex sm:hidden'>
             <MobileViewCard card={card} history={history} />
           </span>
 
-          <dl className='sm:grid grid-cols-1 sm:grid-cols-4 hidden'>
+          <dl className='sm:grid sm:grid-cols-1 sm:grid-cols-4 hidden'>
             <div>
               <span className='text-xs font-medium'>
                 {card.image
@@ -127,10 +133,10 @@ const ViewCard = ({ token, isLoggedIn }) => {
                       icon={['far', 'user']}
                       className='text-red-300 hover:text-red-500 text-7xl h-auto w-auto mx-auto'
                     />
-                  </span>}
+                    </span>}
               </span>
             </div>
-            <div className='sm:col-auto'>
+            <div className='sm:col-auto ml-9'>
               <dt className='text-sm font-extrabold text-indigo-700'>
                 {card.individualorband === 'Band'
                   ? 'Band Name'
@@ -168,17 +174,18 @@ const ViewCard = ({ token, isLoggedIn }) => {
             </div>
 
             <div className='sm:col-auto mt-4'>
-              <iframe
-                src={`https://open.spotify.com/embed/artist/${card.spotify}`}
-                width='240'
-                height='180'
-                frameBorder='0'
-                allowtransparency='true'
-                allow='encrypted-media'
-              />
+              {card.spotify &&
+                <iframe
+                  src={`https://open.spotify.com/embed/artist/${card.spotify}`}
+                  width='222'
+                  height='180'
+                  frameBorder='0'
+                  allowtransparency='true'
+                  allow='encrypted-media'
+                />}
             </div>
-            <div className='sm:col-auto'>
-              <dt className='text-sm font-extrabold text-indigo-700'>
+            <div className='sm:col-auto ml-9'>
+              <dt className='mt-4 text-sm font-extrabold text-indigo-700'>
                 Bio
               </dt>
               <dd className='mt-1 text-sm text-gray-900'>
@@ -187,7 +194,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
             </div>
 
             <div className='sm:col-auto ml-4'>
-              <dt className='text-sm font-extrabold text-indigo-700'>
+              <dt className='mt-4 text-sm font-extrabold text-indigo-700'>
                 Genres
               </dt>
               <dd className='mt-1 text-sm text-gray-900'>
@@ -197,7 +204,7 @@ const ViewCard = ({ token, isLoggedIn }) => {
               </dd>
             </div>
             <div className='sm:col-auto'>
-              <dt className='text-sm font-extrabold text-indigo-700'>
+              <dt className='mt-4 text-sm font-extrabold text-indigo-700'>
                 Location
               </dt>
               <dd className='mt-1 text-sm text-gray-900 flex'>

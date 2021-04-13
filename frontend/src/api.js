@@ -77,6 +77,24 @@ export function postProfiles (token, profile) {
       // console.log('api data', res.data)
       return res.data
     })
+    .catch(error => {
+      let errors = []
+      if (error.response) {
+        const data = error.response.data
+        if (data.username) {
+          errors = errors.concat(data.username)
+        }
+        if (data.password) {
+          errors = errors.concat(data.password)
+        }
+      }
+
+      if (errors.length === 0) {
+        errors.push('There was a problem registering.')
+      }
+      const err = new Error(errors[0])
+      throw err
+    })
 }
 
 // ************************************************
@@ -96,7 +114,7 @@ export function uploadImage (token, image, pk) {
 }
 
 export function getProfile (token, pk) {
-  return apiUrl.get(`api/userprofiles/${pk}`, {
+  return apiUrl.get(`api/userprofiles/${pk}/`, {
     headers: {
       Authorization: `Token ${token}`
     }
@@ -154,8 +172,17 @@ export function getMessages (token) {
     })
 }
 
-export function sendMessage (token, message) {
-  return apiUrl.post('api/messages/', message, {
+export function sendMessage (token, date, username, messageReceiverUser, name, messageReceiverName, newMessageSubject, newMessageContent) {
+  console.log('token, message, date', token, date)
+  return apiUrl.post('api/messages/', {
+    sender: username,
+    receiver: messageReceiverUser,
+    name: name,
+    receiver_name: messageReceiverName,
+    subject: newMessageSubject,
+    content: newMessageContent,
+    created_at: date
+  }, {
     headers: {
       Authorization: `Token ${token}`
     }
@@ -184,7 +211,7 @@ export function deleteMessage (token, id) {
 }
 
 export function getConnections (token) {
-  return apiUrl.get('api/users/me', {
+  return apiUrl.get('api/users/me/', {
     headers: {
       Authorization: `Token ${token}`
     }
@@ -213,7 +240,7 @@ export function addFollower (token, user) {
 }
 
 export function deleteFollower (token, id) {
-  return apiUrl.delete(`api/connections/${id}`, {
+  return apiUrl.delete(`api/connections/${id}/`, {
     headers: {
       Authorization: `Token ${token}`
     }

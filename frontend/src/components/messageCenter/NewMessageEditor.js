@@ -2,30 +2,37 @@ import { useState } from 'react'
 import { sendMessage, getMessages } from '../../api'
 import { Transition } from '@headlessui/react'
 import { faUsersSlash } from '@fortawesome/free-solid-svg-icons'
+import { dateStamp } from '../helperFunctions'
 
-const NewMessageEditor = ({ token, username, messageReceiverUser, setMessageReceiverUser, messageReceiverName, setMessageReceiverName, setShowAlert, setMessages, name, newMessage, setNewMessage, profilesForMessage, newMessageContent, setNewMessageContent, newMessageSubject, setNewMessageSubject }) => {
+const NewMessageEditor = ({ token, username, messageReceiverUser, setMessageReceiverUser, messageReceiverName, setMessageReceiverName, setShowAlert, setMessages, name, newMessage, setNewMessage, profilesForMessage, newMessageContent, setNewMessageContent, newMessageSubject, setNewMessageSubject, setDate, date }) => {
   const [showRecipients, setShowRecipients] = useState(false)
+  console.log('date', date)
 
   const pendingNewMessage = {
-    sender: username,
-    receiver: messageReceiverUser,
-    name: name,
-    receiver_name: messageReceiverName,
-    subject: newMessageSubject,
-    content: newMessageContent
+    // sender: username,
+    // receiver: messageReceiverUser,
+    // name: name,
+    // receiver_name: messageReceiverName,
+    // subject: newMessageSubject,
+    // content: newMessageContent
+    // created_at: date
   }
 
   function handleSubmit (event) {
     event.preventDefault()
-    sendMessage(token, pendingNewMessage)
-      .then(message => {
-        getMessages(token)
-          .then(messages => {
-            setMessages(messages)
-            setMessageReceiverUser('')
-            setMessageReceiverName('')
-            setNewMessage(false)
-            setShowAlert(true)
+    dateStamp(new Date())
+      .then(date => {
+        setDate(date)
+        sendMessage(token, date, username, messageReceiverUser, name, messageReceiverName, newMessageSubject, newMessageContent)
+          .then(message => {
+            getMessages(token)
+              .then(messages => {
+                setMessages(messages)
+                setMessageReceiverUser('')
+                setMessageReceiverName('')
+                setNewMessage(false)
+                setShowAlert(true)
+              })
           })
       })
   }

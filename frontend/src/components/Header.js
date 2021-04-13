@@ -1,9 +1,7 @@
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { Transition } from '@headlessui/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import logo from './images/blue_instruments.jpg'
-import { getUserProfile } from '../api'
-import { updateReadMessageStatus } from './helperFunctions'
 import Avatar from './Avatar'
 import HeaderMobile from './HeaderMobile'
 import Search from './Search'
@@ -18,8 +16,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
   const [mobileDisplayPage, setMobileDisplayPage] = useState('')
   const path = useLocation()
 
-  console.log('unreadStatus HEADER', unreadStatus)
-  console.log('path', path)
+  // console.log('unreadStatus HEADER', unreadStatus)
 
   const mobileNav = () => {
     if (path.pathname === '/explore') {
@@ -108,6 +105,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                   // exact activeclassname='active'
                   to='/explore'
                   className={`text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium ${path.pathname === '/explore' && 'bg-green-600'}`}
+                  // disabled={!isLoggedIn}
                 >Explore
                 </Link>
                 <Link
@@ -124,7 +122,7 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                     setMessageReceiverUser('')
                   }}
                 >
-                  <UpdateUnreadMessageCount unreadStatus={unreadStatus} messages={messages} setUnreadStatus={setUnreadStatus} />
+                  <UpdateUnreadMessageCount token={token} unreadStatus={unreadStatus} messages={messages} setUnreadStatus={setUnreadStatus} username={username} />
                 </Link>
               </div>
             </div>
@@ -134,12 +132,13 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
             <button
               className='sm:mr-8 text-white'
               onClick={() => setShowSearch(showSearch => !showSearch)}
+              disabled={!isLoggedIn}
             >
               {showSearch
-                ? <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-4 h-8 w-8'>
+                ? <svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' className='ml-0.5 mr-4 h-8 w-8'>
                   <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z' />
-                </svg>
-                : <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-4 h-6 w-6'>
+                  </svg>
+                : <svg xmlns='http://www.w3.org/2000/svg' fill='none' stroke='currentColor' className='ml-0.5 mr-4 h-6 w-6'>
                   <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' />
                 </svg>}
 
@@ -174,7 +173,10 @@ function Header ({ username, token, setToken, isLoggedIn, pk, isImage, setIsImag
                   className='block px-4 py-2 w-full text-left text-sm text-gray-700 hover:bg-gray-100'
                   role='menuitem'
                   disabled={!isLoggedIn}
-                  onClick={() => { history.push('/view-profile'); setShowProfile(false) }}
+                  onClick={() => {
+                    history.push('/view-profile')
+                    setShowProfile(false)
+                  }}
                 >
                   Your Profile
                 </button>

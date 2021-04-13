@@ -3,6 +3,7 @@ import createPersistedState from 'use-persisted-state'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { far, faUser } from '@fortawesome/free-regular-svg-icons'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import { getMessages } from './api'
 import Header from './components/Header'
 import Welcome from './components/Welcome'
 import Login from './components/Login'
@@ -41,9 +42,6 @@ function App () {
   const [messages, setMessages] = useState([])
   const [threadStatus, setThreadStatus] = useState('Inbox')
 
-  console.log('messageReceiverUser from APP', messageReceiverUser)
-  console.log('triggerReadEffect', triggerReadEffect)
-
   function setAuth (username, token) {
     setUsername(username)
     setToken(token)
@@ -51,6 +49,29 @@ function App () {
 
   function setProfilePk (pk) {
     setPk(pk)
+  }
+
+  // this function does an initial check on login to
+  // see if the user has any unread messages.
+  // BUG (4/1/2021): saying that user has 5 msgs when user
+  // actually has 0. Looks like it's reading the sent
+  // messages instead of received. What is happening is
+  // persisted state is keeping the last logged in user
+  // which is passed into the filter on login. This
+  // function is running before unsername state can
+  // be updated. FIXED bug (4/1/2021) by simply passing username
+  // directly into the function instead of waiting
+  // for state to update.
+  const countOnLogin = (username, authToken) => {
+    console.log('username', username)
+    getMessages(authToken)
+      .then(messages => {
+        const receivedMessages = messages.filter(msg => msg.sender.username !== username)
+        if (receivedMessages.length > 0) {
+          const unreadCount = receivedMessages.reduce((count, msg) => msg.read ? count : count + 1, 0)
+          setUnreadStatus(unreadCount)
+        }
+      })
   }
 
   return (
@@ -63,7 +84,7 @@ function App () {
               <Registration setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
             </Route>
             <Route path='/login'>
-              <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} />
+              <Login setAuth={setAuth} isLoggedIn={isLoggedIn} setProfilePk={setProfilePk} countOnLogin={countOnLogin} />
             </Route>
             <Route path='/profile-setup'>
               <ProfileSetup token={token} isLoggedIn={isLoggedIn} setIsImage={setIsImage} />
@@ -78,7 +99,7 @@ function App () {
               <ViewProfile token={token} isLoggedIn={isLoggedIn} />
             </Route>
             <Route path='/view-card/:pk'>
-              <ViewCard token={token} isLoggedIn={isLoggedIn} />
+              <ViewCard token={token} isLoggedIn={isLoggedIn} setMessageReceiverName={setMessageReceiverName} setMessageReceiverUser={setMessageReceiverUser} setThreadStatus={setThreadStatus} />
             </Route>
             <Route path='/message'>
               <MessageHub messageReceiverUser={messageReceiverUser} messageReceiverName={messageReceiverName} setMessageReceiverName={setMessageReceiverName} username={username} token={token} isLoggedIn={isLoggedIn} setUnreadStatus={setUnreadStatus} unreadStatus={unreadStatus} setMessageReceiverUser={setMessageReceiverUser} triggerReadEffect={triggerReadEffect} setTriggerReadEffect={setTriggerReadEffect} messages={messages} setMessages={setMessages} threadStatus={threadStatus} setThreadStatus={setThreadStatus} />

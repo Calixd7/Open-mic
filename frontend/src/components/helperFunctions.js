@@ -15,35 +15,35 @@
 //   })
 // }
 
-export const dateStamp = (date) => {
-  const newDate = new Date()
-  // console.log('date', date)
-  const year = newDate.getFullYear()
-  const month = monthNumberToString(newDate.getMonth())
-  const day = newDate.getDate()
+export const dateStamp = async (date) => {
+  const month = await monthNumberToString(date.getMonth())
+  const year = date.getFullYear()
+  const day = date.getDate()
+  console.log('month', month)
   return month + ' ' + day + ', ' + year
 }
 
 function monthNumberToString (month) {
+  console.log('month in String', month)
   if (month === 0) {
     return 'Jan'
-  } else if (month === '01') {
+  } else if (month === 1) {
     return 'Feb'
-  } else if (month === '02') {
+  } else if (month === 2) {
     return 'March'
-  } else if (month === '03') {
+  } else if (month === 3) {
     return 'April'
-  } else if (month === '04') {
+  } else if (month === 4) {
     return 'May'
-  } else if (month === '05') {
+  } else if (month === 5) {
     return 'Jun'
-  } else if (month === '06') {
+  } else if (month === 6) {
     return 'July'
-  } else if (month === '07') {
+  } else if (month === 7) {
     return 'Aug'
-  } else if (month === '08') {
+  } else if (month === 8) {
     return 'Sept'
-  } else if (month === '09') {
+  } else if (month === 9) {
     return 'Oct'
   } else if (month === 10) {
     return 'Nov'

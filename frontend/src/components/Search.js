@@ -33,7 +33,7 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
           handleSearch(e)
         }}
       >
-        <div className='flex justify-evenly'>
+        <div className='flex justify-evenly pb-4'>
           <span className='relative z-0 inline-flex flex-col shadow-sm rounded-md'>
             <label htmlFor='status' className='block text-sm text-center font-medium text-white'>Status</label>
             <select
@@ -118,10 +118,10 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
             </select>
           </span>
 
-          <div className=' flex flex-col'>
+          <div className='flex justify-center items-end space-x-4'>
             <button
               type='submit'
-              className='mb-1 inline-flex items-center px-2.5 py-1.5 h-1/2 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+              className='inline-flex items-center px-2.5 py-1.5 h-2/3 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
             >
               <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='ml-0.5 mr-2 h-4 w-4'>
                 <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z' />
@@ -130,7 +130,7 @@ const Search = ({ token, setCards, setShowSearch, status, setStatus, genre, setG
             </button>
             <button
               type='submit'
-              className='my-1 inline-flex items-center px-2.5 py-1.5 h-1/2 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+              className='inline-flex items-center px-2.5 py-1.5 h-2/3 border border-transparent text-xs font-medium rounded text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
               onClick={() => {
                 setStatus('')
                 setLocation('')

@@ -2,10 +2,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function MobileViewCard ({ card, history }) {
   return (
-    <div className='bg-white shadow overflow-hidden sm:rounded-lg'>
+    <div className='bg-white shadow overflow-hidden w-full sm:rounded-lg'>
       <div className={`${card.spotify ? 'sm:col-auto mt-4' : 'hidden'}`}>
         <iframe
-          src={card.spotify}
+          src={`https://open.spotify.com/embed/artist/${card.spotify}`}
           width='240'
           height='180'
           frameBorder='0'
@@ -13,7 +13,7 @@ function MobileViewCard ({ card, history }) {
           allow='encrypted-media'
         />
       </div>
-      <div className='mb-2 sm:col-auto'>
+      <div className='mt-4 mb-2 sm:col-auto'>
         <dt className='text-sm font-extrabold text-indigo-700'>
           Bio
         </dt>
@@ -49,7 +49,7 @@ function MobileViewCard ({ card, history }) {
           </dd>
         </div>
         <div className='py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6'>
-          <dt className='text-sm font-extrabold text-indigo-700'>
+          <dt clasame='text-sm font-extrabold text-indigo-700'>
             Instruments
           </dt>
           <dd className='mt-1 text-sm text-gray-900'>

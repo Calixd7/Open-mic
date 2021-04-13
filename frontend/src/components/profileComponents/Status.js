@@ -1,9 +1,14 @@
 
-const Status = ({ status, setStatus }) => {
+const Status = ({ status, setStatus, isEditing }) => {
   return (
     <div>
       <div>
-        <label htmlFor='status' className='form-label'>Are you signing up as a solo artist or a band?</label>
+        <label htmlFor='status' className='form-label'>
+          {isEditing
+            ? 'Solo Artist or Band?'
+            : 'Are you signing up as a solo artist or a band?'}
+
+        </label>
         <select
           id='status'
           name='status'

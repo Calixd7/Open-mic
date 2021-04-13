@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react'
 import { Transition } from '@headlessui/react'
-import { sendMessage, getMessages } from '../../api'
+import { sendMessage, getMessages, deleteMessage } from '../../api'
+import { dateStamp } from '../helperFunctions'
 
-const ReplyEditor = ({ token, messageToRender, username, content, setContent, setMessageToRender, showReplyForm, setShowReplyForm, setShowAlert, setMessages, name, profilesForMessage }) => {
+const ReplyEditor = ({ token, messageToRender, username, content, setContent, setMessageToRender, showReplyForm, setShowReplyForm, setShowAlert, setMessages, name, profilesForMessage, setDate, date }) => {
   const [receiverName, setReceiverName] = useState('')
   useEffect(() => {
     profilesForMessage.forEach(profile => {
@@ -16,42 +17,43 @@ const ReplyEditor = ({ token, messageToRender, username, content, setContent, se
     return ''
   }
 
-  console.log('profilesForMessage', profilesForMessage)
-  console.log('PROFILE USER', profilesForMessage.map(profile => profile.user))
-
-  // const findReceiverUserName = () => {
-  //   profilesForMessage.forEach(profile => {
-  //     if (profile.user === messageToRender.sender.username) {
-  //       setReceiverName(profile.name)
-  //     }
-  //   })
-  // }
-
-  // findReceiverUserProfile()
   console.log('receiverName', receiverName)
 
-  const pendingReplyMessage = {
-    sender: username,
-    receiver: messageToRender.sender.username,
-    name: name,
-    receiver_name: receiverName,
-    subject: messageToRender.subject,
-    content: content
-  }
-  console.log('messageToRender', messageToRender)
-  console.log('messageToRender.receiver', messageToRender.sender.username)
+  // const pendingReplyMessage = {
+  //   sender: username,
+  //   receiver: messageToRender.sender.username,
+  //   name: name,
+  //   receiver_name: receiverName,
+  //   subject: messageToRender.subject,
+  //   content: content
+  // }
+  // console.log('messageToRender', messageToRender)
+  // console.log('messageToRender.receiver', messageToRender.sender.username)
 
   function handleSubmit (event) {
     event.preventDefault()
-    sendMessage(token, pendingReplyMessage)
-      .then(sentMessage => {
+    dateStamp(new Date())
+      .then(date => {
+        setDate(date)
+        sendMessage(token, date, username, messageToRender.sender.username, name, receiverName, messageToRender.subject, content)
+          .then(sentMessage => {
+            getMessages(token)
+              .then(updatedMessages => {
+                setMessages(updatedMessages)
+                setShowReplyForm(false)
+                setShowAlert(true)
+                setMessageToRender(null)
+              })
+          })
+      })
+  }
+  const handleDelete = (id) => {
+    deleteMessage(token, id)
+      .then(res => {
         getMessages(token)
-          .then(updatedMessages => {
-            console.log('should include REPLY message', updatedMessages)
-            setMessages(updatedMessages)
+          .then(messages => {
             setMessageToRender(null)
-            setShowReplyForm(false)
-            setShowAlert(true)
+            setMessages(messages)
           })
       })
   }
@@ -72,7 +74,7 @@ const ReplyEditor = ({ token, messageToRender, username, content, setContent, se
                 <span className='text-gray-600'>{receiverName}</span>
               </h3>
               <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-                <time dateTime='2021-01-28T19:24'>{messageToRender.created_at}</time>
+                <time dateTime='2021-01-28T19:24'>{date}</time>
               </p>
             </div>
             <div className='sm:flex sm:justify-between sm:items-baseline mt-4'>
@@ -116,6 +118,19 @@ const ReplyEditor = ({ token, messageToRender, username, content, setContent, se
                           <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M6 18L18 6M6 6l12 12' />
                         </svg>
                         Cancel
+                      </button>
+                      <button
+                        type='button'
+                        className='inline-flex items-center px-3 py-2 border border-transparent shadow-sm text-xs leading-4 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                        onClick={() => {
+                          handleDelete(messageToRender.id)
+                        }}
+                      >
+                        {/* <!-- Heroicon name: solid/trashcan --> */}
+                        <svg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='currentColor' className='mr-2.5 h-5 w-5 text-gray-400'>
+                          <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16' />
+                        </svg>
+                        <span>Delete</span>
                       </button>
                       <button
                         type='submit'

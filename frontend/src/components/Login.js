@@ -1,10 +1,10 @@
-import { useHistory, Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import logo from './images/blue_instruments.jpg'
 import { useState } from 'react'
 import { login } from '../api'
 import Errors from './Errors'
 
-function Login ({ setAuth, isLoggedIn, setProfilePk }) {
+function Login ({ setAuth, isLoggedIn, setProfilePk, countOnLogin }) {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [errors, setErrors] = useState()
@@ -18,7 +18,8 @@ function Login ({ setAuth, isLoggedIn, setProfilePk }) {
         if (data && data.auth_token) {
           setAuth(username, data.auth_token)
           setProfilePk(data.pk)
-          history.push('/explore')
+          countOnLogin(username, data.auth_token)
+          history.push('/')
         }
       })
       .catch(error => {
@@ -66,7 +67,7 @@ function Login ({ setAuth, isLoggedIn, setProfilePk }) {
                 onChange={event => { setUsername(event.target.value); setErrors('') }}
               />
             </div>
-            <div>
+            <div className='pb-4'>
               <label
                 htmlFor='password'
                 className='sr-only'
@@ -83,27 +84,6 @@ function Login ({ setAuth, isLoggedIn, setProfilePk }) {
                 value={password}
                 onChange={event => { setPassword(event.target.value); setErrors('') }}
               />
-            </div>
-            <div className='flex items-center justify-between'>
-              <div className='flex items-center my-4'>
-                <input
-                  id='remember_me'
-                  name='remember_me'
-                  type='checkbox'
-                  className='h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded'
-                />
-                <label
-                  htmlFor='remember_me'
-                  className='ml-2 block text-sm text-gray-900'
-                >
-                  Remember Me
-                </label>
-              </div>
-            </div>
-            <div className='text-sm'>
-              <Link to='#' className='font-medium text-indigo-600 hover:text-indigo-500'>
-                Forgot Your Password?
-              </Link>
             </div>
             <div>
               <button

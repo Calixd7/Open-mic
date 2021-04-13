@@ -12,9 +12,13 @@ import Status from './profileComponents/Status'
 import WantedInstruments from './profileComponents/WantedInstruments'
 import WantedInfo from './profileComponents/WantedInfo'
 import { useParams, useHistory } from 'react-router-dom'
-import { postProfiles, deleteProfile, updateProfile, uploadImage } from '../api'
-import Delete from './Delete'
+import { postProfiles, updateProfile, uploadImage } from '../api'
+// import Delete from './Delete'
 import Spotify from './Spotify'
+import Errors from './Errors'
+
+// These functions are set outside the component and clean up the data that we
+// receive in the profile form. It then returns the cleaned data to the api request.
 
 const changeWebsiteUrl = (site) => {
   const http = 'http://'
@@ -24,6 +28,9 @@ const changeWebsiteUrl = (site) => {
     return site
   } else { return http.concat(site) }
 }
+
+// spotify entries will need a lot of clean up if we want the user
+// to have a good exprience.
 
 // const changeSpotifyUrl = (spotify) => {
 //   const https = 'https://'
@@ -68,9 +75,13 @@ const instrumentsForApi = (intstruments) => {
 
 const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvatar }) => {
   const profileForm = useRef()
+  // safeProfile allows me to reuse the same form for profile setup and for editing profile.
+  // If isEditing then safeProfile (the users current profile) is rendered in the form fields.
+  // If !isEditing then the second option of the || statement is used to render empty fields.
   const safeProfile = profile || {}
   const { type } = useParams()
   const history = useHistory()
+  const [errors, setErrors] = useState('')
   const [disableSubmit, setDisableSubmit] = useState(false)
   const [name, setName] = useState(safeProfile.name || '')
   const [genres, setGenres] = useState(safeProfile.genres || [])
@@ -86,6 +97,11 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
   const [wantedInstruments, setWantedInstruments] = useState(safeProfile.wantedinstruments || [])
   const [wantedInfo, setWantedInfo] = useState(safeProfile.wanted_info || '')
   const [spotify, setSpotify] = useState(safeProfile.spotify || '')
+
+  // pendingProfile is the data that is sent to api.js. Having
+  // it all in one object makes it easier to edit the data (only
+  // have to edit in one place instead of here and at the api).
+
   const pendingProfile = {
     pk: safeProfile.pk,
     bio: bio,
@@ -103,19 +119,16 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
     spotify: spotify
   }
 
-  console.log('location', location)
-  // console.log('image.length', image.length)
-  // console.log('image', image)
-  // console.log('typeOf(image', typeof image)
-  // console.log('safeProfile.image', safeProfile.image)
-  // console.log('token in ProfileSetup', token)
-  // console.log('vacancy', vacancy)
-  // console.log('safeProfile.pk', safeProfile.pk)
-  console.log('instruments', instruments)
-  console.log('genres', genres)
-  console.log('wantedInstruments', wantedInstruments)
-  console.log('genreForApi(genres)', genreForApi(genres))
-  console.log('spotify', spotify)
+  // handleSubmit notes on FormData => because FormData screws up my arrays when I send them
+  // to the api, I decided to run to api requests for each profile setup/edit
+  // request. The first is a typical POST with all info except for the image file.
+  // The second is a PUT request to handle the image through FormData. Seems
+  // that there is a better way to do this but for now, this works.
+
+  // handleSubmit notes on safeProfile.pk => I'm using safeProfile feature above to be able
+  // to reuse the same form for profile setup and edit. A unique feature of the safeProfile is
+  // that if it is active (isEditing) then we have the users pk. So if safeProfile.pk exists,
+  // then run the first condition (update profile), else run the second condition (setup).
 
   function handleSubmit (event, token) {
     event.preventDefault()
@@ -150,20 +163,29 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
               history.push('/explore')
             })
         })
+        .catch(error => {
+          setErrors(error.message)
+        })
     }
   }
 
-  function handleDeleteProfile (event, pk) {
-    event.preventDefault()
-    deleteProfile(token, pk)
-      .then(card => history.push('/'))
-  }
+  // delete profile is a feature we need to finish
+
+  // function handleDeleteProfile (event, pk) {
+  //   event.preventDefault()
+  //   deleteProfile(token, pk)
+  //     .then(card => history.push('/'))
+  // }
 
   return (
     <div className='min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8'>
       <div className='max-w-md w-full space-y-8'>
         <div>
-          <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>Profile Setup</h2>
+          <h2 className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
+            {isEditing
+              ? 'Update Profile'
+              : 'Profile Setup'}
+          </h2>
         </div>
         <div className='mt-6 text-center text-3xl font-extrabold text-gray-900'>
           <form
@@ -177,7 +199,7 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
             <div className='flex flex-col'>
 
               <div className='mt-4'>
-                <Status status={status} setStatus={setStatus} />
+                <Status status={status} setStatus={setStatus} isEditing={isEditing} />
               </div>
 
               <div className='mt-4'>
@@ -229,14 +251,19 @@ const ProfileSetup = ({ token, profile, userType, isEditing, setIsImage, setAvat
               </div>
 
               <div className='mt-4'>
-                <Images image={image} setImage={setImage} token={token} />
+                <Images image={image} setImage={setImage} token={token} isEditing={isEditing} />
               </div>
 
             </div>
+            {errors && (
+              <div className='mt-4'>
+                <Errors errors={errors} />
+              </div>
+            )}
             <div className='mt-4'>
               <button
                 className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
-                // disabled={disableSubmit}
+                disabled={disableSubmit}
                 type='submit'
               >
                 {isEditing

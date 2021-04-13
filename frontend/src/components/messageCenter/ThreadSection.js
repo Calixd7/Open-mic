@@ -1,53 +1,39 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { Transition } from '@headlessui/react'
-import { Link } from 'react-router-dom'
-import { deleteMessage, updateMessage, getMessages } from '../../api'
-import { dateStamp, formatDate } from '../helperFunctions'
+import { updateMessage, getMessages } from '../../api'
 import MessageSentAlert from '../alerts/MessageSentAlert'
 import ReplyEditor from './ReplyEditor'
 import NewMessageEditor from './NewMessageEditor'
 
 const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTriggerReadEffect, unreadStatus, setUnreadStatus, username, messageReceiverUser, messageReceiverName, setMessageReceiverName, setMessageReceiverUser, name, profilesForMessage, newMessage, setNewMessage, newMessageContent, setNewMessageContent, newMessageSubject, setNewMessageSubject, messageToRender, setMessageToRender, showSent, setMessagesLength, threadStatus }) => {
-  const [read, setRead] = useState(false)
-  // const [message, setMessage] = useState([])
   const [showReplyForm, setShowReplyForm] = useState(false)
   const [showAlert, setShowAlert] = useState(false)
   const [content, setContent] = useState('')
+  const [date, setDate] = useState('')
 
-  useEffect(() => {
-    console.log('read useffect JUST RAN')
-    const unread = []
-    messages.forEach(message => {
-      if (message.read === false) {
-        unread.push(message)
-        // console.log('unread', unread.length)
-      }
-      if (unread.length > 0) {
-        setUnreadStatus(unread.length)
-      }
-      if (unread.length === 0) {
-        setUnreadStatus(0)
-      }
-    })
-  }, [])
+  // ********************
+  // DEBUGGING STATION
+  // ********************
 
-  console.log('messages', messages)
+  // console.log('messages', messages)
+  // console.log('date', date)
   // console.log('messages', messages.map(message => message))
   // console.log('messageToRender', messageToRender)
   // console.log('content', content)
   // console.log('messageReceiverUser', messageReceiverUser)
 
+  // ********************
+  // DEBUGGING STATION
+  // ********************
+
   if (!messages) {
     return 'loading'
   }
 
-  const handleDelete = (id) => {
-    deleteMessage(token, id)
-      .then(res => {
-        getMessages(token)
-          .then(messages => setMessages(messages))
-      })
-  }
+  // Filter all messages into sent and received batches. This allow
+  // me to use the same container to display both. The condition on which
+  // messages are rendered is set on showSent prop, which is triggered
+  // by a btn in the NarrowSidebar.js component
 
   const renderReceivedMessages = (allMessages) => {
     if (showSent) {
@@ -61,61 +47,62 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
     }
   }
 
+  // sorts both sent and received messages from newest to oldest
+
   const sortMessages = (receivedMessages) => {
-    console.log('messages', receivedMessages)
     const sortedMessages = receivedMessages.slice().sort((a, b) => new Date(b.id) - new Date(a.id))
-    console.log('sortedMessages', sortedMessages)
     return sortedMessages
-    // setMessages(sortedMessages)
   }
+
+  // this function updates the color coding of each message and the api boolean 'read'. When
+  // unread, the message bg is blue. When read, bg is white. If
+  // it's unread then it turns it to white on click. It does this by
+  // updating the api and then setting the new messages with the
+  // new read status.
 
   const updateReadStatus = (messagetoUpdate) => {
     if (messagetoUpdate.read === false) {
-      setRead(true)
-
+      const newRead = true
       const updateRead = {
         receiver: messagetoUpdate.receiver,
-        read: read
+        read: newRead
       }
-
       updateMessage(token, messagetoUpdate.id, updateRead)
         .then(updatedRead => {
           getMessages(token)
             .then(updatedMessages => {
               setMessages(updatedMessages)
-              const unread = []
-              updatedMessages.forEach(updatedMessage => {
-                if (updatedMessage.read === false) {
-                  unread.push(updatedMessage)
-                  console.log('unread', unread.length)
-                }
-                if (unread.length === 0) {
-                  setUnreadStatus(0)
-                }
-                if (unread.length > 0) {
-                  setUnreadStatus(unread.length)
-                }
-              })
             })
         })
     }
   }
 
+  // This early return renders if the user clicks on a received
+  // message. All the other messages disapear and the current message
+  // is expanded to render a textfield for reply.
+
   if (messageToRender) {
     return (
       <div>
-        <ReplyEditor token={token} messageToRender={messageToRender} setMessageToRender={setMessageToRender} username={username} content={content} setContent={setContent} showReplyForm={showReplyForm} setShowReplyForm={setShowReplyForm} setShowAlert={setShowAlert} setMessages={setMessages} name={name} profilesForMessage={profilesForMessage} />
+        <ReplyEditor token={token} messageToRender={messageToRender} setMessageToRender={setMessageToRender} username={username} content={content} setContent={setContent} showReplyForm={showReplyForm} setShowReplyForm={setShowReplyForm} setShowAlert={setShowAlert} setMessages={setMessages} name={name} profilesForMessage={profilesForMessage} setDate={setDate} date={date} />
       </div>
     )
   }
 
+  // This renders if the user selects "message" on one of the cards
+  // in the explore/following components. The card owners name and user
+  // is sent here to autopopulat the new message.
+
   if (messageReceiverUser || newMessage) {
     return (
       <div className='mx-4'>
-        <NewMessageEditor token={token} username={username} setShowAlert={setShowAlert} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} setMessageReceiverName={setMessageReceiverName} setMessages={setMessages} name={name} newMessage={newMessage} setNewMessage={setNewMessage} profilesForMessage={profilesForMessage} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} newMessageSubject={newMessageSubject} setNewMessageSubject={setNewMessageSubject} />
+        <NewMessageEditor token={token} username={username} setShowAlert={setShowAlert} messageReceiverUser={messageReceiverUser} setMessageReceiverUser={setMessageReceiverUser} messageReceiverName={messageReceiverName} setMessageReceiverName={setMessageReceiverName} setMessages={setMessages} name={name} newMessage={newMessage} setNewMessage={setNewMessage} profilesForMessage={profilesForMessage} newMessageContent={newMessageContent} setNewMessageContent={setNewMessageContent} newMessageSubject={newMessageSubject} setNewMessageSubject={setNewMessageSubject} setDate={setDate} date={date} />
       </div>
     )
   }
+
+  // mapping over all messages to render them on the page. There's
+  // also an alert that appears after a message has been sent.
 
   return (
     <>
@@ -147,18 +134,14 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
                     : <>
                       <span className='text-indigo-800'>To:&nbsp;</span>
                       <span className='text-gray-600'>{message.receiver_name}</span>
-                      </>}
+                    </>}
 
                 </div>
-                {/* <div>
-                  <span className='text-gray-600'>To:&nbsp;</span>
-                  <span className='text-gray-900'>{message.receiver_name}</span>
-                </div> */}
               </h3>
               <p className='mt-1 text-sm text-gray-600 whitespace-nowrap sm:mt-0 sm:ml-3'>
-                <time dateTime='2021-01-28T19:24'>
-                  {formatDate(message.created_at)}
-                </time>
+                <span dateTime='2021-01-28T19:24'>
+                  {message.created_at}
+                </span>
               </p>
             </div>
             <div className='sm:flex sm:justify-between sm:items-baseline mt-4'>
@@ -167,16 +150,6 @@ const ThreadSection = ({ token, messages, setMessages, triggerReadEffect, setTri
                   <span className='text-indigo-800'>Subject:&nbsp;</span>
                   <span className='text-gray-900'>{message.subject}</span>
                 </p>
-                <button
-                  type='button'
-                  className='z-20'
-                  onClick={() => {
-                    console.log('btn clicked')
-                    handleDelete(message.id)
-                  }}
-                >
-                  delete
-                </button>
               </div>
             </div>
             <div className='sm:flex sm:justify-between sm:items-baseline mt-8'>
