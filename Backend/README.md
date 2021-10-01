@@ -11,3 +11,4 @@ This was the final project for [Momentum Learning](https://www.momentumlearn.com
 ## Models
 | Model | Notes |
 | ----- | ----- |
+| [UserProfile](https://team-open-mic.herokuapp.com/api/userprofiles/) |  |
