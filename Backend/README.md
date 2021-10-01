@@ -1,4 +1,4 @@
-#[OpenMic: Backend API](https://team-open-mic.herokuapp.com/api/)
+# [OpenMic: Backend API](https://team-open-mic.herokuapp.com/api/)
 ![OpenMic Logo](https://team-open-mic.s3.amazonaws.com/uploads/OpenMic_logo.png "OpenMic Logo")
 ### OpenMic is a REST API built with Django Rest Framework, for use with [OpenMic](Https://open-mic.netlify.app/) front-end app using React.
 
